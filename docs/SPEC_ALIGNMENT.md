@@ -47,3 +47,13 @@ Archive preserves earlier files verbatim under docs/archive/. Stage reports are
 revision-specific, not current blockers by default. Baseline 9339a0e CI passed all
 six jobs (run 43578191183); this new alignment diff has not been published/run there.
 No main merge/tag, deployments, source downloads, invitations or global settings edits.
+
+## 15 November 2026 user-authorized integration decisions
+
+Current implementation supersedes the historical health-only/scaffold description.
+Backend 0856c14 and frontend 53221dd are integrated. React 19.2.0 is retained as an
+explicit tooling deviation from TRD 18. Map dependencies, verdict float tolerance,
+audit remediation and C03-C09 target decisions are approved in
+FRONTEND_UNBLOCK_DECISIONS.md. Build-time validation interface: validation/README.md.
+These approvals unblock frontend work; they do not certify scientific data or pass
+team stage gates. Version 1.1 additions require consumer conformance before activation.

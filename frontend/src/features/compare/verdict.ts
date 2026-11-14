@@ -7,6 +7,8 @@ import type { Metrics, Thresholds, Verdict } from "../../api/types";
 
 type Check = { key: keyof Thresholds; value: (m: Metrics) => number; kind: "min" | "max" };
 
+const EPS = 1e-9; // Same boundary tolerance as backend/app/metrics/verdict.py.
+
 const CHECKS: Check[] = [
   { key: "sun_pct_min", value: (m) => m.sun_pct, kind: "min" },
   { key: "earth_pct_min", value: (m) => m.earth_pct, kind: "min" },
@@ -20,10 +22,10 @@ export function computeVerdict(metrics: Metrics, t: Thresholds): Verdict {
   for (const c of CHECKS) {
     const v = c.value(metrics);
     const limit = t[c.key];
-    const pass = c.kind === "min" ? v >= limit : v <= limit;
-    const near = c.kind === "min" ? v >= 0.8 * limit : v <= 1.2 * limit;
+    const pass = c.kind === "min" ? v >= limit - EPS : v <= limit + EPS;
+    const near = c.kind === "min" ? v >= 0.8 * limit - EPS : v <= 1.2 * limit + EPS;
     if (!pass) failed.push(c.key);
-    if (!near) allNear = false;
+    if (!pass && !near) allNear = false;
   }
   const level = failed.length === 0 ? "green" : allNear ? "amber" : "red";
   return { level, failed };

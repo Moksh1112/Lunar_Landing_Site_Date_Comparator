@@ -11,15 +11,18 @@ const base: Metrics = {
 };
 const m = (p: Partial<Metrics>): Metrics => ({ ...base, ...p });
 
-// TRD 5.3 test table (8 cases), written from the rule; the backend's shared table is not yet published.
+// TRD 5.3 cases including Python/TypeScript boundary parity.
 describe("computeVerdict (TRD 5.3)", () => {
   const cases: [string, Metrics, "green" | "amber" | "red", (keyof Thresholds)[]][] = [
     ["all pass", m({}), "green", []],
     ["exact boundaries pass", m({ sun_pct: 50, earth_pct: 50, longest_dark_h: 48, longest_blackout_h: 72 }), "green", []],
     ["sun just below, within 20%", m({ sun_pct: 40 }), "amber", ["sun_pct_min"]],
     ["sun below 80% of min", m({ sun_pct: 39.9 }), "red", ["sun_pct_min"]],
-    // 1.2 * 48 is 57.599999... in IEEE doubles (same in Python), so 57.6 itself is red; tolerance is a C02/C06 question.
-    ["dark gap just inside 1.2x max", m({ longest_dark_h: 57.5 }), "amber", ["dark_gap_h_max"]],
+    // Inclusive amber boundary agrees with the backend despite binary float error.
+    ["dark gap exactly at 1.2x max", m({ longest_dark_h: 57.6 }), "amber", ["dark_gap_h_max"]],
+    ["gap beyond tolerance", m({ longest_dark_h: 57.6 + 1e-7 }), "red", ["dark_gap_h_max"]],
+    ["minimum within tolerance", m({ sun_pct: 50 - 5e-10 }), "green", []],
+    ["minimum outside tolerance", m({ sun_pct: 50 - 1e-7 }), "amber", ["sun_pct_min"]],
     ["blackout above 1.2x max", m({ longest_blackout_h: 86.5 }), "red", ["blackout_h_max"]],
     ["two near misses", m({ earth_pct: 45, longest_dark_h: 50 }), "amber", ["earth_pct_min", "dark_gap_h_max"]],
     ["one near one far", m({ earth_pct: 45, longest_blackout_h: 200 }), "red", ["earth_pct_min", "blackout_h_max"]],

@@ -126,10 +126,36 @@ cap/schema/React/audit decisions; no new source-policy approval is inferred.
 - [ ] Resolve open source/contract/React/audit decisions before gate acceptance.
 Sync 0 remains OPEN. No later-stage gates accepted.
 
-## Latest integration status (2026-11-14)
+## Latest integration status (2026-11-15)
 
-- Backend owner branch `feat/p2-p3-backend-terrain` is at `0856c1416b40c194a22f4452a65e3ff4fbb67e2d`; integrated to `feat/p1-s0-integration` by fast-forward. Its GitHub CI run 43621086629 completed SUCCESS (all seven jobs).
-- The backend now enforces the TRD limit of 60,000 requested samples per request. Compare sums both scenario grids; tests accept exactly 60,000 and reject 60,001. Local `node scripts/python.mjs -m pytest backend/tests/test_api_mock.py -q`: 27 passed (two warnings).
-- Frontend remains at `0cd0ae5f0f612e2ffb9e52c0054b722f928d8134`; no newer frontend commit observed. Existing frontend shell/routes are integrated; complete Compare journey and export views remain pending.
-- Backend C03-C09 proposals and new real-data evidence are committed for review. They are not approved contract changes, and real-data validation remains owner-reported unless independently reproduced.
-- Sync 0 remains OPEN. Pending Coordinator contract decisions, React/dependency decisions, frontend/owner confirmations and validation evidence. No later stage is accepted.
+- Backend `0856c1416b40c194a22f4452a65e3ff4fbb67e2d` and frontend `9901476d0e625410699ac6e61edd1a93b439c826` are integrated into P1 by fast-forward. Frontend GitHub CI run 43628020833: all seven jobs SUCCESS. Backend run 43621086629: all seven jobs SUCCESS.
+- Frontend owner reports the S1 mock Compare journey implemented: scenario inputs/presets/validation, compare action, results and A-minus-B metrics, horizon panoramas and Sun/Earth timeline. Owner reports 50 tests, lint/typecheck/build and browser checks at 375/768/desktop. These UI checks have not been independently rerun by P1. Results are SYNTHETIC; real-mode integration is not claimed.
+- P1 diff review: frontend route/store/components/tests/docs only; no API client, backend, fixture, shared tooling or contract changes. `git diff --check` passed.
+- Frontend positions on C03-C09 and React 19 are recorded in `frontend/docs/FRONTEND_POSITIONS_S1.md`; these are recommendations awaiting Coordinator decision, not approvals. Audit remains 7 moderate dev-only findings per owner report; production audit reported clean.
+- Sync 0/1 remain OPEN pending Coordinator decisions, owner/evidence acceptance and team gate review. Later stages are not accepted. Best-date, real data, export and other remaining requirements should be checked against the PRD/TRD before claiming full frontend completion.
+## Current status — 15 November 2026 frontend redesign integration
+
+- [x] Integrate green frontend 53221dd; CI 43633449283 SUCCESS.
+- [x] Approve R1 map dependencies and pin compatible packages; 3D remains gated.
+- [x] Define R2 validation file interface; no real validation artifacts invented.
+- [x] Resolve R3 with existing backend 1e-9 tolerance; frontend boundary tests pass.
+- [x] Record React 19 deviation and C03-C09 target decisions under delegated authority.
+- [x] Targeted minimatch override; npm full/production audit reports zero findings.
+- [x] Independent local lint, 92 tests, strict TypeScript + production build.
+- [x] Browser HTTP/mock Compare and Best Date/Load as B; parse actual downloaded JSON/CSV.
+- [ ] Print/PDF visual verification: embedded-browser print action timed out; no preview.
+- [ ] Frontend F3 map, source links, accessible glossary and Expert audit: owner next work.
+- [ ] Validation display consumption and reviewed real V1/V2/V4 evidence.
+- [ ] Implement/test approved v1.1 additions across consumers before activating them.
+
+Frontend is unblocked by decisions: no waiting for inactive teammates. Full frontend
+completion and real-data readiness remain evidence-based. Sync 0/1 have not been
+passed by this update. Detailed handoff: FRONTEND_UNBLOCK_DECISIONS.md. Historical
+pending-decision and placeholder descriptions above are superseded by this section.
+
+Integration verification: code/lockfile revision 6ab81e3 passed all seven hosted jobs
+in run 43634346682 (frontend, backend, fixtures, attribution, secrets, startup venv
+and target). Backend verdict tests: 9 passed; schema sensitivity check passed after
+adding explicit UTC timestamp pattern. Impeccable detector on verdict change: [].
+Preview remains frontend HTTP 200 and backend /health status ok, mock true. This
+CI evidence belongs to 6ab81e3; subsequent documentation-only commit has its own run.

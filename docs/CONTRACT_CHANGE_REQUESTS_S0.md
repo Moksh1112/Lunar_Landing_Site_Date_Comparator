@@ -23,3 +23,11 @@ must provide verified kernel/DEM provenance and validation evidence before accep
 P1 fixture-authoring helpers are not runtime science services. P1 does not implement
 SPICE, terrain, backend metrics, UI client or feature screens. Synthetic sites now
 have verified=false; missing transport labels still need C05 schema resolution.
+
+## Decisions approved 15 November 2026
+
+The user authorized P1 to resolve plan-aligned choices without waiting for inactive
+teammates. C03-C09 target decisions and R1-R3 are approved in
+FRONTEND_UNBLOCK_DECISIONS.md, superseding the pending-decision wording above.
+Approval and implementation conformance are distinct: optional schema additions are
+v1.1 work; current v1.0 wire responses/fixtures are not silently relabelled.

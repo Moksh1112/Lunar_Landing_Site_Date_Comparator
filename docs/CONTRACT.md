@@ -164,3 +164,19 @@ Fixtures: `fixtures/terrain-tile.ok.json`, `terrain-tile.error.json`.
 ## Changelog
 
 - v1.0 (14 Nov 2026) initial.
+
+## Approved next revision and clarifications (15 November 2026)
+
+User-authorized P1 decisions: FRONTEND_UNBLOCK_DECISIONS.md. C04 aggregate 60,000
+sample/request cap, endpoint inclusion/partial final step, and C07 mission-relative
+scrubber mapping are approved v1.0 clarifications. The browser and Python verdict
+comparisons share an absolute 1e-9 floating-point tolerance at pass/near boundaries.
+
+C03 day step metadata, C05 sites label, C06 RATE_LIMITED/429, C08 tile grid-bearing
+and provenance metadata, and C09 reference group are approved v1.1 targets described
+in backend/docs/CONTRACT_PROPOSALS_C03_C09.md. This does not activate these additions
+or change the current response version: owner implementation and consumer tests must
+land together. Current terrain implementation is grid-up; do not interpret it as the
+north-up text above before the v1.1 orientation correction lands. Exactly two scenarios
+remain required; future multi-scenario work requires its own approved interface.
+The build-time validation-file schema is defined separately in validation/README.md.
