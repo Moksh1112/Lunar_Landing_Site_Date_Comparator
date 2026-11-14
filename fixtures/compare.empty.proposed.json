@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "NO_DATA",
+    "message": "No ephemeris samples available.",
+    "details": []
+  }
+}

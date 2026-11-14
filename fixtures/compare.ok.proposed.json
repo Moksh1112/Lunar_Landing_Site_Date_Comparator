@@ -1,0 +1,129 @@
+{
+  "scenarios": [
+    {
+      "id": "A",
+      "source": "SYNTHETIC fixture; not JPL Horizons",
+      "mode": "geometric_only",
+      "samples": [
+        {
+          "timestamp_utc": "2026-11-14T00:00:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        },
+        {
+          "timestamp_utc": "2026-11-14T00:30:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        },
+        {
+          "timestamp_utc": "2026-11-14T01:00:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        }
+      ],
+      "summary": {
+        "sampled_sunlight_hours": 1,
+        "sampled_earth_visibility_hours": 0,
+        "next_sunset_utc": null,
+        "next_earthset_utc": null
+      }
+    },
+    {
+      "id": "B",
+      "source": "SYNTHETIC fixture; not JPL Horizons",
+      "mode": "geometric_only",
+      "samples": [
+        {
+          "timestamp_utc": "2026-11-14T00:00:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        },
+        {
+          "timestamp_utc": "2026-11-14T00:30:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        },
+        {
+          "timestamp_utc": "2026-11-14T01:00:00Z",
+          "sun": {
+            "azimuth_deg": 90,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": -1,
+            "horizon_deg": 0,
+            "visible": false
+          }
+        }
+      ],
+      "summary": {
+        "sampled_sunlight_hours": 1,
+        "sampled_earth_visibility_hours": 0,
+        "next_sunset_utc": null,
+        "next_earthset_utc": null
+      }
+    }
+  ],
+  "deltas": {
+    "sunlight_hours_b_minus_a": 0,
+    "earth_visibility_hours_b_minus_a": 0
+  },
+  "limitations": [
+    "SYNTHETIC fixture. Not real ephemeris.",
+    "Geometric horizon only. No terrain.",
+    "Sampled estimates; no wattage, safety certification or guaranteed communications."
+  ]
+}

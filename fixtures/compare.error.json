@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Exactly two scenarios are required.",
+    "details": []
+  }
+}

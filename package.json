@@ -1,0 +1,10 @@
+{
+  "name": "lunar-comparator",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev:all": "node scripts/dev.mjs",
+    "check": "npm --prefix frontend run check"
+  }
+}

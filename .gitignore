@@ -1,0 +1,13 @@
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+dist/
+.pytest_cache/
+.coverage
+data/raw/
+*.tif
+*.tiff
