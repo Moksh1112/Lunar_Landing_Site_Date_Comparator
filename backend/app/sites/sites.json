@@ -1,0 +1,37 @@
+{
+  "sites": [
+    {
+      "site_id": "im1-odysseus",
+      "name": "IM-1 Odysseus landing site (near Malapert A)",
+      "group": "clps",
+      "lat_deg": -80.13,
+      "lon_east_deg": 1.44,
+      "terrain_coverage": false,
+      "source_url": "https://www.nasa.gov/missions/lro/nasas-lro-images-intuitive-machines-odysseus-lander/",
+      "source_note": "NASA LRO release: landed at 80.13 degrees south latitude, 1.44 degrees east longitude. Retrieved 2026-11-14. North of the -80.7 deg terrain limit, so geometric horizon only.",
+      "verified": true
+    },
+    {
+      "site_id": "im2-athena",
+      "name": "IM-2 Athena landing site (Mons Mouton region)",
+      "group": "clps",
+      "lat_deg": -84.7906,
+      "lon_east_deg": 29.1957,
+      "terrain_coverage": true,
+      "source_url": "https://lroc.im-ldi.com/images/1408",
+      "source_note": "LROC 'IM-2 Athena Seen Obliquely': lander rests in a 20 m crater at 84.7906 S, 29.1957 E. Retrieved 2026-11-14.",
+      "verified": true
+    },
+    {
+      "site_id": "im2-intended",
+      "name": "IM-2 intended landing site (Mons Mouton region)",
+      "group": "clps",
+      "lat_deg": -84.78,
+      "lon_east_deg": 29.13,
+      "terrain_coverage": true,
+      "source_url": "https://lroc.im-ldi.com/images/1401",
+      "source_note": "LROC 'IM-2 Landing Region': intended landing site (-84.78, 29.13 E), planned target, not the actual landing point. Retrieved 2026-11-14.",
+      "verified": true
+    }
+  ]
+}
