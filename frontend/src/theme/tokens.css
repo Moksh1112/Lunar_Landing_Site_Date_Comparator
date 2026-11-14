@@ -1,0 +1,57 @@
+/* Azelux design tokens: dark theme only. Contrast pairs are listed in the S0.3 commit message. */
+:root {
+  color-scheme: dark;
+
+  /* neutrals */
+  --color-bg: #0b0f17;
+  --color-surface: #121826;
+  --color-surface-2: #1a2234;
+  --color-border: #2f3b57;
+  --color-text: #e6eaf2;
+  --color-text-muted: #a3adc2;
+
+  /* data hues */
+  --color-sun: #f5b942;
+  --color-earth: #5aa9ff;
+  --color-a: #2dd4bf;
+  --color-b: #b197fc;
+
+  /* verdicts */
+  --color-green: #4ade80;
+  --color-amber: #fbbf24;
+  --color-red: #f87171;
+
+  /* status */
+  --color-synthetic: #fbbf24;
+  --color-synthetic-bg: #3a2a05;
+  --color-link: #7cb8ff;
+  --color-focus: #ffffff;
+
+  /* spacing: 8 px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+
+  /* type scale */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --leading: 1.5;
+
+  /* shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* focus ring */
+  --focus-ring: 2px solid var(--color-focus);
+  --focus-offset: 2px;
+}
