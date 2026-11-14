@@ -14,7 +14,7 @@
       "label": "Synthetic B",
       "latitude_deg": -89.0,
       "longitude_east_deg": 0.0,
-      "start_utc": "2026-11-14T00:00:00Z",
+      "start_utc": "2026-11-15T00:00:00Z",
       "duration_hours": 1,
       "step_minutes": 30
     }

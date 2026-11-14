@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "scenarios": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,40}$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "latitude_deg": {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "longitude_east_deg": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 360
+          },
+          "start_utc": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+          },
+          "duration_hours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 720
+          },
+          "step_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "latitude_deg",
+          "longitude_east_deg",
+          "start_utc",
+          "duration_hours",
+          "step_minutes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "scenarios"
+  ],
+  "additionalProperties": false
+}

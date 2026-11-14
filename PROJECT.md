@@ -32,3 +32,10 @@ CI (scheduled S1 by user), remote branch protection and verified checks.
 No sync-0 tag until gate passes. Later stages have not started.
 
 S0 follow-up: shell-free launch/setup and verified cleanup; frontend Application Control blocker remains. See docs/SYNC_0_CONFIRMATIONS.md for explicit remaining approvals.
+
+## Person 2 S0 handoff
+At user request, Codex also acts for Person 2 on docs/contract-provenance.
+Contract v1.0 issued; canonical JSON Schemas and normal/empty/error fixtures aligned.
+Old *.proposed.json comparison responses replaced by *.json. Persons 3-6 must
+acknowledge v1 before integration; human team acceptance remains pending.
+Source documentation inspected; live query/raster verification remains unverified.

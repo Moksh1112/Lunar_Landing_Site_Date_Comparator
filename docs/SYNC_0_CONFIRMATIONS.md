@@ -1,6 +1,11 @@
 # Sync 0 - outstanding confirmations
 
-## Person 2 - contract owner
+## Person 2 S0 update
+Codex acting for Person 2 has issued v1.0 and aligned canonical fixtures on
+`docs/contract-provenance`. The checklist below is now resolved in CONTRACT.md;
+team acknowledgment is still pending. Review v1.0 rather than the old proposals.
+
+## Original Person 2 decision checklist (resolved by v1.0)
 Review CONTRACT.md and every JSON file in fixtures/. Reply with an approved v1
 contract and fixtures (or exact edits); none of the proposed fields below are
 implicitly approved by the integration scaffold.
@@ -12,7 +17,7 @@ implicitly approved by the integration scaffold.
    integer versus fractional steps, maximum sample count and request body size.
 3. Time: confirm UTC parsing (Z only or +00:00 accepted), start/end sample inclusion,
    duration not divisible by step, and timestamp serialization.
-4. Response: approve exact field names/types/nesting in compare.ok.proposed.json;
+4. Response: approve exact field names/types/nesting in compare.ok.json;
    whether input metadata is echoed, whether sample interval is explicit,
    source/mode enums, provenance fields and where limitations belong.
 5. Geometry: confirm azimuth origin/direction/range, target-center interpretation,

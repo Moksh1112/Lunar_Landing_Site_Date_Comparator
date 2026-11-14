@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "1.0"
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "scenario": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,40}$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "latitude_deg": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "longitude_east_deg": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 360
+              },
+              "start_utc": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+              },
+              "duration_hours": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 720
+              },
+              "step_minutes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60
+              }
+            },
+            "required": [
+              "id",
+              "label",
+              "latitude_deg",
+              "longitude_east_deg",
+              "start_utc",
+              "duration_hours",
+              "step_minutes"
+            ],
+            "additionalProperties": false
+          },
+          "source": {
+            "enum": [
+              "synthetic_fixture",
+              "jpl_horizons_live",
+              "jpl_horizons_cached"
+            ]
+          },
+          "mode": {
+            "enum": [
+              "geometric_only",
+              "lola_terrain"
+            ]
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "requested_at_utc": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+              },
+              "upstream_requests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 2
+              },
+              "raw_response_sha256": {
+                "type": "array",
+                "maxItems": 2,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "terrain_product": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "processing_version": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "requested_at_utc",
+              "upstream_requests",
+              "raw_response_sha256",
+              "terrain_product",
+              "processing_version"
+            ],
+            "additionalProperties": false
+          },
+          "samples": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 1441,
+            "items": {
+              "type": "object",
+              "properties": {
+                "timestamp_utc": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+                },
+                "sun": {
+                  "type": "object",
+                  "properties": {
+                    "azimuth_deg": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMaximum": 360
+                    },
+                    "elevation_deg": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90
+                    },
+                    "horizon_deg": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90
+                    },
+                    "visible": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "azimuth_deg",
+                    "elevation_deg",
+                    "horizon_deg",
+                    "visible"
+                  ],
+                  "additionalProperties": false
+                },
+                "earth": {
+                  "type": "object",
+                  "properties": {
+                    "azimuth_deg": {
+                      "type": "number",
+                      "minimum": 0,
+                      "exclusiveMaximum": 360
+                    },
+                    "elevation_deg": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90
+                    },
+                    "horizon_deg": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90
+                    },
+                    "visible": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "azimuth_deg",
+                    "elevation_deg",
+                    "horizon_deg",
+                    "visible"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "timestamp_utc",
+                "sun",
+                "earth"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "sampled_sunlight_hours": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 720
+              },
+              "sampled_earth_visibility_hours": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 720
+              },
+              "next_sunset_utc": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "next_earthset_utc": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "sampled_sunlight_hours",
+              "sampled_earth_visibility_hours",
+              "next_sunset_utc",
+              "next_earthset_utc"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scenario",
+          "source",
+          "mode",
+          "provenance",
+          "samples",
+          "summary"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "deltas": {
+      "type": "object",
+      "properties": {
+        "sunlight_hours_b_minus_a": {
+          "type": "number",
+          "minimum": -720,
+          "maximum": 720
+        },
+        "earth_visibility_hours_b_minus_a": {
+          "type": "number",
+          "minimum": -720,
+          "maximum": 720
+        }
+      },
+      "required": [
+        "sunlight_hours_b_minus_a",
+        "earth_visibility_hours_b_minus_a"
+      ],
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "contract_version",
+    "scenarios",
+    "deltas",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

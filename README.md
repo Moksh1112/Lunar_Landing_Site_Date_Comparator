@@ -23,7 +23,7 @@ npm run check
 npm --prefix frontend run build
 ```
 Stack: Vite, React, TypeScript, FastAPI, Python. No AI or database.
-frontend/ and backend/ are module handoffs; fixtures/ holds clearly synthetic proposals;
+frontend/ and backend/ are module handoffs; fixtures/ holds clearly synthetic v1 examples;
 scripts/ owns setup/start; docs/ records event evidence and stage reports.
 Frontend uses exact package versions plus npm lockfile; backend direct dependencies
 are pinned, full transitive locking is pending S1 CI setup.
@@ -61,3 +61,6 @@ On macOS/Linux use `.venv/bin/python` in the same command. For frontend-only sta
 run `npm --prefix frontend run dev`. The S0 frontend is intentionally an empty shell.
 See docs/SYNC_0_CONFIRMATIONS.md for Person 2 decisions and each teammate's exact
 acknowledgment. Startup fixes exist only on `chore/integration-devops` until integrated.
+
+Contract v1.0 and canonical schemas: CONTRACT.md and docs/contracts/. Person 2 S0
+report: docs/STAGE_REPORT_PERSON_2_S0.md. No implemented compare API is claimed.

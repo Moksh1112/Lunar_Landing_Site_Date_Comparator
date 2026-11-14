@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "VALIDATION_ERROR",
+            "NO_DATA",
+            "UPSTREAM_TIMEOUT",
+            "UPSTREAM_UNAVAILABLE",
+            "TERRAIN_UNAVAILABLE",
+            "PAYLOAD_TOO_LARGE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "issue": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "field",
+              "issue"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "details"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "error"
+  ],
+  "additionalProperties": false
+}

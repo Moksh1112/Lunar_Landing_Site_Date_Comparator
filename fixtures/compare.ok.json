@@ -1,8 +1,7 @@
 {
   "scenarios": [
     {
-      "id": "A",
-      "source": "SYNTHETIC fixture; not JPL Horizons",
+      "source": "synthetic_fixture",
       "mode": "geometric_only",
       "samples": [
         {
@@ -56,15 +55,30 @@
         "sampled_earth_visibility_hours": 0,
         "next_sunset_utc": null,
         "next_earthset_utc": null
+      },
+      "scenario": {
+        "id": "A",
+        "label": "Synthetic A",
+        "latitude_deg": -89.0,
+        "longitude_east_deg": 0.0,
+        "start_utc": "2026-11-14T00:00:00Z",
+        "duration_hours": 1,
+        "step_minutes": 30
+      },
+      "provenance": {
+        "requested_at_utc": "2026-11-14T00:00:00Z",
+        "upstream_requests": [],
+        "raw_response_sha256": [],
+        "terrain_product": null,
+        "processing_version": "fixture-v1"
       }
     },
     {
-      "id": "B",
-      "source": "SYNTHETIC fixture; not JPL Horizons",
+      "source": "synthetic_fixture",
       "mode": "geometric_only",
       "samples": [
         {
-          "timestamp_utc": "2026-11-14T00:00:00Z",
+          "timestamp_utc": "2026-11-15T00:00:00Z",
           "sun": {
             "azimuth_deg": 90,
             "elevation_deg": 1,
@@ -73,57 +87,74 @@
           },
           "earth": {
             "azimuth_deg": 180,
-            "elevation_deg": -1,
+            "elevation_deg": 1,
             "horizon_deg": 0,
-            "visible": false
+            "visible": true
           }
         },
         {
-          "timestamp_utc": "2026-11-14T00:30:00Z",
+          "timestamp_utc": "2026-11-15T00:30:00Z",
           "sun": {
             "azimuth_deg": 90,
-            "elevation_deg": 1,
-            "horizon_deg": 0,
-            "visible": true
-          },
-          "earth": {
-            "azimuth_deg": 180,
             "elevation_deg": -1,
             "horizon_deg": 0,
             "visible": false
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
           }
         },
         {
-          "timestamp_utc": "2026-11-14T01:00:00Z",
+          "timestamp_utc": "2026-11-15T01:00:00Z",
           "sun": {
             "azimuth_deg": 90,
-            "elevation_deg": 1,
-            "horizon_deg": 0,
-            "visible": true
-          },
-          "earth": {
-            "azimuth_deg": 180,
             "elevation_deg": -1,
             "horizon_deg": 0,
             "visible": false
+          },
+          "earth": {
+            "azimuth_deg": 180,
+            "elevation_deg": 1,
+            "horizon_deg": 0,
+            "visible": true
           }
         }
       ],
       "summary": {
-        "sampled_sunlight_hours": 1,
-        "sampled_earth_visibility_hours": 0,
-        "next_sunset_utc": null,
+        "sampled_sunlight_hours": 0.5,
+        "sampled_earth_visibility_hours": 1,
+        "next_sunset_utc": "2026-11-15T00:30:00Z",
         "next_earthset_utc": null
+      },
+      "scenario": {
+        "id": "B",
+        "label": "Synthetic B",
+        "latitude_deg": -89.0,
+        "longitude_east_deg": 0.0,
+        "start_utc": "2026-11-15T00:00:00Z",
+        "duration_hours": 1,
+        "step_minutes": 30
+      },
+      "provenance": {
+        "requested_at_utc": "2026-11-14T00:00:00Z",
+        "upstream_requests": [],
+        "raw_response_sha256": [],
+        "terrain_product": null,
+        "processing_version": "fixture-v1"
       }
     }
   ],
   "deltas": {
-    "sunlight_hours_b_minus_a": 0,
-    "earth_visibility_hours_b_minus_a": 0
+    "sunlight_hours_b_minus_a": -0.5,
+    "earth_visibility_hours_b_minus_a": 1
   },
   "limitations": [
     "SYNTHETIC fixture. Not real ephemeris.",
     "Geometric horizon only. No terrain.",
     "Sampled estimates; no wattage, safety certification or guaranteed communications."
-  ]
+  ],
+  "contract_version": "1.0"
 }
