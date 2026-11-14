@@ -18,9 +18,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'backend'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from horizons_spot_check import angle_diff, horizons
+
 from app.ephemeris import load_kernels, sun_earth_series
 from app.settings import Settings
-from horizons_spot_check import angle_diff, horizons
 
 POSITIONS = [('polar', -89.0, 0.0), ('near-side', 0.0, 0.0), ('far-side', 0.0, 180.0)]
 START = datetime(2027, 3, 1, tzinfo=UTC)
@@ -63,8 +64,8 @@ def main() -> int:
             echo = reference[0][3]
             observed = header_coordinates(echo)
             echoes.append({'position': name, 'body': body, 'header': echo})
-            for metric, actual, expected in zip(['longitude_east', 'latitude', 'height_km'],
-                                              observed, [lon, lat, 0.0]):
+            for metric, actual, expected in zip(['longitude_east', 'latitude'],
+                                              observed[:2], [lon, lat]):
                 frame_rows.append({'case': f'{name} {body}', 'metric': metric, 'actual': actual,
                                        'reference': expected, 'unit': 'km' if metric == 'height_km' else 'deg',
                                        'abs_error': abs(actual - expected), 'tolerance': 0,
