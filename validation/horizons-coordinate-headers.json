@@ -1,0 +1,32 @@
+[
+  {
+    "position": "polar",
+    "body": "sun",
+    "header": "Center geodetic : 0.0, -89.0, -1.92984E-13        {E-lon(deg),Lat(deg),Alt(km)}"
+  },
+  {
+    "position": "polar",
+    "body": "earth",
+    "header": "Center geodetic : 0.0, -89.0, -1.92984E-13        {E-lon(deg),Lat(deg),Alt(km)}"
+  },
+  {
+    "position": "near-side",
+    "body": "sun",
+    "header": "Center geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}"
+  },
+  {
+    "position": "near-side",
+    "body": "earth",
+    "header": "Center geodetic : 0.0, 0.0, 0.0                   {E-lon(deg),Lat(deg),Alt(km)}"
+  },
+  {
+    "position": "far-side",
+    "body": "sun",
+    "header": "Center geodetic : 180.0, 0.0, 2.1277E-13          {E-lon(deg),Lat(deg),Alt(km)}"
+  },
+  {
+    "position": "far-side",
+    "body": "earth",
+    "header": "Center geodetic : 180.0, 0.0, 2.1277E-13          {E-lon(deg),Lat(deg),Alt(km)}"
+  }
+]
