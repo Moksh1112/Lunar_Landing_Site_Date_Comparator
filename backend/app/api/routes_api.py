@@ -36,7 +36,10 @@ _terrain_lock = threading.Lock()
 
 MAX_SWEEP_DAYS = 183
 MAX_MISSION_HOURS = 8760
-MAX_SAMPLES_PER_SCENARIO = 60_000  # S0 proposal C04: cap per scenario, both grid ends included
+# TRD 10.1: "sample count capped (<= 60,000 per request)". Compare: the sum over all scenarios' grids.
+# Sweep: the requested 30-min grid (range + mission); the internal 10-min refinement of the top 5
+# days is server work, not requested samples (interpretation submitted to the Coordinator, C04).
+MAX_SAMPLES_PER_REQUEST = 60_000
 SWEEP_STEP_MINUTES = 30
 
 
@@ -45,15 +48,18 @@ def sample_count(mission_hours: float, step_minutes: float) -> int:
     return math.ceil(mission_hours * 60 / step_minutes) + 1
 
 
-def _check_mission(mission_hours: float, step_minutes: float, prefix: str) -> None:
-    field = f"{prefix}mission_hours"
+def _check_mission(mission_hours: float, prefix: str) -> None:
     if mission_hours > MAX_MISSION_HOURS:
         raise ApiError("RANGE_TOO_LARGE", "Mission length must be 8,760 hours (12 months) or less.",
-                       [{"field": field, "reason": "longer than 8760 hours"}])
-    if sample_count(mission_hours, step_minutes) > MAX_SAMPLES_PER_SCENARIO:
+                       [{"field": f"{prefix}mission_hours", "reason": "longer than 8760 hours"}])
+
+
+def _check_request_samples(total: int, field: str) -> None:
+    if total > MAX_SAMPLES_PER_REQUEST:
         raise ApiError("RANGE_TOO_LARGE",
-                       "Too many time samples: use a larger step or a shorter mission (max 60,000 per scenario).",
-                       [{"field": field, "reason": "more than 60000 samples at this step"}])
+                       f"Too many time samples in this request ({total:,}; max 60,000): "
+                       "use a larger step or shorter missions.",
+                       [{"field": field, "reason": f"{total} samples requested, max 60000 per request"}])
 
 # DE440s covers 1849-12-26..2150-01-22; the Moon PCK/frame kernels are wider. Anything outside this span
 # (or a start_utc SPICE would read differently from Python, e.g. year 0001 -> 2001) is rejected up front so
@@ -202,9 +208,11 @@ def sites(request: Request) -> OrjsonResponse:
 @api_router.post("/compare")
 def compare(request: Request, body: CompareRequest) -> OrjsonResponse:
     for i, scenario in enumerate(body.scenarios):
-        _check_mission(scenario.mission_hours, body.step_minutes, f"scenarios[{i}].")
+        _check_mission(scenario.mission_hours, f"scenarios[{i}].")
         _check_site(scenario.site, f"scenarios[{i}].site")
         _check_start_utc(scenario, f"scenarios[{i}].start_utc")
+    _check_request_samples(sum(sample_count(s.mission_hours, body.step_minutes) for s in body.scenarios),
+                           "scenarios")
     if _settings(request).use_mock:
         return OrjsonResponse(load_fixture("compare.ok"))
     from app.compare import run_compare  # local import: keeps mock-only runs light
@@ -220,7 +228,9 @@ def sweep(request: Request, body: SweepRequest) -> OrjsonResponse:
             "Date range must be 183 days or less.",
             [{"field": "range_end", "reason": "range longer than 183 days"}],
         )
-    _check_mission(body.mission_hours, SWEEP_STEP_MINUTES, "")
+    _check_mission(body.mission_hours, "")
+    span_hours = (body.range_end - body.range_start).days * 24 + body.mission_hours
+    _check_request_samples(sample_count(span_hours, SWEEP_STEP_MINUTES), "mission_hours")
     _check_site(body.site, "site")
     _check_sweep_span(body)
     if _settings(request).use_mock:

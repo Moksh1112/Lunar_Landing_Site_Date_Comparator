@@ -1,7 +1,12 @@
 # Stage Report - P2 + P3 (backend + terrain) - S1 (first half)
 
+> **Status note (added at S0 closeout):** the stage labels in this owner report describe work on the
+> owner branch only. They do **not** establish team gates: P1 integration and Sync 0 remain OPEN until
+> P1/Coordinator acceptance (docs/PROGRESS.md).
+
+
 Branch `feat/p2-p3-backend-terrain` (S0 committed as `2703add`, CI 7/7 green). This S1
-work is **uncommitted**. Sync 0 is a team gate: P1 asked to stay in S0, and the owner
+work is **published in `42e2d47`**. Sync 0 is a team gate: P1 asked to stay in S0, and the owner
 chose to continue on the branch. Nothing here is merged.
 
 Order follows the S0 escalation proposal: skyline and V3 first, then ephemeris.

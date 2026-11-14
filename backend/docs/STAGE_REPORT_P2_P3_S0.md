@@ -1,8 +1,13 @@
 # Stage Report - P2 + P3 (backend + terrain) - S0
 
+> **Status note (added at S0 closeout):** the stage labels in this owner report describe work on the
+> owner branch only. They do **not** establish team gates: P1 integration and Sync 0 remain OPEN until
+> P1/Coordinator acceptance (docs/PROGRESS.md).
+
+
 Branch: `feat/p2-p3-backend-terrain` (based on P1 baseline `bb5ae1d`). Status: S0
-deliverables built and checked locally; DEM downloads in progress; **not committed yet**
-(the owner reviews and commits). Contract decisions are proposed, not approved.
+deliverables built and checked locally; DEM downloads in progress. **Published in `2703add`**
+(owner-authored commit; hosted CI 7/7 green). Contract decisions are proposed, not approved.
 
 ## Done
 

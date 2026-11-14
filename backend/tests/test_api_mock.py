@@ -142,14 +142,36 @@ def test_mission_below_1_is_invalid_input(mock_client, compare_body):
     assert_error(mock_client.post("/api/v1/compare", json=body), 400, "INVALID_INPUT")
 
 
-def test_sample_cap_per_scenario(mock_client, compare_body):
+def test_sample_cap_is_per_request_boundary(mock_client, compare_body):
+    # TRD 10.1: <= 60,000 samples per REQUEST (sum over both scenarios); grid includes both ends.
+    # step 15 min -> samples = ceil(4 * hours) + 1, exact for quarter hours.
     body = copy.deepcopy(compare_body)
-    body["step_minutes"] = 1
-    body["scenarios"][0]["mission_hours"] = 8760  # 525,601 samples > 60,000
-    assert_error(mock_client.post("/api/v1/compare", json=body), 413, "RANGE_TOO_LARGE")
-    body["step_minutes"] = 10  # 52,561 samples per scenario: allowed (C04 proposal)
-    body["scenarios"][1]["mission_hours"] = 8760
+    body["step_minutes"] = 15
+    body["scenarios"][0]["mission_hours"] = 8760     # 35,041 samples
+    body["scenarios"][1]["mission_hours"] = 6239.5   # 24,959 samples -> total 60,000: allowed
     assert mock_client.post("/api/v1/compare", json=body).status_code == 200
+    body["scenarios"][1]["mission_hours"] = 6239.75  # 24,960 samples -> total 60,001: rejected
+    err = assert_error(mock_client.post("/api/v1/compare", json=body), 413, "RANGE_TOO_LARGE")
+    assert err["details"][0]["field"] == "scenarios"
+    assert "60001" in err["details"][0]["reason"]
+
+
+def test_sample_cap_two_full_year_scenarios_rejected(mock_client, compare_body):
+    # The C04 case: two 8,760 h scenarios at the default 10 min = 2 x 52,561 = 105,122 > 60,000.
+    body = copy.deepcopy(compare_body)
+    body["step_minutes"] = 10
+    body["scenarios"][0]["mission_hours"] = 8760
+    body["scenarios"][1]["mission_hours"] = 8760
+    assert_error(mock_client.post("/api/v1/compare", json=body), 413, "RANGE_TOO_LARGE")
+    body["scenarios"][1]["mission_hours"] = 708  # 52,561 + 4,249 = 56,810: allowed
+    assert mock_client.post("/api/v1/compare", json=body).status_code == 200
+
+
+def test_largest_valid_sweep_is_within_request_cap(mock_client, sweep_body):
+    # 183-day range + 8,760 h mission at 30 min = 26,257 samples: well under the cap.
+    body = copy.deepcopy(sweep_body)
+    body["range_start"], body["range_end"], body["mission_hours"] = "2027-01-01", "2027-07-02", 8760
+    assert mock_client.post("/api/v1/sweep", json=body).status_code == 200
 
 
 def test_sweep_mission_over_8760(mock_client, sweep_body):

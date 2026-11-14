@@ -83,9 +83,9 @@ def main() -> int:
             d_az, d_el = angle_diff(o_az, h_az), abs(o_el - h_el)
             worst[f"{body}_az"] = max(worst[f"{body}_az"], d_az)
             worst[f"{body}_el"] = max(worst[f"{body}_el"], d_el)
-            rows.append({"body": body, "time_utc": when, "horizons_az": h_az, "ours_az": round(o_az, 6),
-                         "horizons_el": h_el, "ours_el": round(o_el, 6),
-                         "d_az_deg": round(d_az, 5), "d_el_deg": round(d_el, 5)})
+            rows.append({"body": body, "time_utc": when, "horizons_az": h_az, "ours_az": round(o_az, 9),
+                         "horizons_el": h_el, "ours_el": round(o_el, 9),
+                         "d_az_deg": float(f"{d_az:.3e}"), "d_el_deg": float(f"{d_el:.3e}")})
     report = {
         "check": "P2 S1.3 Horizons spot check (not full V1)",
         "site": {"lat_deg": args.lat, "lon_east_deg": args.lon, "height_m": 0.0},
@@ -93,15 +93,17 @@ def main() -> int:
         "start_utc": START, "days": DAYS, "times": N_TIMES,
         "ours": "SpiceyPy spkcpo LT+S, MOON_ME, DE440 kernels " + ", ".join(loaded),
         "horizons": "JPL Horizons API, QUANTITIES=4, APPARENT=AIRLESS (DE441)",
-        "max_abs_diff_deg": {k: round(v, 5) for k, v in worst.items()},
+        "max_abs_diff_deg": {k: float(f"{v:.3e}") for k, v in worst.items()},
+        "max_abs_diff_arcsec": {k: float(f"{v * 3600:.3e}") for k, v in worst.items()},
+        "note_precision": "Horizons returns 9 decimals of a degree (EXTRA_PREC); differences below ~1e-9 deg are at that output resolution.",
         "pass_target_deg": 0.05, "passed": all(v <= 0.05 for v in worst.values()),
         "horizons_query_s": round(time.time() - started, 1),
         "rows": rows,
     }
     for r in rows:
-        print(f"{r['body']:5} {r['time_utc']}  az H {r['horizons_az']:11.6f} us {r['ours_az']:11.6f} "
-              f"d {r['d_az_deg']:.5f} | el H {r['horizons_el']:10.6f} us {r['ours_el']:10.6f} d {r['d_el_deg']:.5f}")
-    print("max |diff| deg:", report["max_abs_diff_deg"], "PASS" if report["passed"] else "FAIL (> 0.05 deg)")
+        print(f"{r['body']:5} {r['time_utc']}  az H {r['horizons_az']:14.9f} us {r['ours_az']:14.9f} "
+              f"d {r['d_az_deg']:.2e} | el H {r['horizons_el']:13.9f} us {r['ours_el']:13.9f} d {r['d_el_deg']:.2e}")
+    print("max |diff| deg:", report["max_abs_diff_deg"], "arcsec:", report["max_abs_diff_arcsec"], "PASS" if report["passed"] else "FAIL (> 0.05 deg)")
     if args.out:
         args.out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         print("wrote", args.out)

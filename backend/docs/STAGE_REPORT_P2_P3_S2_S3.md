@@ -1,6 +1,11 @@
 # Stage Report - P2 + P3 (backend + terrain) - S2 and S3
 
-Branch `feat/p2-p3-backend-terrain`, uncommitted on top of the S1 work. Every contract
+> **Status note (added at S0 closeout):** the stage labels in this owner report describe work on the
+> owner branch only. They do **not** establish team gates: P1 integration and Sync 0 remain OPEN until
+> P1/Coordinator acceptance (docs/PROGRESS.md).
+
+
+Branch `feat/p2-p3-backend-terrain`; **published in `d33ba97`** (on top of S1 `42e2d47`). Every contract
 endpoint is now **real** (`data_label: "REAL"`); mock mode is unchanged. Sync gates are
 the team's call: P1 asked to stay in S0, and the owner chose to continue on the branch.
 

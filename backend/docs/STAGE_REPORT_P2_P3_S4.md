@@ -1,6 +1,12 @@
 # Stage Report - P2 + P3 (backend + terrain) - S4 hardening
 
-Branch `feat/p2-p3-backend-terrain`, uncommitted on top of `d33ba97` (CI 7/7 green).
+> **Status note (added at S0 closeout):** the stage labels in this owner report describe work on the
+> owner branch only. They do **not** establish team gates: P1 integration and Sync 0 remain OPEN until
+> P1/Coordinator acceptance (docs/PROGRESS.md).
+
+
+Branch `feat/p2-p3-backend-terrain`; **published in `d5c137b`** (on top of `d33ba97`; hosted CI 7/7 green;
+integrated by P1 into `315d22a`).
 
 ## Full 20 m terrain (P3)
 

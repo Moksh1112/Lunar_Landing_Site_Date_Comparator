@@ -1,0 +1,60 @@
+{
+  "check": "S1 actual polar skyline (P3)",
+  "site": {
+    "site_id": "im2-athena",
+    "lat_deg": -84.7906,
+    "lon_east_deg": 29.1957,
+    "source": "https://lroc.im-ldi.com/images/1408"
+  },
+  "settings": {
+    "observer_height_m": 2.0,
+    "az_step_deg": 0.5,
+    "n_azimuths": 720,
+    "near_field_km": 20.0,
+    "near_step_m": 20.0,
+    "far_growth": 1.01,
+    "max_range_km": 399.7270184908737,
+    "n_distances": 1301,
+    "interpolation": "bilinear at pixel centres",
+    "elevation": "exact 3D vectors on R=1,737,400 m sphere",
+    "floor": "max(eps_max, -dip)",
+    "algorithm_version": 2
+  },
+  "datasets": {
+    "tiles/im2-athena.tif": {
+      "bytes": 12492133,
+      "sha256": "c72001e2504bf7764008ef8826e3e4e2dcde552d679a7b8d098134f91a015b12"
+    },
+    "dem/far_160m.tif": {
+      "bytes": 36909329,
+      "sha256": "43e014ebbc6ee794cfd8ed02767c36fb2f8b70b21e00827b9639acfa9d7ca68a"
+    },
+    "dem/LDEM_80S_20MPP_ADJ.TIF": {
+      "bytes": 2696082051,
+      "sha256": "09b7ca80f9e6a146f970225d18af72fc02787669b3ef51b888e347d2b6845649"
+    }
+  },
+  "result": {
+    "horizon_mode": "terrain",
+    "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+    "data_label": "REAL",
+    "site_height_m": 5321.91,
+    "elev_max_deg": 4.065605,
+    "elev_max_az_deg": 117.5,
+    "elev_max_block_km": 16.48,
+    "elev_min_deg": -1.469367,
+    "elev_mean_deg": 1.167257,
+    "finite": true,
+    "compute_seconds_uncached": 1.024,
+    "elev_deg_every_45deg": {
+      "0": -0.4973,
+      "45": 0.4853,
+      "90": 2.8961,
+      "135": 2.388,
+      "180": 2.9668,
+      "225": 1.2443,
+      "270": -0.629,
+      "315": -0.6729
+    }
+  }
+}
