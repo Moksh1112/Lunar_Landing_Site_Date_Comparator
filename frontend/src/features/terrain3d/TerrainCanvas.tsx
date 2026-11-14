@@ -30,7 +30,7 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, onReady }: 
     return g;
   }, [tile, exaggeration]);
   useEffect(() => () => geometry.dispose(), [geometry]);
-  const sun = bodyDirection(sunAz, sunEl, tile.site.lon_east_deg).map((v) => v * 3) as [number, number, number];
+  const sun = bodyDirection(sunAz, sunEl, tile.grid_bearing_offset_deg ?? tile.site.lon_east_deg).map((v) => v * 3) as [number, number, number];
   const observerX = (tile.site_px[0] / (tile.width - 1) - 0.5) * 2;
   const observerY = useMemo(() => {
     const h = decodeHeights(tile.heights_m_b64, tile.width, tile.height);
@@ -38,7 +38,7 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, onReady }: 
     return (h[index] - tile.min_m) / (tile.size_km * 1000) * 2 * exaggeration + 0.006;
   }, [tile, exaggeration]);
   const observerZ = (tile.site_px[1] / (tile.height - 1) - 0.5) * 2;
-  const earth = bodyDirection(earthAz, earthEl, tile.site.lon_east_deg).map((v) => v * 2.5) as [number, number, number];
+  const earth = bodyDirection(earthAz, earthEl, tile.grid_bearing_offset_deg ?? tile.site.lon_east_deg).map((v) => v * 2.5) as [number, number, number];
   return <>
     <ambientLight intensity={0.5} />
     <directionalLight position={sun} intensity={sunEl > 0 ? 2 : 0} />

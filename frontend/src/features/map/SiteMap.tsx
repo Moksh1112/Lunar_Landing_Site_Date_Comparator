@@ -168,7 +168,7 @@ export default function SiteMap() {
           </CircleMarker>
         ))}
         {plans.map((p) => (
-          <CircleMarker key={p.id} center={p.pos} radius={8} pathOptions={{ color: p.id === "A" ? "#2fd0b9" : "#b49cff", weight: 3, fillOpacity: 0.25 }} interactive={false} />
+          <CircleMarker key={p.id} center={p.pos} radius={8} pathOptions={{ color: p.id === "A" ? "var(--color-a)" : "var(--color-b)", weight: 3, fillOpacity: 0.25 }} interactive={false} />
         ))}
         <ClickPick view={view} onPick={pick} />
       </MapContainer>
