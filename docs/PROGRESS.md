@@ -126,9 +126,10 @@ cap/schema/React/audit decisions; no new source-policy approval is inferred.
 - [ ] Resolve open source/contract/React/audit decisions before gate acceptance.
 Sync 0 remains OPEN. No later-stage gates accepted.
 
-## Final integration evidence
-315d22a promoted and pushed. Both source branch tips are ancestors, and diffs of
-frontend/ and backend/app+tests+dependency pair against their owner tips are empty.
-Full Linux CI SUCCESS at 43617959513. Tests requiring actual NASA datasets may skip;
-this does not reproduce owner real-data claims. Documentation follow-up CI is separate.
-Run npm run dev:s0 for synthetic shell/API preview. Compare journey still placeholder.
+## Latest integration status (2026-11-14)
+
+- Backend owner branch `feat/p2-p3-backend-terrain` is at `0856c1416b40c194a22f4452a65e3ff4fbb67e2d`; integrated to `feat/p1-s0-integration` by fast-forward. Its GitHub CI run 43621086629 completed SUCCESS (all seven jobs).
+- The backend now enforces the TRD limit of 60,000 requested samples per request. Compare sums both scenario grids; tests accept exactly 60,000 and reject 60,001. Local `node scripts/python.mjs -m pytest backend/tests/test_api_mock.py -q`: 27 passed (two warnings).
+- Frontend remains at `0cd0ae5f0f612e2ffb9e52c0054b722f928d8134`; no newer frontend commit observed. Existing frontend shell/routes are integrated; complete Compare journey and export views remain pending.
+- Backend C03-C09 proposals and new real-data evidence are committed for review. They are not approved contract changes, and real-data validation remains owner-reported unless independently reproduced.
+- Sync 0 remains OPEN. Pending Coordinator contract decisions, React/dependency decisions, frontend/owner confirmations and validation evidence. No later stage is accepted.
