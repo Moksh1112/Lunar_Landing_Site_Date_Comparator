@@ -17,7 +17,7 @@
 .evidence { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); min-width: 0; }
 .evHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
 .evHead h3 { margin: 0; font-size: var(--text-md); }
-.status { font-weight: 750; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--text-xs); padding: 2px var(--space-2); border: 1px solid currentColor; border-radius: var(--radius-sm); }
+.status { font-weight: 650; text-transform: capitalize; font-size: var(--text-sm); padding: 2px var(--space-2); border: 1px solid currentColor; border-radius: var(--radius-sm); }
 .pass { color: var(--color-green); }
 .fail { color: var(--color-red); }
 .incomplete, .not_evaluated { color: var(--color-amber); }

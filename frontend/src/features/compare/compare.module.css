@@ -1,6 +1,6 @@
 .page { min-width: 0; }
 .pageHead { margin-bottom: var(--space-4); }
-.pageHead h1 { margin-bottom: var(--space-1); }
+.pageHead h1 { margin-bottom: var(--space-1); font-size: var(--text-2xl); }
 .lede { color: var(--color-text-muted); margin: 0; max-width: 65ch; }
 
 .layout { display: grid; grid-template-columns: minmax(0, 25rem) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
@@ -41,7 +41,7 @@
 .secondaryLink { font-size: var(--text-sm); }
 
 .resultsHead { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center; }
-.resultsTitle { margin: 0; font-size: var(--text-xl); margin-right: auto; }
+.resultsTitle { margin: 0; margin-right: auto; }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
 .skeletons { display: flex; flex-direction: column; gap: var(--space-3); }
@@ -70,3 +70,26 @@
 }
 .momentNote { margin: var(--space-3) 0 0; font-size: var(--text-xs); color: var(--color-text-muted); max-width: 75ch; }
 .cardSource { margin-top: calc(-1 * var(--space-1)); }
+
+/* Stage: the comparison visual is the focal point. */
+.stage { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-5) var(--space-4) var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: radial-gradient(120% 80% at 50% 0%, var(--color-surface-2), var(--color-surface) 60%); min-width: 0; }
+.stageHead { max-width: 62ch; }
+.stageHead h2 { margin-bottom: var(--space-2); }
+.stageHead p { margin: 0; }
+.rings { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-5) var(--space-4); align-items: start; }
+.whenHead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+.whenHead h3 { margin: 0; font-size: var(--text-md); }
+
+/* One orchestrated reveal per new result: blocks rise in order (state change, ~260 ms). */
+.reveal > div > * { animation: rise 260ms var(--ease-out) both; }
+.reveal > div > *:nth-child(2) { animation-delay: 40ms; }
+.reveal > div > *:nth-child(3) { animation-delay: 80ms; }
+.reveal > div > *:nth-child(4) { animation-delay: 120ms; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Desktop: the input rail stays in view with its primary action pinned. */
+@media (min-width: 64rem) {
+  .inputs { position: sticky; top: 4.75rem; max-height: calc(100vh - 6rem); overflow-y: auto; overscroll-behavior: contain; }
+  .submitBar { position: sticky; bottom: calc(-1 * var(--space-3)); margin: 0 calc(-1 * var(--space-3)) calc(-1 * var(--space-3)); padding: var(--space-3); background: linear-gradient(transparent, var(--color-surface) 30%); }
+}
+@media print { .reveal > div > * { animation: none !important; } }

@@ -39,7 +39,7 @@
   .day.red:hover:not(:disabled) { background: rgb(255 122 122 / 0.22); border-color: currentColor; }
 }
 
-.word { font-weight: 750; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--text-xs); background: none; }
+.word { font-weight: 650; text-transform: capitalize; font-size: var(--text-sm); background: none; }
 .tableWrap { overflow-x: auto; position: relative; }
 .table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
 .table th, .table td { padding: var(--space-2); border-bottom: 1px solid var(--color-border); text-align: left; white-space: nowrap; }
@@ -49,5 +49,5 @@
 
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--space-3); margin: 0 0 var(--space-3); }
 .stats dt { color: var(--color-text-muted); font-size: var(--text-xs); }
-.stats dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 600; }
+.stats dd { margin: 0; font-weight: 600; }
 .failed { margin: 0 0 var(--space-2); padding-left: var(--space-4); font-size: var(--text-sm); }

@@ -63,7 +63,7 @@ export function MethodsPage() {
         <dl className={styles.facts}>
           <div><dt>Ephemeris</dt><dd>SPICE DE440 (JPL NAIF), local kernels; JPL Horizons is used only for offline validation.</dd></div>
           <div><dt>Terrain</dt><dd>LOLA south-pole DEMs (20 m near field, 160 m far field) where coverage is verified.</dd></div>
-          <div><dt>Horizon modes</dt><dd>terrain · terrain (coarse) · geometric horizon only</dd></div>
+          <div><dt>Horizon modes</dt><dd>terrain, terrain (coarse) or geometric horizon only</dd></div>
           <div>
             <dt>Loaded by this server</dt>
             <dd>

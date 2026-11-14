@@ -1,23 +1,22 @@
 /*
  * Azelux design tokens (frontend/DESIGN.md). Dark theme default (TRD 7.6).
  * Hue is reserved for data: Sun = amber, Earth = blue, A = teal, B = violet,
- * verdicts green/amber/red (always paired with a word). Chrome stays neutral graphite.
- * Contrast on --color-surface (#141820): text 15.1:1, muted 7.9:1, faint 5.5:1, red 7.0:1,
- * amber 10.9:1, earth 7.2:1; on --color-surface-2 faint is 5.0:1 (all >= 4.5:1, TRD 7.6).
+ * verdicts green/amber/red (always paired with a word). Chrome is a cool earthshine ink.
+ * Contrast is re-measured for this palette in frontend/DESIGN.md (all text pairs >= 4.5:1).
  */
 :root {
   color-scheme: dark;
 
   /* neutrals: graphite, slightly cool */
-  --color-bg: #0d1015;
-  --color-surface: #141820;
-  --color-surface-2: #1b212b;
-  --color-surface-3: #232a36;
-  --color-border: #2c3441;
-  --color-border-strong: #3d4757;
-  --color-text: #e9edf2;
-  --color-text-muted: #a4aebd;
-  --color-text-faint: #8590a0;
+  --color-bg: #0b1019;
+  --color-surface: #111827;
+  --color-surface-2: #172033;
+  --color-surface-3: #1f2a40;
+  --color-border: #263249;
+  --color-border-strong: #39465f;
+  --color-text: #ecf0f7;
+  --color-text-muted: #a7b2c7;
+  --color-text-faint: #8794ad;
 
   /* data hues */
   --color-sun: #f2b544;
@@ -42,9 +41,9 @@
   --color-focus: #ffffff;
 
   /* primary action: neutral, so it never reads as a data hue */
-  --color-action: #e9edf2;
-  --color-action-text: #0d1015;
-  --color-action-hover: #ffffff;
+  --color-action: #e8e2d4; /* regolith: warm pale grey, never a data hue */
+  --color-action-text: #0b1019;
+  --color-action-hover: #f4efe4;
 
   /* spacing: 8 px base (0.25 step for tight groups) */
   --space-1: 0.25rem;
@@ -55,21 +54,23 @@
   --space-6: 3rem;
 
   /* type: two families max (TRD 7.6); fixed rem scale, ratio ~1.2 */
-  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Roboto, sans-serif;
+  --font-sans: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-display: "Gloock", "Iowan Old Style", Georgia, serif;
   --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.375rem;
-  --text-2xl: 1.75rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.75rem;
   --leading: 1.5;
   --leading-tight: 1.25;
 
   /* shape */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-lg: 14px;
 
   /* motion: state only, short, strong ease-out */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

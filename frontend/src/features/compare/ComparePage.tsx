@@ -1,7 +1,7 @@
 import { Suspense, lazy, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { ApiError } from "../../api/errors";
-import type { CompareRequest } from "../../api/types";
+import type { CompareRequest, ScenarioResult } from "../../api/types";
 import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Skeleton } from "../../components/Skeleton";
@@ -16,7 +16,9 @@ import { HorizonPanorama } from "./HorizonPanorama";
 import { ModePresets } from "./ModePresets";
 import { RawData } from "./RawData";
 import { MomentReadout } from "./MomentReadout";
+import { absoluteTime } from "./moment";
 import { ResultsSummary } from "./ResultsSummary";
+import { SkyRing } from "./SkyRing";
 import { ScenarioCard } from "./ScenarioCard";
 import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
@@ -85,6 +87,8 @@ export function ComparePage() {
   const data = shown?.response;
   const sentThresholds = shown?.request.thresholds;
   const range = useMemo(() => (data ? sharedYRange(data.scenarios) : null), [data]);
+  // F17: one scrubber value, mapped to each plan's own absolute time (calendar or mission-day alignment).
+  const scrubTimeFor = (s: ScenarioResult): number | null => (scrubT === null ? null : absoluteTime(s, scrubT, alignBy));
   const synthetic = data?.scenarios.some((s) => s.meta.data_label !== "REAL") ?? false;
 
   return (
@@ -146,35 +150,56 @@ export function ComparePage() {
                 <Link to="/report" className="btn no-print">Open report</Link>
               </div>
               {synthetic && <SyntheticResultNote />}
-              <ResultsSummary data={data} expert={expert} thresholds={thresholds} sentThresholds={sentThresholds} />
-              <section className={styles.chartPanel} aria-labelledby="where-h">
-                <div className={styles.chartHead}>
-                  <h3 id="where-h">Where the Sun and Earth sit</h3>
-                  <span className={styles.hint}>
-                    Filled area is the <Term k="skyline">skyline</Term>. Same elevation scale for both plans.
-                  </span>
-                </div>
-                <div className={styles.panoramas}>
-                  {data.scenarios.map((s) => (
-                    <HorizonPanorama key={s.id} scenario={s} scrubT={scrubT} yMinDeg={range.yMin} yMaxDeg={range.yMax} expert={expert} />
-                  ))}
-                </div>
-              </section>
-              <section className={styles.chartPanel} aria-labelledby="when-h">
-                <div className={styles.chartHead}>
-                  <h3 id="when-h">When each plan has Sun, Earth and both</h3>
-                  <div role="group" aria-label="Align timeline by" className="segmented">
-                    <button type="button" aria-pressed={alignBy === "calendar"} onClick={() => setAlignBy("calendar")}>
-                      Calendar date
-                    </button>
-                    <button type="button" aria-pressed={alignBy === "mission_day"} onClick={() => setAlignBy("mission_day")}>
-                      Mission day
-                    </button>
-                  </div>
-                </div>
-                <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
-                <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
-              </section>
+              <div className={styles.reveal} key={shown?.response.scenarios[0].meta.computed_at + String(shown?.request.scenarios[1].start_utc)}>
+                <ResultsSummary
+                  data={data}
+                  expert={expert}
+                  thresholds={thresholds}
+                  sentThresholds={sentThresholds}
+                  middle={
+                    <>
+                      <section className={styles.stage} aria-labelledby="stage-h">
+                        <div className={styles.stageHead}>
+                          <h2 id="stage-h">The sky above each site</h2>
+                          <p className={styles.hint}>
+                            Rings unroll the horizon: north at the top, the <Term k="skyline">skyline</Term> shaded, higher
+                            elevation toward the centre. Solid tracks are visible Sun and Earth; dotted are below the skyline.
+                          </p>
+                        </div>
+                        <div className={styles.rings}>
+                          {data.scenarios.map((s) => (
+                            <SkyRing key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
+                          ))}
+                        </div>
+                        <div className={styles.whenHead}>
+                          <h3 id="when-h">When each plan has Sun, Earth and both</h3>
+                          <div role="group" aria-label="Align timeline by" className="segmented">
+                            <button type="button" aria-pressed={alignBy === "calendar"} onClick={() => setAlignBy("calendar")}>
+                              Calendar date
+                            </button>
+                            <button type="button" aria-pressed={alignBy === "mission_day"} onClick={() => setAlignBy("mission_day")}>
+                              Mission day
+                            </button>
+                          </div>
+                        </div>
+                        <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
+                        <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
+                      </section>
+                      <section className={styles.chartPanel} aria-labelledby="where-h">
+                        <div className={styles.chartHead}>
+                          <h3 id="where-h">Horizon panoramas</h3>
+                          <span className={styles.hint}>Same elevation scale for both plans.</span>
+                        </div>
+                        <div className={styles.panoramas}>
+                          {data.scenarios.map((s) => (
+                            <HorizonPanorama key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} expert={expert} />
+                          ))}
+                        </div>
+                      </section>
+                    </>
+                  }
+                />
+              </div>
               {expert && <RawData data={data} />}
             </>
           ) : (

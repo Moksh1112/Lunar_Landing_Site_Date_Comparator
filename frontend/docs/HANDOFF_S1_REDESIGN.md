@@ -169,3 +169,76 @@ Browser checks (mock):
 
 **P1 action:** integrate backend `8cc3948` and frontend (this commit). After that merge,
 the Methods page renders the V1 spot check at build time.
+
+## Follow-up 3: "earthshine" visual refinement (frontend/DESIGN.md)
+
+**References** (look and feel only; no content, layout, artwork or code taken):
+
+- pluto-drone, idr-tech and elites-ivory were opened and scrolled in the built-in browser.
+  - IDR needed about 10 s to get past its loader. Its font is Sometype Mono, which was
+    not adopted.
+- The second link list was not reviewed in depth.
+
+**Skills read on this machine:**
+
+- impeccable 4.7.0: launcher context, `craft-floor`, `operate` and the `detect` command.
+  - The detector first flagged Instrument Sans/Serif as overused; I switched to Gloock and
+    Schibsted Grotesk.
+  - It now reports `[]`.
+- emil-design-eng: the animation decision framework.
+  - Motion is limited to state changes plus one scroll moment.
+  - Nothing animates on scrubbing or keyboard actions.
+  - Reduced motion is respected.
+- web-design-guidelines: rules re-fetched earlier. Already met: focus first invalid field,
+  `scroll-padding`, `…` ellipses, `touch-action`.
+- design-taste-frontend: read. Its marketing-site rules (no captions under visuals, one
+  section per screen) conflict with the required chart text summaries, so the
+  requirements win.
+- Anthropic `frontend-design`: installed to `~/.claude/skills/frontend-design` from
+  github.com/anthropics/skills. Applied:
+  - two distinct families
+  - no all-caps labels, eyebrows or middle-dot meta strings
+  - one bold element (the stage)
+- GSAP and Lenis: not used. A planning workspace keeps native scrolling, the single scroll
+  moment is pure CSS, and there are no dependency or lockfile changes.
+
+**What changed:**
+
+- **Palette:** earthshine ink palette, with a regolith primary action and pill navigation.
+- **Fonts:** self-hosted OFL Gloock (display) and Schibsted Grotesk (UI), latin subset,
+  about 73 kB.
+- **Delta signs:** set in the sans so a minus sign is never faint.
+- **Verdict words:** sentence case in the display serif.
+- **Compare stage:** a new focal block under the verdicts and deltas.
+  - `SkyRing` per plan: the horizon unrolled around a circle, the skyline band shaded,
+    Sun and Earth tracks solid or dotted, markers at the scrubber time.
+  - The timeline, scrubber and at-time readout sit in the same block.
+  - The rings tip from a ground-level perspective to flat as they scroll into view
+    (CSS `animation-timeline: view()`, off under reduced motion and in print).
+  - The rings are a chart of response data, not terrain imagery or a 3D model; F18 stays
+    gated.
+- **F17 fix:** panorama and ring markers now map the scrubber to each plan's own time
+  (`absoluteTime`). Before, in mission-day mode the panorama received a raw offset.
+- **New results:** a staged 260 ms reveal.
+- **Inputs:** a sticky desktop rail with the Compare button pinned.
+
+**Checks:**
+
+- `tsc` clean, `eslint` clean, `vitest` 12 files / **118 passed** (new: sky-ring mapping).
+- `npm run build` and the mock build succeed. impeccable `detect`: `[]`.
+- **Headless Edge renders** (CDP; `docs/screenshots/`) at 1440 / 768 / 375, plus the
+  loading and error states:
+  - scrollWidth is 375 on `/`, `/best-date`, `/methods` and `/report`.
+  - At 768 px, scrollWidth is 753 against a 768 px viewport.
+- **Keyboard:** focus the scrubber and press ArrowRight ×6. The readout moves from
+  mission start to 00:06 UTC.
+- **Reduced motion** (emulated): ring `animationName` and `transform` are both `none`.
+- **Print:** `Page.printToPDF` of a populated `/report` gives 5 pages.
+- **Screenshot timing:** `desktop-1440-best-date.jpg` was captured before the last tweak
+  that removed tabular figures from the Best-date stats (it shows wider spacing).
+
+**Still limited:**
+
+- No sourced lunar basemap.
+- 3D/WebGL gated: needs three.js in the lockfile (P1) and real terrain tiles.
+- All data SYNTHETIC except the owner-reported V1 spot check (backend branch).

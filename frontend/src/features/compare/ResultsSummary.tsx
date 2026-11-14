@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router";
 import { HorizonModeLabel } from "../../components/HorizonModeLabel";
 import { SiteSource } from "../../components/SiteSource";
@@ -45,7 +46,7 @@ function VerdictCard({ s, verdict, recomputed, thresholds }: { s: ScenarioResult
         <span className={styles.tag} aria-hidden="true">{s.id}</span>
         <div className={styles.verdictName}>
           <strong>{s.label}</strong>
-          <span className={styles.muted}>{s.site.name ?? "Custom point"} · {coords(s)}</span>
+          <span className={styles.muted}>{s.site.name ?? "Custom point"}, {coords(s)}</span>
         </div>
         <span className={`${styles.chip} ${styles[verdict.level]}`}>
           <span className="visually-hidden">{s.label}: </span>
@@ -70,6 +71,23 @@ function VerdictCard({ s, verdict, recomputed, thresholds }: { s: ScenarioResult
   );
 }
 
+/** The sign is set in the UI sans at full weight: the display serif draws +/− too lightly for signed science values. */
+function SignedValue({ text }: { text: string }) {
+  const m = /^([+−])(.*)$/.exec(text);
+  return (
+    <span className={styles.deltaValue}>
+      {m ? (
+        <>
+          <span className={styles.sign}>{m[1]}</span>
+          {m[2]}
+        </>
+      ) : (
+        text
+      )}
+    </span>
+  );
+}
+
 function DeltaStrip({ data }: { data: CompareResponse }) {
   const text = PRIMARY.map((p) => `${formatSigned(bRelativeToA(data.deltas[p.key]), "h")} ${p.label}`).join(", ");
   return (
@@ -87,7 +105,7 @@ function DeltaStrip({ data }: { data: CompareResponse }) {
           return (
             <li key={p.key} className={`${styles.delta} ${styles[dir]}`}>
               <span className={styles.deltaLabel}>{metricLabel(p.key)}</span>
-              <span className={styles.deltaValue}>{formatSigned(v, "h")}</span>
+              <SignedValue text={formatSigned(v, "h")} />
               <span className={styles.deltaWord}>{dir === "none" ? NA : dir === "same" ? "no change" : `${dir} for B`}</span>
             </li>
           );
@@ -114,7 +132,7 @@ function SourceBadge({ s }: { s: ScenarioResult }) {
   );
 }
 
-export function ResultsSummary({ data, expert, thresholds, sentThresholds }: ResultsSummaryProps) {
+export function ResultsSummary({ data, expert, thresholds, sentThresholds, middle }: ResultsSummaryProps & { middle?: ReactNode }) {
   const [a, b] = data.scenarios;
   const edited = thresholds !== undefined && sentThresholds !== undefined && !sameThresholds(thresholds, sentThresholds);
   const verdictFor = (s: ScenarioResult): Verdict => (edited && thresholds ? computeVerdict(s.metrics, thresholds) : s.verdict);
@@ -131,6 +149,8 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds }: Res
       </section>
 
       <DeltaStrip data={data} />
+
+      {middle}
 
       <section aria-labelledby="metrics-h" className={styles.panel}>
         <div className={styles.panelHead}>

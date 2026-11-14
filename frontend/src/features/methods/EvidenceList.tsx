@@ -11,7 +11,7 @@ function EvidenceCard({ e, name }: { e: Evidence; name: string }) {
     <article className={styles.evidence} aria-labelledby={`ev-${name}`}>
       <header className={styles.evHead}>
         <h3 id={`ev-${name}`}>
-          {e.check_id} · {e.title}
+          {e.check_id}: {e.title}
         </h3>
         <span className={`${styles.status} ${styles[e.status]}`}>{e.status}</span>
       </header>
@@ -68,7 +68,7 @@ function EvidenceCard({ e, name }: { e: Evidence; name: string }) {
             </ul>
           </dd>
         </div>
-        <div><dt>Produced</dt><dd>{e.generated_at} · commit <code>{e.producer_commit.slice(0, 10)}</code></dd></div>
+        <div><dt>Produced</dt><dd>{e.generated_at}, commit <code>{e.producer_commit.slice(0, 10)}</code></dd></div>
         <div><dt>Command</dt><dd><code className={styles.cmd}>{e.command}</code></dd></div>
         {e.limitations.length > 0 && (
           <div><dt>Limitations</dt><dd><ul className={styles.plain}>{e.limitations.map((l, i) => <li key={i}>{l}</li>)}</ul></dd></div>

@@ -53,7 +53,7 @@ export function AppShell() {
         <span>
           Planning and education aid. Not a safety certification, power (watt) prediction or guaranteed radio link.
         </span>
-        <span className={styles.version}>app {health.data?.app_version ?? "n/a"} · contract 1.0</span>
+        <span className={styles.version}>App {health.data?.app_version ?? "n/a"}, contract 1.0</span>
       </footer>
     </div>
   );

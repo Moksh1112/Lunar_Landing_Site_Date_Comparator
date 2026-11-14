@@ -223,7 +223,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
         <h2 className={styles.resultsTitle}>{data.site.name ?? "Custom point"}</h2>
         {data.meta.data_label !== "REAL" && <SyntheticBadge />}
         <HorizonModeLabel mode={data.meta.horizon_mode} />
-        <span className={styles.muted}>{data.meta.dem ? `DEM ${data.meta.dem}` : "no DEM"} · {data.meta.ephemeris}</span>
+        <span className={styles.muted}>{data.meta.dem ? `DEM ${data.meta.dem}` : "no DEM"}, {data.meta.ephemeris}</span>
         <SiteSource siteId={data.site.site_id} />
       </div>
 
@@ -259,7 +259,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
         <section className={styles.panel} aria-labelledby="sel-h">
           <div className={styles.panelHead}>
             <h3 id="sel-h">
-              {sel.date} · rank {sel.rank}
+              {sel.date}, rank {sel.rank}
             </h3>
             <button type="button" className="btn-primary" onClick={() => onLoad(sel)}>
               Load as Plan B
@@ -318,8 +318,8 @@ function DayDetail({ d }: { d: SweepDay }) {
     <>
       <dl className={styles.stats}>
         <div><dt>Verdict</dt><dd className={`${styles.word} ${styles[d.verdict.level]}`}>{d.verdict.level}</dd></div>
-        <div><dt>Sunlight</dt><dd>{formatHours(m.sun_hours)} · {formatPct(m.sun_pct)}</dd></div>
-        <div><dt>Earth visible</dt><dd>{formatHours(m.earth_hours)} · {formatPct(m.earth_pct)}</dd></div>
+        <div><dt>Sunlight</dt><dd>{formatHours(m.sun_hours)} ({formatPct(m.sun_pct)})</dd></div>
+        <div><dt>Earth visible</dt><dd>{formatHours(m.earth_hours)} ({formatPct(m.earth_pct)})</dd></div>
         <div><dt>Sun and Earth</dt><dd>{formatHours(m.both_hours)}</dd></div>
         <div><dt>Longest dark gap</dt><dd>{formatHours(m.longest_dark_h)}</dd></div>
         <div><dt>Longest blackout</dt><dd>{formatHours(m.longest_blackout_h)}</dd></div>

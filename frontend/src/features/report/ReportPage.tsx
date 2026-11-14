@@ -47,8 +47,8 @@ export function ReportPage() {
           {prov.data_label !== "REAL" && <SyntheticBadge />}
         </div>
         <p className={styles.meta}>
-          {response.scenarios[0].label} (A) vs {response.scenarios[1].label} (B) · mode {request.mode.replace(/_/g, " ")} ·
-          generated {prov.exported_at}
+          {response.scenarios[0].label} (A) vs {response.scenarios[1].label} (B), mode {request.mode.replace(/_/g, " ")}.
+          Generated {prov.exported_at}.
         </p>
         {prov.data_label !== "REAL" && (
           <p className={styles.synthetic}>

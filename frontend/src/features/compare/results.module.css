@@ -18,8 +18,8 @@
 .verdictHead { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
 .verdictName { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .verdictName strong { overflow-wrap: anywhere; }
-.chip { display: inline-flex; align-items: center; min-height: 1.75rem; padding: 0 var(--space-3); border-radius: var(--radius-md); border: 1px solid currentColor; flex: none; }
-.word { font-weight: 750; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--text-sm); }
+.chip { display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0 var(--space-3); border-radius: var(--radius-md); border: 1px solid currentColor; flex: none; }
+.word { font-family: var(--font-display); font-size: var(--text-xl); text-transform: capitalize; line-height: 1; }
 .green { color: var(--color-green); background: var(--color-green-soft); }
 .amber { color: var(--color-amber); background: var(--color-amber-soft); }
 .red { color: var(--color-red); background: var(--color-red-soft); }
@@ -30,7 +30,7 @@
 .deltas { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 1px; list-style: none; margin: 0; padding: 0; background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
 .delta { display: flex; flex-direction: column; gap: 2px; padding: var(--space-2) var(--space-3); background: var(--color-bg); min-width: 0; }
 .deltaLabel { font-size: var(--text-xs); color: var(--color-text-muted); }
-.deltaValue { font-size: var(--text-xl); font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.deltaValue { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .deltaWord { font-size: var(--text-xs); font-weight: 600; }
 .better .deltaWord { color: var(--color-green); }
 .worse .deltaWord { color: var(--color-red); }
@@ -57,3 +57,4 @@
 .rawWrap { max-height: 24rem; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
 .rawWrap thead th { position: sticky; top: 0; background: var(--color-surface); }
 .methodRow td { text-align: left; white-space: normal; color: var(--color-text-muted); }
+.sign { font-family: var(--font-sans); font-weight: 700; font-size: 0.8em; margin-right: 0.08em; vertical-align: 0.06em; }
