@@ -265,7 +265,7 @@ Changes:
   - A sticky plan slip (A/B perforated segments with Site / Point / Landing / Mission
     rows; map and thresholds in disclosures; touch-docked action).
   - Results in a deliberate order: a one-sentence conclusion (derived only from the A − B
-     delta, tested), verdict pair, visibility diagram + scrubber + countdowns,
+    `both_hours` delta, tested), verdict pair, visibility diagram + scrubber + countdowns,
     schematic sky plates, panoramas, deltas, metrics, then sources and limits.
   - The starter example is computed on first visit (PRD 6.2).
 - **Best date** is a numbered workflow (1 Site, 2 Landing days, 3 Mission, then 4 Pick a
@@ -278,10 +278,10 @@ Changes:
 
 Skills applied:
 
-- **impeccable:** context, , concept-seed roll and challenger raises, craft-floor,
-  operate, detect . Wrote  (inferred from PRD/TRD; no interview held).
-  The  command failed with a path error, so the direction contract is
-  recorded in  instead.
+- **impeccable:** context, `new-work`, concept-seed roll and challenger raises, craft-floor,
+  operate, detect `[]`. Wrote `PRODUCT.md` (inferred from PRD/TRD; no interview held).
+  The `surface-brief write` command failed with a path error, so the direction contract is
+  recorded in `DESIGN.md` instead.
 - **emil-design-eng:** no motion on high-frequency actions; one staged reveal;
   reduced motion respected.
 - **web-design-guidelines:** rules re-applied.
@@ -291,35 +291,19 @@ Skills applied:
 - **Not used:** GSAP, Lenis and component libraries (no need, no dependency).
 
 References: pluto-drone, idr-tech and elites-ivory were reviewed earlier this session (the
-mobile pass was skipped at the user's request), plus the awesome-design-md  entry.
+mobile pass was skipped at the user's request), plus the awesome-design-md `spacex` entry.
 Other listed galleries were not reviewed.
 
 Checks:
 
--  and  clean;  13 files / **122 passed**; 
-> lunar-frontend@0.0.0 build
-> tsc --noEmit && vite build
-
-[36mvite v7.3.8 [32mbuilding client environment for production...[36m[39m
-transforming...
-[32m✓[39m 319 modules transformed.
-rendering chunks...
-computing gzip size...
-[2mdist/[22m[32mindex.html                              [39m[1m[2m  0.47 kB[22m[1m[22m[2m │ gzip:   0.31 kB[22m
-[2mdist/[22m[32massets/Gloock-3dTk9V3B.woff2            [39m[1m[2m 26.36 kB[22m[1m[22m
-[2mdist/[22m[32massets/SchibstedGrotesk-Bb8VGrTG.woff2  [39m[1m[2m 46.75 kB[22m[1m[22m
-[2mdist/[22m[35massets/SiteMap-CHGpBUsq.css             [39m[1m[2m 17.24 kB[22m[1m[22m[2m │ gzip:   6.88 kB[22m
-[2mdist/[22m[35massets/index-BT6G4ScN.css               [39m[1m[2m 42.74 kB[22m[1m[22m[2m │ gzip:   8.89 kB[22m
-[2mdist/[22m[36massets/SiteMap-Cwc5zbRW.js              [39m[1m[2m159.41 kB[22m[1m[22m[2m │ gzip:  47.01 kB[22m
-[2mdist/[22m[36massets/index-Dc9Ppvcz.js                [39m[1m[33m546.31 kB[39m[22m[2m │ gzip: 172.20 kB[22m
-[32m✓ built in 2.63s[39m and the
-  mock build succeed; impeccable detect .
+- `tsc` and `eslint` clean; `vitest` 13 files / **122 passed**; `npm run build` and the
+  mock build succeed; impeccable detect `[]`.
 - Headless Edge (CDP) at 1440 / 768 / 375:
-  - At 375 px, , ,  and  all have scrollWidth = 375.
+  - At 375 px, `/`, `/best-date`, `/methods` and `/report` all have scrollWidth = 375.
   - Keyboard scrubbing moves the readout.
   - Reduced motion turns ring motion off.
   - The error state shows the inline field error and the alert.
-- Print:  gives 5 pages. Screenshots are in .
+- Print: `/report` gives 5 pages. Screenshots are in `docs/screenshots/`.
 
 Still limited:
 
