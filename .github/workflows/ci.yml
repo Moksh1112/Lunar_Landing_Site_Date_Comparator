@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AZX_USE_MOCK: 'true'
-      AZX_DATA_DIR: ${{ runner.temp }}/azelux-data
+      AZX_DATA_DIR: ${{ github.workspace }}/work/ci-data
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -97,7 +97,7 @@ jobs:
     env:
       AZX_USE_MOCK: 'true'
       VITE_USE_MOCK: 'true'
-      AZX_DATA_DIR: ${{ runner.temp }}/azelux-data
+      AZX_DATA_DIR: ${{ github.workspace }}/work/ci-data
     strategy:
       fail-fast: false
       matrix:
