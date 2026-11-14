@@ -103,3 +103,7 @@ Do not use invented sites for the real demo. Mock site records have verified=fal
 The mock frontend must distinguish preview data without weakening verified-site rules.
 Source ambiguities (including refined sweep metadata/transport labels) stay explicit.
 No sync-0 tag or later-stage work until the real gate passes.
+
+Python-backed npm checks and fixture commands use scripts/python.mjs and the
+interpreter recorded by setup; no bare python executable or venv activation is needed.
+Run npm run setup first. Direct CI Python invocations use actions/setup-python.

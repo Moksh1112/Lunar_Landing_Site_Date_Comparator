@@ -6,11 +6,11 @@
     "setup": "node scripts/setup.mjs",
     "dev:all": "node scripts/dev.mjs",
     "check": "npm --prefix frontend run check",
-    "check:setup": "node --check scripts/setup.mjs && node --check scripts/dev.mjs && python -m compileall -q backend/app && node --check scripts/hooks.mjs && node --check scripts/python-runtime.mjs && node --check scripts/backend-check.mjs && node --check scripts/check-startup.mjs",
+    "check:setup": "node --check scripts/setup.mjs && node --check scripts/dev.mjs && node scripts/python.mjs scripts/check-python.py && node --check scripts/hooks.mjs && node --check scripts/python-runtime.mjs && node --check scripts/backend-check.mjs && node --check scripts/check-startup.mjs && node --check scripts/python.mjs",
     "check:backend": "node scripts/backend-check.mjs",
     "hooks": "node scripts/hooks.mjs",
     "check:startup": "node scripts/check-startup.mjs",
-    "fixtures": "python scripts/make_fixtures.py",
-    "check:fixtures": "python scripts/check-fixtures.py"
+    "fixtures": "node scripts/python.mjs scripts/make_fixtures.py",
+    "check:fixtures": "node scripts/python.mjs scripts/check-fixtures.py"
   }
 }

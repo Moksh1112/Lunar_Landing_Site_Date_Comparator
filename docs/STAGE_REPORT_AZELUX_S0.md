@@ -33,3 +33,15 @@ frontend React 18/client/shell and backend expanded API owner handoff; actual te
 startup/hooks; download/manifest evidence; protected-main owner decision; revised
 schedule/host access. No sync-0 tag until actual gate passes on canonical baseline.
 No S1 work started. No main merge, deployment or tag. Next: check authorized branch publication/hosted CI, collect remaining team gates.
+
+
+## Frontend teammate readiness / portable Python check follow-up
+Received teammate-reported macOS startup/build/check results at baseline 5f8fd1b;
+no frontend features committed in that report. Separate C03-C09/React positions and
+final integration note not included. P2+P3 combined; P4+P5 combined; user P1.
+Corrected bare-python npm commands to use setup-selected interpreter via python.mjs.
+Initial check hit bytecode cache write errors; syntax check now compiles without
+writing source-tree bytecode. npm run check:setup and check:fixtures both PASS,
+also with python absent from PATH. Hosted startup matrix now runs these checks.
+No product-source edits, no contract freeze, no Sync 0 tag. New hosted result must
+be checked by commit; earlier CI evidence is not treated as current acceptance.

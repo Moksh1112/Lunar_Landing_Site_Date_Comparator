@@ -64,3 +64,14 @@ Resolve open contract questions with owners; teammate startup/hooks/role evidenc
 kernel/DEM download/manifest evidence; reviewed green canonical baseline on protected
 main (user has forbidden changing main here); domain/hosting and actual schedule.
 See SYNC_0_CONFIRMATIONS.md. Stop at S0.
+
+## Teammate readiness evidence received
+Frontend owner reports branch feat/p4-frontend-s0 at baseline 5f8fd1b, no feature
+changes yet. macOS arm64 / Node 20.20.2 / npm 10.8.2 / Python 3.12.14: setup,
+hooks, both HTTP endpoints, shutdown, tsc/build, fixture and backend checks passed.
+This is teammate-reported evidence, not independently rerun on that machine.
+check:setup failed with no bare python on PATH; integration corrected npm commands
+to use setup-selected interpreter. Frontend implementation and team freeze remain
+pending; separate contract/React positions and final integration note not received.
+User confirmed one teammate owns P2+P3, another P4+P5, user owns P1.
+P6/Coordinator assignment still needs confirmation. No full Sync 0 acceptance.
