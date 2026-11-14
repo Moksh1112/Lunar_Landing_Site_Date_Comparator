@@ -182,3 +182,25 @@ and target). Backend verdict tests: 9 passed; schema sensitivity check passed af
 adding explicit UTC timestamp pattern. Impeccable detector on verdict change: [].
 Preview remains frontend HTTP 200 and backend /health status ok, mock true. This
 CI evidence belongs to 6ab81e3; subsequent documentation-only commit has its own run.
+
+## Temporary full-stack milestone — 15 November 2026
+
+User granted temporary P1-P6 engineering ownership; release/deployment is reserved
+for the user. Existing clean owner worktrees are reused. Push every verified coherent
+milestone and leave handoff evidence as work progresses.
+
+80 m NASA PGDA DEM resumed successfully: 189158392 bytes, SHA256
+82030dcbdd7c4bb0c7d858e9b4b293b9f2cda5a543ba31ec0f42784bd6beee5a,
+matching the earlier owner's complete-file evidence. Derived far_160m.tif and the
+georeferenced south-pole hillshade in C:/azx/data. Local covered-polar compare now
+returns REAL/terrain_coarse for both curated IM-2 scenarios. This does not claim
+20 m near-field coverage. Remote NASA COG tile extraction is still running.
+
+Backend f55f8d0 is green on hosted CI. New V1/V2 runner performed live Horizons
+checks: V1 576 angle rows (3 positions x 48 hourly times x Sun/Earth x az/el), max
+error about 0.00000236 deg; V2 exact latitude/east-longitude header agreement.
+Evidence is team-produced/owner-reported, not external certification. Initial
+V2 height comparison exposed ~2e-13 km Horizons numerical noise; the final V2 rows
+check exactly the latitude/longitude scope specified in PRD, while raw headers retain
+height. Full artifacts are published on the backend branch; pending green evidence CI
+before integration. V4 long-run illumination and terrain 3D remain outstanding.
