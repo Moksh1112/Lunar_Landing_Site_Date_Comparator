@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V4",
+  "title": "18.6-year daily visibility versus PGDA 69",
+  "data_label": "REAL",
+  "scope": "full_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-14T21:57:25Z",
+  "producer_commit": "45ffa82d36afe54d4001314bc4f836463715ddb2",
+  "command": "node scripts/python.mjs backend/tools/validate_illumination.py --out validation/results/V4-illumination.json",
+  "sources": [
+    {
+      "label": "Reference",
+      "reference": "https://pgda.gsfc.nasa.gov/products/69"
+    },
+    {
+      "label": "Terrain",
+      "reference": "https://pgda.gsfc.nasa.gov/products/90"
+    }
+  ],
+  "manifest_sha256": "1ab98f0d7ad19d85122c2145762fbdf862e17ecf08c4b0d0ccefebd1cf052954",
+  "coverage": "Five mathematical polar test positions; daily epochs over 18.6 years from 2000-01-01; modes ['terrain_coarse', 'terrain_coarse', 'terrain_coarse', 'terrain_coarse', 'terrain_coarse'].",
+  "status": "fail",
+  "rows": [
+    {
+      "case": "-89,0",
+      "metric": "sun_visibility",
+      "actual": 10.272259013980868,
+      "reference": 14.975999295711517,
+      "unit": "percentage_points",
+      "abs_error": 4.703740281730649,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-89,0",
+      "metric": "earth_visibility",
+      "actual": 41.08903605592347,
+      "reference": 45.611998438835144,
+      "unit": "percentage_points",
+      "abs_error": 4.522962382911672,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-88,90",
+      "metric": "sun_visibility",
+      "actual": 7.770419426048565,
+      "reference": 14.083999395370483,
+      "unit": "percentage_points",
+      "abs_error": 6.313579969321919,
+      "tolerance": 5.0,
+      "status": "fail"
+    },
+    {
+      "case": "-88,90",
+      "metric": "earth_visibility",
+      "actual": 46.019131714495956,
+      "reference": 50.42799711227417,
+      "unit": "percentage_points",
+      "abs_error": 4.408865397778214,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-87,180",
+      "metric": "sun_visibility",
+      "actual": 33.92200147167034,
+      "reference": 34.911999106407166,
+      "unit": "percentage_points",
+      "abs_error": 0.9899976347368238,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-87,180",
+      "metric": "earth_visibility",
+      "actual": 0.0,
+      "reference": 3.807999938726425,
+      "unit": "percentage_points",
+      "abs_error": 3.807999938726425,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-86,270",
+      "metric": "sun_visibility",
+      "actual": 32.818248712288444,
+      "reference": 34.91999804973602,
+      "unit": "percentage_points",
+      "abs_error": 2.101749337447579,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-86,270",
+      "metric": "earth_visibility",
+      "actual": 41.23620309050773,
+      "reference": 45.8079993724823,
+      "unit": "percentage_points",
+      "abs_error": 4.571796281974571,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "sun_visibility",
+      "actual": 11.846946284032377,
+      "reference": 13.592000305652618,
+      "unit": "percentage_points",
+      "abs_error": 1.7450540216202413,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "earth_visibility",
+      "actual": 0.0,
+      "reference": 0.0,
+      "unit": "percentage_points",
+      "abs_error": 0.0,
+      "tolerance": 5.0,
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "PGDA counts any visible disc portion; runtime uses body centres.",
+    "Daily sampling differs from the reference hourly sampling.",
+    "Reference map averaging start epoch is not established here.",
+    "Coarse terrain may miss local obstacles; no external scientific acceptance."
+  ]
+}
