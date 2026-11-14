@@ -152,3 +152,10 @@ Frontend is unblocked by decisions: no waiting for inactive teammates. Full fron
 completion and real-data readiness remain evidence-based. Sync 0/1 have not been
 passed by this update. Detailed handoff: FRONTEND_UNBLOCK_DECISIONS.md. Historical
 pending-decision and placeholder descriptions above are superseded by this section.
+
+Integration verification: code/lockfile revision 6ab81e3 passed all seven hosted jobs
+in run 43634346682 (frontend, backend, fixtures, attribution, secrets, startup venv
+and target). Backend verdict tests: 9 passed; schema sensitivity check passed after
+adding explicit UTC timestamp pattern. Impeccable detector on verdict change: [].
+Preview remains frontend HTTP 200 and backend /health status ok, mock true. This
+CI evidence belongs to 6ab81e3; subsequent documentation-only commit has its own run.
