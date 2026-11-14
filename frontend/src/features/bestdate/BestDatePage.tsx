@@ -7,6 +7,7 @@ import type { SweepDay, SweepRequest, SweepResponse } from "../../api/types";
 import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { HorizonModeLabel } from "../../components/HorizonModeLabel";
+import { SiteSource } from "../../components/SiteSource";
 import { Skeleton } from "../../components/Skeleton";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
 import { useStore } from "../../store";
@@ -134,6 +135,7 @@ export function BestDatePage() {
               ))}
             </select>
             {sites.isError && <span className={styles.fieldError}>Could not load the site list; enter coordinates instead.</span>}
+            <SiteSource siteId={form.siteId} />
           </label>
           <label className={styles.check}>
             <input type="checkbox" checked={showUnverified} onChange={(e) => setShowUnverified(e.target.checked)} />
@@ -221,6 +223,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
         {data.meta.data_label !== "REAL" && <SyntheticBadge />}
         <HorizonModeLabel mode={data.meta.horizon_mode} />
         <span className={styles.muted}>{data.meta.dem ? `DEM ${data.meta.dem}` : "no DEM"} · {data.meta.ephemeris}</span>
+        <SiteSource siteId={data.site.site_id} />
       </div>
 
       <section className={styles.panel} aria-labelledby="cal-h">

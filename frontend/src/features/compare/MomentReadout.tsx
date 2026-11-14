@@ -1,4 +1,5 @@
 import type { CompareResponse } from "../../api/types";
+import { Term } from "../../components/Term";
 import type { AlignBy } from "./contracts";
 import { absoluteTime, countdownText, momentAt } from "./moment";
 import styles from "./compare.module.css";
@@ -35,6 +36,10 @@ export function MomentReadout({ data, scrubT, alignBy, expert }: { data: Compare
           );
         })}
       </ul>
+      <p className={styles.momentNote}>
+        Countdowns run to the next sunset or <Term k="earthset">Earthset</Term>. Earth drifts slightly in the sky with{" "}
+        <Term k="libration">libration</Term>. Earth in view is not a guaranteed <Term k="dte">DTE</Term> link.
+      </p>
     </section>
   );
 }

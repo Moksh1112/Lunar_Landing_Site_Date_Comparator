@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { HorizonModeLabel } from "../../components/HorizonModeLabel";
+import { SiteSource } from "../../components/SiteSource";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
+import { Term } from "../../components/Term";
 import type { CompareResponse, Meta, MetricKey, ScenarioResult, Thresholds, Verdict } from "../../api/types";
 import { bRelativeToA, type ResultsSummaryProps } from "./contracts";
 import {
@@ -107,6 +109,7 @@ function SourceBadge({ s }: { s: ScenarioResult }) {
       <span className={styles.muted}>{m.dem ? `DEM ${m.dem}` : "no DEM"}</span>
       <span className={styles.muted}>step {m.step_minutes} min</span>
       {m.data_label !== "REAL" && <SyntheticBadge />}
+      <SiteSource siteId={s.site.site_id} />
     </li>
   );
 }
@@ -132,7 +135,11 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds }: Res
       <section aria-labelledby="metrics-h" className={styles.panel}>
         <div className={styles.panelHead}>
           <h3 id="metrics-h">Metrics</h3>
-          <span className={styles.muted}>{expert ? "Expert: 0.01° precision and run details" : "Rounded. Switch to Expert for full precision."}</span>
+          <span className={styles.muted}>
+            {expert
+              ? `Expert: 0.01° precision. Sample step A ${a.meta.step_minutes} min, B ${b.meta.step_minutes} min.`
+              : "Rounded. Switch to Expert for full precision."}
+          </span>
         </div>
         <div className={styles.tableWrap}>
           <table className={styles.table}>
@@ -150,7 +157,9 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds }: Res
             <tbody>
               {METRIC_KEYS.map((k) => (
                 <tr key={k}>
-                  <th scope="row">{metricLabel(k)}</th>
+                  <th scope="row">
+                    {k === "sun_el_max_deg" ? <Term k="solar_elevation">{metricLabel(k)}</Term> : metricLabel(k)}
+                  </th>
                   <td>{formatMetric(k, a.metrics[k], expert)}</td>
                   <td>{formatMetric(k, b.metrics[k], expert)}</td>
                   <td>{formatDeltaMetric(k, data.deltas[k], expert)}</td>
@@ -170,6 +179,14 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds }: Res
                     <td>{NA}</td>
                   </tr>
                 ))}
+                <tr className={styles.methodRow}>
+                  <th scope="row">Frame</th>
+                  <td colSpan={3}>MOON_ME body-fixed (method constant, TRD; not reported per response)</td>
+                </tr>
+                <tr className={styles.methodRow}>
+                  <th scope="row">Validation tolerances</th>
+                  <td colSpan={3}>Not available until validation results are committed (see Methods)</td>
+                </tr>
               </tbody>
             )}
           </table>

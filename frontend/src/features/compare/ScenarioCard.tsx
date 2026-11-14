@@ -1,6 +1,7 @@
 import { useId, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getSites } from "../../api/client";
+import { SiteSource } from "../../components/SiteSource";
 import { useStore } from "../../store";
 import { fieldKey, lonNote, type FieldErrors } from "./compareForm";
 import styles from "./compare.module.css";
@@ -74,6 +75,7 @@ export function ScenarioCard({ id, errors }: Props) {
         </select>
         {sites.isError && <span className={styles.fieldError}>Could not load the site list; enter coordinates instead.</span>}
         {linkedSite && <span className={styles.hint}>Linked to Plan A by the Date shift preset.</span>}
+        <SiteSource siteId={sc.siteId} />
       </label>
       <label className={styles.check}>
         <input type="checkbox" checked={showUnverified} onChange={(e) => setShowUnverified(e.target.checked)} />

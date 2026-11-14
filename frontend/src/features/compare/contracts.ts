@@ -14,7 +14,14 @@ export type ResultsSummaryProps = {
 };
 
 /** One horizon panorama per scenario: skyline + Sun/Earth paths; marker at scrubT (unix s) if set. */
-export type HorizonPanoramaProps = { scenario: ScenarioResult; scrubT: number | null; yMinDeg: number; yMaxDeg: number };
+export type HorizonPanoramaProps = {
+  scenario: ScenarioResult;
+  scrubT: number | null;
+  yMinDeg: number;
+  yMaxDeg: number;
+  /** Expert mode: skyline value readout on pointer hover (PRD 6.3). */
+  expert?: boolean;
+};
 
 /** Aligned Sun/Earth/Both lanes for A and B on one time axis, plus a difference lane; scrubber input. */
 export type TimelineLanesProps = {

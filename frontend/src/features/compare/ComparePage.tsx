@@ -6,12 +6,14 @@ import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Skeleton } from "../../components/Skeleton";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
+import { Term } from "../../components/Term";
 import { useStore } from "../../store";
 import { focusFirstInvalid } from "../../components/focus";
 import { ExportButtons } from "../export/ExportButtons";
 import { buildRequest, sharedYRange, validate, type CompareForm, type FieldErrors } from "./compareForm";
 import { HorizonPanorama } from "./HorizonPanorama";
 import { ModePresets } from "./ModePresets";
+import { RawData } from "./RawData";
 import { MomentReadout } from "./MomentReadout";
 import { ResultsSummary } from "./ResultsSummary";
 import { ScenarioCard } from "./ScenarioCard";
@@ -128,11 +130,13 @@ export function ComparePage() {
               <section className={styles.chartPanel} aria-labelledby="where-h">
                 <div className={styles.chartHead}>
                   <h3 id="where-h">Where the Sun and Earth sit</h3>
-                  <span className={styles.hint}>Same elevation scale for both plans.</span>
+                  <span className={styles.hint}>
+                    Filled area is the <Term k="skyline">skyline</Term>. Same elevation scale for both plans.
+                  </span>
                 </div>
                 <div className={styles.panoramas}>
                   {data.scenarios.map((s) => (
-                    <HorizonPanorama key={s.id} scenario={s} scrubT={scrubT} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
+                    <HorizonPanorama key={s.id} scenario={s} scrubT={scrubT} yMinDeg={range.yMin} yMaxDeg={range.yMax} expert={expert} />
                   ))}
                 </div>
               </section>
@@ -151,6 +155,7 @@ export function ComparePage() {
                 <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
                 <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
               </section>
+              {expert && <RawData data={data} />}
             </>
           ) : (
             <EmptyState title="Press Compare to see the difference">

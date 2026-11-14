@@ -49,3 +49,11 @@
 .sources { display: flex; flex-direction: column; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
 .source { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--text-sm); }
 .limits { margin: 0; padding-left: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* Expert raw data */
+.rawSummary { cursor: pointer; font-weight: 600; min-height: 1.75rem; display: flex; align-items: center; }
+.rawBody { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-3); }
+.rawControls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.rawWrap { max-height: 24rem; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.rawWrap thead th { position: sticky; top: 0; background: var(--color-surface); }
+.methodRow td { text-align: left; white-space: normal; color: var(--color-text-muted); }

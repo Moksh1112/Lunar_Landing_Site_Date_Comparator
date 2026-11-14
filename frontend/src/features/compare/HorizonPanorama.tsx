@@ -1,7 +1,9 @@
+import { useState, type PointerEvent } from "react";
 import { scaleLinear } from "d3-scale";
 import { area, line } from "d3-shape";
 import type { HorizonPanoramaProps } from "./contracts";
 import { countVisible, nearestIndex, splitAtWrap } from "./chartMath";
+import { skylineAt } from "./skyline";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -9,8 +11,16 @@ const H = 260;
 const M = { top: 12, right: 16, bottom: 28, left: 40 };
 const COMPASS: [number, string][] = [[0, "N"], [90, "E"], [180, "S"], [270, "W"], [360, "N"]];
 
-export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg }: HorizonPanoramaProps) {
+export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg, expert = false }: HorizonPanoramaProps) {
   const { skyline, series, label } = scenario;
+  const [hoverAz, setHoverAz] = useState<number | null>(null);
+  const onMove = (e: PointerEvent<SVGSVGElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const vx = ((e.clientX - r.left) / r.width) * W;
+    const az = ((vx - M.left) / (W - M.left - M.right)) * 360;
+    setHoverAz(az >= 0 && az <= 360 ? az : null);
+  };
+  const hover = expert && hoverAz !== null ? skylineAt(skyline, hoverAz) : null;
   const x = scaleLinear().domain([0, 360]).range([M.left, W - M.right]);
   const y = scaleLinear().domain([yMinDeg, yMaxDeg]).range([H - M.bottom, M.top]);
 
@@ -46,7 +56,14 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg }: HorizonP
   return (
     <figure className={styles.figure}>
       <h3 className={styles.title}>{title}</h3>
-      <svg viewBox={`0 0 ${W} ${H}`} className={styles.svg} role="img" aria-label={`${title}. ${summary}`}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className={styles.svg}
+        role="img"
+        aria-label={`${title}. ${summary}`}
+        onPointerMove={expert ? onMove : undefined}
+        onPointerLeave={expert ? () => setHoverAz(null) : undefined}
+      >
         {yTicks.map((t) => (
           <g key={t}>
             <line x1={M.left} x2={W - M.right} y1={y(t)} y2={y(t)} className={styles.grid} />
@@ -62,6 +79,7 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg }: HorizonP
         <path d={skyPath} className={styles.skyline} />
         {renderSegs(earthSegs, styles.earth, "e")}
         {renderSegs(sunSegs, styles.sun, "s")}
+        {hover && <line x1={x(hover.az)} x2={x(hover.az)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} opacity={0.5} />}
         {idx >= 0 && (
           <>
             <circle cx={x(series.earth_az[idx])} cy={y(series.earth_el[idx])} r={5} className={`${styles.marker} ${styles.earth}`} />
@@ -69,6 +87,13 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg }: HorizonP
           </>
         )}
       </svg>
+      {expert && (
+        <p className={styles.hoverRead} aria-hidden="true">
+          {hover
+            ? `Azimuth ${hover.az.toFixed(1)}°: skyline ${hover.elev.toFixed(2)}°${hover.distKm !== null ? `, blocked at ${hover.distKm.toFixed(2)} km` : ""}`
+            : "Point at the chart to read skyline values (also in Raw data below)."}
+        </p>
+      )}
       <ul className={styles.legend} aria-hidden="true">
         <li><span className={`${styles.swatch} ${styles.sun}`} />Sun (visible)</li>
         <li><span className={`${styles.swatch} ${styles.swatchDotted} ${styles.sun}`} />Sun (below horizon)</li>

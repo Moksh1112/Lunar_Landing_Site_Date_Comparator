@@ -23,3 +23,4 @@
 .scrubber:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
 .scrubLabel { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
 @media print { .scrubLabel { display: none; } }
+.hoverRead { margin: 0; font-size: var(--text-xs); color: var(--color-text); font-variant-numeric: tabular-nums; min-height: 1.2em; }

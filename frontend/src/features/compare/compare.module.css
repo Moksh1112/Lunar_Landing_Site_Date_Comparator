@@ -68,3 +68,5 @@
   .inputs { padding: var(--space-2); }
   .chartPanel { padding: var(--space-3); }
 }
+.momentNote { margin: var(--space-3) 0 0; font-size: var(--text-xs); color: var(--color-text-muted); max-width: 75ch; }
+.cardSource { margin-top: calc(-1 * var(--space-1)); }

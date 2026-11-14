@@ -2,17 +2,11 @@ import { Link } from "react-router";
 import { useHealthQuery } from "../../app/SyntheticBanner";
 import { USE_MOCK } from "../../api/client";
 import { EmptyState } from "../../components/EmptyState";
+import { GLOSSARY } from "../../components/glossary";
 import { validationFiles } from "./validationEvidence";
 import styles from "./methods.module.css";
 
-const GLOSSARY: [string, string][] = [
-  ["Solar elevation", "How high the centre of the Sun is above the local horizontal plane, in degrees."],
-  ["Skyline", "The terrain horizon: for every compass direction, the elevation angle of the highest terrain seen from the site."],
-  ["Earthset", "The moment Earth's centre drops below the skyline at the site. Earth in view does not guarantee a radio link."],
-  ["Libration", "The Moon's slow wobble as seen from Earth, which moves Earth around a small patch of the lunar sky."],
-  ["DTE", "Direct-to-Earth communication: a link that needs Earth above the skyline. Azelux reports visibility only."],
-  ["Geometric horizon only", "No terrain data was used: the horizon is a smooth sphere. Shown on every result that uses it."],
-];
+const GLOSSARY_ROWS = Object.values(GLOSSARY).map((g) => [g.term, g.definition] as const);
 
 export function MethodsPage() {
   const health = useHealthQuery();
@@ -126,7 +120,7 @@ export function MethodsPage() {
       <section id="glossary" className={styles.section}>
         <h2>Glossary</h2>
         <dl className={styles.glossary}>
-          {GLOSSARY.map(([t, d]) => (
+          {GLOSSARY_ROWS.map(([t, d]) => (
             <div key={t}>
               <dt>{t}</dt>
               <dd>{d}</dd>

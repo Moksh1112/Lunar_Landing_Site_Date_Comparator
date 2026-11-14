@@ -11,7 +11,7 @@
 
 | Req | Status | Where |
 | --- | --- | --- |
-| F1 site library, coordinate source | partial | Picker in `ScenarioCard` / `BestDatePage`; unverified sites hidden by default. `source_url`/`source_note` are not displayed yet. |
+| F1 site library, coordinate source | complete (follow-up) | `SiteSource`: the note, an http(s)-only link and an unverified/SYNTHETIC flag, on Plan cards, the Best-date form and result, and results/report sources |
 | F2 custom coordinates, longitude conversion | complete | `compareForm.ts`, `sweepForm.ts` (tested) |
 | F3 2D map | **blocked** | Needs the `leaflet` + `react-leaflet` dependency (lockfile, P1) and the Moon/hillshade basemaps (terrain owner). See request R1. |
 | F4 A/B scenarios | complete | `/` |
@@ -26,13 +26,13 @@
 | F16 aligned timeline (calendar / mission day) | complete | Restyled |
 | F17 scrubber: all views agree | complete (2D) | Panorama markers, timeline and readout all use the store's `scrubT`; the 3D view does not exist |
 | F18 3D view | **blocked** | `three`/`@react-three/fiber` dependencies (P1 lockfile) and the section 12 gate |
-| F19 Simple/Expert toggle | complete | Expert shows 0.01° precision and run details. A raw series *table* is not built; the raw series is in the CSV/JSON export. |
+| F19 Simple/Expert toggle | complete (follow-up) | Expert adds:<br>• 0.01° precision and the sample step for each plan<br>• run details, including the frame (MOON_ME, a method constant) and tolerances (pending R2)<br>• a skyline readout on pointer hover<br>• raw time-series and skyline tables (`RawData`, first 500 rows, all rows in CSV/JSON) |
 | F20 source label on every result | complete | Compare, Best date, Report and the exports |
 | F21 loading / empty / invalid / error states | complete | Every async view; inputs kept; focus moves to the first invalid field |
 | F22/F23 Horizons and PGDA evidence on Methods | **blocked (empty state)** | `validation/results/*.json` does not exist, and its schema is not in the contract (R2) |
 | F24 Methods and sources page | **complete (new)** | `/methods`: method, data products, live `/health` loaded resources, limits, glossary. Linked from every result. |
 | F25 CSV/JSON export with provenance; PDF via print of `/report` | **complete (new)** | `features/export/*`, `/report` with print stylesheet. The manifest hash is reported as unavailable (C08). |
-| PRD 6.4 glossary on hover | partial | Glossary is on Methods; there are no inline hover terms yet |
+| PRD 6.4 glossary on hover | complete (follow-up) | `Term`: opens on hover, or on focus plus Enter/Space; Escape closes it; the definition is announced. Used on solar elevation, skyline, Earthset, libration and DTE. One source shared with Methods (`glossary.ts`). |
 | TRD 7.6 design tokens, contrast ≥ 4.5:1 | complete | `frontend/DESIGN.md` |
 | TRD 10.3 at 375 px without horizontal scroll | complete | Checked on every route |
 
@@ -87,3 +87,27 @@ Screenshots are in `frontend/docs/screenshots/`. Not verified:
 - The print preview was not rendered (only the stylesheet exists).
 - No real backend was used.
 - Downloaded CSV/JSON were checked by unit tests, not opened from a browser download.
+
+## Follow-up: F1 sources, inline glossary, Expert completeness
+
+`verdict.ts`, dependencies and lockfiles were not touched, as P1 asked. Built in worktree
+`work/fe-s1` with `npm ci` from the existing lockfile.
+
+Checks:
+
+- `tsc --noEmit` clean; `eslint .` clean.
+- `vitest`: 9 files, **98 passed** (9 new: glossary coverage, `findSite`/`safeHref`,
+  `skylineAt`).
+- `VITE_USE_MOCK=true vite build`: built.
+
+Browser checks (mock):
+
+- **F1:** the source note and `example.invalid` link appear with "Unverified (SYNTHETIC)"
+  on the Plan A card, the result sources, the Best-date form and the Best-date result.
+- **Glossary:** focus the help button and press Enter: `aria-expanded=true` and the
+  definition is announced. Escape closes it.
+- **Expert:** hovering the panorama shows "Azimuth 174.0°: skyline 0.56°, blocked at
+  42.21 km". Raw data shows 49 series rows, and the skyline shows "First 500 of 720 rows".
+- **375 px:** with all glossary tips open, scrollWidth is 375.
+
+Screenshots: `desktop-1440-expert-*.jpg` and `mobile-375-glossary-help.jpg`.
