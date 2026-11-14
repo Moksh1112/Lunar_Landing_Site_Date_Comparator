@@ -133,3 +133,22 @@ Sync 0 remains OPEN. No later-stage gates accepted.
 - P1 diff review: frontend route/store/components/tests/docs only; no API client, backend, fixture, shared tooling or contract changes. `git diff --check` passed.
 - Frontend positions on C03-C09 and React 19 are recorded in `frontend/docs/FRONTEND_POSITIONS_S1.md`; these are recommendations awaiting Coordinator decision, not approvals. Audit remains 7 moderate dev-only findings per owner report; production audit reported clean.
 - Sync 0/1 remain OPEN pending Coordinator decisions, owner/evidence acceptance and team gate review. Later stages are not accepted. Best-date, real data, export and other remaining requirements should be checked against the PRD/TRD before claiming full frontend completion.
+## Current status — 15 November 2026 frontend redesign integration
+
+- [x] Integrate green frontend 53221dd; CI 43633449283 SUCCESS.
+- [x] Approve R1 map dependencies and pin compatible packages; 3D remains gated.
+- [x] Define R2 validation file interface; no real validation artifacts invented.
+- [x] Resolve R3 with existing backend 1e-9 tolerance; frontend boundary tests pass.
+- [x] Record React 19 deviation and C03-C09 target decisions under delegated authority.
+- [x] Targeted minimatch override; npm full/production audit reports zero findings.
+- [x] Independent local lint, 92 tests, strict TypeScript + production build.
+- [x] Browser HTTP/mock Compare and Best Date/Load as B; parse actual downloaded JSON/CSV.
+- [ ] Print/PDF visual verification: embedded-browser print action timed out; no preview.
+- [ ] Frontend F3 map, source links, accessible glossary and Expert audit: owner next work.
+- [ ] Validation display consumption and reviewed real V1/V2/V4 evidence.
+- [ ] Implement/test approved v1.1 additions across consumers before activating them.
+
+Frontend is unblocked by decisions: no waiting for inactive teammates. Full frontend
+completion and real-data readiness remain evidence-based. Sync 0/1 have not been
+passed by this update. Detailed handoff: FRONTEND_UNBLOCK_DECISIONS.md. Historical
+pending-decision and placeholder descriptions above are superseded by this section.
