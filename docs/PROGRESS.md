@@ -7,8 +7,8 @@ The user stopped pending implementation on 15 November 2026. Start with
 [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md) for exact branches, checks and next action.
 Integration code baseline 84b4181 has green hosted CI (run 43649120105). Backend
 79936a5 is integrated. Frontend fd7bf03 is pushed but NOT merged: local lint,
-126 tests and TypeScript/build passed; hosted CI and rendered verification must be
-checked before accepting it. Computer Use blocked browser verification; no visual
+126 tests and TypeScript/build passed; hosted CI run 43649641903 passed all seven
+jobs. Integration and rendered verification remain for the next owner. Computer Use blocked browser verification; no visual
 pass is claimed. No release/deployment or remaining feature work is being continued.
 
 ## Current authoritative status — full-stack engineering milestone
