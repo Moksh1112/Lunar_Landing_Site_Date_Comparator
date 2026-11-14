@@ -1,0 +1,5791 @@
+{
+  "schema_version": "1.0",
+  "data_label": "REAL",
+  "scope": "full_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-14T21:45:23Z",
+  "producer_commit": "f55f8d0189c40387b63903fbdf8fcf5c044ed15b",
+  "command": "node scripts/python.mjs backend/tools/validate_ephemeris.py --out-dir validation/results",
+  "sources": [
+    {
+      "label": "Reference",
+      "reference": "https://ssd.jpl.nasa.gov/api/horizons.api"
+    },
+    {
+      "label": "Runtime",
+      "reference": "SPICE DE440 MOON_ME, LT+S; naif0012.tls, de440s.bsp, pck00011.tpc, moon_pa_de440_200625.bpc, moon_de440_250416.tf"
+    }
+  ],
+  "coverage": "Three mathematical test positions (polar, near side, far side), 48 hourly epochs, Sun/Earth.",
+  "limitations": [
+    "Horizons DE441 versus runtime DE440.",
+    "Same implementation team ran the check; external review remains pending.",
+    "This validates ephemeris and coordinate conventions, not terrain or mission safety."
+  ],
+  "manifest_sha256": "460bf28941b2b7e589405aa9f26331b4bf2c39a5d324c8324260e12159759373",
+  "check_id": "V1",
+  "title": "SPICE versus Horizons: 3 positions x 48 hours",
+  "rows": [
+    {
+      "case": "polar sun 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 265.52288171470775,
+      "reference": 265.522881719,
+      "unit": "deg",
+      "abs_error": 4.292246558179613e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6480795881076147,
+      "reference": -0.648079588,
+      "unit": "deg",
+      "abs_error": 1.0761469493303366e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 265.0156031196718,
+      "reference": 265.015603124,
+      "unit": "deg",
+      "abs_error": 4.328171598899644e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6577517237457661,
+      "reference": -0.657751724,
+      "unit": "deg",
+      "abs_error": 2.5423396721180325e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 264.5083120588786,
+      "reference": 264.508312063,
+      "unit": "deg",
+      "abs_error": 4.121432084502885e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6674148621547672,
+      "reference": -0.667414862,
+      "unit": "deg",
+      "abs_error": 1.547671990564936e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 264.0010085274876,
+      "reference": 264.001008532,
+      "unit": "deg",
+      "abs_error": 4.512401119427523e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6770683422906792,
+      "reference": -0.677068342,
+      "unit": "deg",
+      "abs_error": 2.9067925844117326e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 263.4936925211811,
+      "reference": 263.493692525,
+      "unit": "deg",
+      "abs_error": 3.818854565906804e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6867115035825276,
+      "reference": -0.686711503,
+      "unit": "deg",
+      "abs_error": 5.825276927495793e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 262.9863640362919,
+      "reference": 262.98636404,
+      "unit": "deg",
+      "abs_error": 3.70812358596595e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.6963436859802254,
+      "reference": -0.696343686,
+      "unit": "deg",
+      "abs_error": 1.977451535850605e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 262.47902306998344,
+      "reference": 262.479023074,
+      "unit": "deg",
+      "abs_error": 4.016555976704694e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7059642300016272,
+      "reference": -0.70596423,
+      "unit": "deg",
+      "abs_error": 1.627253887193092e-12,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 261.9716696199092,
+      "reference": 261.971669624,
+      "unit": "deg",
+      "abs_error": 4.09079348173691e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7155724767888444,
+      "reference": -0.715572477,
+      "unit": "deg",
+      "abs_error": 2.1115564852181024e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 261.46430368454867,
+      "reference": 261.464303688,
+      "unit": "deg",
+      "abs_error": 3.4513050195528194e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7251677681525457,
+      "reference": -0.725167768,
+      "unit": "deg",
+      "abs_error": 1.5254564278421867e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 260.956925263023,
+      "reference": 260.956925267,
+      "unit": "deg",
+      "abs_error": 3.976992957177572e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7347494466255603,
+      "reference": -0.734749447,
+      "unit": "deg",
+      "abs_error": 3.744397014671108e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 260.4495343550665,
+      "reference": 260.449534359,
+      "unit": "deg",
+      "abs_error": 3.933507741749054e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7443168555136572,
+      "reference": -0.744316855,
+      "unit": "deg",
+      "abs_error": 5.136572278630069e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 259.94213096125867,
+      "reference": 259.942130965,
+      "unit": "deg",
+      "abs_error": 3.741320142580662e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7538693389417839,
+      "reference": -0.753869339,
+      "unit": "deg",
+      "abs_error": 5.821609860845456e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 259.4347150827354,
+      "reference": 259.434715086,
+      "unit": "deg",
+      "abs_error": 3.264574388595065e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7634062419094453,
+      "reference": -0.763406242,
+      "unit": "deg",
+      "abs_error": 9.055467486973612e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 258.92728672142084,
+      "reference": 258.927286725,
+      "unit": "deg",
+      "abs_error": 3.5791458685707767e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.7729269103369617,
+      "reference": -0.77292691,
+      "unit": "deg",
+      "abs_error": 3.3696168078023447e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 258.4198458799469,
+      "reference": 258.419845883,
+      "unit": "deg",
+      "abs_error": 3.0531168704328593e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.782430691117175,
+      "reference": -0.782430691,
+      "unit": "deg",
+      "abs_error": 1.171750474426858e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 257.91239256167637,
+      "reference": 257.912392565,
+      "unit": "deg",
+      "abs_error": 3.3236347007914446e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.791916932165332,
+      "reference": -0.791916932,
+      "unit": "deg",
+      "abs_error": 1.6533197033652414e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 257.4049267706748,
+      "reference": 257.404926774,
+      "unit": "deg",
+      "abs_error": 3.3251694731006864e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8013849824698659,
+      "reference": -0.801384982,
+      "unit": "deg",
+      "abs_error": 4.698659239465997e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 256.89744851173333,
+      "reference": 256.897448515,
+      "unit": "deg",
+      "abs_error": 3.266677595092915e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8108341921422267,
+      "reference": -0.810834192,
+      "unit": "deg",
+      "abs_error": 1.4222678590414262e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 256.38995779044444,
+      "reference": 256.389957793,
+      "unit": "deg",
+      "abs_error": 2.5555664251442067e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.820263912465828,
+      "reference": -0.820263912,
+      "unit": "deg",
+      "abs_error": 4.658279317837355e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 255.88245461296458,
+      "reference": 255.882454616,
+      "unit": "deg",
+      "abs_error": 3.0354101454577176e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8296734959503409,
+      "reference": -0.829673496,
+      "unit": "deg",
+      "abs_error": 4.9659054646156164e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 255.3749389864019,
+      "reference": 255.374938989,
+      "unit": "deg",
+      "abs_error": 2.598085302452091e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8390622963751607,
+      "reference": -0.839062296,
+      "unit": "deg",
+      "abs_error": 3.751606802993024e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 254.8674109184748,
+      "reference": 254.867410921,
+      "unit": "deg",
+      "abs_error": 2.525183617763105e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8484296688454293,
+      "reference": -0.848429669,
+      "unit": "deg",
+      "abs_error": 1.5457080060343742e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 254.3598704177952,
+      "reference": 254.35987042,
+      "unit": "deg",
+      "abs_error": 2.2047856873541605e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8577749698372531,
+      "reference": -0.85777497,
+      "unit": "deg",
+      "abs_error": 1.6274692704598692e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 253.85231749352687,
+      "reference": 253.852317496,
+      "unit": "deg",
+      "abs_error": 2.473143467796035e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8670975572536103,
+      "reference": -0.867097557,
+      "unit": "deg",
+      "abs_error": 2.5361024391656883e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 253.34475215587693,
+      "reference": 253.344752158,
+      "unit": "deg",
+      "abs_error": 2.123073272741749e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8763967904659296,
+      "reference": -0.87639679,
+      "unit": "deg",
+      "abs_error": 4.659295171904887e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 252.8371744155457,
+      "reference": 252.837174417,
+      "unit": "deg",
+      "abs_error": 1.4543104498443427e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8856720303734218,
+      "reference": -0.88567203,
+      "unit": "deg",
+      "abs_error": 3.73421737975832e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 252.32958428421782,
+      "reference": 252.329584286,
+      "unit": "deg",
+      "abs_error": 1.7821832898334833e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.8949226394445982,
+      "reference": -0.894922639,
+      "unit": "deg",
+      "abs_error": 4.445981360845508e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 251.82198177422026,
+      "reference": 251.821981776,
+      "unit": "deg",
+      "abs_error": 1.7797390228224685e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9041479817728975,
+      "reference": -0.904147982,
+      "unit": "deg",
+      "abs_error": 2.271025589806186e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 251.3143668987529,
+      "reference": 251.3143669,
+      "unit": "deg",
+      "abs_error": 1.2471161880966974e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9133474231225212,
+      "reference": -0.913347423,
+      "unit": "deg",
+      "abs_error": 1.2252110437316333e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 250.80673967185865,
+      "reference": 250.806739673,
+      "unit": "deg",
+      "abs_error": 1.1413590073061641e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9225203309786382,
+      "reference": -0.922520331,
+      "unit": "deg",
+      "abs_error": 2.1361801216812637e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 250.29910010818514,
+      "reference": 250.29910011,
+      "unit": "deg",
+      "abs_error": 1.8148682556784479e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.931666074600997,
+      "reference": -0.931666075,
+      "unit": "deg",
+      "abs_error": 3.9900294179773255e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 249.79144822337122,
+      "reference": 249.791448225,
+      "unit": "deg",
+      "abs_error": 1.6287913240375929e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.940784025066948,
+      "reference": -0.940784025,
+      "unit": "deg",
+      "abs_error": 6.694800269713141e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 249.2837840337561,
+      "reference": 249.283784035,
+      "unit": "deg",
+      "abs_error": 1.2439045349310618e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9498735553257757,
+      "reference": -0.949873555,
+      "unit": "deg",
+      "abs_error": 3.257756286956237e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 248.7761075565574,
+      "reference": 248.776107558,
+      "unit": "deg",
+      "abs_error": 1.4426007055590162e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.95893404024506,
+      "reference": -0.95893404,
+      "unit": "deg",
+      "abs_error": 2.4505997231472065e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 248.2684188097887,
+      "reference": 248.268418811,
+      "unit": "deg",
+      "abs_error": 1.2113048342143884e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9679648566613441,
+      "reference": -0.967964857,
+      "unit": "deg",
+      "abs_error": 3.3865588111581246e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 247.7607178122803,
+      "reference": 247.760717813,
+      "unit": "deg",
+      "abs_error": 7.197229479061207e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9769653834289312,
+      "reference": -0.976965383,
+      "unit": "deg",
+      "abs_error": 4.289312238725529e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 247.25300458364876,
+      "reference": 247.253004584,
+      "unit": "deg",
+      "abs_error": 3.512354851409327e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9859350014694641,
+      "reference": -0.985935001,
+      "unit": "deg",
+      "abs_error": 4.694641342339878e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 246.74527914442203,
+      "reference": 246.745279145,
+      "unit": "deg",
+      "abs_error": 5.779838829766959e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -0.9948730938188343,
+      "reference": -0.994873094,
+      "unit": "deg",
+      "abs_error": 1.811657490691232e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 246.2375415159039,
+      "reference": 246.237541516,
+      "unit": "deg",
+      "abs_error": 9.609379958419595e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.0037790456782598,
+      "reference": -1.003779046,
+      "unit": "deg",
+      "abs_error": 3.217401900457162e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 245.72979172029892,
+      "reference": 245.729791721,
+      "unit": "deg",
+      "abs_error": 7.010783065197757e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.012652244460987,
+      "reference": -1.012652244,
+      "unit": "deg",
+      "abs_error": 4.609868042848575e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 245.22202978057663,
+      "reference": 245.222029781,
+      "unit": "deg",
+      "abs_error": 4.233697836752981e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.02149207984313,
+      "reference": -1.02149208,
+      "unit": "deg",
+      "abs_error": 1.5687007248743612e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 244.7142557206481,
+      "reference": 244.714255721,
+      "unit": "deg",
+      "abs_error": 3.51889184457832e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.0302979438093376,
+      "reference": -1.030297944,
+      "unit": "deg",
+      "abs_error": 1.9066237477716186e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 244.2064695651777,
+      "reference": 244.206469565,
+      "unit": "deg",
+      "abs_error": 1.7772094906831626e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.0390692307041847,
+      "reference": -1.039069231,
+      "unit": "deg",
+      "abs_error": 2.9581537219769416e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 243.69867133975924,
+      "reference": 243.69867134,
+      "unit": "deg",
+      "abs_error": 2.4076030058495235e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.047805337277607,
+      "reference": -1.047805337,
+      "unit": "deg",
+      "abs_error": 2.776070484600268e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 243.19086107088373,
+      "reference": 243.190861071,
+      "unit": "deg",
+      "abs_error": 1.162732132797828e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.0565056627335678,
+      "reference": -1.056505663,
+      "unit": "deg",
+      "abs_error": 2.6643220962796477e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 242.68303878580227,
+      "reference": 242.683038785,
+      "unit": "deg",
+      "abs_error": 8.022595920920139e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.065169608780212,
+      "reference": -1.065169609,
+      "unit": "deg",
+      "abs_error": 2.1978796560517821e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 242.1752045127542,
+      "reference": 242.175204512,
+      "unit": "deg",
+      "abs_error": 7.541984814452007e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.073796579674106,
+      "reference": -1.07379658,
+      "unit": "deg",
+      "abs_error": 3.2589397847004875e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 241.66735828072535,
+      "reference": 241.66735828,
+      "unit": "deg",
+      "abs_error": 7.253504463733407e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar sun 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -1.0823859822717417,
+      "reference": -1.082385982,
+      "unit": "deg",
+      "abs_error": 2.717417402209321e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 4.053389930854601,
+      "reference": 4.053390197,
+      "unit": "deg",
+      "abs_error": 2.6614540615810256e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.253985945436827,
+      "reference": -5.253985906,
+      "unit": "deg",
+      "abs_error": 3.9436827137251385e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 4.004221755224978,
+      "reference": 4.004222019,
+      "unit": "deg",
+      "abs_error": 2.6377503559160687e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.225342796469682,
+      "reference": -5.225342757,
+      "unit": "deg",
+      "abs_error": 3.946968174517451e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.954738273226155,
+      "reference": 3.954738535,
+      "unit": "deg",
+      "abs_error": 2.617738346089027e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.1962661677106015,
+      "reference": -5.196266128,
+      "unit": "deg",
+      "abs_error": 3.971060102969659e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.904945208597733,
+      "reference": 3.904945468,
+      "unit": "deg",
+      "abs_error": 2.594022703306109e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.16675869047466,
+      "reference": -5.16675865,
+      "unit": "deg",
+      "abs_error": 4.04746600679573e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.8548482929479473,
+      "reference": 3.85484855,
+      "unit": "deg",
+      "abs_error": 2.570520507561014e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.136823000559009,
+      "reference": -5.13682296,
+      "unit": "deg",
+      "abs_error": 4.05590094842978e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.8044532641600113,
+      "reference": 3.804453519,
+      "unit": "deg",
+      "abs_error": 2.5483998911113304e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.106461737797787,
+      "reference": -5.106461698,
+      "unit": "deg",
+      "abs_error": 3.9797786399731194e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.753765867154544,
+      "reference": 3.75376612,
+      "unit": "deg",
+      "abs_error": 2.52845467230145e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.075677546553373,
+      "reference": -5.075677506,
+      "unit": "deg",
+      "abs_error": 4.0553373104046386e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.7027918517944336,
+      "reference": 3.702792102,
+      "unit": "deg",
+      "abs_error": 2.502055735931208e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.044473075302858,
+      "reference": -5.044473035,
+      "unit": "deg",
+      "abs_error": 4.030285793987787e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.6515369734167797,
+      "reference": 3.651537221,
+      "unit": "deg",
+      "abs_error": 2.4758321615081513e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.012850976982071,
+      "reference": -5.012850937,
+      "unit": "deg",
+      "abs_error": 3.9982070987321094e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.6000069916741557,
+      "reference": 3.600007237,
+      "unit": "deg",
+      "abs_error": 2.453258503010147e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.98081390886488,
+      "reference": -4.980813869,
+      "unit": "deg",
+      "abs_error": 3.986487939755534e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.5482076699272636,
+      "reference": 3.548207913,
+      "unit": "deg",
+      "abs_error": 2.430727477076289e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.948364532648367,
+      "reference": -4.948364492,
+      "unit": "deg",
+      "abs_error": 4.0648367338746993e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.496144774941764,
+      "reference": 3.496145016,
+      "unit": "deg",
+      "abs_error": 2.4105824536491127e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.915505514507651,
+      "reference": -4.915505474,
+      "unit": "deg",
+      "abs_error": 4.050765145535706e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.4438240758693954,
+      "reference": 3.443824315,
+      "unit": "deg",
+      "abs_error": 2.39130599766213e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.882239525116267,
+      "reference": -4.882239485,
+      "unit": "deg",
+      "abs_error": 4.0116266752932006e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.3912513443554575,
+      "reference": 3.391251582,
+      "unit": "deg",
+      "abs_error": 2.3764454226693488e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.8485692398663405,
+      "reference": -4.848569199,
+      "unit": "deg",
+      "abs_error": 4.086634053379612e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.338432353182315,
+      "reference": 3.338432588,
+      "unit": "deg",
+      "abs_error": 2.3481769062527746e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.814497338723498,
+      "reference": -4.814497298,
+      "unit": "deg",
+      "abs_error": 4.072349835126943e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.2853728761779535,
+      "reference": 3.285373109,
+      "unit": "deg",
+      "abs_error": 2.3282206029762165e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.780026506452554,
+      "reference": -4.780026466,
+      "unit": "deg",
+      "abs_error": 4.0452554195269386e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.232078687521055,
+      "reference": 3.232078918,
+      "unit": "deg",
+      "abs_error": 2.304789461504697e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.74515943267705,
+      "reference": -4.745159392,
+      "unit": "deg",
+      "abs_error": 4.067705017263279e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.178555561180405,
+      "reference": 3.17855579,
+      "unit": "deg",
+      "abs_error": 2.2881960148879443e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.709898811970317,
+      "reference": -4.709898772,
+      "unit": "deg",
+      "abs_error": 3.997031683411478e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.124809270429329,
+      "reference": 3.124809497,
+      "unit": "deg",
+      "abs_error": 2.2657067688669486e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.674247343965373,
+      "reference": -4.674247304,
+      "unit": "deg",
+      "abs_error": 3.996537323303073e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.070845587105804,
+      "reference": 3.070845812,
+      "unit": "deg",
+      "abs_error": 2.2489419393423304e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.6382077334631235,
+      "reference": -4.638207693,
+      "unit": "deg",
+      "abs_error": 4.046312351846382e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 3.0166702813935933,
+      "reference": 3.016670504,
+      "unit": "deg",
+      "abs_error": 2.226064168553421e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.601782690546924,
+      "reference": -4.60178265,
+      "unit": "deg",
+      "abs_error": 4.0546924040540944e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.962289120960101,
+      "reference": 2.962289342,
+      "unit": "deg",
+      "abs_error": 2.2103989749666653e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.564974930709801,
+      "reference": -4.56497489,
+      "unit": "deg",
+      "abs_error": 4.070980086368081e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.9077078707236357,
+      "reference": 2.90770809,
+      "unit": "deg",
+      "abs_error": 2.192763588482194e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.527787174979329,
+      "reference": -4.527787135,
+      "unit": "deg",
+      "abs_error": 3.997932918053948e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.8529322918064652,
+      "reference": 2.852932509,
+      "unit": "deg",
+      "abs_error": 2.171935307160311e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.490222150018181,
+      "reference": -4.49022211,
+      "unit": "deg",
+      "abs_error": 4.001818076915242e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.7979681419850646,
+      "reference": 2.797968358,
+      "unit": "deg",
+      "abs_error": 2.160149392693711e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.452282588374352,
+      "reference": -4.452282548,
+      "unit": "deg",
+      "abs_error": 4.037435186177163e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.742821174154295,
+      "reference": 2.742821388,
+      "unit": "deg",
+      "abs_error": 2.1384570914051437e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.413971228514951,
+      "reference": -4.413971188,
+      "unit": "deg",
+      "abs_error": 4.051495139378858e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.687497136432792,
+      "reference": 2.687497348,
+      "unit": "deg",
+      "abs_error": 2.1156719753889774e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.375290815018354,
+      "reference": -4.375290775,
+      "unit": "deg",
+      "abs_error": 4.0018353963944264e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.632001771164029,
+      "reference": 2.632001981,
+      "unit": "deg",
+      "abs_error": 2.0983597437407298e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.33624409869908,
+      "reference": -4.336244059,
+      "unit": "deg",
+      "abs_error": 3.969907957923624e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.5763408151788987,
+      "reference": 2.576341024,
+      "unit": "deg",
+      "abs_error": 2.088210919737321e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.296833836858741,
+      "reference": -4.296833797,
+      "unit": "deg",
+      "abs_error": 3.9858741196496794e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.5205199983290068,
+      "reference": 2.520520205,
+      "unit": "deg",
+      "abs_error": 2.0667098965532205e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.257062793307618,
+      "reference": -4.257062753,
+      "unit": "deg",
+      "abs_error": 4.030761857620746e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.4645450440930667,
+      "reference": 2.464545249,
+      "unit": "deg",
+      "abs_error": 2.0490693941610516e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.216933738734829,
+      "reference": -4.216933699,
+      "unit": "deg",
+      "abs_error": 3.973482876062917e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.4084216681232604,
+      "reference": 2.408421872,
+      "unit": "deg",
+      "abs_error": 2.038767377143813e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.17644945068746,
+      "reference": -4.176449411,
+      "unit": "deg",
+      "abs_error": 3.9687459540971304e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.352155578298086,
+      "reference": 2.35215578,
+      "unit": "deg",
+      "abs_error": 2.017019085087668e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.135612713863368,
+      "reference": -4.135612674,
+      "unit": "deg",
+      "abs_error": 3.986336771788501e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.295752474120042,
+      "reference": 2.295752675,
+      "unit": "deg",
+      "abs_error": 2.008799526720395e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.094426320264143,
+      "reference": -4.09442628,
+      "unit": "deg",
+      "abs_error": 4.026414224256314e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.239218046258414,
+      "reference": 2.239218245,
+      "unit": "deg",
+      "abs_error": 1.987415885196242e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.052893069387094,
+      "reference": -4.05289303,
+      "unit": "deg",
+      "abs_error": 3.9387094474818696e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.182557975854085,
+      "reference": 2.182558173,
+      "unit": "deg",
+      "abs_error": 1.9714590848707303e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.011015768390393,
+      "reference": -4.011015729,
+      "unit": "deg",
+      "abs_error": 3.939039228129104e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.125777934413608,
+      "reference": 2.12577813,
+      "unit": "deg",
+      "abs_error": 1.9558638086891733e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.9687972323426277,
+      "reference": -3.968797193,
+      "unit": "deg",
+      "abs_error": 3.934262782223641e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.0688835835620973,
+      "reference": 2.068883778,
+      "unit": "deg",
+      "abs_error": 1.9443791643425357e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.9262402844188666,
+      "reference": -3.926240245,
+      "unit": "deg",
+      "abs_error": 3.941886683733742e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 2.0118805737085967,
+      "reference": 2.011880767,
+      "unit": "deg",
+      "abs_error": 1.932914130975405e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.8833477560334853,
+      "reference": -3.883347717,
+      "unit": "deg",
+      "abs_error": 3.9033485332851114e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.9547745441961226,
+      "reference": 1.954774736,
+      "unit": "deg",
+      "abs_error": 1.9180387766937201e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.8401224870860364,
+      "reference": -3.840122448,
+      "unit": "deg",
+      "abs_error": 3.908603662949872e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.8975711231842443,
+      "reference": 1.897571314,
+      "unit": "deg",
+      "abs_error": 1.908157685193146e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.7965673262334905,
+      "reference": -3.796567287,
+      "unit": "deg",
+      "abs_error": 3.923349067846971e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.8402759267027704,
+      "reference": 1.840276116,
+      "unit": "deg",
+      "abs_error": 1.8929722500615753e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.7526851310188696,
+      "reference": -3.752685092,
+      "unit": "deg",
+      "abs_error": 3.901886946877653e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.7828945579793694,
+      "reference": 1.782894746,
+      "unit": "deg",
+      "abs_error": 1.880206355053815e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.7084787680893125,
+      "reference": -3.708478729,
+      "unit": "deg",
+      "abs_error": 3.9089312675599786e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.7254326079367484,
+      "reference": 1.725432795,
+      "unit": "deg",
+      "abs_error": 1.8706325022321835e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.6639511134853677,
+      "reference": -3.663951074,
+      "unit": "deg",
+      "abs_error": 3.9485367864244836e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.6678956534982825,
+      "reference": 1.667895839,
+      "unit": "deg",
+      "abs_error": 1.855017046636931e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.6191050527462747,
+      "reference": -3.619105014,
+      "unit": "deg",
+      "abs_error": 3.8746274633183475e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.6102892585130697,
+      "reference": 1.610289443,
+      "unit": "deg",
+      "abs_error": 1.8448693595018995e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.5739434812665247,
+      "reference": -3.573943442,
+      "unit": "deg",
+      "abs_error": 3.9266524698433614e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.5526189722959232,
+      "reference": 1.552619155,
+      "unit": "deg",
+      "abs_error": 1.8270407053933013e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.528469304410753,
+      "reference": -3.528469266,
+      "unit": "deg",
+      "abs_error": 3.841075280064388e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 1.4948903300016112,
+      "reference": 1.494890512,
+      "unit": "deg",
+      "abs_error": 1.8199838791588263e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "polar earth 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -3.4826854378222816,
+      "reference": -3.482685399,
+      "unit": "deg",
+      "abs_error": 3.882228138962773e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.5710031414799,
+      "reference": 270.571003141,
+      "unit": "deg",
+      "abs_error": 4.798721420229413e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.488151875792657,
+      "reference": -4.488151871,
+      "unit": "deg",
+      "abs_error": 4.7926569379797e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.5722736426719,
+      "reference": 270.572273643,
+      "unit": "deg",
+      "abs_error": 3.2810021366458386e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -4.995487750278439,
+      "reference": -4.995487746,
+      "unit": "deg",
+      "abs_error": 4.278438936466955e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.57358863473826,
+      "reference": 270.573588635,
+      "unit": "deg",
+      "abs_error": 2.617639438540209e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -5.5028347720925685,
+      "reference": -5.502834768,
+      "unit": "deg",
+      "abs_error": 4.09256895039789e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.5749485337973,
+      "reference": 270.574948534,
+      "unit": "deg",
+      "abs_error": 2.0270363165764138e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -6.010192915846778,
+      "reference": -6.010192912,
+      "unit": "deg",
+      "abs_error": 3.846778007243756e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.57635377467074,
+      "reference": 270.576353775,
+      "unit": "deg",
+      "abs_error": 3.292370820418e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -6.5175621557115075,
+      "reference": -6.517562152,
+      "unit": "deg",
+      "abs_error": 3.7115075457450075e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.57780481123586,
+      "reference": 270.577804811,
+      "unit": "deg",
+      "abs_error": 2.3584334485349245e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -7.024942465292083,
+      "reference": -7.024942461,
+      "unit": "deg",
+      "abs_error": 4.292083133350388e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.57930211679684,
+      "reference": 270.579302117,
+      "unit": "deg",
+      "abs_error": 2.0315837900852785e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -7.532333817452756,
+      "reference": -7.532333813,
+      "unit": "deg",
+      "abs_error": 4.452755497652561e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.58084618447776,
+      "reference": 270.580846184,
+      "unit": "deg",
+      "abs_error": 4.777689355250914e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -8.039736184661637,
+      "reference": -8.039736181,
+      "unit": "deg",
+      "abs_error": 3.6616363274788455e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.58243752763576,
+      "reference": 270.582437528,
+      "unit": "deg",
+      "abs_error": 3.6425262806005776e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -8.547149538658138,
+      "reference": -8.547149535,
+      "unit": "deg",
+      "abs_error": 3.658136904505227e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.58407668029736,
+      "reference": 270.58407668,
+      "unit": "deg",
+      "abs_error": 2.973479240608867e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -9.054573850641395,
+      "reference": -9.054573847,
+      "unit": "deg",
+      "abs_error": 3.6413947412938796e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.58576419761687,
+      "reference": 270.585764198,
+      "unit": "deg",
+      "abs_error": 3.83124643121846e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -9.562009091302217,
+      "reference": -9.562009088,
+      "unit": "deg",
+      "abs_error": 3.302217166378796e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.5875006563578,
+      "reference": 270.587500656,
+      "unit": "deg",
+      "abs_error": 3.5782932172878645e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -10.069455230594377,
+      "reference": -10.069455227,
+      "unit": "deg",
+      "abs_error": 3.5943763521117944e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.58928665540003,
+      "reference": 270.589286655,
+      "unit": "deg",
+      "abs_error": 4.00007138523506e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -10.576912238026868,
+      "reference": -10.576912235,
+      "unit": "deg",
+      "abs_error": 3.0268676454170418e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.59112281627057,
+      "reference": 270.591122816,
+      "unit": "deg",
+      "abs_error": 2.7057467377744615e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -11.08438008243491,
+      "reference": -11.084380079,
+      "unit": "deg",
+      "abs_error": 3.434909245925155e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.59300978370175,
+      "reference": 270.593009784,
+      "unit": "deg",
+      "abs_error": 2.9825741876265965e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -11.591858732063576,
+      "reference": -11.591858729,
+      "unit": "deg",
+      "abs_error": 3.063576059503248e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.59494822621605,
+      "reference": 270.594948226,
+      "unit": "deg",
+      "abs_error": 2.1606183508993126e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -12.09934815454687,
+      "reference": -12.099348152,
+      "unit": "deg",
+      "abs_error": 2.5468711584153425e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.59693883673924,
+      "reference": 270.596938837,
+      "unit": "deg",
+      "abs_error": 2.6074076231452636e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -12.606848316938967,
+      "reference": -12.606848314,
+      "unit": "deg",
+      "abs_error": 2.9389664035761598e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.59898233324304,
+      "reference": 270.598982333,
+      "unit": "deg",
+      "abs_error": 2.4306245904881507e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -13.114359185693097,
+      "reference": -13.114359183,
+      "unit": "deg",
+      "abs_error": 2.6930973007210923e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.60107945941803,
+      "reference": 270.601079459,
+      "unit": "deg",
+      "abs_error": 4.1802650230238214e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -13.621880726588145,
+      "reference": -13.621880724,
+      "unit": "deg",
+      "abs_error": 2.5881448095788073e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6032309853793,
+      "reference": 270.603230985,
+      "unit": "deg",
+      "abs_error": 3.793161340581719e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -14.12941290496782,
+      "reference": -14.129412902,
+      "unit": "deg",
+      "abs_error": 2.967819767718538e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.60543770840343,
+      "reference": 270.605437708,
+      "unit": "deg",
+      "abs_error": 4.034177436551545e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -14.636955685354287,
+      "reference": -14.636955683,
+      "unit": "deg",
+      "abs_error": 2.3542874316717644e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.60770045370236,
+      "reference": 270.607700454,
+      "unit": "deg",
+      "abs_error": 2.9763214115519077e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -15.144509031791179,
+      "reference": -15.144509029,
+      "unit": "deg",
+      "abs_error": 2.791178843608577e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6100200752315,
+      "reference": 270.610020075,
+      "unit": "deg",
+      "abs_error": 2.3146640160121024e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -15.652072907561138,
+      "reference": -15.652072905,
+      "unit": "deg",
+      "abs_error": 2.561137080192566e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.612397456537,
+      "reference": 270.612397456,
+      "unit": "deg",
+      "abs_error": 5.369997779780533e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -16.159647275528428,
+      "reference": -16.159647273,
+      "unit": "deg",
+      "abs_error": 2.5284272453518497e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6148335116406,
+      "reference": 270.614833512,
+      "unit": "deg",
+      "abs_error": 3.594209374568891e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -16.66723209764764,
+      "reference": -16.667232096,
+      "unit": "deg",
+      "abs_error": 1.6476420228173083e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.61732918596806,
+      "reference": 270.617329186,
+      "unit": "deg",
+      "abs_error": 3.1946001399774104e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -17.17482733551444,
+      "reference": -17.174827334,
+      "unit": "deg",
+      "abs_error": 1.5144401288580411e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6198854573181,
+      "reference": 270.619885457,
+      "unit": "deg",
+      "abs_error": 3.1809577194508165e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -17.682432949873746,
+      "reference": -17.682432948,
+      "unit": "deg",
+      "abs_error": 1.8737473794772086e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6225033368785,
+      "reference": 270.622503337,
+      "unit": "deg",
+      "abs_error": 1.2153122952440754e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -18.19004890096164,
+      "reference": -18.190048899,
+      "unit": "deg",
+      "abs_error": 1.961637963177054e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.62518387028763,
+      "reference": 270.62518387,
+      "unit": "deg",
+      "abs_error": 2.8762769943568856e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -18.697675148273728,
+      "reference": -18.697675147,
+      "unit": "deg",
+      "abs_error": 1.2737260135509132e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6279281387467,
+      "reference": 270.627928139,
+      "unit": "deg",
+      "abs_error": 2.532942744437605e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -19.205311650593824,
+      "reference": -19.205311649,
+      "unit": "deg",
+      "abs_error": 1.5938255160108383e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6307372601841,
+      "reference": 270.63073726,
+      "unit": "deg",
+      "abs_error": 1.8411583369015716e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -19.71295836623077,
+      "reference": -19.712958365,
+      "unit": "deg",
+      "abs_error": 1.2307701524605363e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.63361239047174,
+      "reference": 270.63361239,
+      "unit": "deg",
+      "abs_error": 4.717435331258457e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -20.220615252629813,
+      "reference": -20.220615251,
+      "unit": "deg",
+      "abs_error": 1.6298109528634086e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.63655472470134,
+      "reference": 270.636554725,
+      "unit": "deg",
+      "abs_error": 2.986553226946853e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -20.728282266661022,
+      "reference": -20.728282266,
+      "unit": "deg",
+      "abs_error": 6.610214597913e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6395654985185,
+      "reference": 270.639565498,
+      "unit": "deg",
+      "abs_error": 5.184688234294299e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -21.235959364438383,
+      "reference": -21.235959364,
+      "unit": "deg",
+      "abs_error": 4.38383551681909e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6426459895207,
+      "reference": 270.642645989,
+      "unit": "deg",
+      "abs_error": 5.206857167650014e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -21.743646501399258,
+      "reference": -21.743646501,
+      "unit": "deg",
+      "abs_error": 3.992575159372791e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.64579751872105,
+      "reference": 270.645797519,
+      "unit": "deg",
+      "abs_error": 2.7893065634998493e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -22.251343632279216,
+      "reference": -22.251343632,
+      "unit": "deg",
+      "abs_error": 2.7921487344428897e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6490214520817,
+      "reference": 270.649021452,
+      "unit": "deg",
+      "abs_error": 8.168399290298112e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -22.75905071113862,
+      "reference": -22.759050711,
+      "unit": "deg",
+      "abs_error": 1.3861978231943795e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6523192021193,
+      "reference": 270.652319202,
+      "unit": "deg",
+      "abs_error": 1.1931433618883602e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -23.26676769123263,
+      "reference": -23.266767691,
+      "unit": "deg",
+      "abs_error": 2.326316916878568e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.65569222958914,
+      "reference": 270.65569223,
+      "unit": "deg",
+      "abs_error": 4.1086423152592033e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -23.77449452514114,
+      "reference": -23.774494525,
+      "unit": "deg",
+      "abs_error": 1.411386563177075e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6591420452487,
+      "reference": 270.659142045,
+      "unit": "deg",
+      "abs_error": 2.4868995751603507e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -24.282231164638095,
+      "reference": -24.282231164,
+      "unit": "deg",
+      "abs_error": 6.380957984220004e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.66267021170756,
+      "reference": 270.662670212,
+      "unit": "deg",
+      "abs_error": 2.9245939003885724e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -24.789977560820617,
+      "reference": -24.789977561,
+      "unit": "deg",
+      "abs_error": 1.793836190699949e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.66627834536604,
+      "reference": 270.666278345,
+      "unit": "deg",
+      "abs_error": 3.660147740447428e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -25.29773366392523,
+      "reference": -25.297733664,
+      "unit": "deg",
+      "abs_error": 7.477041208403534e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6699681184505,
+      "reference": 270.669968118,
+      "unit": "deg",
+      "abs_error": 4.5054093789076433e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -25.805499423508177,
+      "reference": -25.805499424,
+      "unit": "deg",
+      "abs_error": 4.918234708384261e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6737412611465,
+      "reference": 270.673741261,
+      "unit": "deg",
+      "abs_error": 1.4654233382316306e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -26.313274788260745,
+      "reference": -26.313274789,
+      "unit": "deg",
+      "abs_error": 7.392557677121658e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6775995638386,
+      "reference": 270.677599564,
+      "unit": "deg",
+      "abs_error": 1.6137846614583395e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -26.82105970603219,
+      "reference": -26.821059706,
+      "unit": "deg",
+      "abs_error": 3.219113864361134e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.68154487946265,
+      "reference": 270.681544879,
+      "unit": "deg",
+      "abs_error": 4.6264858610811643e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -27.328854123956482,
+      "reference": -27.328854125,
+      "unit": "deg",
+      "abs_error": 1.0435172725919983e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.6855791259734,
+      "reference": 270.685579126,
+      "unit": "deg",
+      "abs_error": 2.660272002685815e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -27.836657988213673,
+      "reference": -27.836657989,
+      "unit": "deg",
+      "abs_error": 7.863256712425937e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 270.68970428893954,
+      "reference": 270.689704289,
+      "unit": "deg",
+      "abs_error": 6.048139766789973e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side sun 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -28.344471244259495,
+      "reference": -28.344471245,
+      "unit": "deg",
+      "abs_error": 7.405063229271036e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 33.944292745593934,
+      "reference": 33.944294661,
+      "unit": "deg",
+      "abs_error": 1.915406073749182e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.72398877183912,
+      "reference": 82.723988655,
+      "unit": "deg",
+      "abs_error": 1.1683911793625157e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 33.7482589825981,
+      "reference": 33.7482609,
+      "unit": "deg",
+      "abs_error": 1.9174019030288036e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.77530040144161,
+      "reference": 82.775300286,
+      "unit": "deg",
+      "abs_error": 1.1544160827270389e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 33.549231466665454,
+      "reference": 33.549233386,
+      "unit": "deg",
+      "abs_error": 1.9193345508483617e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.82706464776072,
+      "reference": 82.827064535,
+      "unit": "deg",
+      "abs_error": 1.1276071631982632e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 33.34713063238337,
+      "reference": 33.347132553,
+      "unit": "deg",
+      "abs_error": 1.9206166257390578e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.8792740558395,
+      "reference": 82.879273945,
+      "unit": "deg",
+      "abs_error": 1.1083950823831401e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 33.1418741542428,
+      "reference": 33.141876077,
+      "unit": "deg",
+      "abs_error": 1.9227572067848087e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.93192111065069,
+      "reference": 82.931921002,
+      "unit": "deg",
+      "abs_error": 1.0865069555165974e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 32.9333768251075,
+      "reference": 32.933378751,
+      "unit": "deg",
+      "abs_error": 1.925892490817205e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": 82.98499823434496,
+      "reference": 82.984998128,
+      "unit": "deg",
+      "abs_error": 1.0634495595240878e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 32.72155042282537,
+      "reference": 32.721552351,
+      "unit": "deg",
+      "abs_error": 1.9281746403976285e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.03849778445222,
+      "reference": 83.03849768,
+      "unit": "deg",
+      "abs_error": 1.0445221221289103e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 32.506303571212314,
+      "reference": 32.506305502,
+      "unit": "deg",
+      "abs_error": 1.930787675519241e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.09241205128646,
+      "reference": 83.092411949,
+      "unit": "deg",
+      "abs_error": 1.0228646374343953e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 32.28754159663606,
+      "reference": 32.287543531,
+      "unit": "deg",
+      "abs_error": 1.93436392237345e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.14673325517685,
+      "reference": 83.146733155,
+      "unit": "deg",
+      "abs_error": 1.0017684815011307e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 32.06516637237255,
+      "reference": 32.06516831,
+      "unit": "deg",
+      "abs_error": 1.937627445158796e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.20145354398251,
+      "reference": 83.201453446,
+      "unit": "deg",
+      "abs_error": 9.798250744097459e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 31.83907615883259,
+      "reference": 31.839078101,
+      "unit": "deg",
+      "abs_error": 1.942167415336371e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.25656498981034,
+      "reference": 83.256564894,
+      "unit": "deg",
+      "abs_error": 9.581034987604653e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 31.609165434146895,
+      "reference": 31.609167379,
+      "unit": "deg",
+      "abs_error": 1.9448530963472876e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.31205958592456,
+      "reference": 83.312059492,
+      "unit": "deg",
+      "abs_error": 9.392455524448451e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 31.375324713140074,
+      "reference": 31.375326662,
+      "unit": "deg",
+      "abs_error": 1.948859932099367e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.3679292434808,
+      "reference": 83.367929152,
+      "unit": "deg",
+      "abs_error": 9.148079982423951e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 31.13744036275718,
+      "reference": 31.137442316,
+      "unit": "deg",
+      "abs_error": 1.9532428154889203e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.42416578748951,
+      "reference": 83.424165698,
+      "unit": "deg",
+      "abs_error": 8.948951801812655e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 30.895394400538695,
+      "reference": 30.895396359,
+      "unit": "deg",
+      "abs_error": 1.9584612971357274e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.48076095328607,
+      "reference": 83.480760866,
+      "unit": "deg",
+      "abs_error": 8.728606815111561e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 30.64906428961193,
+      "reference": 30.649066252,
+      "unit": "deg",
+      "abs_error": 1.9623880689323414e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.53770638189526,
+      "reference": 83.537706296,
+      "unit": "deg",
+      "abs_error": 8.589526601099351e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 30.398322712386914,
+      "reference": 30.39832468,
+      "unit": "deg",
+      "abs_error": 1.9676130875723175e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.59499361626438,
+      "reference": 83.594993533,
+      "unit": "deg",
+      "abs_error": 8.326438205585873e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 30.14303734340225,
+      "reference": 30.143039317,
+      "unit": "deg",
+      "abs_error": 1.9735977616619493e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.65261409591601,
+      "reference": 83.652614014,
+      "unit": "deg",
+      "abs_error": 8.191601352791622e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 29.883070604728207,
+      "reference": 29.883072585,
+      "unit": "deg",
+      "abs_error": 1.9802718043138157e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.71055915190638,
+      "reference": 83.710559072,
+      "unit": "deg",
+      "abs_error": 7.990638550836593e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 29.618279403434116,
+      "reference": 29.618281389,
+      "unit": "deg",
+      "abs_error": 1.9855658877077076e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.76882000175905,
+      "reference": 83.768819924,
+      "unit": "deg",
+      "abs_error": 7.775905430662533e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 29.348514863490536,
+      "reference": 29.348516855,
+      "unit": "deg",
+      "abs_error": 1.991509464005503e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.82738774336521,
+      "reference": 83.827387668,
+      "unit": "deg",
+      "abs_error": 7.536520740814012e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 29.073622033719765,
+      "reference": 29.073624033,
+      "unit": "deg",
+      "abs_error": 1.99928024358087e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.88625334913111,
+      "reference": 83.886253276,
+      "unit": "deg",
+      "abs_error": 7.31311047275085e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 28.793439589220878,
+      "reference": 28.793441597,
+      "unit": "deg",
+      "abs_error": 2.0077791305084247e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": 83.9454076590243,
+      "reference": 83.945407587,
+      "unit": "deg",
+      "abs_error": 7.202429230801499e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 28.50779950852113,
+      "reference": 28.507801523,
+      "unit": "deg",
+      "abs_error": 2.014478866385616e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.00484137371242,
+      "reference": 84.004841304,
+      "unit": "deg",
+      "abs_error": 6.971242783038178e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 28.216526736522386,
+      "reference": 28.216528759,
+      "unit": "deg",
+      "abs_error": 2.022477616492324e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.06454504707726,
+      "reference": 84.064544979,
+      "unit": "deg",
+      "abs_error": 6.807725583257707e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 27.91943882286153,
+      "reference": 27.919440853,
+      "unit": "deg",
+      "abs_error": 2.030138460895614e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.12450907847956,
+      "reference": 84.124509013,
+      "unit": "deg",
+      "abs_error": 6.5479568434057e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 27.61634555156875,
+      "reference": 27.61634759,
+      "unit": "deg",
+      "abs_error": 2.038431262008089e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.18472370376685,
+      "reference": 84.18472364,
+      "unit": "deg",
+      "abs_error": 6.376684780207142e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 27.307048538598643,
+      "reference": 27.307050588,
+      "unit": "deg",
+      "abs_error": 2.0494013597271987e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.24517898645207,
+      "reference": 84.245178924,
+      "unit": "deg",
+      "abs_error": 6.245207373467565e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 26.991340813273386,
+      "reference": 26.991342873,
+      "unit": "deg",
+      "abs_error": 2.0597266257027513e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.30586480788179,
+      "reference": 84.305864748,
+      "unit": "deg",
+      "abs_error": 5.98817848640465e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 26.66900637386745,
+      "reference": 26.669008443,
+      "unit": "deg",
+      "abs_error": 2.069132563065068e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.36677085686654,
+      "reference": 84.366770798,
+      "unit": "deg",
+      "abs_error": 5.886653298148303e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 26.339819716474892,
+      "reference": 26.339821798,
+      "unit": "deg",
+      "abs_error": 2.0815251104977506e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.4278866187174,
+      "reference": 84.427886562,
+      "unit": "deg",
+      "abs_error": 5.6717397001193604e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 26.0035453429696,
+      "reference": 26.003547435,
+      "unit": "deg",
+      "abs_error": 2.0920303995808354e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.48920136322202,
+      "reference": 84.489201308,
+      "unit": "deg",
+      "abs_error": 5.522201718122233e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 25.659937235667602,
+      "reference": 25.659939339,
+      "unit": "deg",
+      "abs_error": 2.1033324060226732e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.55070413211595,
+      "reference": 84.550704079,
+      "unit": "deg",
+      "abs_error": 5.3115954301574675e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 25.30873830257137,
+      "reference": 25.308740419,
+      "unit": "deg",
+      "abs_error": 2.1164286181374337e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.61238372573912,
+      "reference": 84.612383675,
+      "unit": "deg",
+      "abs_error": 5.0739117796183564e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 24.949679807129357,
+      "reference": 24.949681935,
+      "unit": "deg",
+      "abs_error": 2.1278706299199257e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.67422868781037,
+      "reference": 84.674228639,
+      "unit": "deg",
+      "abs_error": 4.881036375081749e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 24.58248073268375,
+      "reference": 24.582482875,
+      "unit": "deg",
+      "abs_error": 2.142316247955023e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.73622729122152,
+      "reference": 84.736227244,
+      "unit": "deg",
+      "abs_error": 4.722151913938433e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 24.206847154075636,
+      "reference": 24.206849309,
+      "unit": "deg",
+      "abs_error": 2.154924374053735e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.79836752030161,
+      "reference": 84.798367475,
+      "unit": "deg",
+      "abs_error": 4.5301604245651106e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 23.822471537324976,
+      "reference": 23.822473708,
+      "unit": "deg",
+      "abs_error": 2.170675031720748e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.86063705410433,
+      "reference": 84.86063701,
+      "unit": "deg",
+      "abs_error": 4.410432552504062e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 23.429032031257123,
+      "reference": 23.429034217,
+      "unit": "deg",
+      "abs_error": 2.185742886240405e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.92302324678869,
+      "reference": 84.923023205,
+      "unit": "deg",
+      "abs_error": 4.178868096005317e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 23.02619170079631,
+      "reference": 23.026193903,
+      "unit": "deg",
+      "abs_error": 2.202203688739246e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": 84.98551310781346,
+      "reference": 84.985513068,
+      "unit": "deg",
+      "abs_error": 3.981345741976838e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 22.613597726095172,
+      "reference": 22.613599945,
+      "unit": "deg",
+      "abs_error": 2.2189048252130306e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.0480932803469,
+      "reference": 85.048093242,
+      "unit": "deg",
+      "abs_error": 3.834691142401425e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 22.190880567768353,
+      "reference": 22.190882803,
+      "unit": "deg",
+      "abs_error": 2.2352316477736167e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.1107500178315,
+      "reference": 85.110749982,
+      "unit": "deg",
+      "abs_error": 3.5831504874295206e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 21.75765307896428,
+      "reference": 21.757655333,
+      "unit": "deg",
+      "abs_error": 2.254035706528157e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.17346915939862,
+      "reference": 85.173469125,
+      "unit": "deg",
+      "abs_error": 3.439862439336139e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 21.31350958037419,
+      "reference": 21.313511855,
+      "unit": "deg",
+      "abs_error": 2.274625813925013e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.2362361032685,
+      "reference": 85.236236071,
+      "unit": "deg",
+      "abs_error": 3.22685025366809e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 20.85802488707058,
+      "reference": 20.858027181,
+      "unit": "deg",
+      "abs_error": 2.293929412644502e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.2990357783872,
+      "reference": 85.299035748,
+      "unit": "deg",
+      "abs_error": 3.0387212746063597e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 20.3907532873562,
+      "reference": 20.390755601,
+      "unit": "deg",
+      "abs_error": 2.3136437903303886e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.36185261417474,
+      "reference": 85.361852585,
+      "unit": "deg",
+      "abs_error": 2.917474262176256e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 19.911227487400268,
+      "reference": 19.91122982,
+      "unit": "deg",
+      "abs_error": 2.332599734700125e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.4246705076917,
+      "reference": 85.424670481,
+      "unit": "deg",
+      "abs_error": 2.669169418823003e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 19.418957497511716,
+      "reference": 19.418959855,
+      "unit": "deg",
+      "abs_error": 2.3574882845878165e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "near-side earth 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": 85.4874727890122,
+      "reference": 85.487472764,
+      "unit": "deg",
+      "abs_error": 2.5012198534568597e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.4289968755367,
+      "reference": 89.428996876,
+      "unit": "deg",
+      "abs_error": 4.633022854250157e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": 4.486811911873161,
+      "reference": 4.486811907,
+      "unit": "deg",
+      "abs_error": 4.8731614299413195e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.42772637437292,
+      "reference": 89.427726374,
+      "unit": "deg",
+      "abs_error": 3.72921249436331e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": 4.99414873830506,
+      "reference": 4.994148734,
+      "unit": "deg",
+      "abs_error": 4.305059420062207e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.42641138233788,
+      "reference": 89.426411382,
+      "unit": "deg",
+      "abs_error": 3.3787728170864284e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": 5.501496817143669,
+      "reference": 5.501496813,
+      "unit": "deg",
+      "abs_error": 4.1436685194184975e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.42505148331333,
+      "reference": 89.425051483,
+      "unit": "deg",
+      "abs_error": 3.133209247607738e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": 6.008856122928764,
+      "reference": 6.008856119,
+      "unit": "deg",
+      "abs_error": 3.9287639808094355e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.42364624247742,
+      "reference": 89.423646243,
+      "unit": "deg",
+      "abs_error": 5.225615495874081e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": 6.516226629750555,
+      "reference": 6.516226625,
+      "unit": "deg",
+      "abs_error": 4.750555504529075e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.42219520595296,
+      "reference": 89.422195206,
+      "unit": "deg",
+      "abs_error": 4.703792910731863e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": 7.023608311125836,
+      "reference": 7.023608307,
+      "unit": "deg",
+      "abs_error": 4.125835673107758e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.4206979004359,
+      "reference": 89.4206979,
+      "unit": "deg",
+      "abs_error": 4.3590375753410626e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": 7.531001139822039,
+      "reference": 7.531001136,
+      "unit": "deg",
+      "abs_error": 3.822038685541429e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41915383280218,
+      "reference": 89.419153833,
+      "unit": "deg",
+      "abs_error": 1.978150976356119e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": 8.03840508820216,
+      "reference": 8.038405084,
+      "unit": "deg",
+      "abs_error": 4.2021586210694295e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41756248969462,
+      "reference": 89.41756249,
+      "unit": "deg",
+      "abs_error": 3.0536284612026066e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": 8.54582012789222,
+      "reference": 8.545820124,
+      "unit": "deg",
+      "abs_error": 3.892219879730874e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41592333708674,
+      "reference": 89.415923337,
+      "unit": "deg",
+      "abs_error": 8.674305718159303e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": 9.053246229969698,
+      "reference": 9.053246226,
+      "unit": "deg",
+      "abs_error": 3.969697459638155e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41423581982434,
+      "reference": 89.41423582,
+      "unit": "deg",
+      "abs_error": 1.7564616427989677e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": 9.560683364995466,
+      "reference": 9.560683361,
+      "unit": "deg",
+      "abs_error": 3.995465291950495e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41249936114392,
+      "reference": 89.412499361,
+      "unit": "deg",
+      "abs_error": 1.439275365555659e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": 10.068131502785098,
+      "reference": 10.068131499,
+      "unit": "deg",
+      "abs_error": 3.785098456887681e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.41071336216568,
+      "reference": 89.410713362,
+      "unit": "deg",
+      "abs_error": 1.6569856597925536e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": 10.575590612701134,
+      "reference": 10.575590609,
+      "unit": "deg",
+      "abs_error": 3.70113362180291e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.40887720136264,
+      "reference": 89.408877201,
+      "unit": "deg",
+      "abs_error": 3.6266101233195513e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": 11.083060663424117,
+      "reference": 11.08306066,
+      "unit": "deg",
+      "abs_error": 3.4241178781257986e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.4069902340025,
+      "reference": 89.406990234,
+      "unit": "deg",
+      "abs_error": 2.5011104298755527e-12,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": 11.590541623036156,
+      "reference": 11.59054162,
+      "unit": "deg",
+      "abs_error": 3.0361562153302657e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.40505179156291,
+      "reference": 89.405051792,
+      "unit": "deg",
+      "abs_error": 4.3706904762075283e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": 12.098033459000119,
+      "reference": 12.098033456,
+      "unit": "deg",
+      "abs_error": 3.000119264129353e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.40306118111809,
+      "reference": 89.403061181,
+      "unit": "deg",
+      "abs_error": 1.1809220268332865e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": 12.605536138190814,
+      "reference": 12.605536135,
+      "unit": "deg",
+      "abs_error": 3.1908147235526485e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.4010176846964,
+      "reference": 89.401017685,
+      "unit": "deg",
+      "abs_error": 3.036007001355756e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": 13.113049626873858,
+      "reference": 13.113049624,
+      "unit": "deg",
+      "abs_error": 2.8738575963416224e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.39892055860734,
+      "reference": 89.398920559,
+      "unit": "deg",
+      "abs_error": 3.9267433749046177e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": 13.620573890632391,
+      "reference": 13.620573888,
+      "unit": "deg",
+      "abs_error": 2.632392082091428e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.39676903273595,
+      "reference": 89.396769033,
+      "unit": "deg",
+      "abs_error": 2.6403768060845323e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": 14.128108894606148,
+      "reference": 14.128108892,
+      "unit": "deg",
+      "abs_error": 2.606148186146129e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.39456230980561,
+      "reference": 89.39456231,
+      "unit": "deg",
+      "abs_error": 1.944044925039634e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": 14.635654603105179,
+      "reference": 14.635654601,
+      "unit": "deg",
+      "abs_error": 2.105178253941631e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.39229956460446,
+      "reference": 89.392299565,
+      "unit": "deg",
+      "abs_error": 3.9554493014293257e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": 15.14321097995283,
+      "reference": 15.143210978,
+      "unit": "deg",
+      "abs_error": 1.9528290096104683e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.38997994317728,
+      "reference": 89.389979943,
+      "unit": "deg",
+      "abs_error": 1.772946234268602e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": 15.650777988203327,
+      "reference": 15.650777986,
+      "unit": "deg",
+      "abs_error": 2.203327298389013e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.38760256197786,
+      "reference": 89.387602562,
+      "unit": "deg",
+      "abs_error": 2.2140511646284722e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": 16.15835559048438,
+      "reference": 16.158355588,
+      "unit": "deg",
+      "abs_error": 2.484380701162081e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.38516650698469,
+      "reference": 89.385166507,
+      "unit": "deg",
+      "abs_error": 1.5290879673557356e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": 16.665943748505946,
+      "reference": 16.665943746,
+      "unit": "deg",
+      "abs_error": 2.5059456731924e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.38267083277196,
+      "reference": 89.382670833,
+      "unit": "deg",
+      "abs_error": 2.2805579646956176e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": 17.173542423610915,
+      "reference": 17.173542422,
+      "unit": "deg",
+      "abs_error": 1.6109140688058687e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.38011456154118,
+      "reference": 89.380114562,
+      "unit": "deg",
+      "abs_error": 4.588400770444423e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": 17.681151576283384,
+      "reference": 17.681151574,
+      "unit": "deg",
+      "abs_error": 2.283382372070264e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.37749668210463,
+      "reference": 89.377496682,
+      "unit": "deg",
+      "abs_error": 1.0464873412274756e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": 18.18877116649058,
+      "reference": 18.188771165,
+      "unit": "deg",
+      "abs_error": 1.490580103791217e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.37481614882391,
+      "reference": 89.374816149,
+      "unit": "deg",
+      "abs_error": 1.7610091163078323e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": 18.69640115345116,
+      "reference": 18.696401152,
+      "unit": "deg",
+      "abs_error": 1.4511591928112466e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.37207188049804,
+      "reference": 89.372071881,
+      "unit": "deg",
+      "abs_error": 5.019558102503652e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": 19.204041495663986,
+      "reference": 19.204041494,
+      "unit": "deg",
+      "abs_error": 1.6639880584534694e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.36926275919876,
+      "reference": 89.369262759,
+      "unit": "deg",
+      "abs_error": 1.9878143575624563e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": 19.711692151144998,
+      "reference": 19.71169215,
+      "unit": "deg",
+      "abs_error": 1.1449969861132558e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.36638762905426,
+      "reference": 89.366387629,
+      "unit": "deg",
+      "abs_error": 5.425704330264125e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": 20.219353077038463,
+      "reference": 20.219353076,
+      "unit": "deg",
+      "abs_error": 1.0384617610270652e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.3634452949729,
+      "reference": 89.363445295,
+      "unit": "deg",
+      "abs_error": 2.7114310796605423e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": 20.72702422990559,
+      "reference": 20.727024229,
+      "unit": "deg",
+      "abs_error": 9.055902694399265e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.36043452130924,
+      "reference": 89.360434521,
+      "unit": "deg",
+      "abs_error": 3.092281986027956e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": 21.23470556554354,
+      "reference": 21.234705565,
+      "unit": "deg",
+      "abs_error": 5.43540323860725e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.3573540304659,
+      "reference": 89.357354031,
+      "unit": "deg",
+      "abs_error": 5.341007636161521e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": 21.74239703906492,
+      "reference": 21.742397038,
+      "unit": "deg",
+      "abs_error": 1.0649188197930926e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.3542025014299,
+      "reference": 89.354202501,
+      "unit": "deg",
+      "abs_error": 4.29906776844291e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": 22.250098604872676,
+      "reference": 22.250098604,
+      "unit": "deg",
+      "abs_error": 8.726743772058398e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.3509785682393,
+      "reference": 89.350978568,
+      "unit": "deg",
+      "abs_error": 2.3931079340400174e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": 22.75781021668665,
+      "reference": 22.757810216,
+      "unit": "deg",
+      "abs_error": 6.866507362701668e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.34768081837753,
+      "reference": 89.347680818,
+      "unit": "deg",
+      "abs_error": 3.7752556636405643e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": 23.265531827413643,
+      "reference": 23.265531827,
+      "unit": "deg",
+      "abs_error": 4.136424536227423e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.34430779108942,
+      "reference": 89.344307791,
+      "unit": "deg",
+      "abs_error": 8.941469786805101e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": 23.773263389277407,
+      "reference": 23.773263389,
+      "unit": "deg",
+      "abs_error": 2.774065421817795e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.34085797561781,
+      "reference": 89.340857976,
+      "unit": "deg",
+      "abs_error": 3.821867267106427e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": 24.281004853687904,
+      "reference": 24.281004853,
+      "unit": "deg",
+      "abs_error": 6.879048441987834e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.33732980935318,
+      "reference": 89.337329809,
+      "unit": "deg",
+      "abs_error": 3.531681613822002e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": 24.78875617137051,
+      "reference": 24.788756171,
+      "unit": "deg",
+      "abs_error": 3.7050895684842544e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.33372167589535,
+      "reference": 89.333721676,
+      "unit": "deg",
+      "abs_error": 1.0464873412274756e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": 25.29651729218225,
+      "reference": 25.296517292,
+      "unit": "deg",
+      "abs_error": 1.822506590087869e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.33003190301818,
+      "reference": 89.330031903,
+      "unit": "deg",
+      "abs_error": 1.8189894035458565e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": 25.804288165292213,
+      "reference": 25.804288165,
+      "unit": "deg",
+      "abs_error": 2.9221425279502e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.32625876053636,
+      "reference": 89.326258761,
+      "unit": "deg",
+      "abs_error": 4.6364334593818057e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": 26.312068738996782,
+      "reference": 26.312068739,
+      "unit": "deg",
+      "abs_error": 3.218758592993254e-12,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.3224004580655,
+      "reference": 89.322400458,
+      "unit": "deg",
+      "abs_error": 6.548361852765083e-11,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": 26.819858960742668,
+      "reference": 26.819858961,
+      "unit": "deg",
+      "abs_error": 2.573337098965567e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.31845514266993,
+      "reference": 89.318455143,
+      "unit": "deg",
+      "abs_error": 3.3006131161528174e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": 27.32765877725368,
+      "reference": 27.327658778,
+      "unit": "deg",
+      "abs_error": 7.463185625056212e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.31442089639513,
+      "reference": 89.314420896,
+      "unit": "deg",
+      "abs_error": 3.951186045014765e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": 27.835468134292093,
+      "reference": 27.835468135,
+      "unit": "deg",
+      "abs_error": 7.079066222104302e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 89.31029573367258,
+      "reference": 89.310295734,
+      "unit": "deg",
+      "abs_error": 3.2741809263825417e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side sun 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": 28.343286976888276,
+      "reference": 28.343286978,
+      "unit": "deg",
+      "abs_error": 1.1117222697976104e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 326.05572971004,
+      "reference": 326.055727797,
+      "unit": "deg",
+      "abs_error": 1.9130400232825195e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -82.78641382002534,
+      "reference": -82.786413704,
+      "unit": "deg",
+      "abs_error": 1.1602534755184024e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 326.2517636825286,
+      "reference": 326.251761768,
+      "unit": "deg",
+      "abs_error": 1.9145285818922275e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -82.8372702673664,
+      "reference": -82.837270153,
+      "unit": "deg",
+      "abs_error": 1.1436640079409699e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 326.4507914128121,
+      "reference": 326.450789497,
+      "unit": "deg",
+      "abs_error": 1.9158121062901046e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -82.8885760004645,
+      "reference": -82.888575889,
+      "unit": "deg",
+      "abs_error": 1.114645016286886e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 326.65289246652196,
+      "reference": 326.652890549,
+      "unit": "deg",
+      "abs_error": 1.9175219563294377e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -82.94032362304618,
+      "reference": -82.940323514,
+      "unit": "deg",
+      "abs_error": 1.0904618363838381e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 326.85814916929627,
+      "reference": 326.85814725,
+      "unit": "deg",
+      "abs_error": 1.919296266805759e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -82.99250567907268,
+      "reference": -82.992505572,
+      "unit": "deg",
+      "abs_error": 1.0707267961151956e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 327.0666467283844,
+      "reference": 327.066644806,
+      "unit": "deg",
+      "abs_error": 1.92238439922221e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.04511465002653,
+      "reference": -83.045114545,
+      "unit": "deg",
+      "abs_error": 1.050265296953512e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 327.27847336604987,
+      "reference": 327.278471442,
+      "unit": "deg",
+      "abs_error": 1.924049854551413e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.09814295313429,
+      "reference": -83.09814285,
+      "unit": "deg",
+      "abs_error": 1.0313428333574848e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 327.49372045870473,
+      "reference": 327.493718531,
+      "unit": "deg",
+      "abs_error": 1.9277047158539062e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.15158293880802,
+      "reference": -83.151582838,
+      "unit": "deg",
+      "abs_error": 1.0080802326228877e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 327.7124826799906,
+      "reference": 327.71248075,
+      "unit": "deg",
+      "abs_error": 1.9299906170999748e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.20542688787914,
+      "reference": -83.205426789,
+      "unit": "deg",
+      "abs_error": 9.887914131923026e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 327.9348581569998,
+      "reference": 327.934856224,
+      "unit": "deg",
+      "abs_error": 1.9329997940076282e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.25966700918295,
+      "reference": -83.259666912,
+      "unit": "deg",
+      "abs_error": 9.718294791127846e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 328.16094862932437,
+      "reference": 328.160946692,
+      "unit": "deg",
+      "abs_error": 1.9373243844711396e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.31429543625553,
+      "reference": -83.314295342,
+      "unit": "deg",
+      "abs_error": 9.425554026165628e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 328.3908596190878,
+      "reference": 328.390857678,
+      "unit": "deg",
+      "abs_error": 1.941087816703657e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.36930422431813,
+      "reference": -83.369304132,
+      "unit": "deg",
+      "abs_error": 9.231813180576864e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 328.62470061166096,
+      "reference": 328.624698667,
+      "unit": "deg",
+      "abs_error": 1.9446609371698287e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.42468534703244,
+      "reference": -83.424685256,
+      "unit": "deg",
+      "abs_error": 9.103243314712017e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 328.86258524022753,
+      "reference": 328.862583292,
+      "unit": "deg",
+      "abs_error": 1.9482275206428312e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.48043069248224,
+      "reference": -83.480430604,
+      "unit": "deg",
+      "abs_error": 8.848223842505831e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 329.10463148662706,
+      "reference": 329.104629534,
+      "unit": "deg",
+      "abs_error": 1.952627030732401e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.53653205961774,
+      "reference": -83.536531973,
+      "unit": "deg",
+      "abs_error": 8.661774586471438e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 329.35096189042946,
+      "reference": 329.350959933,
+      "unit": "deg",
+      "abs_error": 1.9574294469748565e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.59298115412332,
+      "reference": -83.59298107,
+      "unit": "deg",
+      "abs_error": 8.412332874740969e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 329.60170376610927,
+      "reference": 329.601701804,
+      "unit": "deg",
+      "abs_error": 1.962109251962829e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.64976958363458,
+      "reference": -83.649769501,
+      "unit": "deg",
+      "abs_error": 8.263458539659041e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 329.85698944183946,
+      "reference": 329.856987473,
+      "unit": "deg",
+      "abs_error": 1.96883945591253e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.70688885378729,
+      "reference": -83.706888773,
+      "unit": "deg",
+      "abs_error": 8.078728797045187e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 330.1169564939671,
+      "reference": 330.116954521,
+      "unit": "deg",
+      "abs_error": 1.9729670839296887e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.76433036206947,
+      "reference": -83.764330284,
+      "unit": "deg",
+      "abs_error": 7.80694762170242e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 330.38174801755093,
+      "reference": 330.381746037,
+      "unit": "deg",
+      "abs_error": 1.9805509055004222e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.82208539368416,
+      "reference": -83.822085317,
+      "unit": "deg",
+      "abs_error": 7.668415946682217e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 330.65151288805816,
+      "reference": 330.651510903,
+      "unit": "deg",
+      "abs_error": 1.9850581907121523e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.88014511481538,
+      "reference": -83.88014504,
+      "unit": "deg",
+      "abs_error": 7.481537522835424e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 330.92640605683107,
+      "reference": 330.926404064,
+      "unit": "deg",
+      "abs_error": 1.992831073494017e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.93850056721368,
+      "reference": -83.938500495,
+      "unit": "deg",
+      "abs_error": 7.221368036880449e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 331.20658884772115,
+      "reference": 331.206586848,
+      "unit": "deg",
+      "abs_error": 1.999721177980973e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -83.99714266111035,
+      "reference": -83.99714259,
+      "unit": "deg",
+      "abs_error": 7.11103496087162e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 331.49222928369534,
+      "reference": 331.492227276,
+      "unit": "deg",
+      "abs_error": 2.007695343309024e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-01T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.05606216875195,
+      "reference": -84.0560621,
+      "unit": "deg",
+      "abs_error": 6.875194458189071e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T00:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 331.7835024215105,
+      "reference": 331.783500407,
+      "unit": "deg",
+      "abs_error": 2.0145104713265027e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T00:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.11524971675996,
+      "reference": -84.11524965,
+      "unit": "deg",
+      "abs_error": 6.67599664438967e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T01:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 332.08059071048035,
+      "reference": 332.080588686,
+      "unit": "deg",
+      "abs_error": 2.0244803522473376e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T01:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.17469577823837,
+      "reference": -84.174695713,
+      "unit": "deg",
+      "abs_error": 6.523836759697588e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T02:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 332.38368436548205,
+      "reference": 332.383682333,
+      "unit": "deg",
+      "abs_error": 2.032482029790117e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T02:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.23439066410315,
+      "reference": -84.234390601,
+      "unit": "deg",
+      "abs_error": 6.310314404345263e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T03:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 332.6929817722076,
+      "reference": 332.692979731,
+      "unit": "deg",
+      "abs_error": 2.0412076082720887e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T03:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.29432451454126,
+      "reference": -84.294324453,
+      "unit": "deg",
+      "abs_error": 6.154125742341421e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T04:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 333.0086899016853,
+      "reference": 333.00868785,
+      "unit": "deg",
+      "abs_error": 2.051685271453607e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T04:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.35448728894717,
+      "reference": -84.354487229,
+      "unit": "deg",
+      "abs_error": 5.994716900659114e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T05:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 333.3310247558803,
+      "reference": 333.331022695,
+      "unit": "deg",
+      "abs_error": 2.0608803197319503e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T05:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.41486875576105,
+      "reference": -84.414868698,
+      "unit": "deg",
+      "abs_error": 5.776104217147804e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T06:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 333.66021183914256,
+      "reference": 333.660209768,
+      "unit": "deg",
+      "abs_error": 2.0711425463559863e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T06:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.47545848159633,
+      "reference": -84.475458426,
+      "unit": "deg",
+      "abs_error": 5.559633109442075e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T07:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 333.99648664994146,
+      "reference": 333.996484567,
+      "unit": "deg",
+      "abs_error": 2.0829414779655053e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T07:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.53624581932509,
+      "reference": -84.536245765,
+      "unit": "deg",
+      "abs_error": 5.432508487501764e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T08:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 334.3400952080564,
+      "reference": 334.340093113,
+      "unit": "deg",
+      "abs_error": 2.0950564021404716e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T08:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.59721989577798,
+      "reference": -84.597219844,
+      "unit": "deg",
+      "abs_error": 5.177798811928369e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T09:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 334.691294598606,
+      "reference": 334.691292494,
+      "unit": "deg",
+      "abs_error": 2.1046060396656685e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T09:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.65836959784727,
+      "reference": -84.658369548,
+      "unit": "deg",
+      "abs_error": 4.9847272975966916e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T10:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 335.050353569636,
+      "reference": 335.050351452,
+      "unit": "deg",
+      "abs_error": 2.117636029197456e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T10:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.71968355907103,
+      "reference": -84.719683511,
+      "unit": "deg",
+      "abs_error": 4.807102982340439e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T11:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 335.4175531287212,
+      "reference": 335.417550997,
+      "unit": "deg",
+      "abs_error": 2.131721203113557e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T11:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.78115014320626,
+      "reference": -84.781150097,
+      "unit": "deg",
+      "abs_error": 4.6206267256820865e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T12:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 335.7931872072451,
+      "reference": 335.793185063,
+      "unit": "deg",
+      "abs_error": 2.1442451156872266e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T12:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.84275742877963,
+      "reference": -84.842757384,
+      "unit": "deg",
+      "abs_error": 4.4779639551961736e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T13:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 336.1775633354857,
+      "reference": 336.177561177,
+      "unit": "deg",
+      "abs_error": 2.158485699510493e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T13:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.90449319106301,
+      "reference": -84.904493148,
+      "unit": "deg",
+      "abs_error": 4.306301093492948e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T14:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 336.57100336722505,
+      "reference": 336.571001193,
+      "unit": "deg",
+      "abs_error": 2.174225073758862e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T14:00:00+00:00",
+      "metric": "elevation",
+      "actual": -84.9663448835329,
+      "reference": -84.966344842,
+      "unit": "deg",
+      "abs_error": 4.153289978603425e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T15:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 336.9738442400441,
+      "reference": 336.97384205,
+      "unit": "deg",
+      "abs_error": 2.190044142480474e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T15:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.02829961787687,
+      "reference": -85.028299579,
+      "unit": "deg",
+      "abs_error": 3.8876862618053565e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T16:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 337.38643876984327,
+      "reference": 337.386436564,
+      "unit": "deg",
+      "abs_error": 2.205843259162066e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T16:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.09034414229875,
+      "reference": -85.090344105,
+      "unit": "deg",
+      "abs_error": 3.729874720193038e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T17:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 337.8091564988316,
+      "reference": 337.809154276,
+      "unit": "deg",
+      "abs_error": 2.2228315970096446e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T17:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.15246481893021,
+      "reference": -85.152464783,
+      "unit": "deg",
+      "abs_error": 3.5930213471147e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T18:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 338.24238457401447,
+      "reference": 338.242382331,
+      "unit": "deg",
+      "abs_error": 2.243014478153782e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T18:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.21464759901286,
+      "reference": -85.214647565,
+      "unit": "deg",
+      "abs_error": 3.4012856531262514e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T19:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 338.68652867291047,
+      "reference": 338.686526414,
+      "unit": "deg",
+      "abs_error": 2.2589104560211126e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T19:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.27687799656188,
+      "reference": -85.276877965,
+      "unit": "deg",
+      "abs_error": 3.1561881996822194e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T20:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 339.142013985821,
+      "reference": 339.142011709,
+      "unit": "deg",
+      "abs_error": 2.276821021496289e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T20:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.3391410606493,
+      "reference": -85.339141031,
+      "unit": "deg",
+      "abs_error": 2.9649299904122017e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T21:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 339.6092862225442,
+      "reference": 339.609283924,
+      "unit": "deg",
+      "abs_error": 2.298544188761298e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T21:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.40142134479521,
+      "reference": -85.401421317,
+      "unit": "deg",
+      "abs_error": 2.7795209689429612e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T22:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 340.08881267441257,
+      "reference": 340.088810357,
+      "unit": "deg",
+      "abs_error": 2.317412565844279e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T22:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.46370287473736,
+      "reference": -85.463702848,
+      "unit": "deg",
+      "abs_error": 2.673736787528469e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T23:00:00+00:00",
+      "metric": "azimuth",
+      "actual": 340.58108333736953,
+      "reference": 340.581080993,
+      "unit": "deg",
+      "abs_error": 2.3443695340574777e-06,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "far-side earth 2027-03-02T23:00:00+00:00",
+      "metric": "elevation",
+      "actual": -85.52596911441384,
+      "reference": -85.52596909,
+      "unit": "deg",
+      "abs_error": 2.44138362859303e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    }
+  ],
+  "status": "pass"
+}
