@@ -1,0 +1,8 @@
+# Context is the repo root (docker build -f backend/Dockerfile .). Only these paths are needed.
+*
+!backend/pyproject.toml
+!backend/uv.lock
+!backend/app/
+!fixtures/
+**/__pycache__
+**/*.pyc

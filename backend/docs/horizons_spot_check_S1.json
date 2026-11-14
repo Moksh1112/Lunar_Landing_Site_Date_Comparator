@@ -1,0 +1,145 @@
+{
+  "check": "P2 S1.3 Horizons spot check (not full V1)",
+  "site": {
+    "lat_deg": -84.7906,
+    "lon_east_deg": 29.1957,
+    "height_m": 0.0
+  },
+  "horizons_site_echo": "Center geodetic : 29.1957, -84.7906, 0.0          {E-lon(deg),Lat(deg),Alt(km)}",
+  "start_utc": "2027-03-01T00:00:00Z",
+  "days": 30,
+  "times": 6,
+  "ours": "SpiceyPy spkcpo LT+S, MOON_ME, DE440 kernels naif0012.tls, de440s.bsp, pck00011.tpc, moon_pa_de440_200625.bpc, moon_de440_250416.tf",
+  "horizons": "JPL Horizons API, QUANTITIES=4, APPARENT=AIRLESS (DE441)",
+  "max_abs_diff_deg": {
+    "sun_az": 0.0,
+    "sun_el": 0.0,
+    "earth_az": 0.0,
+    "earth_el": 0.0
+  },
+  "pass_target_deg": 0.05,
+  "passed": true,
+  "horizons_query_s": 2.6,
+  "rows": [
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-01 00:00",
+      "horizons_az": 236.469092548,
+      "ours_az": 236.469093,
+      "horizons_el": -3.454684169,
+      "ours_el": -3.454684,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-07 00:00",
+      "horizons_az": 163.07360353,
+      "ours_az": 163.073604,
+      "horizons_el": -5.66593988,
+      "ours_el": -5.66594,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-13 00:00",
+      "horizons_az": 89.860420265,
+      "ours_az": 89.86042,
+      "horizons_el": -0.793261681,
+      "ours_el": -0.793262,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-19 00:00",
+      "horizons_az": 16.914668573,
+      "ours_az": 16.914669,
+      "horizons_el": 4.016555272,
+      "ours_el": 4.016555,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-25 00:00",
+      "horizons_az": 303.930397093,
+      "ours_az": 303.930397,
+      "horizons_el": 1.768258559,
+      "ours_el": 1.768259,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "sun",
+      "time_utc": "2027-Mar-31 00:00",
+      "horizons_az": 231.107695049,
+      "ours_az": 231.107695,
+      "horizons_el": -4.516513482,
+      "ours_el": -4.516513,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-01 00:00",
+      "horizons_az": 335.005209778,
+      "ours_az": 335.00521,
+      "horizons_el": -1.533031096,
+      "ours_el": -1.533031,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-07 00:00",
+      "horizons_az": 327.040564076,
+      "ours_az": 327.040564,
+      "horizons_el": 5.29421904,
+      "ours_el": 5.294219,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-13 00:00",
+      "horizons_az": 325.172754742,
+      "ours_az": 325.172754,
+      "horizons_el": 10.759812071,
+      "ours_el": 10.759812,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-19 00:00",
+      "horizons_az": 330.903019407,
+      "ours_az": 330.903019,
+      "horizons_el": 5.162762832,
+      "ours_el": 5.162763,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-25 00:00",
+      "horizons_az": 336.38391833,
+      "ours_az": 336.383918,
+      "horizons_el": -2.02225262,
+      "ours_el": -2.022253,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    },
+    {
+      "body": "earth",
+      "time_utc": "2027-Mar-31 00:00",
+      "horizons_az": 331.304470461,
+      "ours_az": 331.30447,
+      "horizons_el": 1.105600801,
+      "ours_el": 1.105601,
+      "d_az_deg": 0.0,
+      "d_el_deg": 0.0
+    }
+  ]
+}

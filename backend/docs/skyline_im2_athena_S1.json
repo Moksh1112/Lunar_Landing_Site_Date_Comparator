@@ -1,0 +1,34 @@
+{
+  "site": "im2-athena",
+  "lat_deg": -84.7906,
+  "lon_east_deg": 29.1957,
+  "dem": "LDEM_80S_80MPP_ADJ.TIF",
+  "mode_equivalent": "terrain_coarse (80 m near+far, 20 m pending)",
+  "h_site_m": 5321.5,
+  "h_obs_m": 2.0,
+  "dip_deg": 4.4795,
+  "skyline_max_deg": 4.063,
+  "skyline_max_az_deg": 117.5,
+  "skyline_max_block_km": 16.48,
+  "skyline_min_deg": -1.469,
+  "nodata_fraction": 0.0,
+  "n_samples": 936720,
+  "skyline_seconds": 3.02,
+  "ephemeris_seconds": 0.38,
+  "start_utc": "2027-03-01T00:00:00Z",
+  "mission_hours": 708.0,
+  "step_minutes": 10,
+  "samples": 4249,
+  "sun_visible_pct_samples": 39.6,
+  "earth_visible_pct_samples": 81.1,
+  "both_visible_pct_samples": 29.7,
+  "sun_el_range_deg": [
+    -5.87,
+    4.2
+  ],
+  "earth_el_range_deg": [
+    -2.19,
+    10.77
+  ],
+  "note": "Sample-count percentages (S1 sanity); the API will use interpolated window edges (TRD 5)."
+}
