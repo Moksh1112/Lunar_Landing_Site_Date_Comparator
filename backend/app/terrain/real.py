@@ -28,6 +28,7 @@ from .interface import (
     HorizonMode,
     NotInCoverage,
     SkylineResult,
+    TerrainUnavailable,
     TileResult,
 )
 from .raster import RasterSampler
@@ -157,6 +158,10 @@ class RealTerrain:
             return "geometric", None, None
         far = self._far()
         tile = self._find_tile(lat, lon)
+        if tile is None and far is None:
+            # Inside DEM coverage but this server has no DEM loaded: an honest error, never a silent
+            # "geometric" answer that would misstate the site as having no terrain data.
+            raise TerrainUnavailable(lat, lon, f"no DEM loaded from {self.dem_dir.name}/ or tiles/ on this server")
         if tile is not None:
             return "terrain", tile, far
         if far is not None:

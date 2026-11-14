@@ -27,6 +27,16 @@ class NotInCoverage(Exception):
         self.reason = reason
 
 
+class TerrainUnavailable(Exception):
+    """Point needs DEM terrain but the DEM libraries/data cannot be used on this server (honest error)."""
+
+    def __init__(self, lat_deg: float, lon_east_deg: float, reason: str) -> None:
+        super().__init__(f"({lat_deg}, {lon_east_deg}) needs terrain data that is unavailable: {reason}")
+        self.lat_deg = lat_deg
+        self.lon_east_deg = lon_east_deg
+        self.reason = reason
+
+
 @dataclass(frozen=True)
 class SkylineResult:
     """Horizon elevation per azimuth (0.5 deg steps from north, clockwise)."""

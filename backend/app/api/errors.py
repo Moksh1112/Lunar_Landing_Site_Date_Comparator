@@ -9,6 +9,8 @@ from pydantic import ValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.responses import Response
 
+from app.terrain.interface import TerrainUnavailable
+
 logger = logging.getLogger("azelux.errors")
 
 STATUS_BY_CODE = {
@@ -87,6 +89,15 @@ def register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(ApiError)
     async def _api_error(_: Request, exc: ApiError) -> OrjsonResponse:
         return error_response(exc.code, exc.message, exc.details, exc.http)
+
+    @app.exception_handler(TerrainUnavailable)
+    async def _terrain_unavailable(_: Request, exc: TerrainUnavailable) -> OrjsonResponse:
+        return error_response(
+            "INTERNAL",
+            "Terrain data is not available on this server for points inside south-pole DEM coverage "
+            "(south of 80.7 S). No result was computed.",
+            http=500,
+        )
 
     @app.exception_handler(RequestValidationError)
     async def _request_validation(_: Request, exc: RequestValidationError) -> OrjsonResponse:
