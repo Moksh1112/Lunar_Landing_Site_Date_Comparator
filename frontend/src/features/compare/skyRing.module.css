@@ -14,7 +14,7 @@
 .sunFill { fill: var(--color-sun); }
 .earthFill { fill: var(--color-earth); }
 .compass { fill: var(--color-text-muted); font-size: 12px; font-weight: 600; }
-.planId { font-family: var(--font-display); font-size: 44px; fill: var(--plan); }
+.planId { font-weight: 750; font-size: 34px; fill: var(--plan); }
 .planSub { fill: var(--color-text-muted); font-size: 11px; }
 .figure[data-plan="A"] { --plan: var(--color-a); }
 .figure[data-plan="B"] { --plan: var(--color-b); }

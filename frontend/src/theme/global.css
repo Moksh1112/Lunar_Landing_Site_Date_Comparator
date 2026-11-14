@@ -21,7 +21,7 @@ body {
 }
 
 ::selection {
-  background: rgb(95 168 255 / 0.35);
+  background: rgb(36 75 179 / 0.18);
   color: var(--color-text);
 }
 
@@ -42,16 +42,15 @@ h4 {
 }
 h1,
 h2 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.015em;
 }
 h1 {
-  font-size: 2.25rem;
-  line-height: 1.05;
+  font-size: var(--text-3xl);
+  line-height: 1.15;
 }
 h2 {
-  font-size: 1.75rem;
+  font-size: var(--text-2xl);
 }
 h3 {
   font-size: var(--text-lg);
@@ -151,7 +150,7 @@ button.btn-primary {
 .segmented button[aria-pressed="true"] {
   background: var(--color-surface-3);
   color: var(--color-text);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  box-shadow: 0 1px 2px rgb(24 37 43 / 0.12);
 }
 
 /* Form controls. */

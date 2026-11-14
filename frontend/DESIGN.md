@@ -1,81 +1,73 @@
-# Azelux frontend design system: "earthshine"
+# Azelux frontend design system: "light lunar atlas"
 
-Surface mode: **Operate**. Azelux is a planning workspace, not a landing page. One bold
-thing, the comparison stage, sits inside a quiet, disciplined tool. Tokens:
-`src/theme/tokens.css`; base elements: `src/theme/global.css`; faces: `src/theme/fonts.css`.
+Locked by the user's brief (15 Nov 2026). It replaces the earlier earthshine and night-almanac
+themes; no skill direction roll overrides it. This light default is a user-authorized deviation
+from the TRD's "dark default" note. Product truth: `PRODUCT.md`. Tokens:
+`src/theme/tokens.css`. Font: `src/theme/fonts.css` (licence in `src/theme/fonts/README.md`).
 
-## Direction
+## Principles
 
-The lunar night lit by earthshine: cool blue-ink surfaces, and pale "regolith" for the
-primary action. **Hue is only for data** (TRD 7.6):
+A precise, contemporary scientific planning interface. The comparison is the workspace:
 
-| Meaning | Token |
-| --- | --- |
-| Base / surfaces | `--color-bg` #0b1019 → `--color-surface` #111827 → `-2` #172033 → `-3` #1f2a40 |
-| Text | #ecf0f7, muted #a7b2c7, faint #8794ad (all ≥ 4.5:1 on every surface) |
-| Primary action, current nav | `--color-action` #e8e2d4 (regolith), with ink text |
-| Sun / Earth | amber #f2b544 / blue #5fa8ff |
-| Plan A / Plan B | teal #2fd0b9 / violet #b49cff, as "A"/"B" tags, ring outlines and serif letters |
-| Verdict | green / amber / red, always with the word (sentence case) |
-| SYNTHETIC | amber on #2b2208 |
+- compact A/B summaries with Edit plans and Compare
+- then one result sentence, concise verdict status labels, and the aligned Sun/Earth/both
+  timeline with the scrubber
+- secondary sections for sky rings and panoramas, deltas, metrics, and sources and limits
+- raw data in Expert
+
+Grouping comes from whitespace and alignment, not stacked cards.
+
+## Colour
+
+| Role | Value | Contrast (measured) |
+| --- | --- | --- |
+| Canvas / main surface / secondary | #F5F3ED / #FFFFFF / #ECEFF0 | |
+| Primary / secondary text | #18252B / #50616A | 14.1:1 / 5.8:1 on canvas; 6.4:1 secondary on white |
+| Borders | #D4DCDA (strong #A9B6B4) | |
+| Primary action | #244BB3, white text | 7.7:1 |
+| Plan A / Plan B | #086C65 / #A44828 | 6.3:1 / 5.9:1 on white; white tag text ≥ 5.9:1 |
+| Sun / Earth | #956000 / #245BB5 | 5.3:1 / 6.5:1 on white |
+| Verdict green / amber / red | #1D7A3E / #8A5A00 / #B3261E | ≥ 5.4:1 on white, always with the word |
+| SYNTHETIC | #7A4F00 on #FFF3D4 | 6.5:1 |
+
+Line styles (solid visible, dotted hidden), A/B letter tags and verdict words always accompany
+colour.
 
 ## Type
 
-Two families (TRD 7.6), self-hosted under the SIL OFL 1.1 with the latin subset. Licences and
-sources are in `src/theme/fonts/README.md`.
+- Schibsted Grotesk only; hierarchy by size, weight and spacing.
+- Sizes: page title 34 px (700); result sentence 24–28 px (650); section heads 18 px (650);
+  body and controls 16 px; small 13–14 px.
+- Tabular figures only in table cells and numeric readouts.
+- No serif, no all-caps labels except the mandated SYNTHETIC marker.
 
-- **Gloock** (high-contrast display serif) is the display voice: page and section titles, the wordmark,
-  verdict words, delta values, and the A/B ring letters. Numbers in the display serif are
-  the type treatment that carries the page.
-- **Schibsted Grotesk** (variable weight 400–800) is used for every UI label, body text, table
-  and code chip, with `tabular-nums` on data.
+## Controls and surfaces
 
-Avoided on purpose: all-caps labels (except the mandated SYNTHETIC label), eyebrows,
-middle-dot meta strings, and a monospace face for small data.
+- Radii are 6 px (controls) and 8 px (surfaces). No pills, no oversized rounded buttons.
+- The header is white with plain links and a 2 px cobalt active indicator (no floating pill
+  nav, no transition).
+- Primary action is cobalt; secondary buttons are white with a strong border.
+- Exports live in one secondary "Export" menu (CSV, JSON, printable report).
+- Disclosures (Edit plans editor, map, thresholds, sky and horizon views) are inline; no
+  modals.
 
-## Layout
+## SYNTHETIC communication
 
-```
-[ wordmark ]        ( Compare | Best date | Methods | Report )        [ Simple | Expert ]
-+ input rail (sticky, own scroll) +  Result title, SYNTHETIC, exports ----------------------+
-| preset segmented control        |  synthetic-result note                                 |
-| Plan A card                     |  verdict A | verdict B                                 |
-| Plan B card                     |  B compared with A (serif delta numbers)               |
-| Pick on map (lazy)              |  STAGE: "The sky above each site"                      |
-| thresholds                      |     sky ring A    sky ring B     (shared scale)        |
-| [Compare A and B] pinned        |     timeline lanes + scrubber + at-time readout        |
-+---------------------------------+  panoramas, metrics, sources and method, raw (Expert)  |
-```
-
-Everything is left-aligned. One column below 64 rem; no horizontal scroll at 375 px.
-
-## The stage (focal point)
-
-`SkyRing` unrolls each site's horizon around a circle:
-
-- Azimuth runs clockwise from north at the top.
-- Elevation on the shared y scale runs inward.
-- The skyline band is shaded.
-- Sun and Earth tracks are solid when visible and dotted when below the skyline.
-- The markers follow the shared scrubber, mapped to each plan's own time (F17).
-
-It is a **schematic data visualization** drawn only from the compare response. It is not
-terrain imagery, not georeferenced and not a 3D model, and it does not bypass the 3D gate.
+- A global thin banner stays at the top.
+- One concise notice sits near the results: "Fixed synthetic example — results do not
+  reflect the entered plans." The full explanation is in its expandable details and in
+  exports and Report.
 
 ## Motion
 
-Motion appears only for state changes and one authored moment:
+- One staged reveal for a new result, plus a 140 ms press on buttons.
+- The schematic sky rings tilt to flat on scroll (CSS scroll-driven).
+- Nothing animates on navigation, scrubbing or keyboard actions.
+- Reduced motion and print remove motion.
 
-- **New result:** blocks rise in order (260 ms, ease-out, 40 ms stagger).
-- **Scroll:** the sky rings tip from a ground-level perspective to flat as they enter
-  view. This uses CSS scroll-driven animation as progressive enhancement, with no
-  GSAP/Lenis dependency.
-- **Buttons:** 140 ms press.
+## Truth rules
 
-Never applied: scrubbing and keyboard actions are instant. `prefers-reduced-motion`
-removes the scroll tilt and the reveal. Print removes all motion.
-
-## Print
-
-Light paper. App chrome and the mock-variant select are hidden. Scroll regions expand,
-long text cells wrap, and figures and table rows stay unbroken.
+- Sky rings are schematic data visualizations of the response: not terrain imagery, not
+  georeferenced, not 3D. Terrain 3D stays gated.
+- SYNTHETIC results are always labelled; REAL results show their ephemeris, horizon mode
+  (terrain / terrain coarse / "geometric horizon only") and DEM.

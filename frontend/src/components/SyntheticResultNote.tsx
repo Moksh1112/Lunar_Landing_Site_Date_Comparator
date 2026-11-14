@@ -1,11 +1,16 @@
 import styles from "./states.module.css";
 
-/** Fixture/mock responses are fixed files: they are not computed from the submitted inputs. */
+/** One concise notice near results; the full explanation stays available (and in exports/report). */
 export function SyntheticResultNote() {
   return (
-    <p className={styles.synthNote} role="note">
-      <strong>SYNTHETIC result.</strong> This is a fixed test response. It does not reflect the coordinates or dates you
-      entered and is not a computed result.
-    </p>
+    <details className={styles.synthNote}>
+      <summary>
+        <strong>SYNTHETIC</strong> Fixed synthetic example — results do not reflect the entered plans.
+      </summary>
+      <p>
+        This is a fixed test response from fixtures or a mock server. It is not computed from the coordinates or dates
+        you entered and must not be read as a real result.
+      </p>
+    </details>
   );
 }

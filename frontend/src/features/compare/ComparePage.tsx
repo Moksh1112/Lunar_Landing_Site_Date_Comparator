@@ -1,11 +1,9 @@
-import { Suspense, lazy, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { ApiError } from "../../api/errors";
 import type { CompareRequest, ScenarioResult } from "../../api/types";
-import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Skeleton } from "../../components/Skeleton";
-import { SyntheticBadge } from "../../components/SyntheticBadge";
 import { SyntheticResultNote } from "../../components/SyntheticResultNote";
 import { Term } from "../../components/Term";
 import { useStore } from "../../store";
@@ -18,6 +16,7 @@ import { RawData } from "./RawData";
 import { MomentReadout } from "./MomentReadout";
 import { absoluteTime } from "./moment";
 import { ResultsSummary } from "./ResultsSummary";
+import { conclusion } from "./conclusion";
 import { SkyRing } from "./SkyRing";
 import { ScenarioCard } from "./ScenarioCard";
 import { ThresholdsPanel } from "./ThresholdsPanel";
@@ -27,11 +26,14 @@ import styles from "./compare.module.css";
 
 const SiteMap = lazy(() => import("../map/SiteMap"));
 
+// PRD 6.2: the starter example is computed once on first visit so the page is never empty.
+let starterRan = false;
+
 /** F3 map, loaded only when opened so the first page load stays small. */
 function MapPicker() {
   const [open, setOpen] = useState(false);
   return (
-    <details className={styles.thresholds} onToggle={(e) => setOpen(e.currentTarget.open)}>
+    <details className={styles.disclosure} onToggle={(e) => setOpen(e.currentTarget.open)}>
       <summary>Pick on map</summary>
       {open && (
         <Suspense fallback={<Skeleton height="16rem" label="Loading map" />}>
@@ -39,6 +41,43 @@ function MapPicker() {
         </Suspense>
       )}
     </details>
+  );
+}
+
+const fmtStart = (v: string): string => (v ? v.replace("T", " ") + " UTC" : "not set");
+
+/** Compact A/B summary with the two primary controls; the full editor opens inline below. */
+function PlansBar({ editorOpen, onEdit, onCompare, pending }: { editorOpen: boolean; onEdit: () => void; onCompare: () => void; pending: boolean }) {
+  const scenarios = useStore((s) => s.scenarios);
+  const mode = useStore((s) => s.mode);
+  const MODE_TEXT = { site_vs_site: "Site vs site", date_shift: "Date shift", free: "Free" } as const;
+  return (
+    <div className={styles.plansBar}>
+      <ul className={styles.planList} aria-label="Plans">
+        {(["A", "B"] as const).map((id) => {
+          const p = scenarios[id];
+          return (
+            <li key={id} className={styles.planSummary}>
+              <span className={styles.cardTag} data-id={id} aria-hidden="true">{id}</span>
+              <span className={styles.planText}>
+                <strong>{p.label || `Plan ${id}`}</strong>
+                <span>{p.siteName ?? `${p.lat}°, ${p.lon}° E`}</span>
+                <span>{fmtStart(p.startUtc)}, {p.missionHours} h</span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <div className={styles.barActions}>
+        <span className={styles.modeChip}>{MODE_TEXT[mode]}</span>
+        <button type="button" aria-expanded={editorOpen} aria-controls="plan-editor" onClick={onEdit}>
+          {editorOpen ? "Close editor" : "Edit plans"}
+        </button>
+        <button type="button" className={`btn-primary ${styles.barCompare}`} onClick={onCompare} disabled={pending}>
+          {pending ? "Comparing…" : "Compare"}
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -59,13 +98,20 @@ export function ComparePage() {
   const compare = useCompare();
   const [clientErrors, setClientErrors] = useState<FieldErrors>({});
   const [lastRequest, setLastRequest] = useState<CompareRequest | null>(null);
+  const [editing, setEditing] = useState(false);
 
   const serverErrors: FieldErrors = {};
   if (compare.error instanceof ApiError) for (const d of compare.error.details) serverErrors[d.field] = d.reason;
   const errors = { ...serverErrors, ...clientErrors };
+  const editorOpen = editing || Object.keys(errors).length > 0;
 
   const run = (req: CompareRequest) =>
-    compare.mutate(req, { onSuccess: (response) => setLastCompare({ request: req, response }) });
+    compare.mutate(req, {
+      onSuccess: (response) => {
+        setLastCompare({ request: req, response });
+        setEditing(false); // results take the workspace once a compare succeeds
+      },
+    });
 
   const submit = () => {
     if (compare.isPending) return;
@@ -73,6 +119,7 @@ export function ComparePage() {
     const found = validate(form);
     setClientErrors(found);
     if (Object.keys(found).length > 0) {
+      setEditing(true);
       focusFirstInvalid();
       return;
     }
@@ -91,127 +138,150 @@ export function ComparePage() {
   const scrubTimeFor = (s: ScenarioResult): number | null => (scrubT === null ? null : absoluteTime(s, scrubT, alignBy));
   const synthetic = data?.scenarios.some((s) => s.meta.data_label !== "REAL") ?? false;
 
+  useEffect(() => {
+    if (starterRan || lastCompare) return;
+    const t = setTimeout(() => {
+      starterRan = true;
+      submit();
+    }, 0);
+    return () => clearTimeout(t);
+    // Run once on first mount only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <main className={styles.page}>
-      <header className={styles.pageHead}>
-        <h1>Compare two landing plans</h1>
-        <p className={styles.lede}>
-          Set Plan A and Plan B, then compare sunlight, Earth visibility and the hours you get both.
-        </p>
+      <header className={styles.top}>
+        <div className={styles.titleBlock}>
+          <h1 id="compare-title">Compare two landing plans</h1>
+          <p className={styles.lede}>Which plan keeps the Sun and Earth in view longer, and when?</p>
+        </div>
+        <PlansBar
+          editorOpen={editorOpen}
+          onEdit={() => setEditing((v) => !v)}
+          onCompare={submit}
+          pending={compare.isPending}
+        />
       </header>
-      <div className={styles.layout}>
-        <form
-          className={styles.inputs}
-          aria-label="Compare inputs"
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            submit();
-          }}
-        >
-          <div className={styles.group}>
-            <span className={styles.groupLabel} id="preset-label">Comparison preset</span>
-            <ModePresets mode={mode} onChange={setMode} />
-          </div>
+
+      <form
+        id="plan-editor"
+        className={styles.editor}
+        hidden={!editorOpen}
+        aria-labelledby="editor-title"
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
+        }}
+      >
+        <h2 id="editor-title" className="visually-hidden">Edit plans</h2>
+        <div className={styles.presetBlock}>
+          <span className={styles.groupLabel} id="preset-label">Compare by</span>
+          <ModePresets mode={mode} onChange={setMode} />
+        </div>
+        <div className={styles.segments}>
           <ScenarioCard id="A" errors={errors} />
           <ScenarioCard id="B" errors={errors} />
+        </div>
+        <div className={styles.more}>
           <MapPicker />
           <ThresholdsPanel value={thresholds} onChange={setThresholds} />
-          {errors["request"] && (
-            <p className={styles.fieldError} role="alert">
-              {errors["request"]}
-            </p>
-          )}
-          <div className={styles.submitBar}>
-            <button type="submit" className={`btn-primary ${styles.primary}`} disabled={compare.isPending}>
-              {compare.isPending ? "Comparing…" : "Compare A and B"}
-            </button>
-            <Link to="/best-date" className={styles.secondaryLink}>Find a better date</Link>
-          </div>
-        </form>
+        </div>
+        {errors["request"] && (
+          <p className={styles.fieldError} role="alert">
+            {errors["request"]}
+          </p>
+        )}
+        <div className={styles.submitBar}>
+          <button type="submit" className={`btn-primary ${styles.primary}`} disabled={compare.isPending}>
+            {compare.isPending ? "Comparing…" : "Compare A and B"}
+          </button>
+          <button type="button" onClick={() => setEditing(false)}>Done</button>
+          <Link to="/best-date" className={styles.secondaryLink}>Find a better date</Link>
+        </div>
+      </form>
 
         <section className={styles.results} aria-label="Results" aria-live="polite" aria-busy={compare.isPending}>
           {compare.isPending ? (
             <div className={styles.skeletons}>
               <p className={styles.progress} role="status">Computing both plans…</p>
-              <Skeleton height="6rem" label="Loading verdicts" />
-              <Skeleton height="5rem" label="Loading differences" />
-              <Skeleton height="12rem" label="Loading horizon" />
-              <Skeleton height="10rem" label="Loading timeline" />
+              <Skeleton height="3.5rem" label="Loading conclusion" />
+              <Skeleton height="16rem" label="Loading visibility diagram" />
+              <Skeleton height="10rem" label="Loading sky plates" />
             </div>
           ) : compare.isError ? (
             <ErrorState error={compare.error} onRetry={lastRequest ? () => run(lastRequest) : undefined} />
           ) : data && range ? (
-            <>
-              <div className={styles.resultsHead}>
-                <h2 className={styles.resultsTitle}>Result</h2>
-                {synthetic && <SyntheticBadge />}
-                <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} />
-                <Link to="/report" className="btn no-print">Open report</Link>
-              </div>
-              {synthetic && <SyntheticResultNote />}
-              <div className={styles.reveal} key={shown?.response.scenarios[0].meta.computed_at + String(shown?.request.scenarios[1].start_utc)}>
-                <ResultsSummary
-                  data={data}
-                  expert={expert}
-                  thresholds={thresholds}
-                  sentThresholds={sentThresholds}
-                  middle={
-                    <>
-                      <section className={styles.stage} aria-labelledby="stage-h">
-                        <div className={styles.stageHead}>
-                          <h2 id="stage-h">The sky above each site</h2>
-                          <p className={styles.hint}>
-                            Rings unroll the horizon: north at the top, the <Term k="skyline">skyline</Term> shaded, higher
-                            elevation toward the centre. Solid tracks are visible Sun and Earth; dotted are below the skyline.
-                          </p>
+            <div className={styles.reveal} key={shown?.response.scenarios[0].meta.computed_at + String(shown?.request.scenarios[1].start_utc)}>
+              <header className={styles.conclusion}>
+                <div className={styles.metaRow}>
+                  <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} withReport />
+                </div>
+                <h2 className={styles.answer}>{conclusion(data)}</h2>
+                {synthetic && <SyntheticResultNote />}
+              </header>
+              <ResultsSummary
+                data={data}
+                expert={expert}
+                thresholds={thresholds}
+                sentThresholds={sentThresholds}
+                middle={
+                  <>
+                    <section className={styles.diagram} aria-labelledby="when-h">
+                      <div className={styles.sectionHead}>
+                        <h3 id="when-h">When each plan has Sun, Earth and both</h3>
+                        <div role="group" aria-label="Align timeline by" className="segmented">
+                          <button type="button" aria-pressed={alignBy === "calendar"} onClick={() => setAlignBy("calendar")}>
+                            Calendar date
+                          </button>
+                          <button type="button" aria-pressed={alignBy === "mission_day"} onClick={() => setAlignBy("mission_day")}>
+                            Mission day
+                          </button>
                         </div>
-                        <div className={styles.rings}>
-                          {data.scenarios.map((s) => (
-                            <SkyRing key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
-                          ))}
-                        </div>
-                        <div className={styles.whenHead}>
-                          <h3 id="when-h">When each plan has Sun, Earth and both</h3>
-                          <div role="group" aria-label="Align timeline by" className="segmented">
-                            <button type="button" aria-pressed={alignBy === "calendar"} onClick={() => setAlignBy("calendar")}>
-                              Calendar date
-                            </button>
-                            <button type="button" aria-pressed={alignBy === "mission_day"} onClick={() => setAlignBy("mission_day")}>
-                              Mission day
-                            </button>
-                          </div>
-                        </div>
+                      </div>
+                      <div className={styles.plate}>
                         <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
-                        <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
-                      </section>
-                      <section className={styles.chartPanel} aria-labelledby="where-h">
-                        <div className={styles.chartHead}>
-                          <h3 id="where-h">Horizon panoramas</h3>
-                          <span className={styles.hint}>Same elevation scale for both plans.</span>
-                        </div>
-                        <div className={styles.panoramas}>
-                          {data.scenarios.map((s) => (
-                            <HorizonPanorama key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} expert={expert} />
-                          ))}
-                        </div>
-                      </section>
-                    </>
-                  }
-                />
-              </div>
+                      </div>
+                      <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
+                    </section>
+                    <details className={styles.secondary} open>
+                    <summary>Sky and horizon views</summary>
+                    <section className={styles.sky} aria-labelledby="stage-h">
+                      <div className={styles.sectionHead}>
+                        <h3 id="stage-h">The sky above each site</h3>
+                        <p className={styles.hint}>
+                          Schematic sky plates on one scale: north at the top, the <Term k="skyline">skyline</Term> shaded,
+                          higher elevation toward the centre. Solid tracks are visible; dotted are below the skyline.
+                        </p>
+                      </div>
+                      <div className={styles.rings}>
+                        {data.scenarios.map((s) => (
+                          <SkyRing key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
+                        ))}
+                      </div>
+                    </section>
+                    <section className={styles.sky} aria-labelledby="where-h">
+                      <div className={styles.sectionHead}>
+                        <h3 id="where-h">Horizon panoramas</h3>
+                        <span className={styles.hint}>Same elevation scale for both plans.</span>
+                      </div>
+                      <div className={styles.panoramas}>
+                        {data.scenarios.map((s) => (
+                          <HorizonPanorama key={s.id} scenario={s} scrubT={scrubTimeFor(s)} yMinDeg={range.yMin} yMaxDeg={range.yMax} expert={expert} />
+                        ))}
+                      </div>
+                    </section>
+                    </details>
+                  </>
+                }
+              />
               {expert && <RawData data={data} />}
-            </>
+            </div>
           ) : (
-            <EmptyState title="Press Compare to see the difference">
-              <p>
-                A starter example is loaded: two south-pole points on the same date. Change either plan, or pick a preset,
-                then press Compare A and B.
-              </p>
-            </EmptyState>
+            <p className={styles.progress}>Press Compare A and B to see the difference.</p>
           )}
         </section>
-      </div>
     </main>
   );
 }

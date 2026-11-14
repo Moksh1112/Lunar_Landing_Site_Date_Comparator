@@ -256,3 +256,123 @@ Browser checks (mock):
   - real lunar basemaps (sourced imagery, georeferencing and a delivery route)
   - complete scientific validation (full V1/V2, V3 and V4 evidence)
 - Data shown in the app remains SYNTHETIC.
+
+## Follow-up 4: "night almanac" redesign (supersedes earthshine; see DESIGN.md)
+
+Changes:
+
+- **Compare** is rebuilt as an almanac spread:
+  - A sticky plan slip (A/B perforated segments with Site / Point / Landing / Mission
+    rows; map and thresholds in disclosures; touch-docked action).
+  - Results in a deliberate order: a one-sentence conclusion (derived only from the A − B
+    `both_hours` delta, tested), verdict pair, visibility diagram + scrubber + countdowns,
+    schematic sky plates, panoramas, deltas, metrics, then sources and limits.
+  - The starter example is computed on first visit (PRD 6.2).
+- **Best date** is a numbered workflow (1 Site, 2 Landing days, 3 Mission, then 4 Pick a
+  landing day) with large weekday-labelled day cells and a lifted focused day.
+- **Methods** is editorial: a sticky contents rail and one reading column.
+- **Report** is a paper document on screen, matching print.
+- **New theme:** ink ground with ivory print, ruled structure in place of card stacks, and
+  an earthshine atmosphere on the page background (atmosphere only).
+- **Navigation** link transitions were removed, so the active state paints instantly.
+
+Skills applied:
+
+- **impeccable:** context, `new-work`, concept-seed roll and challenger raises, craft-floor,
+  operate, detect `[]`. Wrote `PRODUCT.md` (inferred from PRD/TRD; no interview held).
+  The `surface-brief write` command failed with a path error, so the direction contract is
+  recorded in `DESIGN.md` instead.
+- **emil-design-eng:** no motion on high-frequency actions; one staged reveal;
+  reduced motion respected.
+- **web-design-guidelines:** rules re-applied.
+- **Anthropic frontend-design:** one bold element; no default treatments.
+- **design-taste-frontend:** marketing-page rules conflict with required chart summaries,
+  so the requirements win.
+- **Not used:** GSAP, Lenis and component libraries (no need, no dependency).
+
+References: pluto-drone, idr-tech and elites-ivory were reviewed earlier this session (the
+mobile pass was skipped at the user's request), plus the awesome-design-md `spacex` entry.
+Other listed galleries were not reviewed.
+
+Checks:
+
+- `tsc` and `eslint` clean; `vitest` 13 files / **122 passed**; `npm run build` and the
+  mock build succeed; impeccable detect `[]`.
+- Headless Edge (CDP) at 1440 / 768 / 375:
+  - At 375 px, `/`, `/best-date`, `/methods` and `/report` all have scrollWidth = 375.
+  - Keyboard scrubbing moves the readout.
+  - Reduced motion turns ring motion off.
+  - The error state shows the inline field error and the alert.
+- Print: `/report` gives 5 pages. Screenshots are in `docs/screenshots/`.
+
+Still limited:
+
+- No real lunar basemap.
+- Terrain 3D gated.
+- Validation is only the owner-reported V1 spot check.
+- All app data is SYNTHETIC.
+
+## Follow-up 5: light lunar atlas, structural density fix, real-data journey
+
+**Theme:** the user-locked "light lunar atlas" (see DESIGN.md) replaces night almanac.
+
+- Schibsted Grotesk only; Gloock is removed (file and licence deleted, README updated).
+- Plain header with a 2 px cobalt active indicator.
+- 6–8 px radii.
+- One Export menu.
+- One concise SYNTHETIC notice, with details.
+- Verdicts as small status labels.
+
+**Structure:**
+
+- A compact A/B plans bar with "Edit plans" (inline editor, opened automatically on
+  validation errors and closed after a successful compare) and "Compare".
+- Full-width result sentence, verdicts and timeline.
+- Sky rings and panoramas in a "Sky and horizon views" secondary section.
+
+**Backend** (`feat/p2-p3-backend-terrain` `0d6f382`, CI run 43641136341 success):
+
+- A covered point (south of 80.7°S) with no DEM loaded now raises `TerrainUnavailable`.
+  The API returns `INTERNAL` with the message "Terrain data is not available on this server
+  for points inside south-pole DEM coverage". Previously it returned "geometric" with the
+  false limitation "no terrain data at this site".
+- If rasterio/pyproj cannot import, a geometric-only provider serves only points north of
+  80.7°S.
+- Tests: 491 passed, 50 skipped; ruff clean.
+
+**Real-data journey** (local, `AZX_USE_MOCK=false`, `VITE_USE_MOCK=false`,
+`AZX_DATA_DIR=C:/azx/data`, outside OneDrive):
+
+- Kernels: downloaded from naif.jpl.nasa.gov and verified by
+  `scripts/download_kernels.py` ("ALL KERNELS OK"). `/health` lists all five; `dems_loaded`
+  is `[]`.
+- **Sourced polar terrain pair** (im2-athena vs im2-intended, `terrain_coverage: true`):
+  **blocked.**
+  - The 20 m DEM is 2.7 GB and PGDA served about 0.1–0.2 MB/s.
+  - The 80 m DEM download reached 167 / 189 MB. On the resume attempt
+    `pgda.gsfc.nasa.gov:443` was unreachable (curl timeout), so the boundary was stopped
+    after two failed attempts. The partial file is kept and resumable.
+  - The UI and API show the honest `INTERNAL` "Terrain data is not available" error. No
+    fixture is used. Screenshot: `real-2-polar.jpg`.
+- **Date shift computed with real SPICE** (im1-odysseus, NASA LRO-sourced, north of 80.7°S,
+  so geometric by TRD 4.1):
+  - 2027-03-01 vs 2027-03-15, 240 h each.
+  - Response: A 0 h Sun (lunar night), B 224.6 h. Earth 240 h both. A red, B green.
+    `both_hours` A − B = −224.6.
+  - Each scenario's `t_unix[0]` matches its submitted start. 1441 samples each.
+  - Labels: REAL, "geometric horizon only", no DEM.
+  - The browser network log shows POST `/api/v1/compare` to `127.0.0.1:8010` returning 200.
+  - CSV and JSON downloaded through the real Export buttons keep the request (`date_shift`,
+    both starts, 240 h), the response and provenance (REAL, kernels, geometric).
+  - Screenshots: `real-3-dateshift.jpg`, `real-4-dateshift-timeline.jpg`,
+    `real-5-dateshift-sources.jpg`.
+- **Not claimed:** a terrain or terrain-coarse result, or any validation beyond the
+  owner-reported V1 spot check.
+
+**Checks:**
+
+- Frontend: `tsc` and `eslint` clean; `vitest` 13 files / 122 passed; production build OK.
+- Headless Edge at 1440 / 768 / 375 (mock): scrollWidth is 375 on all routes; keyboard
+  scrub works; reduced motion turns ring motion off; error state OK.
+- Print: `/report` gives 5 pages.
+- Combined detached checkout (integration plus both owner heads): see the P1 note.
