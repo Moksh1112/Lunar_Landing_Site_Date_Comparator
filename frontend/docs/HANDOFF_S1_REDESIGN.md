@@ -2,7 +2,7 @@
 
 | Item | Value |
 | --- | --- |
-| Branch | `feat/p4-frontend-s0`. Built on `9901476` (the Compare journey); that work is kept. |
+| Branch | `feat/p4-frontend-s0`. Built on `9901476` (the Compare journey); that work is kept. Integration status: see "Integration status (current)" at the end of this file; earlier per-push notes are historical. |
 | Data | **All results are SYNTHETIC**: mock transport (`VITE_USE_MOCK=true`) and fixtures. No real-mode run. |
 | Scope | Frontend only. No changes to `src/api/*`, fixtures, backend, root tooling, CI, lockfiles or `docs/` (P1). |
 | Gate | No stage or Sync gate is claimed. P1 integrates. |
@@ -167,8 +167,7 @@ Browser checks (mock):
 - **Widths:** at 375 px, Compare with the map and Methods with evidence have
   scrollWidth = 375. 768 px is fine.
 
-**P1 action:** integrate backend `8cc3948` and frontend (this commit). After that merge,
-the Methods page renders the V1 spot check at build time.
+**P1 action (historical):** integrate backend `8cc3948` and frontend `dbd4349`. This is done; see "Integration status (current)".
 
 ## Follow-up 3: "earthshine" visual refinement (frontend/DESIGN.md)
 
@@ -215,8 +214,8 @@ the Methods page renders the V1 spot check at build time.
   - The timeline, scrubber and at-time readout sit in the same block.
   - The rings tip from a ground-level perspective to flat as they scroll into view
     (CSS `animation-timeline: view()`, off under reduced motion and in print).
-  - The rings are a chart of response data, not terrain imagery or a 3D model; F18 stays
-    gated.
+  - The rings are **schematic data visualizations** of response data, not terrain imagery,
+    a georeferenced view or a 3D model. F18 stays gated.
 - **F17 fix:** panorama and ring markers now map the scrubber to each plan's own time
   (`absoluteTime`). Before, in mission-day mode the panorama received a raw offset.
 - **New results:** a staged 260 ms reveal.
@@ -242,3 +241,18 @@ the Methods page renders the V1 spot check at build time.
 - No sourced lunar basemap.
 - 3D/WebGL gated: needs three.js in the lockfile (P1) and real terrain tiles.
 - All data SYNTHETIC except the owner-reported V1 spot check (backend branch).
+
+## Integration status (current)
+
+- P1 integration `918d973` contains frontend `dbd4349` and backend `8cc3948` plus the
+  backend fix `d0f81b6`. It is merged into `feat/p4-frontend-s0` with the redesign
+  (`a9ee826`) preserved.
+- With the integrated `validation/results/V1-horizons-spot-check-S1.json`, the Methods page
+  renders that owner-reported V1 **spot check** at build time. This is not complete
+  scientific validation.
+- **Fonts:** OFL licence texts and source references are in `src/theme/fonts/` (`README.md`, plus one `*-OFL.txt` per family).
+- **Still outstanding:**
+  - full terrain 3D (F18 gate, three.js/lockfile, real terrain tiles)
+  - real lunar basemaps (sourced imagery, georeferencing and a delivery route)
+  - complete scientific validation (full V1/V2, V3 and V4 evidence)
+- Data shown in the app remains SYNTHETIC.

@@ -21,7 +21,8 @@ primary action. **Hue is only for data** (TRD 7.6):
 
 ## Type
 
-Two families (TRD 7.6), self-hosted OFL with the latin subset:
+Two families (TRD 7.6), self-hosted under the SIL OFL 1.1 with the latin subset. Licences and
+sources are in `src/theme/fonts/README.md`.
 
 - **Gloock** (high-contrast display serif) is the display voice: page and section titles, the wordmark,
   verdict words, delta values, and the A/B ring letters. Numbers in the display serif are
@@ -58,8 +59,8 @@ Everything is left-aligned. One column below 64 rem; no horizontal scroll at 375
 - Sun and Earth tracks are solid when visible and dotted when below the skyline.
 - The markers follow the shared scrubber, mapped to each plan's own time (F17).
 
-It is drawn only from the compare response. It is a chart, not terrain imagery, and it
-does not bypass the 3D gate.
+It is a **schematic data visualization** drawn only from the compare response. It is not
+terrain imagery, not georeferenced and not a 3D model, and it does not bypass the 3D gate.
 
 ## Motion
 

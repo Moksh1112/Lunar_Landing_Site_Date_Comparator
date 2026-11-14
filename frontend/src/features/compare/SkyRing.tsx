@@ -13,7 +13,8 @@ type Props = { scenario: ScenarioResult; scrubT: number | null; yMinDeg: number;
 /**
  * Sky ring: the horizon seen from the landing site, unrolled around a circle.
  * Azimuth runs clockwise from north at the top; elevation on the shared y scale runs inward.
- * Drawn only from the compare response (skyline + series); it is a chart, not terrain imagery.
+ * Schematic data visualization drawn only from the compare response (skyline + series):
+ * not terrain imagery, not georeferenced, not a 3D model.
  */
 export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
   const { skyline, series, label, id } = scenario;
