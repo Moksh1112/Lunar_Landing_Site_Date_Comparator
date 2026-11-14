@@ -12,13 +12,15 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import json
 import os
 import sys
 import time
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Self
 
 CLOUD_MARKERS = ("onedrive", "dropbox", "icloud", "google drive", "googledrive")
 CHUNK = 1 << 20  # 1 MiB
@@ -65,7 +67,24 @@ def file_hashes(path: Path) -> tuple[str, str]:
     return sha.hexdigest(), md5.hexdigest()
 
 
-def download(url: str, dest: Path, expected_bytes: int) -> None:
+RETRYABLE = (RuntimeError, OSError, http.client.HTTPException)  # OSError covers URLError, timeouts, resets
+
+
+def download(url: str, dest: Path, expected_bytes: int, attempts: int = 20) -> None:
+    """Download url to dest; on a dropped connection, resume from the .part file (up to `attempts`)."""
+    for attempt in range(1, attempts + 1):
+        try:
+            _download_once(url, dest, expected_bytes)
+            return
+        except RETRYABLE as exc:
+            if attempt == attempts:
+                raise
+            wait = min(60, 5 * attempt)
+            print(f"  attempt {attempt} interrupted ({exc}); resuming in {wait} s", flush=True)
+            time.sleep(wait)
+
+
+def _download_once(url: str, dest: Path, expected_bytes: int) -> None:
     """Download url to dest, resuming a partial file; raises on size mismatch."""
     dest.parent.mkdir(parents=True, exist_ok=True)
     part = dest.with_name(dest.name + ".part")
@@ -118,7 +137,7 @@ class ManifestLock:
         self.lock = data_dir / "MANIFEST.json.lock"
         self.timeout_s = timeout_s
 
-    def __enter__(self) -> "ManifestLock":
+    def __enter__(self) -> Self:
         deadline = time.monotonic() + self.timeout_s
         while True:
             try:
@@ -150,7 +169,7 @@ def update_manifest(data_dir: Path, rel_path: str, entry: dict) -> None:
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             manifest.setdefault("files", {})
         manifest["files"][rel_path] = entry
-        manifest["updated_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        manifest["updated_utc"] = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         tmp = manifest_path.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         tmp.replace(manifest_path)
@@ -175,7 +194,7 @@ def fetch_and_record(data_dir: Path, item: dict, dry_run: bool) -> bool:
         return False
     entry = {k: v for k, v in item.items() if k not in ("rel_path",)}
     entry.update({"sha256": sha256, "md5": md5, "status": "complete",
-                  "downloaded_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")})
+                  "downloaded_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")})
     if item.get("md5"):
         entry["md5_matches_published"] = True
     update_manifest(data_dir, item["rel_path"], entry)

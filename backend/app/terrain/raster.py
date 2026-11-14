@@ -59,7 +59,7 @@ class RasterSampler:
             nbytes = self.width * self.height * np.dtype(ds.dtypes[0]).itemsize
             if nbytes > PRELOAD_MAX_BYTES:
                 raise ValueError(f"raster too large to preload ({nbytes} bytes)")
-            self._cache = self._decode(ds.read(1))
+            self._cache = self._decode(ds.read(1), np.float32)  # float32: half the RAM of float64
 
     # -- lifecycle ---------------------------------------------------------------
     def close(self) -> None:
@@ -154,8 +154,8 @@ class RasterSampler:
         return out.reshape(shape)
 
     # -- internals ---------------------------------------------------------------
-    def _decode(self, raw: np.ndarray) -> np.ndarray:
-        a = raw.astype(np.float64)
+    def _decode(self, raw: np.ndarray, dtype: type = np.float64) -> np.ndarray:
+        a = raw.astype(dtype)
         if self.nodata is not None:
             if isinstance(self.nodata, float) and math.isnan(self.nodata):
                 pass  # already NaN

@@ -20,11 +20,15 @@ from .interface import (
 from .mock import MockTerrain
 
 
-def get_terrain_provider(use_mock: bool, fixtures_dir: Path, data_dir: Path) -> TerrainProvider:
-    """Return the mock provider, or fail loudly: never fall back to synthetic data."""
+def get_terrain_provider(
+    use_mock: bool, fixtures_dir: Path, data_dir: Path, dem_far: str = "far_160m.tif"
+) -> TerrainProvider:
+    """Mock provider, or the real DEM provider. Never falls back to synthetic data silently."""
     if use_mock:
         return MockTerrain(fixtures_dir)
-    raise NotImplementedError("Real terrain provider arrives in S1")
+    from .real import RealTerrain  # lazy: rasterio/pyproj are not needed for mock runs
+
+    return RealTerrain(data_dir, dem_far=dem_far)
 
 
 __all__ = [

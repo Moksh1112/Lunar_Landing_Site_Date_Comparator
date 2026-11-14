@@ -83,7 +83,9 @@ def test_tile_outside_coverage() -> None:
     assert ei.value.lat_deg == 10.0
 
 
-def test_real_mode_not_implemented() -> None:
-    with pytest.raises(NotImplementedError):
-        get_terrain_provider(False, FIXTURES, Path("data"))
+def test_provider_factory_modes() -> None:
+    # S2: real mode returns the DEM-backed provider (constructing it opens no files).
+    from app.terrain.real import RealTerrain
+
+    assert isinstance(get_terrain_provider(False, FIXTURES, Path("data")), RealTerrain)
     assert isinstance(get_terrain_provider(True, FIXTURES, Path("data")), MockTerrain)

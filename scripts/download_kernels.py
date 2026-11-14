@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from azx_data import common_args, data_dir_from, fetch_and_record  # noqa: E402
+from azx_data import common_args, data_dir_from, fetch_and_record
 
 BASE = "https://naif.jpl.nasa.gov/pub/naif/generic_kernels"
 SOURCE = "NASA/JPL NAIF SPICE generic kernels"

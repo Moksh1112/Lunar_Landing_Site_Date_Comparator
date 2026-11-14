@@ -48,19 +48,23 @@ def test_health_real_lists_loaded_kernels():
     assert len(body["kernels_loaded"]) == 5
 
 
-def test_real_mode_endpoints_not_implemented(real_client, compare_body, sweep_body):
+def test_real_mode_without_data_fails_cleanly(tmp_path, sweep_body):
+    # Since S3 every endpoint is real. With no kernels/DEMs on the server they must fail with the
+    # contract error shape (never a fixture, never a stack trace).
+    from app.ephemeris.spice import _reset_for_tests
+
+    _reset_for_tests()  # SPICE state is process-global: drop kernels other tests loaded
+    real_client = TestClient(create_app(Settings(use_mock=False, data_dir=tmp_path, warm_up=False)))
     responses = [
-        real_client.post("/api/v1/compare", json=compare_body),
         real_client.post("/api/v1/sweep", json=sweep_body),
         real_client.get("/api/v1/skyline", params={"lat_deg": -85, "lon_east_deg": 30}),
         real_client.get("/api/v1/terrain-tile", params={"lat_deg": -85, "lon_east_deg": 30}),
     ]
     for r in responses:
-        assert r.status_code == 500
-        err = r.json()["error"]
-        assert err["code"] == "INTERNAL"
-        assert err["message"] == "Not implemented yet in this build (S0)"
+        assert r.status_code in (422, 500), r.text
+        assert r.json()["error"]["code"] in ("INTERNAL", "NOT_IN_COVERAGE")
         assert "Traceback" not in r.text and ".py" not in r.text
+        assert "SYNTHETIC" not in r.text
 
 
 def test_real_mode_still_validates_input(real_client, compare_body):

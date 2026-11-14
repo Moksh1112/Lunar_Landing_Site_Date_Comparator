@@ -40,6 +40,11 @@ class Settings(BaseSettings):
     cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     use_mock: bool = False
     log_level: str = "INFO"
+    rate_limits_enabled: bool = True
+    rate_limit_compare_per_min: int = 30
+    rate_limit_sweep_per_min: int = 6
+    trust_forwarded_for: bool = False  # honour X-Forwarded-For only behind a trusted proxy
+    warm_up: bool = True  # real mode: preload DEM libraries/far DEM in a background thread
 
     @field_validator("kernel_list", "cors_origins", mode="before")
     @classmethod

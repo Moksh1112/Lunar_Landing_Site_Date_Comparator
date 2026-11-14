@@ -1,0 +1,29 @@
+{
+ "rule": "Per threshold: sun_pct >= sun_pct_min, earth_pct >= earth_pct_min, longest_dark_h <= dark_gap_h_max, longest_blackout_h <= blackout_h_max passes (inclusive). A check that does not pass is 'near' if sun_pct >= 0.8*sun_pct_min, earth_pct >= 0.8*earth_pct_min, longest_dark_h <= 1.2*dark_gap_h_max, longest_blackout_h <= 1.2*blackout_h_max (inclusive). level = green if nothing failed; amber if every failed check is near; otherwise red. 'failed' lists the threshold keys that do not pass, in the fixed order sun_pct_min, earth_pct_min, dark_gap_h_max, blackout_h_max. Implementations should tolerate about 1e-9 float error at exact band edges.",
+ "cases": [
+  {"name": "all pass", "metrics": {"sun_pct": 80, "earth_pct": 70, "longest_dark_h": 10, "longest_blackout_h": 20},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "green", "failed": []}},
+  {"name": "exactly at thresholds (inclusive)", "metrics": {"sun_pct": 50, "earth_pct": 50, "longest_dark_h": 48, "longest_blackout_h": 72},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "green", "failed": []}},
+  {"name": "one metric just inside the 20 percent band", "metrics": {"sun_pct": 40, "earth_pct": 60, "longest_dark_h": 10, "longest_blackout_h": 20},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "amber", "failed": ["sun_pct_min"]}},
+  {"name": "one metric just outside the band", "metrics": {"sun_pct": 39.9, "earth_pct": 60, "longest_dark_h": 10, "longest_blackout_h": 20},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "red", "failed": ["sun_pct_min"]}},
+  {"name": "two failing but both near", "metrics": {"sun_pct": 45, "earth_pct": 60, "longest_dark_h": 55, "longest_blackout_h": 20},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "amber", "failed": ["sun_pct_min", "dark_gap_h_max"]}},
+  {"name": "dark gap exactly 1.2x max (inclusive)", "metrics": {"sun_pct": 60, "earth_pct": 60, "longest_dark_h": 60, "longest_blackout_h": 20},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 50, "blackout_h_max": 72},
+   "expected": {"level": "amber", "failed": ["dark_gap_h_max"]}},
+  {"name": "zero percentages with non-zero thresholds", "metrics": {"sun_pct": 0, "earth_pct": 0, "longest_dark_h": 48, "longest_blackout_h": 72},
+   "thresholds": {"sun_pct_min": 50, "earth_pct_min": 50, "dark_gap_h_max": 48, "blackout_h_max": 72},
+   "expected": {"level": "red", "failed": ["sun_pct_min", "earth_pct_min"]}},
+  {"name": "custom thresholds with 0 percent minimums", "metrics": {"sun_pct": 0, "earth_pct": 0, "longest_dark_h": 10, "longest_blackout_h": 10},
+   "thresholds": {"sun_pct_min": 0, "earth_pct_min": 0, "dark_gap_h_max": 24, "blackout_h_max": 24},
+   "expected": {"level": "green", "failed": []}}
+ ]
+}

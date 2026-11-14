@@ -1,5 +1,6 @@
 """Azelux API app factory."""
 import logging
+import threading
 import time
 import uuid
 
@@ -7,7 +8,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.errors import error_response, register_error_handlers
-from app.api.routes_api import api_router, health_router
+from app.api.limits import LimitsMiddleware
+from app.api.routes_api import api_router, health_router, warm_up
 from app.ephemeris import load_kernels
 from app.logging_setup import configure_logging, request_id_var
 from app.settings import APP_VERSION, Settings, get_settings
@@ -27,9 +29,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             load_kernels(settings.data_dir / "kernels", settings.kernel_list)
         except Exception as exc:  # noqa: BLE001 - /health must still answer without data
             error_log.error("kernel loading failed: %s", exc)
+        if settings.warm_up:
+            threading.Thread(target=warm_up, args=(app,), name="azelux-warm-up", daemon=True).start()
     register_error_handlers(app)
     app.include_router(health_router)
     app.include_router(api_router)
+
+    app.add_middleware(LimitsMiddleware, settings=settings)  # inner to request_context and CORS
 
     @app.middleware("http")
     async def request_context(request: Request, call_next):

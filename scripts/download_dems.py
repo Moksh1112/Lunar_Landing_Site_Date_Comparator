@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from azx_data import common_args, data_dir_from, fetch_and_record, update_manifest  # noqa: E402
+from azx_data import common_args, data_dir_from, fetch_and_record, update_manifest
 
 P90 = "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp"
 P69 = "https://pgda.gsfc.nasa.gov/data/MoonIllumination"
@@ -85,10 +85,10 @@ def main() -> int:
     if args.inspect:
         return 0 if inspect(data_dir) else 1
     items = [{**DEM_80M, "category": "dem", "source": P90_SOURCE, "citation": P90_CITE}]
+    if args.pgda69:  # small files first so the 2.7 GB DEM never blocks them
+        items += [{**m, "category": "illumination", "source": P69_SOURCE, "citation": P69_CITE} for m in ILLUM]
     if not args.skip_20m:
         items.append({**DEM_20M, "category": "dem", "source": P90_SOURCE, "citation": P90_CITE})
-    if args.pgda69:
-        items += [{**m, "category": "illumination", "source": P69_SOURCE, "citation": P69_CITE} for m in ILLUM]
     ok = True
     for item in items:
         ok &= fetch_and_record(data_dir, item, args.dry_run)
