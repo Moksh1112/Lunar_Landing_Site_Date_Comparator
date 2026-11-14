@@ -40,3 +40,22 @@ Actual root target setup and mock HTTP startup/shutdown also passed. Git ancestr
 and byte-for-byte owner-source comparison passed. Local subset is not full local
 suite, and hosted data-dependent skips do not certify real-source validation.
 Remain S0 OPEN; no tag or deployment. Subsequent status-doc commit CI is separate.
+
+## 15 November 2026 map/evidence integration
+
+Frontend dbd4349 is green and imported. Backend 8cc3948 failed Ruff on an unused
+noqa; isolated P1 correction d0f81b6 passed all seven hosted jobs (43636257071)
+before integration. P1 corrected evidence producer revision to the current source
+0856c14 and added the required --generated-at argument to the recorded command.
+
+Independent local checks: frontend lint, 114 tests, TypeScript/build; adapter Ruff,
+4 tests using normal conftest, full artifact schema validation, source hash and
+adapter reproduction equality. Full science tests remain unverified on this host.
+The adapter only reformats the owner's evidence; it does not independently reproduce
+SPICE/Horizons science. Print-page image inspection is distinct from interactive
+print-preview verification. Owner's next work is visual refinement and real basemap
+assets; no 3D or stage gate is inferred.
+
+Preview check: P1 restarted only the recorded dev launcher to refresh Vite's glob
+cache. Methods now visibly shows PASS / Spot check / Owner-reported / REAL inputs,
+plus the explicit not-full-V1 limitation. Backend preview remains mock=true.
