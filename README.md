@@ -106,3 +106,12 @@ alignment and self-hosted font licences. This is not final visual acceptance: a 
 user-requested UI redesign is underway in the frontend owner's separate worktree.
 App results remain SYNTHETIC; owner-reported Horizons spot-check scope is unchanged.
 Current task status and exact checks: docs/PROGRESS.md.
+
+### Light lunar-atlas checkpoint
+
+Frontend d0a3d85 replaces the dark/serif checkpoint with a light system and compact
+plan editor. Backend 0d6f382 now returns an explicit error for covered polar points
+when terrain is unavailable. The owner demonstrated a REAL SPICE/geometric date
+shift, and P1 inspected its saved request/response/export evidence. Terrain-covered
+polar comparisons remain blocked by incomplete DEM downloads; default preview is
+still synthetic. This supersedes earlier theme descriptions, not scientific gates.

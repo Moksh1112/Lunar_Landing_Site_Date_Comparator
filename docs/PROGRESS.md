@@ -1,32 +1,27 @@
 # Azelux progress and to-do board
 Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
 
-## Current authoritative status — frontend checkpoint 9e3aff9
+## Current authoritative status — light layout and real geometric journey
 
-- Frontend 9e3aff9 integrated after all seven owner CI jobs passed (run 43638187682).
-  Includes a9ee826 sky-ring visualization and mission-day panorama marker fix,
-  font binaries with OFL notices/source references, and corrected owner handoff.
-  P1 local lint, 118 tests and strict TypeScript/production build PASS.
-  This is a functional checkpoint; the user has NOT accepted the visual design.
-  Further UI redesign continues independently in the frontend owner's worktree.
-- Prior frontend dbd4349 features remain integrated: source links, accessible glossary, Expert raw series/
-  skyline, schematic Leaflet map, validation display, synthetic response notes and
-  print fixes. Earlier local 114-test verification is superseded by 118 tests above.
-- Backend 8cc3948 initially failed hosted lint (unused noqa). P1 corrected it in
-  d0f81b6, also fixing the source revision and missing adapter command argument.
-  All seven jobs now pass: run 43636257071. Frontend run 43635772694 also passed.
-- Independent adapter checks: Ruff PASS, 4 tests PASS with normal conftest,
-  full JSON schema validation PASS, original source SHA-256 PASS, deterministic
-  adapted-object equality PASS. No science recomputation occurred.
-- Artifact: REAL inputs / spot_check / owner_reported, 24 metric rows, one site ×
-  six times for Sun/Earth. Full V1/V2/V4 remain missing. No product AI/ML exists.
-- Print fixes: owner reports actual headless Edge report printing; P1 inspected
-  committed print-page imagery. Independent interactive print preview remains unverified.
-- Remaining frontend: visual refinement in owner's worktree; sourced lunar basemap
-  images/delivery and raster orientation check; 3D remains gated.
-- Combined integration 03ef7e0: all seven jobs SUCCESS in run 43636520071. P1 keeps the preview running and integrates future green owner pushes.
-- Sync 0/1 remain open as previously recorded; no new science/deployment/stage claim.
-
+- Frontend d0a3d85 and backend 0d6f382 integrated after green owner CI:
+  runs 43642818525 and 43641136341. User visual acceptance is still separate.
+- Light lunar-atlas system, compact A/B summaries/editor and single Export menu
+  replace the dark/serif theme. Local frontend lint, 122 tests and TypeScript/build PASS.
+- Backend now errors for covered polar sites when this server lacks usable terrain;
+  it does not silently relabel that case as geometric. Outside coverage, SPICE plus
+  explicitly geometric horizon remains available even without raster libraries.
+  P1 local focused tests: 7 passed; changed backend Ruff check PASS.
+- Saved real journey inspected by P1: IM-1 Odysseus, starts 1/15 March 2027, 240 h,
+  REAL/geometric, sunlight 0/224.6 h, 1441 samples per plan. Export request timestamps
+  and all 2882 CSV rows match. This validates saved evidence, not independent live
+  scientific reproduction. Agent's combined suite: 491 passed / 50 skipped (owner-reported).
+- Terrain-covered polar pair remains BLOCKED: NASA PGDA download failed after two
+  attempts, partial 80 m DEM at 167/189 MB, 20 m DEM unfinished. Do not count partial
+  rasters as usable or claim a terrain/coarse comparison. Preserve resumable files.
+- Remaining: recover verified terrain datasets, run covered polar pair, sourced lunar
+  basemap/georeferencing, full V1/V2/V4, gated terrain 3D, deployment and demo checks.
+- Preview remains synthetic by default. No Sync/scientific gate accepted here.
+- Evidence references, reproduction limits and latest checks: INTEGRATION_S0.md.
 ## Historical snapshots (revision-specific; current status above takes precedence)
 
 ## Update procedure

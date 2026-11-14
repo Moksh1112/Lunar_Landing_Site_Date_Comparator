@@ -76,3 +76,30 @@ Only copied OFL licence texts report trailing whitespace; originals preserved.
 Owner browser/reduced-motion/print results remain owner evidence for this checkpoint;
 P1 did not repeat those browser checks. App preview remains synthetic. Full scientific
 validation, real lunar basemaps, gated 3D and the user's visual redesign remain open.
+
+## Light layout and real geometric handoff — 15 November 2026
+
+Integrated frontend d0a3d853801cadda69cb4ed01710f602292a4e5d and backend
+0d6f3829d4a936edbdd482ebae0fba63abc2dcf6 after successful owner CI runs
+43642818525 and 43641136341. Owner worktrees untouched. P1 local checks: lint,
+122 frontend tests, strict TypeScript/production build; 7 terrain-degraded tests
+and changed-backend Ruff PASS. Build retains >500 kB main-chunk advisory.
+
+Backend fix distinguishes unavailable server terrain within coverage from genuine
+outside-coverage geometric mode. No new error enum or fixture fallback is introduced.
+Owner full-suite claim (491 passed/50 skipped) is not a P1 full-suite rerun.
+
+P1 read C:/azx/evidence/real-export.json, real-export.csv, real-network.json and
+real-ui.json. Saved run: im1-odysseus (-80.13, 1.44 E), 1 March vs 15 March 2027,
+240 h, REAL geometric mode, Sun 0 vs 224.6 h. P1 parsed exports and verified first
+series timestamps match both requests, 1441 samples per scenario and 2882 CSV rows.
+This is inspection of saved live-run evidence, not independently recomputed science.
+The UI log records the expected covered-polar error; date shift network log records
+HTTP 200 on port 8010. Logs are local review material, not hosted deployment proof.
+
+Terrain pair is still blocked on verified complete DEMs: PGDA transfer interrupted
+and resume failed (agent stopped after two attempts). Keep partial rasters outside
+git; never load/claim them as verified terrain. Do not treat geometric journey success
+as the required terrain demo. Full validation, basemap, 3D gate, deployment and demo
+remain outstanding. UI screenshots reflect the new light direction; acceptance is
+still the user's decision. No automatic stage tag/gate passage.
