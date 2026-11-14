@@ -57,31 +57,31 @@ def main() -> int:
                 for metric, actual, expected in [('azimuth', float(ours[f'{body}_az'][i]), az),
                                                  ('elevation', float(ours[f'{body}_el'][i]), el)]:
                     error = angle_diff(actual, expected) if metric == 'azimuth' else abs(actual - expected)
-                    rows.append(dict(case=f'{name} {body} {epoch.isoformat()}', metric=metric,
-                                     actual=actual, reference=expected, unit='deg', abs_error=error,
-                                     tolerance=TOLERANCE, status='pass' if error <= TOLERANCE else 'fail'))
+                    rows.append({'case': f'{name} {body} {epoch.isoformat()}', 'metric': metric,
+                                     'actual': actual, 'reference': expected, 'unit': 'deg', 'abs_error': error,
+                                     'tolerance': TOLERANCE, 'status': 'pass' if error <= TOLERANCE else 'fail'})
             echo = reference[0][3]
             observed = header_coordinates(echo)
-            echoes.append(dict(position=name, body=body, header=echo))
+            echoes.append({'position': name, 'body': body, 'header': echo})
             for metric, actual, expected in zip(['longitude_east', 'latitude', 'height_km'],
                                               observed, [lon, lat, 0.0]):
-                frame_rows.append(dict(case=f'{name} {body}', metric=metric, actual=actual,
-                                       reference=expected, unit='km' if metric == 'height_km' else 'deg',
-                                       abs_error=abs(actual - expected), tolerance=0,
-                                       status='pass' if actual == expected else 'fail'))
+                frame_rows.append({'case': f'{name} {body}', 'metric': metric, 'actual': actual,
+                                       'reference': expected, 'unit': 'km' if metric == 'height_km' else 'deg',
+                                       'abs_error': abs(actual - expected), 'tolerance': 0,
+                                       'status': 'pass' if actual == expected else 'fail'})
             print(f'{name} {body}: 48 aligned samples', flush=True)
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     manifest = settings.data_dir / 'MANIFEST.json'
-    common = dict(schema_version='1.0', data_label='REAL', scope='full_check',
-                  review_status='owner_reported', generated_at=datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
-                  producer_commit=commit,
-                  command='node scripts/python.mjs backend/tools/validate_ephemeris.py --out-dir validation/results',
-                  sources=[dict(label='Reference', reference='https://ssd.jpl.nasa.gov/api/horizons.api'),
-                           dict(label='Runtime', reference='SPICE DE440 MOON_ME, LT+S; ' + ', '.join(loaded))],
-                  coverage='Three mathematical test positions (polar, near side, far side), 48 hourly epochs, Sun/Earth.',
-                  limitations=['Horizons DE441 versus runtime DE440.',
+    common = {'schema_version': '1.0', 'data_label': 'REAL', 'scope': 'full_check',
+                  'review_status': 'owner_reported', 'generated_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
+                  'producer_commit': commit,
+                  'command': 'node scripts/python.mjs backend/tools/validate_ephemeris.py --out-dir validation/results',
+                  'sources': [{'label': 'Reference', 'reference': 'https://ssd.jpl.nasa.gov/api/horizons.api'},
+                           {'label': 'Runtime', 'reference': 'SPICE DE440 MOON_ME, LT+S; ' + ', '.join(loaded)}],
+                  'coverage': 'Three mathematical test positions (polar, near side, far side), 48 hourly epochs, Sun/Earth.',
+                  'limitations': ['Horizons DE441 versus runtime DE440.',
                                'Same implementation team ran the check; external review remains pending.',
-                               'This validates ephemeris and coordinate conventions, not terrain or mission safety.'])
+                               'This validates ephemeris and coordinate conventions, not terrain or mission safety.']}
     if manifest.is_file():
         common['manifest_sha256'] = hashlib.sha256(manifest.read_bytes()).hexdigest()
     args.out_dir.mkdir(parents=True, exist_ok=True)
