@@ -1,5 +1,11 @@
 # Non-release engineering takeover — 15 November 2026
 
+## Current stop checkpoint
+
+The user stopped pending implementation. Read [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md)
+first: frontend fd7bf03 is pushed but not integrated; browser verification remains
+open. Earlier verification below applies only to the revisions stated.
+
 ## Authority and branch discipline
 
 The user temporarily assigned all engineering roles to this agent. Release and
