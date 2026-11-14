@@ -1,4 +1,5 @@
 import { Link, createBrowserRouter } from "react-router";
+import { AppShell } from "./AppShell";
 
 // Placeholder pages: replaced by real features in later tasks.
 function Placeholder({ title }: { title: string }) {
@@ -22,9 +23,14 @@ function NotFound() {
 }
 
 export const router = createBrowserRouter([
-  { path: "/", element: <Placeholder title="Compare" /> },
-  { path: "/best-date", element: <Placeholder title="Best date" /> },
-  { path: "/methods", element: <Placeholder title="Methods" /> },
-  { path: "/report", element: <Placeholder title="Report" /> },
-  { path: "*", element: <NotFound /> },
+  {
+    element: <AppShell />,
+    children: [
+      { path: "/", element: <Placeholder title="Compare" /> },
+      { path: "/best-date", element: <Placeholder title="Best date" /> },
+      { path: "/methods", element: <Placeholder title="Methods" /> },
+      { path: "/report", element: <Placeholder title="Report" /> },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
 ]);
