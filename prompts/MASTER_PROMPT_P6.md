@@ -49,4 +49,3 @@ IT2.1 Polish methods page; re-run V1 on the release candidate if code changed.
 
 ### STAGE 5 - Video + submit   [Sun 21:00-23:00]
 S5.1 Fixes only. Final check of data credits (NAIF/JPL, NASA GSFC PGDA, LOLA) in README and the form.
-

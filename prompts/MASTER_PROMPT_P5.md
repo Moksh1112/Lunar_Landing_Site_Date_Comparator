@@ -40,4 +40,3 @@ IT2.1 3D polish: smoother camera, shadows if cheap, labels for Sun and Earth dir
 
 ### STAGE 5 - Video + submit   [Sun 21:00-23:00]
 S5.1 Fixes only; help record the 3D shot for the video.
-

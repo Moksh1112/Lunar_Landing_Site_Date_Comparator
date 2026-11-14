@@ -65,4 +65,3 @@ IT2.1 Optional (change request first): slope at the site from the PGDA slope map
 
 ### STAGE 5 - Video + submit   [Sun 21:00-23:00]
 S5.1 Fixes only. Terrain section of the README and METHODS.md (with P6).
-

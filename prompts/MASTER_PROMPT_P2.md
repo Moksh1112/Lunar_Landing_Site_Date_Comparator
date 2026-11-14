@@ -67,4 +67,3 @@ IT2.1 If approved by change request (v1.1): compare accepts 2-4 scenarios; delta
 
 ### STAGE 5 - Video + submit   [Sun 21:00-23:00]
 S5.1 Fixes only. Keep the backend warm during recording. Help P6 finalise the method write-up.
-

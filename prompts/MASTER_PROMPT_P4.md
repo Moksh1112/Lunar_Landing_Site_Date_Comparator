@@ -67,4 +67,3 @@ IT2.1 If the API supports it: 2-4 scenario layout. Otherwise polish only. Freeze
 
 ### STAGE 5 - Video + submit   [Sun 21:00-23:00]
 S5.1 Fixes only. Screenshots for the README; help P1 record the video.
-
