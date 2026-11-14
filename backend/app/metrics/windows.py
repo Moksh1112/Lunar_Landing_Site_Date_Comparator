@@ -2,13 +2,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 import numpy as np
 
+_EPOCH = datetime(1970, 1, 1, tzinfo=UTC)
+
 
 def _iso(t_unix: float) -> str:
-    dt = datetime.fromtimestamp(round(t_unix), tz=UTC)
+    # epoch + timedelta, not datetime.fromtimestamp(): the latter raises OSError on Windows for
+    # negative timestamps, i.e. any pre-1970 date (e.g. Apollo-era scenarios).
+    dt = _EPOCH + timedelta(seconds=round(t_unix))
     return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 

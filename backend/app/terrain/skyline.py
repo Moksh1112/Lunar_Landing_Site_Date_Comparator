@@ -98,7 +98,9 @@ def compute_skyline(
     if not np.isfinite(h_site):
         raise ValueError("site height is NaN in the near sampler")
 
-    dip = dip_deg(h_site, h_obs_m)
+    # Sites below the reference sphere (h_site + h_obs < 0, common in craters) have no dip:
+    # acos(R/(R+h)) is undefined for h < 0, so clamp the total height at 0.
+    dip = dip_deg(0.0, max(h_site + h_obs_m, 0.0))
     u0 = _unit(np.float64(lat_deg), np.float64(lon_east_deg))
     p0 = (MOON_RADIUS_M + h_site + h_obs_m) * u0
 

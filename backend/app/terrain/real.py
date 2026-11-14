@@ -38,6 +38,7 @@ NODATA_LIMIT = 0.02
 MAX_TILE_KM = 40.0
 FAR_DEFAULT = "far_160m.tif"
 FAR_FALLBACK = "LDEM_80S_80MPP_ADJ.TIF"
+SKYLINE_ALGO_VERSION = 2  # part of every skyline cache signature (see RealTerrain._signature)
 NEAR_DEM_LABEL = "LDEM_80S_20MPP_ADJ"
 
 _DOWNGRADE: dict[HorizonMode, HorizonMode] = {"terrain": "terrain_coarse", "terrain_coarse": "geometric"}
@@ -177,10 +178,13 @@ class RealTerrain:
         return None
 
     def _cache_path(self, lat: float, lon: float, h_obs: float) -> Path:
+        lon = round(lon % 360.0, 5) % 360.0 + 0.0  # one key per point: no "-0.00000" / "360.00000" twins
         return self.cache_dir / f"skyline_{lat:.5f}_{lon:.5f}_{h_obs:.2f}.npz"
 
     def _signature(self, tile: GuardedSampler | None, far: GuardedSampler | None) -> str:
-        parts = [_sig(tile.path) if tile else "-", _sig(far.path) if far else "-"]
+        # SKYLINE_ALGO_VERSION: bump whenever the skyline maths changes, so results cached by an
+        # older algorithm are recomputed instead of served (v2: negative site heights fixed, S4).
+        parts = [f"algo{SKYLINE_ALGO_VERSION}", _sig(tile.path) if tile else "-", _sig(far.path) if far else "-"]
         return "|".join(parts)
 
     def _load_cache(self, path: Path, initial: HorizonMode, sig: str) -> SkylineResult | None:
@@ -197,7 +201,7 @@ class RealTerrain:
                     dem_name=dem or None,
                     data_label="REAL",
                 )
-        except (OSError, KeyError, ValueError):
+        except Exception:  # noqa: BLE001  # corrupt/truncated/foreign file (BadZipFile, EOFError, ...): recompute
             return None
 
     def _store_cache(

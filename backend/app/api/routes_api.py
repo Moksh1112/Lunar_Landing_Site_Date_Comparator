@@ -4,9 +4,10 @@ import base64
 import importlib
 import logging
 import math
+import re
 import threading
 import time
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime, timedelta
 from typing import Annotated
 
 import numpy as np
@@ -54,6 +55,53 @@ def _check_mission(mission_hours: float, step_minutes: float, prefix: str) -> No
                        "Too many time samples: use a larger step or a shorter mission (max 60,000 per scenario).",
                        [{"field": field, "reason": "more than 60000 samples at this step"}])
 
+# DE440s covers 1849-12-26..2150-01-22; the Moon PCK/frame kernels are wider. Anything outside this span
+# (or a start_utc SPICE would read differently from Python, e.g. year 0001 -> 2001) is rejected up front so
+# SPICE text never reaches a client. Pre-1970 dates work (windows.py formats timestamps via
+# epoch + timedelta, so negative Unix times are fine on Windows), so Apollo-era scenarios are allowed.
+EPHEMERIS_FIRST_DAY = date(1900, 1, 1)
+EPHEMERIS_LAST_DAY = date(2149, 12, 31)
+_SITE_ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,64}$")
+_START_UTC_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,9})?Z$")
+_SPAN_ERROR = (f"Date is outside the supported span ({EPHEMERIS_FIRST_DAY.year}-{EPHEMERIS_LAST_DAY.year}).")
+_SPAN_REASON = f"must be within {EPHEMERIS_FIRST_DAY.isoformat()} and {EPHEMERIS_LAST_DAY.isoformat()}"
+
+
+def _check_span(first: datetime, last_end: datetime, start_field: str, end_field: str) -> None:
+    if first.date() < EPHEMERIS_FIRST_DAY:
+        raise ApiError("INVALID_INPUT", _SPAN_ERROR,
+                       [{"field": start_field, "reason": _SPAN_REASON}])
+    if last_end.date() > EPHEMERIS_LAST_DAY:
+        raise ApiError("INVALID_INPUT", _SPAN_ERROR,
+                       [{"field": end_field, "reason": "mission must end by " + EPHEMERIS_LAST_DAY.isoformat()}])
+
+
+def _check_site(site, field: str) -> None:
+    """An empty/odd site_id passes the Site model but would reach the pipeline with no coordinates (500)."""
+    if site.site_id is not None and not _SITE_ID_RE.fullmatch(site.site_id):
+        raise ApiError("INVALID_INPUT", "site_id must be 1-64 characters: letters, digits, '.', '_' or '-'.",
+                       [{"field": f"{field}.site_id", "reason": "invalid site id"}])
+
+
+def _check_start_utc(scenario, field: str) -> None:
+    if not _START_UTC_RE.fullmatch(scenario.start_utc):
+        raise ApiError("INVALID_INPUT", "start_utc must look like 2027-03-01T00:00:00Z.",
+                       [{"field": field, "reason": "must be YYYY-MM-DDTHH:MM:SS[.fff]Z"}])
+    start = scenario.start_dt
+    if start.year > EPHEMERIS_LAST_DAY.year:  # avoids timedelta overflow near year 9999
+        _check_span(start, start, field, field)
+    _check_span(start, start + timedelta(hours=scenario.mission_hours), field, field)
+
+
+def _check_sweep_span(body) -> None:
+    for fld, day in (("range_start", body.range_start), ("range_end", body.range_end)):
+        if not EPHEMERIS_FIRST_DAY <= day <= EPHEMERIS_LAST_DAY:
+            raise ApiError("INVALID_INPUT", _SPAN_ERROR,
+                           [{"field": fld, "reason": _SPAN_REASON}])
+    last_start = datetime(body.range_end.year, body.range_end.month, body.range_end.day, tzinfo=UTC)
+    _check_span(last_start, last_start + timedelta(hours=body.mission_hours), "range_start", "range_end")
+
+
 health_router = APIRouter()
 api_router = APIRouter(prefix="/api/v1")
 
@@ -82,16 +130,36 @@ def _terrain(request: Request) -> TerrainProvider:
 
 
 def warm_up(app) -> None:
-    """Real mode: load DEM libraries, open the far DEM and import the compare pipeline ahead of the
-    first request (cold start ~3 s otherwise). Failures are logged; requests then report them."""
+    """Real mode: pay the one-time start-up costs ahead of the first request: import the compare and
+    sweep pipelines, open the DEMs, and run one tiny compare (2 curated sites, 1 hour) so SPICE segment
+    loading, the on-disk skyline cache, numpy/pydantic first-use paths and the response model are all hot.
+    Failures are logged; real requests then report them."""
     try:
         started = time.perf_counter()
         importlib.import_module("app.compare")  # not "import app.compare": that would rebind `app`
-
-        terrain_for(app).coverage(-85.0, 0.0)
+        importlib.import_module("app.sweep")
+        provider = terrain_for(app)
+        provider.coverage(-85.0, 0.0)
+        _warm_compare(provider)
         log.info("warm-up done in %.2f s", time.perf_counter() - started)
     except Exception as exc:  # noqa: BLE001
         log.error("warm-up failed: %s", exc)
+
+
+def _warm_compare(provider: TerrainProvider) -> None:
+    if not kernels_loaded():
+        return
+    covered = [s["site_id"] for s in load_sites() if s["terrain_coverage"]][:2]
+    if len(covered) < 2:
+        return
+    from app.compare import run_compare
+
+    scenarios = [
+        {"id": sid, "label": sid, "site": {"site_id": site}, "start_utc": "2027-03-01T00:00:00Z",
+         "mission_hours": 1}
+        for sid, site in zip("AB", covered, strict=True)
+    ]
+    run_compare(CompareRequest.model_validate({"mode": "site_vs_site", "scenarios": scenarios}), provider)
 
 
 def _dems_loaded(request: Request) -> list[str]:
@@ -135,6 +203,8 @@ def sites(request: Request) -> OrjsonResponse:
 def compare(request: Request, body: CompareRequest) -> OrjsonResponse:
     for i, scenario in enumerate(body.scenarios):
         _check_mission(scenario.mission_hours, body.step_minutes, f"scenarios[{i}].")
+        _check_site(scenario.site, f"scenarios[{i}].site")
+        _check_start_utc(scenario, f"scenarios[{i}].start_utc")
     if _settings(request).use_mock:
         return OrjsonResponse(load_fixture("compare.ok"))
     from app.compare import run_compare  # local import: keeps mock-only runs light
@@ -151,6 +221,8 @@ def sweep(request: Request, body: SweepRequest) -> OrjsonResponse:
             [{"field": "range_end", "reason": "range longer than 183 days"}],
         )
     _check_mission(body.mission_hours, SWEEP_STEP_MINUTES, "")
+    _check_site(body.site, "site")
+    _check_sweep_span(body)
     if _settings(request).use_mock:
         return OrjsonResponse(load_fixture("sweep.ok"))
     from app.sweep import run_sweep  # local import: keeps mock-only runs light

@@ -1,5 +1,6 @@
 """Azelux API app factory."""
 import logging
+import re
 import threading
 import time
 import uuid
@@ -16,6 +17,7 @@ from app.settings import APP_VERSION, Settings, get_settings
 
 access_log = logging.getLogger("azelux.access")
 error_log = logging.getLogger("azelux.errors")
+_REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9._:-]{1,64}$")  # client-supplied IDs are echoed and logged
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -39,7 +41,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.middleware("http")
     async def request_context(request: Request, call_next):
-        rid = request.headers.get("x-request-id") or uuid.uuid4().hex
+        rid = request.headers.get("x-request-id", "")
+        if not _REQUEST_ID_RE.fullmatch(rid):
+            rid = uuid.uuid4().hex
         token = request_id_var.set(rid)
         start = time.perf_counter()
         try:
