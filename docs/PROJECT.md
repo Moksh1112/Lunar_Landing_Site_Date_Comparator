@@ -75,3 +75,9 @@ to use setup-selected interpreter. Frontend implementation and team freeze remai
 pending; separate contract/React positions and final integration note not received.
 User confirmed one teammate owns P2+P3, another P4+P5, user owns P1.
 P6/Coordinator assignment still needs confirmation. No full Sync 0 acceptance.
+
+## Latest branch review
+See BRANCH_REVIEW_S0.md: backend d5c137b is CI-green but unmerged pending contract
+decisions; frontend branch published at ea15dfd has no frontend-specific work yet.
+Local backend full test collection blocked by pyproj DLL policy; mock startup and
+fixtures passed. All three long-lived remote branches now exist. Remain in S0.
