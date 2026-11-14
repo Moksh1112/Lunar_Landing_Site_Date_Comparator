@@ -48,7 +48,8 @@ export const metaSchema = z.object({
   step_minutes: z.number(),
   observer_height_m: z.number(),
   app_version: z.string(),
-  contract_version: z.literal("1.0"),
+  contract_version: z.enum(["1.0", "1.1"]),
+  manifest_sha256: z.string().regex(/^[0-9a-f]{64}$/).nullable().optional(),
   computed_at: z.string(),
   data_label: dataLabelSchema,
 }) satisfies z.ZodType<Meta>;
@@ -100,7 +101,7 @@ export const seriesSchema = z.object({
 export const healthSchema = z.object({
   status: z.literal("ok"),
   app_version: z.string(),
-  contract_version: z.literal("1.0"),
+  contract_version: z.enum(["1.0", "1.1"]),
   kernels_loaded: z.array(z.string()),
   dems_loaded: z.array(z.string()),
   mock: z.boolean(),
@@ -109,7 +110,7 @@ export const healthSchema = z.object({
 export const librarySiteSchema = z.object({
   site_id: z.string(),
   name: z.string(),
-  group: z.enum(["apollo", "clps", "commercial", "international", "artemis_candidate"]),
+  group: z.enum(["apollo", "clps", "commercial", "international", "artemis_candidate", "reference"]),
   lat_deg: z.number(),
   lon_east_deg: z.number(),
   terrain_coverage: z.boolean(),
@@ -154,13 +155,14 @@ export const deltasSchema = z.object({
 }) satisfies z.ZodType<Deltas>;
 
 export const compareResponseSchema = z.object({
-  contract_version: z.literal("1.0"),
+  contract_version: z.enum(["1.0", "1.1"]),
   scenarios: z.tuple([scenarioResultSchema, scenarioResultSchema]),
   deltas: deltasSchema,
   limitations: z.array(z.string()),
 }) satisfies z.ZodType<CompareResponse>;
 
 export const sweepDaySchema = z.object({
+  step_minutes: z.number().nullable().optional(),
   date: z.string(),
   rank: z.number(),
   refined: z.boolean(),
@@ -169,7 +171,7 @@ export const sweepDaySchema = z.object({
 }) satisfies z.ZodType<SweepDay>;
 
 export const sweepResponseSchema = z.object({
-  contract_version: z.literal("1.0"),
+  contract_version: z.enum(["1.0", "1.1"]),
   site: siteSchema,
   meta: metaSchema,
   days: z.array(sweepDaySchema),
@@ -183,6 +185,9 @@ export const skylineResponseSchema = z.object({
 }) satisfies z.ZodType<SkylineResponse>;
 
 export const terrainTileResponseSchema = z.object({
+  grid_bearing_offset_deg: z.number().nullable().optional(),
+  source_dem: z.string().nullable().optional(),
+  resolution_m: z.number().nullable().optional(),
   site: siteSchema,
   size_km: z.number(),
   width: z.literal(256),
@@ -202,7 +207,7 @@ export const apiErrorBodySchema = z.object({
       "NOT_IN_COVERAGE",
       "RANGE_TOO_LARGE",
       "UPSTREAM_UNAVAILABLE",
-      "INTERNAL",
+      "INTERNAL", "RATE_LIMITED",
     ]),
     message: z.string(),
     details: z.array(z.object({ field: z.string(), reason: z.string() })),

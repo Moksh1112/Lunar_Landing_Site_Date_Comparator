@@ -376,3 +376,15 @@ Still limited:
   scrub works; reduced motion turns ring motion off; error state OK.
 - Print: `/report` gives 5 pages.
 - Combined detached checkout (integration plus both owner heads): see the P1 note.
+
+3D and v1.1 handoff: Three 0.187.0 / React Three Fiber 9.8.2 are pinned for the
+on-demand terrain view. Runtime tile data is decoded as little-endian float32;
+lighting uses local azimuth plus the documented grid-bearing offset. Distances of
+Sun/Earth markers and brightness remain illustrative. First-frame gate measured
+569 ms on P1 host, including request and lazy bundle load. Play/Pause advances the
+shared scrubber, numeric readout and views. A slow or failed WebGL view leaves 2D
+available. Basemap image loaded as 2048x2048 with attribution in the browser.
+
+Client accepts both v1.0 fixtures and coordinated v1.1 responses; RATE_LIMITED maps
+to 429, manifest hash is preserved by exports, optional metadata remains compatible.
+126 tests passed before the final map token alignment; full final checks follow P1.

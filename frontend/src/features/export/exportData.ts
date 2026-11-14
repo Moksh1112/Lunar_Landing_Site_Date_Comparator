@@ -44,7 +44,7 @@ export function buildProvenance(res: CompareResponse, req: CompareRequest | null
     exported_at: now.toISOString().replace(/\.\d{3}Z$/, "Z"),
     contract_version: res.contract_version,
     data_label: dataLabelOf(res),
-    data_manifest: "not available in contract v1.0 (manifest hash requested in C08)",
+    data_manifest: [...new Set(res.scenarios.map((s) => s.meta.manifest_sha256).filter(Boolean))].join(", ") || "not available in this response",
     request: req,
     scenarios: res.scenarios.map((s) => ({
       id: s.id,
