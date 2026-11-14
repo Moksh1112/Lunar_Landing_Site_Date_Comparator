@@ -1,2 +1,11 @@
-// Person 3 owns the comparison UI. S0 only verifies module startup.
-export {};
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./app/App";
+import "./theme/tokens.css";
+import "./theme/global.css";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
