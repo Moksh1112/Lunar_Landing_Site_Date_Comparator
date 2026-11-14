@@ -32,6 +32,11 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, onReady }: 
   useEffect(() => () => geometry.dispose(), [geometry]);
   const sun = bodyDirection(sunAz, sunEl, tile.site.lon_east_deg).map((v) => v * 3) as [number, number, number];
   const observerX = (tile.site_px[0] / (tile.width - 1) - 0.5) * 2;
+  const observerY = useMemo(() => {
+    const h = decodeHeights(tile.heights_m_b64, tile.width, tile.height);
+    const index = Math.round(tile.site_px[1]) * tile.width + Math.round(tile.site_px[0]);
+    return (h[index] - tile.min_m) / (tile.size_km * 1000) * 2 * exaggeration + 0.006;
+  }, [tile, exaggeration]);
   const observerZ = (tile.site_px[1] / (tile.height - 1) - 0.5) * 2;
   const earth = bodyDirection(earthAz, earthEl, tile.site.lon_east_deg).map((v) => v * 2.5) as [number, number, number];
   return <>
@@ -40,7 +45,7 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, onReady }: 
     <mesh rotation={[-Math.PI / 2, 0, 0]} geometry={geometry}><meshStandardMaterial color="#b8b5ac" side={THREE.DoubleSide} /></mesh>
     <mesh position={sun}><sphereGeometry args={[0.07, 16, 12]} /><meshBasicMaterial color="#956000" /></mesh>
     <mesh position={earth}><sphereGeometry args={[0.065, 16, 12]} /><meshBasicMaterial color="#245bb5" /></mesh>
-    <mesh position={[observerX, 0.08, observerZ]}><sphereGeometry args={[0.025, 12, 8]} /><meshBasicMaterial color="#244bb3" /></mesh>
+    <mesh position={[observerX, observerY, observerZ]}><sphereGeometry args={[0.025, 12, 8]} /><meshBasicMaterial color="#244bb3" /></mesh>
     <axesHelper args={[0.5]} />
   </>;
 }
