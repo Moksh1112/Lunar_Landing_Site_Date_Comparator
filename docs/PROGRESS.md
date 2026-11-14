@@ -204,3 +204,31 @@ V2 height comparison exposed ~2e-13 km Horizons numerical noise; the final V2 ro
 check exactly the latitude/longitude scope specified in PRD, while raw headers retain
 height. Full artifacts are published on the backend branch; pending green evidence CI
 before integration. V4 long-run illumination and terrain 3D remain outstanding.
+
+## Terrain and basemap milestone (15 November 2026)
+
+Completed NASA 80 m raster, derived 160 m far field and two 50 km 20 m near-field
+crops. Remote crops use NASA's COG byte ranges, so their own SHA256 values are
+recorded but upstream full-file checksum verification is explicitly false. No raw
+rasters/kernels/images are added to git. Reproduce with:
+
+    node scripts/python.mjs scripts/download_dems.py --data-dir C:/azx/data --skip-20m
+    node scripts/python.mjs scripts/prepare_dems.py --data-dir C:/azx/data --far --hillshade
+    node scripts/python.mjs scripts/prepare_remote_tiles.py --data-dir C:/azx/data
+
+Use an absolute non-cloud data path. Remote tile reads validate expected CRS,
+dimensions and pixel scale, then record crop windows and derived checksums. Downloader
+retry default is now two attempts per boundary, preserving partial files.
+
+Live comparison: IM-2 Athena vs intended site, 15 March 2027, 240 h: both REAL/terrain
+(20 m near field plus 160 m far), Sun 240 h both; Earth 203.7/203.6 h. Requests and
+responses are in ignored work/p1-polar-terrain-*.json. Exact map CRS formula checked
+against the raster projection at four cardinal longitudes (0 E up, 90 E right).
+
+Basemap code pushed: backend f470a87 serves only the allowlisted hillshade PNG and
+metadata under /assets/lunar/; frontend 6c65375 overlays it with source citation and
+explicit absent-image state. Raw DEM paths are never served. Both owner CI runs
+passed before integration. Local full backend suite: 539 passed, 12 skipped; frontend
+122 tests/lint/typecheck/build passed. New V1/V2 evidence is live, full-scope,
+owner-reported; V3/V5 executed mathematical evidence is published on backend branch.
+V4 reference maps are downloading; 3D and final non-release acceptance remain next.

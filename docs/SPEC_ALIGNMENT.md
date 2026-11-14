@@ -57,3 +57,10 @@ audit remediation and C03-C09 target decisions are approved in
 FRONTEND_UNBLOCK_DECISIONS.md. Build-time validation interface: validation/README.md.
 These approvals unblock frontend work; they do not certify scientific data or pass
 team stage gates. Version 1.1 additions require consumer conformance before activation.
+
+## Temporary full-stack execution
+User authorized the integration agent to perform P1-P6 engineering while teammates
+are away. Keep the same three branches and owner worktrees; publish verified handoffs
+as work proceeds. Release/deployment remains reserved for the user. This overrides
+older integration-only/S0-only limits for this assignment, not truthful data labelling,
+required validation, safety disclaimers, or source provenance.
