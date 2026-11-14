@@ -22,12 +22,17 @@ URL = 'https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF'
 
 
 def main() -> None:
-    args = common_args(__doc__.splitlines()[0]).parse_args()
+    parser = common_args(__doc__.splitlines()[0])
+    parser.add_argument('--point', action='append', default=[], help='Extra validation test point lat,lon')
+    args = parser.parse_args()
     if args.dry_run:
         print(URL, '50 km crops for verified polar sites; HTTP range reads')
         return
     out_dir = data_dir_from(args)
     sites = json.loads((ROOT / 'backend/app/sites/sites.json').read_text())['sites']
+    if args.point:
+        sites = [{'site_id': f'validation-{i}', 'lat_deg': float(p.split(',')[0]),
+                  'lon_east_deg': float(p.split(',')[1]), 'verified': True} for i, p in enumerate(args.point)]
     with rasterio.Env(GDAL_HTTP_TIMEOUT=30, GDAL_HTTP_MAX_RETRY=0, GDAL_DISABLE_READDIR_ON_OPEN='EMPTY_DIR'), rasterio.open(URL) as src:
         if src.width != 30400 or src.height != 30400 or abs(src.transform.a) != 20:
             raise ValueError('Unexpected upstream dimensions/resolution')

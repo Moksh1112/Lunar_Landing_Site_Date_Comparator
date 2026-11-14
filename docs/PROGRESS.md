@@ -232,3 +232,22 @@ passed before integration. Local full backend suite: 539 passed, 12 skipped; fro
 122 tests/lint/typecheck/build passed. New V1/V2 evidence is live, full-scope,
 owner-reported; V3/V5 executed mathematical evidence is published on backend branch.
 V4 reference maps are downloading; 3D and final non-release acceptance remain next.
+
+## Full-stack checkpoint — terrain, map and validation
+
+Completed and pushed owner milestones: live V1/V2 checks; V3/V5 regression evidence;
+real 20 m near-field/160 m far terrain; georeferenced polar hillshade; gated 3D and
+shared playback. Local full backend suite after v1.1: 546 passed / 6 skipped. Local
+frontend: 126 tests, lint, TypeScript/build passed. Initial browser 3D first frame:
+569 ms; playback and the real 2048 px hillshade verified. Repeat after final integration.
+
+Scientific blocker: V4 tested all five prescribed sample positions over 18.6 years,
+daily step. One Sun result differs by ~6.30 percentage points, exceeding the 5 pp
+target. Replacing its coarse near-field with a real 20 m crop did not resolve it.
+Both attempts are saved; investigation stopped at this boundary under the two-attempt
+rule. Never change points or weaken the target to obtain a pass. V6 diagnostics are
+provided but qualitative human review remains incomplete.
+
+Whole-Moon view still uses a coordinate grid; the sourced polar hillshade is active.
+Release/deployment remains the user's phase. See NON_RELEASE_HANDOFF.md for restart,
+reproduction, current limitations and takeover commands (written at final checkpoint).
