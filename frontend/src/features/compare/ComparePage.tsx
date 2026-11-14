@@ -21,6 +21,7 @@ import { SkyRing } from "./SkyRing";
 import { ScenarioCard } from "./ScenarioCard";
 import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
+import { TerrainPanel } from "../terrain3d/TerrainPanel";
 import { useCompare } from "./useCompare";
 import styles from "./compare.module.css";
 
@@ -276,6 +277,7 @@ export function ComparePage() {
                   </>
                 }
               />
+              <TerrainPanel key={data.scenarios[0].meta.computed_at} data={data} />
               {expert && <RawData data={data} />}
             </div>
           ) : (
