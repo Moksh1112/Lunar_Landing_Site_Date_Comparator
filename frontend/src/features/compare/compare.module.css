@@ -123,7 +123,7 @@
 .secondary { border-top: 1px solid var(--rule); padding-top: var(--space-2); }
 .secondary > summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; min-height: 3rem; font-weight: 650; font-size: var(--text-lg); }
 .secondary > summary::-webkit-details-marker { display: none; }
-.secondary > summary::after { content: "+"; font-family: var(--font-sans); color: var(--color-text-muted); }
-.secondary[open] > summary::after { content: "2"; }
+.secondary > summary::after { content: "Show"; font-family: var(--font-sans); color: var(--color-text-muted); }
+.secondary[open] > summary::after { content: "Hide"; }
 .secondary > .sky { border-top: 0; padding-top: var(--space-2); }
 @media (max-width: 40rem) { .conclusion .metaRow { order: 3; } .conclusion { position: relative; z-index: 5; display: flex; } }
