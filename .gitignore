@@ -11,3 +11,16 @@ dist/
 data/raw/
 *.tif
 *.tiff
+
+# Azelux integration tooling and downloaded science assets
+work/
+.tools/
+data/
+*.bsp
+*.bpc
+*.TIF
+*.IMG
+*.npz
+.ruff_cache/
+playwright-report/
+test-results/

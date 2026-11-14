@@ -1,63 +1,70 @@
-# Lunar Landing Site-Date Comparator
-Compare two lunar south-pole site/date scenarios and their sampled Sun/Earth visibility.
-**S0 scaffolding only.** No comparison journey or real Horizons/LOLA integration yet.
-Live URL / screenshot / demo: pending later stages. Team: see PROJECT.md.
+# Azelux - integration baseline
+Two lunar site/date scenarios compared for Sun/Earth visibility. This repository
+currently contains S0 scaffolds, not the Azelux product or a real science pipeline.
+Live URL, screenshots, verified datasets and demo: pending. No AI/database in product.
 
-## Local setup
-Requires Node 22.12+ (or 24+), npm, Python 3.13 and network access for dependency installation.
+## Ownership
+P1/user: integration only. All frontend source belongs to frontend owner.
+Backend/SPICE and terrain belong to their respective owners. Read docs/PROJECT.md.
+The earlier root CONTRACT.md and fixtures are legacy proposals. New Azelux contract
+adoption is pending team decisions in docs/CONTRACT_CHANGE_REQUESTS_S0.md.
+
+## Setup
+Install Node >=22.12 (24 is locally verified), npm, uv and Python 3.12 (3.11 is a
+fallback via AZX_SETUP_PYTHON). The kit's Node 20/React 18 proposal conflicts with
+this existing Node-compatible Vite/React 19 scaffold: frontend owner must decide,
+not P1 silently change its stack. Install network access is required.
+
 ```sh
-git clone https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator.git
-cd Lunar_Landing_Site_Date_Comparator
 npm run setup
+npm run hooks
 npm run dev:all
 ```
-One command starts both modules after setup. Open http://127.0.0.1:5173 (blank S0 shell)
-and http://127.0.0.1:8000/health (expected {"status":"ok"}). Stop with Ctrl+C.
-Backend docs: http://127.0.0.1:8000/docs. Compare route is not implemented yet.
-No credentials needed. .env.example lists reserved names only; EPHEMERIS_MODE is
-reserved for the adapter owner and is not read by this scaffold. No data is persisted.
+Setup uses uv/Python 3.12, a hash-pinned backend requirements-lock.txt and npm ci.
+Fallback without uv: set AZX_SETUP_PYTHON to a Python 3.11/3.12 executable.
+Explicit overrides are version checked. No packages are installed into system Python.
+Backend source remains requirements-based until backend owner supplies pyproject.toml
+and P1 records an agreed uv.lock. No science dependencies are added by integration.
+
+Backend http://127.0.0.1:8000/health; frontend http://127.0.0.1:5173 (blank S0 shell).
+Ctrl+C stops modules. No credentials needed. Existing baseline does not yet load
+Azelux env variables or implement mock API routes; names are reserved for owners.
+Make aliases are available on systems with GNU Make; npm commands work in PowerShell.
+
+## Known local setup blocker
+Windows Application Control blocks the generated .venv/Scripts/python.exe for
+Python 3.12 on this machine. npm run setup stops and reports it. Do not disable
+security policy. Use an approved environment/administrator-approved runtime.
+The installed system Python 3.13 can verify baseline health, but is NOT acceptance
+of the target Python version. Full make dev/npm run dev:all is not claimed passed.
+The previous Rollup error did not reproduce here: the existing frontend builds and serves.
 
 ## Checks
 ```sh
+npm run check:setup
 npm run check
 npm --prefix frontend run build
+python scripts/check_backend.py
 ```
-Stack: Vite, React, TypeScript, FastAPI, Python. No AI or database.
-frontend/ and backend/ are module handoffs; fixtures/ holds clearly synthetic proposals;
-scripts/ owns setup/start; docs/ records event evidence and stage reports.
-Frontend uses exact package versions plus npm lockfile; backend direct dependencies
-are pinned, full transitive locking is pending S1 CI setup.
+Use a supported configured backend interpreter for the last command; it needs the
+backend dependencies. This checks startup and status=ok, not the expanded Azelux
+health contract, comparison journey or scientific accuracy.
 
-## Collaboration
-Read PROJECT.md and CONTRACT.md first. Branch by stack and ownership as listed there.
-Person 2 approves contract decisions. Main must remain demoable after Sync 1;
-merge only verified green changes. Never commit secrets, raw terrain or .env.
+CI runs on PRs/main and P1 integration branch pushes: lockfile installation,
+backend startup, frontend type-check/build, attribution guard, history secret scan.
+Backend owner lint/tests activate after pyproject handoff; frontend lint/test scripts
+activate when supplied. Missing suites are announced, not claimed passed.
+Hosted CI has not run for this uncommitted S0 work. See docs/STAGE_REPORT_AZELUX_S0.md.
 
-## Evidence and limitations
-All fixture values and coordinates are synthetic, never real landing-site recommendations.
-Geometric-only horizon ignores local terrain. Sampled windows are estimates.
-No certified safety, electrical wattage prediction or guaranteed communications.
-JPL Horizons and verified NASA LOLA are intended sources, not connected yet.
-Official event rules remain unverified: see docs/EVENT_RULES.md.
-CI/smoke checks: S1. Deployment: S2 subject to event rules. Demo/submission: S3-S5.
+## Environment defaults for future owner implementation
+.env.example contains names only. Do not commit real .env files.
+Backend defaults intended by TRD: AZX_DATA_DIR=./data; AZX_KERNEL_LIST supplied by
+verified kernel manifest; near/far DEM supplied by terrain owner; AZX_CORS_ORIGINS
+must list exact frontend origins; AZX_USE_MOCK=true for fixture development;
+AZX_LOG_LEVEL=INFO. Frontend: VITE_API_URL=http://127.0.0.1:8000 and VITE_USE_MOCK=true
+until real-source integration. Frontend owner handles frontend/.env.local loading.
+Avoid localhost/127.0.0.1 origin mismatch. No runtime config is implemented by P1.
 
-## S0 startup troubleshooting and handoff
-Setup launches npm through its Node CLI and starts module executables directly,
-without a shell wrapper. A failed module stops its sibling and returns a nonzero status.
-On this Codex host the backend was verified outside the restricted execution sandbox:
-HTTP 200, exactly `{"status":"ok"}`. A restricted-runner timeout alone is not proof
-of an application bug. Use an authorized normal terminal for local servers.
-
-Windows Application Control currently blocks Rollup's native module here. Frontend
-build/startup and the full one-command start are **not verified working** on this host.
-Do not disable security policy. See docs/STAGE_REPORT_S0.md for the blocker and
-use an approved compatible environment to complete the module startup gate.
-
-For backend-only startup after setup:
-```powershell
-.venv/Scripts/python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
-```
-On macOS/Linux use `.venv/bin/python` in the same command. For frontend-only startup,
-run `npm --prefix frontend run dev`. The S0 frontend is intentionally an empty shell.
-See docs/SYNC_0_CONFIRMATIONS.md for Person 2 decisions and each teammate's exact
-acknowledgment. Startup fixes exist only on `chore/integration-devops` until integrated.
+## Limits
+All existing comparison fixture values are synthetic. SPICE/Horizons/LOLA are not
+integrated. No landing-safety certification, watts or guaranteed communications.

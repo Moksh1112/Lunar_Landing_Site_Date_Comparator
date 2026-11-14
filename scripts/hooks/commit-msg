@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+# Azelux commit-msg hook: blocks any commit that credits an AI tool.
+# Install once per clone:  git config core.hooksPath scripts/hooks
+# Rule (PRD 10.3): no AI tool may appear as author, committer or co-author.
+
+msg_file="$1"
+AI_NAMES='claude|anthropic|openai|chatgpt|gpt-[0-9]|copilot|gemini|cursor|codeium|windsurf|devin|codex|tabnine|\[bot\]'
+
+fail() {
+  echo "" >&2
+  echo "BLOCKED by scripts/hooks/commit-msg: $1" >&2
+  echo "Azelux rule: no AI tool may appear as author, committer or co-author." >&2
+  echo "Remove the line(s) above and commit again." >&2
+  exit 1
+}
+
+# 1. Trailers that credit an AI (Co-Authored-By, Signed-off-by, etc.)
+if grep -Eiq "^[[:space:]]*(co-authored-by|signed-off-by|authored-by|assisted-by)[[:space:]]*:.*(${AI_NAMES}|noreply@anthropic\.com)" "$msg_file"; then
+  grep -Ein "^[[:space:]]*(co-authored-by|signed-off-by|authored-by|assisted-by)" "$msg_file" >&2
+  fail "AI co-author trailer found."
+fi
+
+# 2. "Generated with ..." style footers
+if grep -Eiq "(generated|created|written|made)[[:space:]]+(with|by|using)[[:space:]]+\[?(${AI_NAMES})" "$msg_file"; then
+  grep -Ein "(generated|created|written|made)[[:space:]]+(with|by|using)" "$msg_file" >&2
+  fail "AI 'generated with' footer found."
+fi
+
+# 3. Author or committer identity that is an AI or bot
+ident="$(git var GIT_AUTHOR_IDENT 2>/dev/null) | $(git var GIT_COMMITTER_IDENT 2>/dev/null)"
+if echo "$ident" | grep -Eiq "(${AI_NAMES}|noreply@anthropic\.com)"; then
+  echo "$ident" >&2
+  fail "author/committer identity looks like an AI or bot. Set your own: git config user.name / user.email"
+fi
+
+exit 0
