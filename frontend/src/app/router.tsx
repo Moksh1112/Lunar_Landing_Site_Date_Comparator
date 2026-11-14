@@ -1,4 +1,5 @@
 import { Link, createBrowserRouter } from "react-router";
+import { ComparePage } from "../features/compare/ComparePage";
 import { MethodsPage } from "../features/methods/MethodsPage";
 import { ReportPage } from "../features/report/ReportPage";
 import { AppShell } from "./AppShell";
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
   {
     element: <AppShell />,
     children: [
-      { path: "/", element: <Placeholder title="Compare" /> },
+      { path: "/", element: <ComparePage /> },
       { path: "/best-date", element: <Placeholder title="Best date" /> },
       { path: "/methods", element: <MethodsPage /> },
       { path: "/report", element: <ReportPage /> },

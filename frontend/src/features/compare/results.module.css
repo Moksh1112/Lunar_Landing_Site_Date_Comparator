@@ -1,0 +1,22 @@
+.root { display: grid; gap: var(--space-4); color: var(--color-text); }
+.chips, .sources { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.chip { border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-1) var(--space-2); background: var(--color-surface); }
+.green { border-color: var(--color-green); }
+.amber { border-color: var(--color-amber); }
+.red { border-color: var(--color-red); }
+.word { font-weight: 700; text-transform: uppercase; }
+.green .word { color: var(--color-green); }
+.amber .word { color: var(--color-amber); }
+.red .word { color: var(--color-red); }
+.failed { margin: var(--space-1) 0 0; padding-left: var(--space-4); font-size: var(--text-xs); color: var(--color-text-muted); }
+.delta { margin: 0; padding: var(--space-2); background: var(--color-surface-2); border-radius: var(--radius-sm); }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table caption { text-align: left; font-weight: 700; padding-bottom: var(--space-1); }
+.table th, .table td { padding: var(--space-1) var(--space-2); border-bottom: 1px solid var(--color-border); text-align: right; }
+.table th[scope="row"], .table thead th:first-child, .table th[colspan] { text-align: left; }
+.colA { color: var(--color-a); }
+.colB { color: var(--color-b); }
+.source { border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-2); background: var(--color-surface); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.muted { color: var(--color-text-muted); font-size: var(--text-xs); }
+.root h3 { margin: 0 0 var(--space-1); font-size: 1rem; }
