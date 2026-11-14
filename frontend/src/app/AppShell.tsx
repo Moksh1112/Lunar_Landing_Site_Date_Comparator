@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router";
+import { ErrorBoundary } from "./ErrorBoundary";
 import { ExpertToggle } from "./ExpertToggle";
 import { SyntheticBanner, useHealthQuery } from "./SyntheticBanner";
 import { USE_MOCK } from "../api/client";
@@ -34,7 +35,9 @@ export function AppShell() {
         </div>
       )}
       <div className={styles.outlet}>
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </div>
       <footer className={styles.footer}>
         <span>
