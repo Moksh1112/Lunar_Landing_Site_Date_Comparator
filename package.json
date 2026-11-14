@@ -12,6 +12,7 @@
     "check:startup": "node scripts/check-startup.mjs",
     "fixtures": "node scripts/python.mjs scripts/make_fixtures.py",
     "check:fixtures": "node scripts/python.mjs scripts/check-fixtures.py",
-    "check:dependencies": "node scripts/check-dependencies.mjs"
+    "check:dependencies": "node scripts/check-dependencies.mjs",
+    "dev:s0": "node scripts/dev.mjs --mock"
   }
 }

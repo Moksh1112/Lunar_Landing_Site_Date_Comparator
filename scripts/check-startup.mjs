@@ -14,7 +14,7 @@ async function assertUnused(port) {
 }
 await assertUnused(8000);
 await assertUnused(5173);
-const child = fork(new URL('./dev.mjs', import.meta.url), [], {cwd:root, silent:true});
+const child = fork(new URL('./dev.mjs', import.meta.url), ['--mock'], {cwd:root, silent:true});
 let log = '';
 for (const stream of [child.stdout, child.stderr]) stream.on('data', data => { log = (log + data.toString()).slice(-12000); });
 const exited = new Promise(resolve => child.once('exit', code => resolve(code)));

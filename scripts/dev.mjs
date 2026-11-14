@@ -3,6 +3,11 @@ import { existsSync } from 'node:fs';
 import { pythonRuntime } from './python-runtime.mjs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+// Explicit S0 mode: force synthetic transports without changing product defaults.
+if (process.argv.includes('--mock')) {
+  process.env.AZX_USE_MOCK = 'true';
+  process.env.VITE_USE_MOCK = 'true';
+}
 const root = fileURLToPath(new URL('../', import.meta.url));
 let runtime;
 try { runtime = pythonRuntime(); } catch (error) { console.error(error.message); process.exit(1); }

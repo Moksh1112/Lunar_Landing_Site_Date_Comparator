@@ -1,5 +1,5 @@
 # Azelux progress and to-do board
-Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Frontend S0 implementation now published and locally checked; see FRONTEND_S0_REVIEW.md.
+Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Combined code integration authorized by user; gate still pending. Frontend S0 implementation now published and locally checked; see FRONTEND_S0_REVIEW.md.
 
 ## Update procedure
 Whenever the user requests an update/progress check, inspect ALL three remote heads
@@ -10,13 +10,12 @@ Status vocabulary: absent; code present; checked (name evidence); integrated;
 accepted (gate met); deployed (live verified). Owner-reported results are distinct.
 Green mock CI/file presence/report stage names do not pass science or team gates.
 
-## Current branches
-| Workstream | Reviewed revision | Assessment |
-| --- | --- | --- |
-| Integration feat/p1-s0-integration | bb5ae1d code baseline; 76b333e progress docs | Verified setup/CI scaffold; product branches not merged |
-| Backend/terrain feat/p2-p3-backend-terrain | d5c137b | Substantial services/tests present; seven hosted jobs green |
-| Frontend feat/p4-frontend-s0 | 0cd0ae5 | S0 shell/client/theme/components present; 27 tests/lint/build/startup pass locally; CI and React/audit decisions pending |
-| AI/ML | Not in product scope | SPICE/terrain/validation tracked as science/data, not an invented AI feature |
+## Current combined source snapshot
+User authorized combining integration 60e3830, backend d5c137b and frontend
+0cd0ae5. Both owner histories are included in the candidate. Seven-jobs full Linux
+CI must validate the promoted revision; local checks and limits: INTEGRATION_S0.md.
+No product source was manually changed by P1; dev:s0 is root integration tooling.
+AI/ML remains out of product scope. No extra remote branch or team-stage advancement.
 
 ## Source-of-truth feature comparison
 | PRD requirements | Backend/science evidence | Frontend evidence / remaining |
@@ -57,9 +56,10 @@ Latest board-refresh revision CI must be reported separately.
 - [x] Receive and independently check published frontend S0 implementation (0cd0ae5).
 - [ ] Collect missing contract/React note and coordinate dependency/audit decisions.
 - [ ] Collect full manifest/checksum/raster and validation provenance.
-- [ ] Integrate only reviewed conforming green work; do not advance stages implicitly.
-      No newly ready product changes at this check: backend cap approval remains
-      blocked; frontend now has S0 implementation but awaits React/CI/audit decisions.
+- [x] Assemble and locally test combined owner code as authorized S0 candidate; no stage advancement.
+- [ ] Confirm full combined Linux CI; resolve deviations before Sync 0 acceptance.
+      Backend cap, schema, React and audit issues remain acceptance blockers;
+      code integration is not approval of those proposals.
 - [x] Recheck all branch heads/CI and all four source-document/archive SHA-256s.
 - [ ] Backend owner: next push should resolve aggregate sample cap against TRD or
       carry an explicit approved contract revision; no automatic acceptance of proposal.
@@ -103,5 +103,23 @@ Deployment/MVP/RC/submission: NOT VERIFIED. No automatic passage from branch pus
 Remote 0cd0ae5 contains all twelve reported frontend commits; report's unpushed line
 was stale. Local tsc/lint/build, 27 tests, target setup and mock HTTP startup/shutdown
 passed. Full npm audit reports seven moderate dev-tree affected packages; production
-only audit is clean. React decision and hosted branch CI remain open. No frontend
-code merged or modified. Backend head remains d5c137b. Full review: FRONTEND_S0_REVIEW.md.
+only audit is clean. React decision and hosted branch CI remain open. Frontend owner source is now imported in combined candidate; P1 did not edit it. Backend head remains d5c137b. Full review: FRONTEND_S0_REVIEW.md.
+
+## Authorized combined integration
+User authorized merging/checking both owner branches: backend d5c137b and frontend
+0cd0ae5. Detached candidate merges were conflict-free. Owner product files imported
+unchanged. P1 added dev:s0 explicit both-mock launcher and startup-check coverage.
+Local frontend tsc/lint/build, 27 tests, 15 fixtures, Python syntax, Ruff and mock
+startup/shutdown passed. Full local backend suite is blocked by pyproj DLL policy;
+subset excluding four projection-import files is recorded in integration report.
+Real-source test results remain owner-reported. Canonical documents retain unresolved
+cap/schema/React/audit decisions; no new source-policy approval is inferred.
+
+### Current integration task status (supersedes earlier historical check logs)
+- [x] Combine backend d5c137b and frontend 0cd0ae5 conflict-free.
+- [x] Verify combined frontend 27 tests/lint/build, Ruff, fixtures and mock startup.
+- [x] Run supported local backend subset: 456 passed, 36 skipped; four pyproj-blocked files excluded.
+- [x] Add explicit npm run dev:s0 (both transports synthetic).
+- [ ] Verify full combined Linux CI on promoted revision.
+- [ ] Resolve open source/contract/React/audit decisions before gate acceptance.
+Sync 0 remains OPEN. No later-stage gates accepted.

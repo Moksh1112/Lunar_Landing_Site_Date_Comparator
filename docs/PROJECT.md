@@ -98,3 +98,10 @@ Published 0cd0ae5 now independently checked (27 tests/lint/build/mock startup PA
 Earlier no-frontend-work statements are historical snapshots, superseded by
 FRONTEND_S0_REVIEW.md and PROGRESS.md. React/source decision, dev audit, current
 hosted branch CI and remaining contract acceptance are still open. Stay S0.
+
+## User-authorized combined integration
+Backend d5c137b and frontend 0cd0ae5 combined in detached review, conflict-free.
+Owner product sources imported unchanged; root tooling supplies npm run dev:s0
+for explicitly synthetic preview. Status: code integrated after verification,
+NOT Sync 0 accepted, NOT later-stage gate accepted, NOT deployed/real-source verified.
+Open contract/React/audit/validation issues remain; see PROGRESS.md and INTEGRATION_S0.md.

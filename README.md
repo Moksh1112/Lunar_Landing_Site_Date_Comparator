@@ -1,6 +1,7 @@
 # Azelux - integration baseline
 Two lunar site/date scenarios compared for Sun/Earth visibility. This repository
-currently contains S0 scaffolds, not the Azelux product or a real science pipeline.
+now combines the frontend S0 shell/client and backend/terrain owner branches.
+S0 integration is not acceptance of later stages or the reported real-data pipeline.
 Live URL, screenshots, verified datasets and demo: pending. No AI/database in product.
 
 ## Ownership
@@ -29,11 +30,10 @@ Setup uses uv/Python 3.12, a hash-pinned backend requirements-lock.txt and npm c
 Fallback without uv: set AZX_SETUP_PYTHON to a Python 3.11/3.12 executable.
 Explicit overrides are version checked. No packages are installed into system Python.
 Backend source remains requirements-based until backend owner supplies pyproject.toml
-and P1 records an agreed uv.lock. No science dependencies are added by integration.
+and P1 records an agreed uv.lock. Science dependencies are supplied by the backend owner canonical project lock.
 
-Backend http://127.0.0.1:8000/health; frontend http://127.0.0.1:5173 (blank S0 shell).
-Ctrl+C stops modules. No credentials needed. Existing baseline does not yet load
-Azelux env variables or implement mock API routes; names are reserved for owners.
+Backend http://127.0.0.1:8000/health; frontend http://127.0.0.1:5173 (S0 shell with route placeholders).
+Ctrl+C stops modules. No credentials needed. Backend settings now load AZX variables and mock routes; frontend transport reads VITE variables.
 Make aliases are available on systems with GNU Make; npm commands work in PowerShell.
 
 ## Managed Windows setup
@@ -85,17 +85,16 @@ until real-source integration. Frontend owner handles frontend/.env.local loadin
 Avoid localhost/127.0.0.1 origin mismatch. No runtime config is implemented by P1.
 
 ## Limits
-All active fixture values/coordinates are synthetic. SPICE/LOLA runtime and Horizons
-offline validation are not
-integrated. No landing-safety certification, watts or guaranteed communications.
+All active fixture values/coordinates are synthetic. Owner SPICE/LOLA service code
+is imported, but independent real-data/scientific acceptance remains pending. No landing-safety certification, watts or guaranteed communications.
 
 ## New-only specification alignment
 See docs/SPEC_ALIGNMENT.md for the full old-to-new mapping and deliberate overrides.
 Runtime target is SPICE with verified LOLA terrain; Horizons is validation-only.
 Deltas are A minus B. No backend export/validate HTTP endpoints: report/CSV/JSON
 are frontend responsibilities; validation outputs are files imported by Methods.
-The actual backend currently exposes only baseline liveness; this is not a claim
-that its API already conforms to the new contract.
+Backend has mock and owner-supplied real services; full source validation and
+open contract decisions are NOT approved by integrating those files.
 
 Fixtures: `npm run fixtures` regenerates 15 new-kit synthetic examples;
 `npm run check:fixtures` checks independent invariants and reproducibility.
@@ -139,3 +138,17 @@ Our launcher normalizes an explicit relative AZX_DATA_DIR against repository roo
 backend standalone scripts/settings must also anchor paths independently of cwd.
 Canonical fixtures live at repo-root fixtures/, not backend/fixtures/.
 See docs/BACKEND_TERRAIN_HANDOFF_S0.md for the required backend/terrain decisions.
+
+## Combined S0 preview
+```sh
+npm run setup
+npm run dev:s0
+```
+On managed Windows, set AZX_PYTHON_MODE=target before setup. dev:s0 forces BOTH
+backend and frontend mock mode, displays synthetic data and needs no science files.
+Compare/best-date are placeholders; methods/report are stubs, not validated features.
+`npm run dev:all` retains explicit user environment behavior and may try real backend
+startup when AZX_USE_MOCK is not true. Do not call it a validated real-data demo.
+Frontend/backend branches were imported without owner-source edits. React 19 versus
+TRD 18, seven moderate dev audit findings, cap and other contract issues remain
+recorded. No sync gate, live deployment or scientific correctness is implied.
