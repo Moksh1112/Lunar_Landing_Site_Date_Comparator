@@ -56,10 +56,7 @@ function checked<T>(endpoint: string, schema: z.ZodType<T>, data: unknown): T {
   return data as T;
 }
 
-async function call<T>(
-  req: Omit<ApiRequest, "timeoutMs">,
-  schema: z.ZodType<T>,
-): Promise<T> {
+async function call<T>(req: Omit<ApiRequest, "timeoutMs">, schema: z.ZodType<T>): Promise<T> {
   const data = await transport.send({ ...req, timeoutMs: TIMEOUT_MS });
   return checked(req.endpoint, schema, data);
 }

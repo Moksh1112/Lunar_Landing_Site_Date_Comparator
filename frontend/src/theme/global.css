@@ -24,9 +24,15 @@ p {
   margin: 0 0 var(--space-3);
 }
 
-h1 { font-size: var(--text-xl); }
-h2 { font-size: var(--text-lg); }
-h3 { font-size: var(--text-md); }
+h1 {
+  font-size: var(--text-xl);
+}
+h2 {
+  font-size: var(--text-lg);
+}
+h3 {
+  font-size: var(--text-md);
+}
 
 a {
   color: var(--color-link);

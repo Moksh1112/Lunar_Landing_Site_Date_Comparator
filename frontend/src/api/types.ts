@@ -128,12 +128,7 @@ export type TerrainTileResponse = {
 };
 
 export type ApiErrorCode =
-  | "INVALID_INPUT"
-  | "NOT_FOUND"
-  | "NOT_IN_COVERAGE"
-  | "RANGE_TOO_LARGE"
-  | "UPSTREAM_UNAVAILABLE"
-  | "INTERNAL";
+  "INVALID_INPUT" | "NOT_FOUND" | "NOT_IN_COVERAGE" | "RANGE_TOO_LARGE" | "UPSTREAM_UNAVAILABLE" | "INTERNAL";
 export type ApiErrorBody = {
   error: { code: ApiErrorCode; message: string; details: { field: string; reason: string }[] };
 };

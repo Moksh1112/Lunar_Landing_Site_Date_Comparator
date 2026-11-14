@@ -39,13 +39,21 @@ export function createHttpTransport(baseUrl: string): Transport {
         try {
           payload = await response.json();
         } catch {
-          throw ApiError.client("BAD_RESPONSE", `Response was not valid JSON (HTTP ${response.status}).`, response.status);
+          throw ApiError.client(
+            "BAD_RESPONSE",
+            `Response was not valid JSON (HTTP ${response.status}).`,
+            response.status,
+          );
         }
 
         if (!response.ok) {
           const parsed = apiErrorBodySchema.safeParse(payload);
           if (parsed.success) throw ApiError.fromBody(parsed.data, response.status);
-          throw ApiError.client("BAD_RESPONSE", `Unexpected error response (HTTP ${response.status}).`, response.status);
+          throw ApiError.client(
+            "BAD_RESPONSE",
+            `Unexpected error response (HTTP ${response.status}).`,
+            response.status,
+          );
         }
         return payload;
       } finally {

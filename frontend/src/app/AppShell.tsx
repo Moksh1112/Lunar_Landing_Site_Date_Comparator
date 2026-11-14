@@ -43,9 +43,7 @@ export function AppShell() {
         <span>
           Planning and education aid. Not a safety certification, power (watt) prediction or guaranteed radio link.
         </span>
-        <span>
-          app {health.data?.app_version ?? "n/a"} · contract 1.0
-        </span>
+        <span>app {health.data?.app_version ?? "n/a"} · contract 1.0</span>
       </footer>
     </div>
   );

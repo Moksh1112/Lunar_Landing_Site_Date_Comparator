@@ -43,7 +43,9 @@ describe("mock transport", () => {
   ];
   for (const [endpoint, code] of errorCases) {
     it(`${endpoint}.error becomes ApiError ${code}`, async () => {
-      const err = await mock("?mock=error").send(req(endpoint)).catch((e: unknown) => e);
+      const err = await mock("?mock=error")
+        .send(req(endpoint))
+        .catch((e: unknown) => e);
       expect(err).toBeInstanceOf(ApiError);
       const apiErr = err as ApiError;
       expect(apiErr.code).toBe(code);
