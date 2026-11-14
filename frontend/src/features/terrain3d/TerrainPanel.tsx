@@ -4,6 +4,7 @@ import { getTerrainTile } from "../../api/client";
 import type { CompareResponse } from "../../api/types";
 import { useStore } from "../../store";
 import { absoluteTime, momentAt } from "../compare/moment";
+import styles from "./terrain.module.css";
 
 const TerrainCanvas = lazy(() => import("./TerrainCanvas"));
 class ViewerBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -36,14 +37,22 @@ function LoadedViewer({ data, started }: { data: CompareResponse; started: numbe
   }, [playing, scrubT, alignBy, scenario, setScrubT]);
   const t = absoluteTime(scenario, scrubT, alignBy);
   const m = t === null ? null : momentAt(scenario, t);
-  return <section aria-label="Terrain 3D">
+  return <section className={styles.panel} aria-label="Terrain 3D">
     <h3>Terrain 3D</h3>
     <p>{tile.data?.data_label ?? scenario.meta.data_label} · {scenario.meta.horizon_mode === "geometric" ? "geometric horizon only" : scenario.meta.horizon_mode}.
       Terrain geometry; Sun/Earth marker distances are schematic. Brightness is illustrative, not a shadow or power simulation.</p>
-    <label>Plan <select value={plan} onChange={(e) => setPlan(Number(e.target.value))}><option value={0}>A</option><option value={1}>B</option></select></label>{" "}
-    <label>Vertical exaggeration <select value={exaggeration} onChange={(e) => setExaggeration(Number(e.target.value))}>{[1, 2, 5].map((v) => <option key={v} value={v}>{v}×</option>)}</select></label>{" "}
-    <button type="button" onClick={() => setPlaying(!playing)}>{playing ? "Pause mission" : "Play mission"}</button>
-    {tile.isPending ? <p role="status">Loading terrain…</p> : tile.isError ? <p role="status">Terrain unavailable. The 2D views remain available.</p> : renderMs !== null && renderMs > 3000 ? <p role="status">3D exceeded the 3-second gate ({Math.round(renderMs)} ms). Use the 2D views.</p> : m && <div style={{ height: "24rem", maxWidth: "100%" }}>
+    <div className={styles.controls} role="group" aria-label="Terrain controls">
+      <label className={styles.field}>
+        <span>Plan</span>
+        <select value={plan} onChange={(e) => setPlan(Number(e.target.value))}><option value={0}>A</option><option value={1}>B</option></select>
+      </label>
+      <label className={styles.field}>
+        <span>Vertical exaggeration</span>
+        <select value={exaggeration} onChange={(e) => setExaggeration(Number(e.target.value))}>{[1, 2, 5].map((v) => <option key={v} value={v}>{v}×</option>)}</select>
+      </label>
+      <button type="button" onClick={() => setPlaying(!playing)}>{playing ? "Pause mission" : "Play mission"}</button>
+    </div>
+    {tile.isPending ? <p role="status">Loading terrain…</p> : tile.isError ? <p role="status">Terrain unavailable. The 2D views remain available.</p> : renderMs !== null && renderMs > 3000 ? <p role="status">3D exceeded the 3-second gate ({Math.round(renderMs)} ms). Use the 2D views.</p> : m && <div className={styles.viewport}>
       <ViewerBoundary><Suspense fallback={<p>Preparing 3D…</p>}><TerrainCanvas tile={tile.data} sunAz={m.sunAz} sunEl={m.sunEl} earthAz={m.earthAz} earthEl={m.earthEl} exaggeration={exaggeration} onReady={ready} /></Suspense></ViewerBoundary>
     </div>}
     {renderMs !== null && <p>First frame: {Math.round(renderMs)} ms (includes request and lazy loading). Vertical exaggeration {exaggeration}×.</p>}
