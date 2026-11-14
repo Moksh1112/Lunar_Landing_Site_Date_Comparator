@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.errors import error_response, register_error_handlers
 from app.api.routes_api import api_router, health_router
+from app.ephemeris import load_kernels
 from app.logging_setup import configure_logging, request_id_var
 from app.settings import APP_VERSION, Settings, get_settings
 
@@ -21,6 +22,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(title="Azelux API", version=APP_VERSION)
     app.state.settings = settings
+    if not settings.use_mock:
+        try:
+            load_kernels(settings.data_dir / "kernels", settings.kernel_list)
+        except Exception as exc:  # noqa: BLE001 - /health must still answer without data
+            error_log.error("kernel loading failed: %s", exc)
     register_error_handlers(app)
     app.include_router(health_router)
     app.include_router(api_router)

@@ -31,7 +31,7 @@ def test_empty_env_falls_back_to_defaults(monkeypatch):
     monkeypatch.setenv("AZX_DATA_DIR", "")
     monkeypatch.setenv("AZX_USE_MOCK", "")
     monkeypatch.setenv("AZX_CORS_ORIGINS", "")
-    s = Settings()
+    s = Settings(_env_file=None)  # ignore a developer's local repo-root .env
     assert s.data_dir == REPO_ROOT / "data"
     assert s.use_mock is False
     assert s.cors_origins == ["http://localhost:5173", "http://127.0.0.1:5173"]

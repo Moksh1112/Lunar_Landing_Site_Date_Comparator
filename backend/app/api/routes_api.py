@@ -8,11 +8,14 @@ from app.api.errors import ApiError, OrjsonResponse
 from app.api.mock import load_fixture
 from app.api.models import (
     CompareRequest,
+    SitesResponse,
     SkylineQuery,
     SweepRequest,
     TerrainTileQuery,
 )
+from app.ephemeris import kernels_loaded
 from app.settings import APP_VERSION, CONTRACT_VERSION, Settings
+from app.sites.loader import load_sites
 
 MAX_SWEEP_DAYS = 183
 MAX_MISSION_HOURS = 8760
@@ -53,13 +56,13 @@ def _serve(request: Request, fixture: str) -> OrjsonResponse:
 def health(request: Request) -> OrjsonResponse:
     if _settings(request).use_mock:
         return OrjsonResponse(load_fixture("health.ok"))
-    # S0: nothing is loaded, so nothing is claimed as loaded.
+    # Only what is actually loaded is claimed (terrain is not wired yet).
     return OrjsonResponse(
         {
             "status": "ok",
             "app_version": APP_VERSION,
             "contract_version": CONTRACT_VERSION,
-            "kernels_loaded": [],
+            "kernels_loaded": kernels_loaded(),
             "dems_loaded": [],
             "mock": False,
         }
@@ -68,7 +71,9 @@ def health(request: Request) -> OrjsonResponse:
 
 @api_router.get("/sites")
 def sites(request: Request) -> OrjsonResponse:
-    return _serve(request, "sites.ok")
+    if _settings(request).use_mock:
+        return OrjsonResponse(load_fixture("sites.ok"))
+    return OrjsonResponse(SitesResponse(sites=load_sites()).model_dump(mode="json"))
 
 
 @api_router.post("/compare")
