@@ -19,17 +19,18 @@ Earlier branches preserved. No merges or history rewrites.
 
 ## Current evidence
 Frontend dependency install, strict type-check, build and actual HTTP startup pass.
-Backend HTTP liveness passes using installed Python 3.13 (temporary diagnostic,
-not target-runtime acceptance). Python 3.12 hashed lock resolved; setup cannot
-use its generated venv launcher here because Windows Application Control blocks it.
-CI YAML/structure and attribution guards locally verified; hosted CI not yet run.
+Python 3.12.14 setup and health now pass in explicit target mode, using the approved
+base interpreter and isolated `.venv/target` dependencies; policy is unchanged.
+Full dual-module launcher HTTP checks and graceful shutdown pass locally.
+Initial hosted CI passed all four jobs, run 43577940621; follow-up startup-matrix
+CI must be checked for the pushed revision.
 Backend lint/unit suite, frontend lint/unit suite and science services await owners;
 CI notices explicitly state absent suites, they are not counted as passing.
 No Azelux contract/fixtures adopted pending docs/CONTRACT_CHANGE_REQUESTS_S0.md.
 
 ## Remaining Sync 0 gate
-Human review before commit per playbook; publish branch and observe hosted CI;
-bootstrap/protect main only after green reviewed baseline; obtain actual teammate
+User approved commit/push; baseline committed/pushed. Observe follow-up CI;
+main/protection remains pending with repository owner; user forbids main changes; obtain actual teammate
 startup/hook acknowledgments; resolve contract/fixtures; obtain kernel/DEM download
 evidence and final role map; confirm host/domain and revised schedule through Coordinator.
 S0 stops here. No S1 UI/e2e, deployment or science work begun.

@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { mkdirSync, writeFileSync } from 'node:fs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const win = process.platform === 'win32';
 const npmCli = process.env.npm_execpath;
@@ -13,16 +14,37 @@ function run(cmd, args) {
     process.exit(p.status ?? 1);
   }
 }
-// Prefer uv/Python 3.12; AZX_SETUP_PYTHON explicitly selects an existing interpreter.
+// Explicit target mode avoids generated venv launchers on managed Windows.
 const probe = spawnSync('uv', ['--version'], {encoding:'utf8'});
-if (!process.env.AZX_SETUP_PYTHON && probe.status === 0) {
-  run('uv', ['venv', '--python', '3.12', '.venv']);
-} else {
-  const python = process.env.AZX_SETUP_PYTHON || 'python';
-  run(python, ['-c', "import sys; assert sys.version_info[:2] in ((3,11),(3,12)), 'Azelux needs Python 3.11 or 3.12; install uv or set AZX_SETUP_PYTHON'"]);
-  run(python, ['-m', 'venv', '.venv']);
+const targetMode = process.env.AZX_PYTHON_MODE === 'target';
+if (process.env.AZX_PYTHON_MODE && !['target', 'venv'].includes(process.env.AZX_PYTHON_MODE)) {
+  console.error('AZX_PYTHON_MODE must be venv or target.'); process.exit(1);
 }
-const python = resolve(root, win ? '.venv/Scripts/python.exe' : '.venv/bin/python');
-if (probe.status === 0) run('uv', ['pip', 'sync', '--python', python, '--require-hashes', 'backend/requirements-lock.txt']);
-else run(python, ['-m', 'pip', 'install', '--require-hashes', '-r', 'backend/requirements-lock.txt']);
+let python;
+if (targetMode) {
+  python = process.env.AZX_SETUP_PYTHON;
+  if (!python) {
+    const found = spawnSync('uv', ['python', 'find', '--system', '3.12'], {cwd:root, encoding:'utf8'});
+    if (found.status !== 0) { console.error(found.stderr || 'Install uv/Python 3.12 or set AZX_SETUP_PYTHON.'); process.exit(1); }
+    python = found.stdout.trim();
+  }
+  run(python, ['-c', "import sys; assert sys.version_info[:2] in ((3,11),(3,12)), 'Python 3.11/3.12 required'"]);
+  const target = resolve(root, '.venv/target');
+  mkdirSync(target, {recursive:true});
+  if (probe.status === 0) run('uv', ['pip', 'sync', '--python', python, '--target', target, '--require-hashes', 'backend/requirements-lock.txt']);
+  else run(python, ['-m', 'pip', 'install', '--target', target, '--require-hashes', '-r', 'backend/requirements-lock.txt']);
+} else {
+  if (!process.env.AZX_SETUP_PYTHON && probe.status === 0) {
+    run('uv', ['venv', '--python', '3.12', '.venv']);
+  } else {
+    const selected = process.env.AZX_SETUP_PYTHON || 'python';
+    run(selected, ['-c', "import sys; assert sys.version_info[:2] in ((3,11),(3,12)), 'Python 3.11/3.12 required'"]);
+    run(selected, ['-m', 'venv', '.venv']);
+  }
+  python = resolve(root, win ? '.venv/Scripts/python.exe' : '.venv/bin/python');
+  if (probe.status === 0) run('uv', ['pip', 'sync', '--python', python, '--require-hashes', 'backend/requirements-lock.txt']);
+  else run(python, ['-m', 'pip', 'install', '--require-hashes', '-r', 'backend/requirements-lock.txt']);
+}
 run(process.execPath, [npmCli, 'ci', '--prefix', 'frontend']);
+writeFileSync(resolve(root, '.venv/runtime.json'), JSON.stringify({mode:targetMode ? 'target' : 'venv', python}, null, 2));
+console.log(`Setup complete (${targetMode ? 'target' : 'venv'} mode). Run npm run dev:all.`);

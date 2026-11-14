@@ -31,30 +31,44 @@ Ctrl+C stops modules. No credentials needed. Existing baseline does not yet load
 Azelux env variables or implement mock API routes; names are reserved for owners.
 Make aliases are available on systems with GNU Make; npm commands work in PowerShell.
 
-## Known local setup blocker
-Windows Application Control blocks the generated .venv/Scripts/python.exe for
-Python 3.12 on this machine. npm run setup stops and reports it. Do not disable
-security policy. Use an approved environment/administrator-approved runtime.
-The installed system Python 3.13 can verify baseline health, but is NOT acceptance
-of the target Python version. Full make dev/npm run dev:all is not claimed passed.
-The previous Rollup error did not reproduce here: the existing frontend builds and serves.
+## Managed Windows setup
+The approved base Python 3.12.14 runs here, but Windows Application Control blocks
+its generated venv launcher. An explicit target mode fixes local setup without
+changing policy or system packages:
+```powershell
+$env:AZX_PYTHON_MODE = 'target'
+npm run setup
+npm run dev:all
+```
+POSIX equivalent: `AZX_PYTHON_MODE=target npm run setup`.
+This installs hash-locked dependencies into ignored `.venv/target`, records the
+selected base interpreter in `.venv/runtime.json`, and supplies PYTHONPATH only to
+backend child processes. The setup flag is a shell variable; `.env` is not loaded
+by setup. `AZX_SETUP_PYTHON` can specify an approved Python 3.11/3.12 interpreter.
+Do not commit/copy runtime.json between machines. Rerun setup after moving the repo.
+
+Standard mode remains the default for compatible hosts. Local target-mode setup,
+Python 3.12 backend health, dual-module startup and graceful shutdown all passed.
+`npm run check:startup` checks startup only, not a comparison journey.
 
 ## Checks
 ```sh
 npm run check:setup
 npm run check
 npm --prefix frontend run build
-python scripts/check_backend.py
+npm run check:backend
+npm run check:startup
 ```
-Use a supported configured backend interpreter for the last command; it needs the
-backend dependencies. This checks startup and status=ok, not the expanded Azelux
+These commands use the interpreter/dependencies selected by setup. They check
+startup and status=ok, not the expanded Azelux
 health contract, comparison journey or scientific accuracy.
 
 CI runs on PRs/main and P1 integration branch pushes: lockfile installation,
 backend startup, frontend type-check/build, attribution guard, history secret scan.
 Backend owner lint/tests activate after pyproject handoff; frontend lint/test scripts
 activate when supplied. Missing suites are announced, not claimed passed.
-Hosted CI has not run for this uncommitted S0 work. See docs/STAGE_REPORT_AZELUX_S0.md.
+Initial baseline hosted CI passed all four jobs (run 43577940621). Follow-up CI
+adds Python 3.12 startup checks for venv and target modes. See docs/STAGE_REPORT_AZELUX_S0.md.
 
 ## Environment defaults for future owner implementation
 .env.example contains names only. Do not commit real .env files.

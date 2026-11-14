@@ -76,3 +76,31 @@ Finish S0 gate with owners; tag sync-0 only after required evidence on main.
 Do not begin S1 without explicit next-stage instruction.
 
 Final hook installer update: npm run hooks now uses scripts/hooks.mjs, setting POSIX execute permissions and Git hooksPath. Restricted runner config write denied; authorized runner rerun passed. npm run check:setup including hooks.mjs syntax passed. POSIX execution still awaits Linux CI.
+
+
+# Authorized publication and startup fix follow-up
+User approved commit/push and requested setup fix/CI observation. Baseline 3f70bc9
+pushed to feat/p1-s0-integration. No main edits/merges/protection changes.
+Initial hosted CI run 43577940621: completed SUCCESS. Attribution, frontend,
+backend and secrets-scan jobs all succeeded (observed via GitHub public API).
+
+Resolved local blocker: `uv python find --system 3.12` selected the approved base
+Python 3.12.14, which ran directly. Added explicit AZX_PYTHON_MODE=target:
+locked packages installed to .venv/target, setup record .venv/runtime.json, backend
+child uses that interpreter and PYTHONPATH. No policy changes or system installs.
+Default venv mode remains supported; its generated launcher remains blocked locally.
+
+Checks on follow-up:
+- AZX_PYTHON_MODE=target npm run setup: PASS, Python 3.12.14, 13 hash-locked
+  packages and npm ci; npm reported zero vulnerabilities.
+- npm run check:backend: PASS using selected Python 3.12 and target packages.
+- npm run check:startup: PASS actual dual-module launcher, backend HTTP 200/status ok,
+  frontend HTTP 200/module shell, graceful IPC shutdown and both ports released.
+- npm run check:setup and git diff --check: PASS.
+- Added hosted integration-startup matrix for venv/target, install/setup/startup/
+  backend checks. Follow-up result must be reported separately by revision.
+
+Remaining Sync 0 blockers: reviewed team contract/fixtures (C01-C08), actual teammate
+readiness, kernel/DEM manifests/download evidence, protected main and agreed role/time/
+hosting handoff. No main change authorized; no sync-0 tag until gate passes.
+All science/comparison data remains synthetic; these are module-startup checks only.
