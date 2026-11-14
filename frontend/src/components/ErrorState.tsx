@@ -5,7 +5,7 @@ type Props = { error: ApiError; onRetry?: () => void };
 
 export function ErrorState({ error, onRetry }: Props) {
   return (
-    <div className={styles.box} role="alert">
+    <div className={`${styles.box} ${styles.error}`} role="alert">
       <p className={styles.title}>{error.message}</p>
       <p className={styles.code}>
         Error code: <code>{error.code}</code>

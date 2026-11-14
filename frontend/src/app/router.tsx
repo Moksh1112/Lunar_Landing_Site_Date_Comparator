@@ -1,18 +1,9 @@
 import { Link, createBrowserRouter } from "react-router";
+import { BestDatePage } from "../features/bestdate/BestDatePage";
 import { ComparePage } from "../features/compare/ComparePage";
 import { MethodsPage } from "../features/methods/MethodsPage";
 import { ReportPage } from "../features/report/ReportPage";
 import { AppShell } from "./AppShell";
-
-// Placeholder pages: replaced by real features in later tasks.
-function Placeholder({ title }: { title: string }) {
-  return (
-    <main>
-      <h1>{title}</h1>
-      <p>Placeholder page.</p>
-    </main>
-  );
-}
 
 function NotFound() {
   return (
@@ -30,7 +21,7 @@ export const router = createBrowserRouter([
     element: <AppShell />,
     children: [
       { path: "/", element: <ComparePage /> },
-      { path: "/best-date", element: <Placeholder title="Best date" /> },
+      { path: "/best-date", element: <BestDatePage /> },
       { path: "/methods", element: <MethodsPage /> },
       { path: "/report", element: <ReportPage /> },
       { path: "*", element: <NotFound /> },

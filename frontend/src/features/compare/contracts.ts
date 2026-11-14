@@ -1,11 +1,17 @@
 // Shared props contract for the Compare journey (lead-defined; all three component groups code to this).
 // Contract types come from src/api/types.ts (docs/CONTRACT.md v1.0) - never add response fields here.
-import type { CompareResponse, ScenarioResult } from "../../api/types";
+import type { CompareResponse, ScenarioResult, Thresholds } from "../../api/types";
 
 export type AlignBy = "calendar" | "mission_day";
 
 /** Results summary: verdict chips, delta strip (B relative to A), metrics table, source labels, limitations. */
-export type ResultsSummaryProps = { data: CompareResponse; expert: boolean };
+export type ResultsSummaryProps = {
+  data: CompareResponse;
+  expert: boolean;
+  /** Current (possibly edited) thresholds; when they differ from sentThresholds the verdict is recomputed locally (F14). */
+  thresholds?: Thresholds;
+  sentThresholds?: Thresholds;
+};
 
 /** One horizon panorama per scenario: skyline + Sun/Earth paths; marker at scrubT (unix s) if set. */
 export type HorizonPanoramaProps = { scenario: ScenarioResult; scrubT: number | null; yMinDeg: number; yMaxDeg: number };

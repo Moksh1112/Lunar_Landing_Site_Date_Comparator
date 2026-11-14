@@ -1,24 +1,31 @@
+.synthetic,
+.horizon,
+.geometric,
+.real {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.375rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
 .synthetic {
-  display: inline-block;
   background: var(--color-synthetic-bg);
   color: var(--color-synthetic);
-  border: 1px solid var(--color-synthetic);
-  border-radius: var(--radius-sm);
-  padding: 0 var(--space-1);
-  font-size: var(--text-xs);
+  border-color: var(--color-synthetic);
   font-weight: 700;
-  letter-spacing: 0.04em;
-}
-.horizon,
-.geometric {
-  display: inline-block;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0 var(--space-1);
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
 }
 .geometric {
   color: var(--color-amber);
   border-color: var(--color-amber);
+  background: var(--color-amber-soft);
+}
+.real {
+  color: var(--color-green);
+  border-color: var(--color-green);
 }
