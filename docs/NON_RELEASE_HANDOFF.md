@@ -18,7 +18,7 @@ Fetch and merge integration into your clean owner worktree before resuming.
 - Sourced polar map with verified projection signs; whole-Moon NASA SVS context.
   SVS is visualization imagery, not science input. Both image families carry credit.
 - On-demand terrain 3D, exaggeration, Sun/Earth markers and shared playback. Markers
-  have schematic distances and brightness is illustrative. First frame measured
+  have schematic distances and brightness is illustrative. Initial first frame measured
   569 ms on this host, below the 3-second gate. 2D remains the fallback.
 - Versioned validation display. V1/V2 pass; V3/V5 mathematical checks pass. Actual
   failed and incomplete checks are displayed, not hidden.
@@ -66,7 +66,7 @@ The downloader stops after two transfer attempts and keeps resumable partial fil
 
 ## Verification performed
 
-- Full local backend suite after contract changes: 546 passed, 6 skipped. Later
+- Full local backend suite after contract changes: 547 passed, 6 skipped. Later
   image-route tests passed separately. Do not count skips as scientific validation.
 - Frontend: 126 tests, lint, strict TypeScript and production build passed. All 15 fixtures and startup/shutdown checks also passed.
 - V1: 3 mathematical positions x 48 hourly epochs x Sun/Earth against live Horizons;

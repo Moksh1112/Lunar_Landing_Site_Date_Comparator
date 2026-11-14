@@ -8,7 +8,7 @@ Last remote check: 2026-11-15. Current status below supersedes historical snapsh
 - [x] Gated terrain 3D and synchronized playback implemented; 569 ms first frame on host.
 - [x] Live full V1/V2 ephemeris checks passed; executed V3/V5 mathematical checks passed.
 - [x] v1.1 backend/frontend compatibility implemented, v1.0 fixtures retained.
-- [x] Local backend 546 passed / 6 skipped; frontend 126 tests, lint/typecheck/build passed.
+- [x] Local backend 547 passed / 6 skipped; frontend 126 tests, lint/typecheck/build passed.
 - [ ] V4 scientific target: FAIL at one point (~6.30 pp vs <=5), including 20 m rerun.
 - [ ] V6 qualitative sanity acceptance: diagnostics present, human review pending.
 - [ ] User visual acceptance, two-person usability and cross-device performance checks.
