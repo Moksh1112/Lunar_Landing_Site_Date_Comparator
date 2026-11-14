@@ -60,7 +60,7 @@ def _margins(series: dict, elev: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 def _day_result(day: str, t, sun_el, sun_m, earth_m, mission_hours: float, thresholds: dict,
                 refined: bool) -> dict:
     metrics, _ = scenario_metrics(t, sun_el, sun_m, earth_m, mission_hours)
-    return {"date": day, "rank": 0, "refined": refined, "metrics": metrics, "verdict": verdict(metrics, thresholds)}
+    return {"step_minutes": REFINE_STEP_MINUTES if refined else STEP_MINUTES, "date": day, "rank": 0, "refined": refined, "metrics": metrics, "verdict": verdict(metrics, thresholds)}
 
 
 def _assign_ranks(days: list[dict], first_rank: int) -> list[dict]:
