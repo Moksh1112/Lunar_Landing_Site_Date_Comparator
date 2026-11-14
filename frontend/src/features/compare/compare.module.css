@@ -62,14 +62,6 @@
 .primary:disabled { cursor: progress; }
 .secondaryLink { font-size: var(--text-sm); }
 
-@media (min-width: 64rem) {
-  .slip { position: sticky; top: 5.25rem; max-height: calc(100vh - 6.25rem); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
-  .submitBar { position: sticky; bottom: 0; background: linear-gradient(transparent, var(--slip) 35%); }
-}
-/* Touch: the primary action docks to the bottom edge, thumb-reachable. */
-@media (max-width: 64rem) {
-  .submitBar { position: sticky; bottom: 0; z-index: 5; background: var(--slip); border-top: 1px solid var(--rule); border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom)); }
-}
 
 /* ---------- Results (right page) ---------- */
 .results { display: flex; flex-direction: column; min-width: 0; }
@@ -86,7 +78,7 @@
 .sectionHead p { margin: 0; max-width: 62ch; }
 
 .diagram, .sky { padding-top: var(--space-4); border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
-.plate { background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-md); padding: var(--space-3); min-width: 0; }
+.plate { min-width: 0; }
 .rings { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-5) var(--space-4); align-items: start; }
 .panoramas { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
 
@@ -108,3 +100,30 @@
 .reveal > div > *:nth-child(4) { animation-delay: 150ms; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media print { .reveal > *, .reveal > div > * { animation: none !important; } }
+
+/* ---------- Plans bar + inline editor (density fix) ---------- */
+.top { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); margin-bottom: var(--space-4); }
+.titleBlock h1 { font-size: clamp(1.9rem, 1.4rem + 1.2vw, 2.5rem); margin: 0 0 var(--space-1); }
+.plansBar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3); background: var(--slip); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+.planList { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); list-style: none; margin: 0; padding: 0; flex: 1 1 32rem; min-width: 0; }
+.planSummary { display: flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.planText { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2); min-width: 0; font-size: var(--text-sm); color: var(--color-text-muted); }
+.planText strong { color: var(--color-text); font-size: var(--text-md); }
+.barActions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.modeChip { font-size: var(--text-xs); color: var(--color-text-muted); padding: 0 var(--space-2); }
+.barCompare { border-radius: 999px; min-height: 2.5rem; padding: 0 var(--space-4); }
+
+.editor { margin-bottom: var(--space-5); background: var(--slip); border: 1px solid var(--rule); border-radius: var(--radius-lg); }
+.editor[hidden] { display: none; }
+.segments { display: grid; grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); }
+.segments > .segment + .segment { border-left: 1px dashed var(--rule); }
+@media (max-width: 48rem) { .segments { grid-template-columns: minmax(0, 1fr); } .segments > .segment + .segment { border-left: 0; } }
+
+.results { gap: 0; }
+.secondary { border-top: 1px solid var(--rule); padding-top: var(--space-2); }
+.secondary > summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; min-height: 3rem; font-family: var(--font-display); font-size: 1.5rem; }
+.secondary > summary::-webkit-details-marker { display: none; }
+.secondary > summary::after { content: "+"; font-family: var(--font-sans); color: var(--color-text-muted); }
+.secondary[open] > summary::after { content: "2"; }
+.secondary > .sky { border-top: 0; padding-top: var(--space-2); }
+@media (max-width: 40rem) { .conclusion .metaRow { order: 3; } .conclusion { display: flex; } }
