@@ -20,7 +20,7 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, onReady }: 
     controls.update();
     return () => { controls.removeEventListener("change", changed); controls.dispose(); };
   }, [camera, gl, invalidate]);
-  useFrame(() => { if (!ready.current) { ready.current = true; onReady(); } });
+  useFrame(() => { if (!ready.current) { ready.current = true; requestAnimationFrame(onReady); } });
   const geometry = useMemo(() => {
     const heights = decodeHeights(tile.heights_m_b64, tile.width, tile.height);
     const g = new THREE.PlaneGeometry(2, 2, tile.width - 1, tile.height - 1);
