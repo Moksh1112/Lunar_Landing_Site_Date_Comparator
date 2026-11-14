@@ -6,8 +6,8 @@
   "scope": "spot_check",
   "review_status": "owner_reported",
   "generated_at": "2026-11-15T00:00:00Z",
-  "producer_commit": "42e2d472090bddded939dc1c3bba217ca292941d",
-  "command": "python backend/tools/evidence_from_horizons_spot_check.py --src backend/docs/horizons_spot_check_S1.json --out validation/results/V1-horizons-spot-check-S1.json",
+  "producer_commit": "0856c1416b40c194a22f4452a65e3ff4fbb67e2d",
+  "command": "python backend/tools/evidence_from_horizons_spot_check.py --src backend/docs/horizons_spot_check_S1.json --out validation/results/V1-horizons-spot-check-S1.json --generated-at 2026-11-15T00:00:00Z",
   "sources": [
     {
       "label": "Owner spot-check output (P2, S1)",

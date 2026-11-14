@@ -17,7 +17,7 @@ import json
 from pathlib import Path
 
 V1_TOLERANCE_DEG = 0.05  # PRD 8.3 V1 pass target (ASSUMED there; tighten if achieved)
-SOURCE_COMMIT = "42e2d472090bddded939dc1c3bba217ca292941d"  # added backend/docs/horizons_spot_check_S1.json
+SOURCE_COMMIT = "0856c1416b40c194a22f4452a65e3ff4fbb67e2d"  # published current source values
 COMMAND = (
     "python backend/tools/evidence_from_horizons_spot_check.py "
     "--src backend/docs/horizons_spot_check_S1.json --out validation/results/V1-horizons-spot-check-S1.json"
@@ -56,7 +56,7 @@ def adapt(src: dict, src_rel: str, src_sha256: str, generated_at: str) -> dict:
         "review_status": "owner_reported",
         "generated_at": generated_at,
         "producer_commit": SOURCE_COMMIT,
-        "command": COMMAND,
+        "command": f"{COMMAND} --generated-at {generated_at}",
         "sources": [
             {"label": "Owner spot-check output (P2, S1)", "reference": src_rel, "sha256": src_sha256},
             {"label": "Our ephemeris", "reference": src["ours"]},

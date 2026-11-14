@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend" / "tools"))
-from evidence_from_horizons_spot_check import adapt  # noqa: E402
+from evidence_from_horizons_spot_check import adapt
 
 SRC = ROOT / "backend" / "docs" / "horizons_spot_check_S1.json"
 SCHEMA = json.loads((ROOT / "validation" / "evidence.schema.json").read_text(encoding="utf-8"))
