@@ -53,3 +53,15 @@ with P1 before switching live data. Keep all mock data SYNTHETIC.
 - Print button attempted: embedded-browser click timed out and no print preview was
   exposed. PDF/print visual verification remains OPEN; do not call print verified.
 - Real science/backend data validation not reproduced. No Sync or later gate passed.
+
+## Map/evidence handoff update (15 November)
+
+R2 display is implemented by frontend dbd4349 and the owner adapter is integrated
+with P1 fix d0f81b6. It validates against the full approved JSON schema and preserves
+REAL-input/spot-check/owner-reported scope. R1 coordinate map is implemented with
+explicit unavailable imagery. Basemap delivery is not blocked on inventing a new
+compare API: static assets plus reviewed georeferencing can be used, or a separate
+asset-serving proposal if needed. No new runtime endpoint is approved here.
+Owner print evidence now includes headless Edge output; P1 inspected the metrics
+print image, but did not independently render the five-page report. Keep the 3D gate
+and scientific validation requirements explicit while UI refinement continues.

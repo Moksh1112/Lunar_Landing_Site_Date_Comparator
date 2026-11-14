@@ -1,154 +1,100 @@
-# Azelux - integration baseline
-Two lunar site/date scenarios compared for Sun/Earth visibility. This repository
-now combines the frontend S0 shell/client and backend/terrain owner branches.
-S0 integration is not acceptance of later stages or the reported real-data pipeline.
-Live URL, screenshots, verified datasets and demo: pending. No AI/database in product.
+# Azelux — lunar site/date comparator
 
-## Ownership
-P1/user: integration only. All frontend source belongs to frontend owner.
-Backend/SPICE and terrain belong to their respective owners. Read docs/PROJECT.md.
-Only the new Azelux approach is active. Root PROJECT.md/CONTRACT.md are entry-point
-links to docs/PROJECT.md and docs/CONTRACT.md. Earlier proposals/fixtures are historical
-only in docs/archive/pre-azelux/. Do not build against them.
-Source PRD/TRD/playbook and original kit: docs/specs/ (checksummed copies).
-New contract is adopted as the baseline; team freeze and open clarifications remain
-in docs/CONTRACT_CHANGE_REQUESTS_S0.md. Role prompts: prompts/.
+Compare two lunar scenarios for Sun/Earth visibility, terrain horizon and overlapping
+windows. The integrated frontend provides Compare, Best Date, Methods, CSV/JSON
+exports and a printable Report. No AI or database is part of the product.
 
-## Setup
-Target tooling from TRD: Node 20 (20.19+ required by existing Vite), npm, uv and
-Python 3.12 (3.11 fallback via AZX_SETUP_PYTHON). CI now follows Node 20; local Node
-24 startup was previously verified. React 18 is the new frontend target; the existing
-React 19 empty scaffold awaits frontend owner's migration. Integration has not
-changed frontend product files or lockfile. Install network access is required.
+## Start locally
+
+Requirements: Node 20.19+, npm, uv and Python 3.12 (3.11 fallback supported by setup).
 
 ```sh
 npm run setup
 npm run hooks
-npm run dev:all
+npm run dev:s0
 ```
-Setup uses uv/Python 3.12, a hash-pinned backend requirements-lock.txt and npm ci.
-Fallback without uv: set AZX_SETUP_PYTHON to a Python 3.11/3.12 executable.
-Explicit overrides are version checked. No packages are installed into system Python.
-Backend source remains requirements-based until backend owner supplies pyproject.toml
-and P1 records an agreed uv.lock. Science dependencies are supplied by the backend owner canonical project lock.
 
-Backend http://127.0.0.1:8000/health; frontend http://127.0.0.1:5173 (S0 shell with route placeholders).
-Ctrl+C stops modules. No credentials needed. Backend settings now load AZX variables and mock routes; frontend transport reads VITE variables.
-Make aliases are available on systems with GNU Make; npm commands work in PowerShell.
+Open http://127.0.0.1:5173/; backend health is http://127.0.0.1:8000/health.
+`dev:s0` explicitly selects synthetic frontend and backend modes; no NASA files are
+needed. Fixture responses are fixed examples and do not reflect the coordinates or
+dates submitted. Ctrl+C stops both modules.
 
-## Managed Windows setup
-The approved base Python 3.12.14 runs here, but Windows Application Control blocks
-its generated venv launcher. An explicit target mode fixes local setup without
-changing policy or system packages:
+On managed Windows where Application Control blocks venv launchers:
+
 ```powershell
 $env:AZX_PYTHON_MODE = 'target'
 npm run setup
-npm run dev:all
+npm run dev:s0
 ```
-POSIX equivalent: `AZX_PYTHON_MODE=target npm run setup`.
-This installs hash-locked dependencies into ignored `.venv/target`, records the
-selected base interpreter in `.venv/runtime.json`, and supplies PYTHONPATH only to
-backend child processes. The setup flag is a shell variable; `.env` is not loaded
-by setup. `AZX_SETUP_PYTHON` can specify an approved Python 3.11/3.12 interpreter.
-Do not commit/copy runtime.json between machines. Rerun setup after moving the repo.
 
-Standard mode remains the default for compatible hosts. Local target-mode setup,
-Python 3.12 backend health, dual-module startup and graceful shutdown all passed.
-`npm run check:startup` checks startup only, not a comparison journey.
+Target mode uses an approved base interpreter with isolated dependencies; it does not
+change OS protections or install packages into system Python. No venv activation is
+needed for npm checks. `npm run dev:all` honors configured environment settings and
+can request real services; it is not a claim of real-data readiness.
+
+## Dependencies and configuration
+
+Backend authority: `backend/pyproject.toml` plus `backend/uv.lock`. Setup exports the
+locked runtime/dev dependencies with uv and installs them with hashes into the
+selected environment. Frontend dependencies use `frontend/package-lock.json` and
+`npm ci`. React 19.2 is an approved tooling deviation; details in
+[alignment](docs/SPEC_ALIGNMENT.md).
+
+`.env.example` describes settings. Never commit real .env files, kernels, rasters,
+caches or secrets. Set `AZX_DATA_DIR` to an absolute path outside cloud-sync folders
+(e.g. `C:/azelux-data`) for actual datasets: gitignore does not prevent OneDrive sync.
+Keep CORS origins exact. Do not mix localhost and 127.0.0.1 unintentionally.
 
 ## Checks
+
 ```sh
 npm run check:setup
-npm run check
+npm run check:fixtures
+npm --prefix frontend run lint
+npm --prefix frontend test -- --run
 npm --prefix frontend run build
 npm run check:backend
 npm run check:startup
 ```
-These commands use the interpreter/dependencies selected by setup. They check
-startup and status=ok, not the expanded Azelux
-health contract, comparison journey or scientific accuracy.
 
-CI runs on PRs/main and P1 integration branch pushes: lockfile installation,
-backend startup, frontend type-check/build, attribution guard, history secret scan.
-Backend owner lint/tests activate after pyproject handoff; frontend lint/test scripts
-activate when supplied. Missing suites are announced, not claimed passed.
-Initial baseline hosted CI passed all four jobs (run 43577940621). Follow-up CI
-adds Python 3.12 startup checks for venv and target modes. See docs/STAGE_REPORT_AZELUX_S0.md.
+Stop the preview before `check:startup`; it needs ports 5173/8000 free and checks
+startup/shutdown only. CI runs on all branch pushes and PRs: frontend, backend,
+fixtures, attribution guard, secret scan and startup in venv/target modes. Data-dependent
+backend tests may skip without datasets; skips do not validate real science.
 
-## Environment defaults for future owner implementation
-.env.example contains names only. Do not commit real .env files.
-Backend defaults intended by TRD: AZX_DATA_DIR=./data; AZX_KERNEL_LIST supplied by
-verified kernel manifest; near/far DEM supplied by terrain owner; AZX_CORS_ORIGINS
-must list exact frontend origins; AZX_USE_MOCK=true for fixture development;
-AZX_LOG_LEVEL=INFO. Frontend: VITE_API_URL=http://127.0.0.1:8000 and VITE_USE_MOCK=true
-until real-source integration. Frontend owner handles frontend/.env.local loading.
-Avoid localhost/127.0.0.1 origin mismatch. No runtime config is implemented by P1.
+## Current capabilities and limits
 
-## Limits
-All active fixture values/coordinates are synthetic. Owner SPICE/LOLA service code
-is imported, but independent real-data/scientific acceptance remains pending. No landing-safety certification, watts or guaranteed communications.
+- Compare: A/B inputs and presets, panorama, aligned timelines, scrubber, metrics,
+  verdicts, countdowns, Simple/Expert views and raw-data tables.
+- Best Date: calendar/ranking and Load as Plan B; Methods: labelled validation
+  artifacts; Report: CSV/JSON downloads and print styles.
+- Map: schematic coordinate picker and library pins. Lunar basemap imagery and
+  raster sign/georeferencing verification are unavailable; no Earth tiles are used.
+  The coverage outline does not certify terrain availability for an arbitrary site.
+- Current app preview is SYNTHETIC. The Methods artifact is a REAL-input,
+  owner-reported Horizons spot check (one site, six times), not full V1/V2/V4.
+- Runtime ephemeris is SPICE; Horizons is offline validation only. Deltas are A minus B.
+  Geometric mode must say "geometric horizon only". Fixtures are never real data.
+- 3D remains gated. No deployment, science acceptance or Sync pass is implied by CI.
+- Planning/education aid only: no safety certification, wattage prediction or
+  guaranteed communication link.
 
-## New-only specification alignment
-See docs/SPEC_ALIGNMENT.md for the full old-to-new mapping and deliberate overrides.
-Runtime target is SPICE with verified LOLA terrain; Horizons is validation-only.
-Deltas are A minus B. No backend export/validate HTTP endpoints: report/CSV/JSON
-are frontend responsibilities; validation outputs are files imported by Methods.
-Backend has mock and owner-supplied real services; full source validation and
-open contract decisions are NOT approved by integrating those files.
+Owner print-engine evidence and screenshots are in `frontend/docs/`; P1's embedded
+browser did not expose interactive print preview. See [progress](docs/PROGRESS.md)
+for exact commits, independent checks and remaining tasks.
 
-Fixtures: `npm run fixtures` regenerates 15 new-kit synthetic examples;
-`npm run check:fixtures` checks independent invariants and reproducibility.
-Do not use invented sites for the real demo. Mock site records have verified=false.
-The mock frontend must distinguish preview data without weakening verified-site rules.
-Source ambiguities (including refined sweep metadata/transport labels) stay explicit.
-No sync-0 tag or later-stage work until the real gate passes.
+## Sources and ownership
 
-Python-backed npm checks and fixture commands use scripts/python.mjs and the
-interpreter recorded by setup; no bare python executable or venv activation is needed.
-Run npm run setup first. Direct CI Python invocations use actions/setup-python.
+Canonical documents: `docs/specs/` PRD v2.0, TRD v1.0, Playbook v4.1 and supplied kit;
+API baseline: [contract](docs/CONTRACT.md). `docs/archive/` is historical.
 
-## Backend dependency handoff (canonical source)
-Backend owner declares runtime/dev dependencies in backend/pyproject.toml and
-supplies backend/uv.lock for coordinated P1 review. Once both exist, they are the
-ONLY backend dependency authority for npm setup, target mode and CI. Setup performs
-`uv export --locked --no-emit-project` to an ignored work/ export, then hash-checked
-installation into the selected environment. The export is derived, never edited.
-Default dev dependencies are included so owner checks use the same set.
-A missing/stale lock or only one handoff file is an error, not a fallback.
-Until BOTH files arrive, requirements-lock.txt is explicitly scaffold-only. Do not
-maintain parallel production requirement files. Backend source is run via --app-dir;
-packaged/local workspace build requirements need an explicit owner handoff.
-CI owner tests use the root environment with --locked --no-sync. uv is pinned to
-0.12.5 in CI; owner using 0.13 must demonstrate lock compatibility or request a
-coordinated tooling update. CI runs on all branch pushes and PRs.
+P1 owns integration, shared tooling/CI, lockfiles and integration docs. The acting
+frontend owner also has user-authorized supporting backend scope. Use separate
+worktrees and the three existing remote branches: `feat/p1-s0-integration`,
+`feat/p4-frontend-s0`, `feat/p2-p3-backend-terrain`. Never switch another owner's
+working directory or merge into integration from an owner task.
 
-## Data outside cloud-sync folders
-Git ignore does NOT stop OneDrive/iCloud/Dropbox syncing. Before any downloads,
-choose an absolute non-synced path and confirm space/source content lengths.
-PowerShell example (choose a location writable on your machine):
-```powershell
-$env:AZX_DATA_DIR = 'C:/azelux-data'
-```
-macOS example: `export AZX_DATA_DIR="$HOME/azelux-data"` (verify it is not synced).
-These are examples, not directories created by integration. Setup does not load
-.env; backend/download owners must explicitly support this variable. Downloaders
-must receive the SAME path as server settings. Never start large downloads assuming
-./data is outside OneDrive. Report actual sizes/checksums, not raster-size estimates.
-Our launcher normalizes an explicit relative AZX_DATA_DIR against repository root;
-backend standalone scripts/settings must also anchor paths independently of cwd.
-Canonical fixtures live at repo-root fixtures/, not backend/fixtures/.
-See docs/BACKEND_TERRAIN_HANDOFF_S0.md for the required backend/terrain decisions.
-
-## Combined S0 preview
-```sh
-npm run setup
-npm run dev:s0
-```
-On managed Windows, set AZX_PYTHON_MODE=target before setup. dev:s0 forces BOTH
-backend and frontend mock mode, displays synthetic data and needs no science files.
-Compare/best-date are placeholders; methods/report are stubs, not validated features.
-`npm run dev:all` retains explicit user environment behavior and may try real backend
-startup when AZX_USE_MOCK is not true. Do not call it a validated real-data demo.
-Frontend/backend branches were imported without owner-source edits. React 19 versus
-TRD 18, seven moderate dev audit findings, cap and other contract issues remain
-recorded. No sync gate, live deployment or scientific correctness is implied.
+Approved unblock decisions: [handoff](docs/FRONTEND_UNBLOCK_DECISIONS.md).
+Validation artifact interface: [validation](validation/README.md).
+Source provenance is required before real-data acceptance. Disclose actual AI
+assistance where the event requires it; do not invent scientific or verification claims.

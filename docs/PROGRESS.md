@@ -1,5 +1,27 @@
 # Azelux progress and to-do board
-Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Combined code integration authorized by user; gate still pending. Frontend S0 and backend source are integrated and CI checked; see INTEGRATION_S0.md.
+Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
+
+## Current authoritative status — map/evidence handoff
+
+- Frontend dbd4349 integrated: source links, accessible glossary, Expert raw series/
+  skyline, schematic Leaflet map, validation display, synthetic response notes and
+  print fixes. Local lint + 114 tests + strict TypeScript/build PASS.
+- Backend 8cc3948 initially failed hosted lint (unused noqa). P1 corrected it in
+  d0f81b6, also fixing the source revision and missing adapter command argument.
+  All seven jobs now pass: run 43636257071. Frontend run 43635772694 also passed.
+- Independent adapter checks: Ruff PASS, 4 tests PASS with normal conftest,
+  full JSON schema validation PASS, original source SHA-256 PASS, deterministic
+  adapted-object equality PASS. No science recomputation occurred.
+- Artifact: REAL inputs / spot_check / owner_reported, 24 metric rows, one site ×
+  six times for Sun/Earth. Full V1/V2/V4 remain missing. No product AI/ML exists.
+- Print fixes: owner reports actual headless Edge report printing; P1 inspected
+  committed print-page imagery. Independent interactive print preview remains unverified.
+- Remaining frontend: visual refinement in owner's worktree; sourced lunar basemap
+  images/delivery and raster orientation check; 3D remains gated.
+- P1: verify combined CI, keep preview running, integrate future green owner pushes.
+- Sync 0/1 remain open as previously recorded; no new science/deployment/stage claim.
+
+## Historical snapshots (revision-specific; current status above takes precedence)
 
 ## Update procedure
 Whenever the user requests an update/progress check, inspect ALL three remote heads
