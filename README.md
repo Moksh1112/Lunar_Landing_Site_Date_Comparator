@@ -98,3 +98,11 @@ Approved unblock decisions: [handoff](docs/FRONTEND_UNBLOCK_DECISIONS.md).
 Validation artifact interface: [validation](validation/README.md).
 Source provenance is required before real-data acceptance. Disclose actual AI
 assistance where the event requires it; do not invent scientific or verification claims.
+
+### Frontend checkpoint (15 November 2026)
+
+Frontend 9e3aff9 is integrated, including schematic sky rings, mission-day marker
+alignment and self-hosted font licences. This is not final visual acceptance: a new
+user-requested UI redesign is underway in the frontend owner's separate worktree.
+App results remain SYNTHETIC; owner-reported Horizons spot-check scope is unchanged.
+Current task status and exact checks: docs/PROGRESS.md.

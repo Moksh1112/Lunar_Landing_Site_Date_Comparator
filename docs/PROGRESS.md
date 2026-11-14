@@ -1,11 +1,17 @@
 # Azelux progress and to-do board
 Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
 
-## Current authoritative status — map/evidence handoff
+## Current authoritative status — frontend checkpoint 9e3aff9
 
-- Frontend dbd4349 integrated: source links, accessible glossary, Expert raw series/
+- Frontend 9e3aff9 integrated after all seven owner CI jobs passed (run 43638187682).
+  Includes a9ee826 sky-ring visualization and mission-day panorama marker fix,
+  font binaries with OFL notices/source references, and corrected owner handoff.
+  P1 local lint, 118 tests and strict TypeScript/production build PASS.
+  This is a functional checkpoint; the user has NOT accepted the visual design.
+  Further UI redesign continues independently in the frontend owner's worktree.
+- Prior frontend dbd4349 features remain integrated: source links, accessible glossary, Expert raw series/
   skyline, schematic Leaflet map, validation display, synthetic response notes and
-  print fixes. Local lint + 114 tests + strict TypeScript/build PASS.
+  print fixes. Earlier local 114-test verification is superseded by 118 tests above.
 - Backend 8cc3948 initially failed hosted lint (unused noqa). P1 corrected it in
   d0f81b6, also fixing the source revision and missing adapter command argument.
   All seven jobs now pass: run 43636257071. Frontend run 43635772694 also passed.
