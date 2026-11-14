@@ -40,3 +40,24 @@ No certified safety, electrical wattage prediction or guaranteed communications.
 JPL Horizons and verified NASA LOLA are intended sources, not connected yet.
 Official event rules remain unverified: see docs/EVENT_RULES.md.
 CI/smoke checks: S1. Deployment: S2 subject to event rules. Demo/submission: S3-S5.
+
+## S0 startup troubleshooting and handoff
+Setup launches npm through its Node CLI and starts module executables directly,
+without a shell wrapper. A failed module stops its sibling and returns a nonzero status.
+On this Codex host the backend was verified outside the restricted execution sandbox:
+HTTP 200, exactly `{"status":"ok"}`. A restricted-runner timeout alone is not proof
+of an application bug. Use an authorized normal terminal for local servers.
+
+Windows Application Control currently blocks Rollup's native module here. Frontend
+build/startup and the full one-command start are **not verified working** on this host.
+Do not disable security policy. See docs/STAGE_REPORT_S0.md for the blocker and
+use an approved compatible environment to complete the module startup gate.
+
+For backend-only startup after setup:
+```powershell
+.venv/Scripts/python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
+```
+On macOS/Linux use `.venv/bin/python` in the same command. For frontend-only startup,
+run `npm --prefix frontend run dev`. The S0 frontend is intentionally an empty shell.
+See docs/SYNC_0_CONFIRMATIONS.md for Person 2 decisions and each teammate's exact
+acknowledgment. Startup fixes exist only on `chore/integration-devops` until integrated.

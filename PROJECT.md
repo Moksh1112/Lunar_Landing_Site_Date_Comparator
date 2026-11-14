@@ -25,8 +25,10 @@ Stop at every sync. Actual kickoff/deadline and breaks unverified.
 
 ## Status
 S0 PARTIAL / blocked; see docs/STAGE_REPORT_S0.md. Module scaffolds only; comparison journey not implemented.
-Real: health endpoint only. Mocked: proposed comparison fixtures.
+Real: backend health verified HTTP 200 in authorized runner; setup and type-check pass. Mocked: proposed comparison fixtures.
 Horizons live access/interpretation and LOLA coverage: UNVERIFIED.
 Sync 0 pending: Person 2 contract approval, teammates clone/start acknowledgments,
 CI (scheduled S1 by user), remote branch protection and verified checks.
 No sync-0 tag until gate passes. Later stages have not started.
+
+S0 follow-up: shell-free launch/setup and verified cleanup; frontend Application Control blocker remains. See docs/SYNC_0_CONFIRMATIONS.md for explicit remaining approvals.
