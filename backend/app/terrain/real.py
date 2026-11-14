@@ -303,6 +303,8 @@ class RealTerrain:
             max_m=float(h.max()),
             site_px=(TILE_PX // 2, TILE_PX // 2),
             size_km=float(size_km),
+            source_dem=src.name,
+            resolution_m=src.resolution_m,
             data_label="REAL",
         )
 

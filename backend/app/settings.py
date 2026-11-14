@@ -9,7 +9,7 @@ from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 from app.paths import DEFAULT_DATA_DIR, ENV_FILE, REPO_ROOT
 
 APP_VERSION = "0.1.0"
-CONTRACT_VERSION = "1.0"
+CONTRACT_VERSION = "1.1"
 
 
 def _split_csv(value: object) -> object:

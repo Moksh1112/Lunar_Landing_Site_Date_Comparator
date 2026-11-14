@@ -26,6 +26,7 @@ from app.api.models import (
 )
 from app.ephemeris import kernels_loaded
 from app.paths import FIXTURES_DIR
+from app.provenance import manifest_hash
 from app.settings import APP_VERSION, CONTRACT_VERSION, Settings
 from app.sites.loader import load_sites
 from app.terrain import get_terrain_provider
@@ -194,6 +195,7 @@ def health(request: Request) -> OrjsonResponse:
             "kernels_loaded": kernels_loaded(),
             "dems_loaded": _dems_loaded(request),
             "mock": False,
+            "manifest_sha256": manifest_hash(_settings(request).data_dir),
         }
     )
 
@@ -202,7 +204,7 @@ def health(request: Request) -> OrjsonResponse:
 def sites(request: Request) -> OrjsonResponse:
     if _settings(request).use_mock:
         return OrjsonResponse(load_fixture("sites.ok"))
-    return OrjsonResponse(SitesResponse(sites=load_sites()).model_dump(mode="json"))
+    return OrjsonResponse(SitesResponse(sites=load_sites(), data_label="REAL").model_dump(mode="json"))
 
 
 @api_router.post("/compare")
@@ -217,7 +219,10 @@ def compare(request: Request, body: CompareRequest) -> OrjsonResponse:
         return OrjsonResponse(load_fixture("compare.ok"))
     from app.compare import run_compare  # local import: keeps mock-only runs light
 
-    return OrjsonResponse(run_compare(body, _terrain(request)))
+    result = run_compare(body, _terrain(request))
+    for scenario in result['scenarios']:
+        scenario['meta']['manifest_sha256'] = manifest_hash(_settings(request).data_dir)
+    return OrjsonResponse(result)
 
 
 @api_router.post("/sweep")
@@ -237,7 +242,9 @@ def sweep(request: Request, body: SweepRequest) -> OrjsonResponse:
         return OrjsonResponse(load_fixture("sweep.ok"))
     from app.sweep import run_sweep  # local import: keeps mock-only runs light
 
-    return OrjsonResponse(run_sweep(body, _terrain(request)))
+    result = run_sweep(body, _terrain(request))
+    result['meta']['manifest_sha256'] = manifest_hash(_settings(request).data_dir)
+    return OrjsonResponse(result)
 
 
 def _site_point(query) -> dict:
@@ -309,6 +316,9 @@ def terrain_tile(request: Request, query: Annotated[TerrainTileQuery, Query()]) 
         "heights_m_b64": base64.b64encode(heights.tobytes()).decode("ascii"),
         "min_m": tile.min_m,
         "max_m": tile.max_m,
+        "grid_bearing_offset_deg": query.lon_east_deg,
+        "source_dem": tile.source_dem,
+        "resolution_m": tile.resolution_m,
         "site_px": [tile.site_px[0], tile.site_px[1]],
         "data_label": tile.data_label,
     }

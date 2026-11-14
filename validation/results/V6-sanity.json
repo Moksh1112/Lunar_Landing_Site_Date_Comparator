@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V6",
+  "title": "Polar ephemeris sanity diagnostics \u2014 qualitative review pending",
+  "data_label": "REAL",
+  "scope": "spot_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-14T22:14:36Z",
+  "producer_commit": "3c318183af5a10a1b45893f50119e74e6d6c9dcf",
+  "command": "sun_earth_series(-89,0,0,2027-03-01T00:00:00Z,708,60)",
+  "sources": [
+    {
+      "label": "Acceptance criterion",
+      "reference": "docs/specs/Azelux_PRD.pdf section 8.3 V6"
+    }
+  ],
+  "coverage": "One lunar-day sample at one mathematical polar point.",
+  "status": "incomplete",
+  "rows": [
+    {
+      "case": "89 S, 0 E, March 2027",
+      "metric": "sun_minimum_elevation",
+      "actual": -1.7036135643516572,
+      "reference": null,
+      "unit": "deg",
+      "status": "not_evaluated"
+    },
+    {
+      "case": "89 S, 0 E, March 2027",
+      "metric": "sun_maximum_elevation",
+      "actual": -0.07556466902179454,
+      "reference": null,
+      "unit": "deg",
+      "status": "not_evaluated"
+    },
+    {
+      "case": "89 S, 0 E, March 2027",
+      "metric": "earth_minimum_elevation",
+      "actual": -5.9596453044692215,
+      "reference": null,
+      "unit": "deg",
+      "status": "not_evaluated"
+    },
+    {
+      "case": "89 S, 0 E, March 2027",
+      "metric": "earth_maximum_elevation",
+      "actual": 7.468511562217117,
+      "reference": null,
+      "unit": "deg",
+      "status": "not_evaluated"
+    }
+  ],
+  "limitations": [
+    "PRD V6 is qualitative; no numerical threshold is invented.",
+    "Human scientific sanity review remains pending."
+  ]
+}
