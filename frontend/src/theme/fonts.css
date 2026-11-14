@@ -1,15 +1,8 @@
-/* Self-hosted OFL faces (Google Fonts, latin subset). Two families only (TRD 7.6). */
+/* Self-hosted OFL faces (Google Fonts, latin subset). One family. */
 @font-face {
   font-family: "Schibsted Grotesk";
   font-style: normal;
   font-weight: 400 800;
   font-display: swap;
   src: url("./fonts/SchibstedGrotesk.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Gloock";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./fonts/Gloock.woff2") format("woff2");
 }

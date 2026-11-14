@@ -1,51 +1,56 @@
 /*
- * Azelux design tokens (frontend/DESIGN.md). Dark theme default (TRD 7.6).
- * Hue is reserved for data: Sun = amber, Earth = blue, A = teal, B = violet,
- * verdicts green/amber/red (always paired with a word). Chrome is a night almanac: ink ground, ivory print, ruled structure.
- * Contrast is re-measured for this palette in frontend/DESIGN.md (all text pairs >= 4.5:1).
+ * Azelux design tokens: "light lunar atlas" (frontend/DESIGN.md).
+ * Warm light canvas, white working surfaces, restrained cobalt actions.
+ * Data hues are fixed meanings: Sun ochre, Earth blue, Plan A teal, Plan B burnt orange;
+ * verdicts green/amber/red always with the word. Contrast is measured in DESIGN.md.
  */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* neutrals: graphite, slightly cool */
-  --color-bg: #0b0e15;
-  --color-surface: #12161f;
-  --color-surface-2: #191e29;
-  --color-surface-3: #232937;
-  --color-border: #2a2f3b;
-  --color-border-strong: #3d4351;
-  --color-text: #ece8dd; /* almanac ivory */
-  --color-text-muted: #aeaa9d;
-  --color-text-faint: #8f8b7f;
+  /* neutrals */
+  --color-bg: #f5f3ed; /* page canvas */
+  --color-surface: #ffffff; /* main working surfaces */
+  --color-surface-2: #eceff0; /* secondary surfaces */
+  --color-surface-3: #e1e6e6; /* pressed / chart terrain fill */
+  --color-border: #d4dcda;
+  --color-border-strong: #a9b6b4;
+  --color-text: #18252b;
+  --color-text-muted: #50616a;
+  --color-text-faint: #5d6d75;
 
   /* data hues */
-  --color-sun: #f2b544;
-  --color-earth: #5fa8ff;
-  --color-a: #2fd0b9;
-  --color-b: #b49cff;
-  --color-a-soft: rgb(47 208 185 / 0.12);
-  --color-b-soft: rgb(180 156 255 / 0.12);
+  --color-sun: #956000;
+  --color-earth: #245bb5;
+  --color-a: #086c65;
+  --color-b: #a44828;
+  --color-a-soft: rgb(8 108 101 / 0.08);
+  --color-b-soft: rgb(164 72 40 / 0.08);
 
   /* verdicts and change direction */
-  --color-green: #4fd88a;
-  --color-amber: #f6c445;
-  --color-red: #ff7a7a;
-  --color-green-soft: rgb(79 216 138 / 0.12);
-  --color-amber-soft: rgb(246 196 69 / 0.12);
-  --color-red-soft: rgb(255 122 122 / 0.12);
+  --color-green: #1d7a3e;
+  --color-amber: #8a5a00;
+  --color-red: #b3261e;
+  --color-green-soft: #e6f3ea;
+  --color-amber-soft: #fbf0d9;
+  --color-red-soft: #fbe7e5;
 
   /* status */
-  --color-synthetic: #f6c445;
-  --color-synthetic-bg: #2b2208;
-  --color-link: #8cc0ff;
-  --color-focus: #ffffff;
+  --color-synthetic: #7a4f00;
+  --color-synthetic-bg: #fff3d4;
+  --color-link: #244bb3;
+  --color-focus: #244bb3;
 
-  /* primary action: neutral, so it never reads as a data hue */
-  --color-action: #ece8dd; /* ivory: never a data hue */
-  --color-action-text: #0b0e15;
-  --color-action-hover: #fffaf0;
+  /* primary action: cobalt */
+  --color-action: #244bb3;
+  --color-action-text: #ffffff;
+  --color-action-hover: #1c3d93;
 
-  /* spacing: 8 px base (0.25 step for tight groups) */
+  /* structural aliases used by feature styles */
+  --plate: #ffffff;
+  --rule: #d4dcda;
+  --slip: #ffffff;
+
+  /* spacing: 8 px base */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -53,36 +58,28 @@
   --space-5: 2rem;
   --space-6: 3rem;
 
-  /* type: two families max (TRD 7.6); fixed rem scale, ratio ~1.2 */
+  /* type: one family (Schibsted Grotesk); hierarchy by size, weight and spacing */
   --font-sans: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --font-display: "Gloock", "Iowan Old Style", Georgia, serif;
-  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
-  --text-xs: 0.75rem;
+  --font-display: var(--font-sans);
+  --text-xs: 0.8125rem;
   --text-sm: 0.875rem;
   --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.375rem;
-  --text-2xl: 2rem;
-  --text-3xl: 2.75rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2.125rem;
   --leading: 1.5;
-  --leading-tight: 1.25;
+  --leading-tight: 1.2;
 
-  /* shape */
+  /* shape: modest, consistent radii */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 12px;
+  --radius-lg: 8px;
 
-  /* motion: state only, short, strong ease-out */
+  /* motion: state only */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --dur-fast: 140ms;
 
-  /* focus ring */
   --focus-ring: 2px solid var(--color-focus);
   --focus-offset: 2px;
-}
-
-:root {
-  --plate: #080a10; /* chart plates sit one step darker than the page */
-  --rule: var(--color-border);
-  --slip: #11151d;
 }

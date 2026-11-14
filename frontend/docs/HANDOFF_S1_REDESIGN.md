@@ -311,3 +311,68 @@ Still limited:
 - Terrain 3D gated.
 - Validation is only the owner-reported V1 spot check.
 - All app data is SYNTHETIC.
+
+## Follow-up 5: light lunar atlas, structural density fix, real-data journey
+
+**Theme:** the user-locked "light lunar atlas" (see DESIGN.md) replaces night almanac.
+
+- Schibsted Grotesk only; Gloock is removed (file and licence deleted, README updated).
+- Plain header with a 2 px cobalt active indicator.
+- 6–8 px radii.
+- One Export menu.
+- One concise SYNTHETIC notice, with details.
+- Verdicts as small status labels.
+
+**Structure:**
+
+- A compact A/B plans bar with "Edit plans" (inline editor, opened automatically on
+  validation errors and closed after a successful compare) and "Compare".
+- Full-width result sentence, verdicts and timeline.
+- Sky rings and panoramas in a "Sky and horizon views" secondary section.
+
+**Backend** (`feat/p2-p3-backend-terrain` `0d6f382`, CI run 43641136341 success):
+
+- A covered point (south of 80.7°S) with no DEM loaded now raises `TerrainUnavailable`.
+  The API returns `INTERNAL` with the message "Terrain data is not available on this server
+  for points inside south-pole DEM coverage". Previously it returned "geometric" with the
+  false limitation "no terrain data at this site".
+- If rasterio/pyproj cannot import, a geometric-only provider serves only points north of
+  80.7°S.
+- Tests: 491 passed, 50 skipped; ruff clean.
+
+**Real-data journey** (local, `AZX_USE_MOCK=false`, `VITE_USE_MOCK=false`,
+`AZX_DATA_DIR=C:/azx/data`, outside OneDrive):
+
+- Kernels: downloaded from naif.jpl.nasa.gov and verified by
+  `scripts/download_kernels.py` ("ALL KERNELS OK"). `/health` lists all five; `dems_loaded`
+  is `[]`.
+- **Sourced polar terrain pair** (im2-athena vs im2-intended, `terrain_coverage: true`):
+  **blocked.**
+  - The 20 m DEM is 2.7 GB and PGDA served about 0.1–0.2 MB/s.
+  - The 80 m DEM download reached 167 / 189 MB. On the resume attempt
+    `pgda.gsfc.nasa.gov:443` was unreachable (curl timeout), so the boundary was stopped
+    after two failed attempts. The partial file is kept and resumable.
+  - The UI and API show the honest `INTERNAL` "Terrain data is not available" error. No
+    fixture is used. Screenshot: `real-2-polar.jpg`.
+- **Date shift computed with real SPICE** (im1-odysseus, NASA LRO-sourced, north of 80.7°S,
+  so geometric by TRD 4.1):
+  - 2027-03-01 vs 2027-03-15, 240 h each.
+  - Response: A 0 h Sun (lunar night), B 224.6 h. Earth 240 h both. A red, B green.
+    `both_hours` A − B = −224.6.
+  - Each scenario's `t_unix[0]` matches its submitted start. 1441 samples each.
+  - Labels: REAL, "geometric horizon only", no DEM.
+  - The browser network log shows POST `/api/v1/compare` to `127.0.0.1:8010` returning 200.
+  - CSV and JSON downloaded through the real Export buttons keep the request (`date_shift`,
+    both starts, 240 h), the response and provenance (REAL, kernels, geometric).
+  - Screenshots: `real-3-dateshift.jpg`, `real-4-dateshift-timeline.jpg`,
+    `real-5-dateshift-sources.jpg`.
+- **Not claimed:** a terrain or terrain-coarse result, or any validation beyond the
+  owner-reported V1 spot check.
+
+**Checks:**
+
+- Frontend: `tsc` and `eslint` clean; `vitest` 13 files / 122 passed; production build OK.
+- Headless Edge at 1440 / 768 / 375 (mock): scrollWidth is 375 on all routes; keyboard
+  scrub works; reduced motion turns ring motion off; error state OK.
+- Print: `/report` gives 5 pages.
+- Combined detached checkout (integration plus both owner heads): see the P1 note.

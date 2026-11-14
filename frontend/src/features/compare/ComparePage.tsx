@@ -4,7 +4,6 @@ import { ApiError } from "../../api/errors";
 import type { CompareRequest, ScenarioResult } from "../../api/types";
 import { ErrorState } from "../../components/ErrorState";
 import { Skeleton } from "../../components/Skeleton";
-import { SyntheticBadge } from "../../components/SyntheticBadge";
 import { SyntheticResultNote } from "../../components/SyntheticResultNote";
 import { Term } from "../../components/Term";
 import { useStore } from "../../store";
@@ -107,7 +106,12 @@ export function ComparePage() {
   const editorOpen = editing || Object.keys(errors).length > 0;
 
   const run = (req: CompareRequest) =>
-    compare.mutate(req, { onSuccess: (response) => setLastCompare({ request: req, response }) });
+    compare.mutate(req, {
+      onSuccess: (response) => {
+        setLastCompare({ request: req, response });
+        setEditing(false); // results take the workspace once a compare succeeds
+      },
+    });
 
   const submit = () => {
     if (compare.isPending) return;
@@ -212,9 +216,7 @@ export function ComparePage() {
             <div className={styles.reveal} key={shown?.response.scenarios[0].meta.computed_at + String(shown?.request.scenarios[1].start_utc)}>
               <header className={styles.conclusion}>
                 <div className={styles.metaRow}>
-                  {synthetic && <SyntheticBadge />}
-                  <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} />
-                  <Link to="/report" className="btn no-print">Open report</Link>
+                  <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} withReport />
                 </div>
                 <h2 className={styles.answer}>{conclusion(data)}</h2>
                 {synthetic && <SyntheticResultNote />}

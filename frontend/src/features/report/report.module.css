@@ -1,6 +1,6 @@
 /* The report is a document: a paper sheet on screen, the same sheet on print. */
 .page {
-  --color-bg: #f6f3ea; --color-surface: #fbf9f3; --color-surface-2: #efebdf; --color-surface-3: #e4dfd1;
+  --color-bg: #ffffff; --color-surface: #ffffff; --color-surface-2: #efebdf; --color-surface-3: #e4dfd1;
   --color-border: #cfc8b6; --color-border-strong: #a9a290; --rule: #cfc8b6; --plate: #fbf9f3;
   --color-text: #17181c; --color-text-muted: #45464d; --color-text-faint: #575860;
   --color-a: #0b7c6c; --color-b: #6440d8; --color-sun: #a86a00; --color-earth: #1f63c4;
@@ -9,7 +9,7 @@
   --color-green-soft: rgb(18 122 58 / 0.08); --color-amber-soft: rgb(138 98 0 / 0.08); --color-red-soft: rgb(180 35 35 / 0.08);
   color-scheme: light; color: var(--color-text); background: var(--color-bg);
   max-width: 60rem; margin: 0 auto; padding: var(--space-6) clamp(var(--space-3), 5vw, var(--space-6));
-  border-radius: 4px; box-shadow: 0 30px 60px rgb(0 0 0 / 0.45);
+  border-radius: var(--radius-lg); border: 1px solid var(--color-border); box-shadow: 0 1px 3px rgb(24 37 43 / 0.08);
 }
 @media print { .page { box-shadow: none; padding: 0; max-width: none; } }
 .head { margin-bottom: var(--space-4); }
