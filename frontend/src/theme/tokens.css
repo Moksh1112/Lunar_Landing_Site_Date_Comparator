@@ -1,22 +1,22 @@
 /*
  * Azelux design tokens (frontend/DESIGN.md). Dark theme default (TRD 7.6).
  * Hue is reserved for data: Sun = amber, Earth = blue, A = teal, B = violet,
- * verdicts green/amber/red (always paired with a word). Chrome is a cool earthshine ink.
+ * verdicts green/amber/red (always paired with a word). Chrome is a night almanac: ink ground, ivory print, ruled structure.
  * Contrast is re-measured for this palette in frontend/DESIGN.md (all text pairs >= 4.5:1).
  */
 :root {
   color-scheme: dark;
 
   /* neutrals: graphite, slightly cool */
-  --color-bg: #0b1019;
-  --color-surface: #111827;
-  --color-surface-2: #172033;
-  --color-surface-3: #1f2a40;
-  --color-border: #263249;
-  --color-border-strong: #39465f;
-  --color-text: #ecf0f7;
-  --color-text-muted: #a7b2c7;
-  --color-text-faint: #8794ad;
+  --color-bg: #0b0e15;
+  --color-surface: #12161f;
+  --color-surface-2: #191e29;
+  --color-surface-3: #232937;
+  --color-border: #2a2f3b;
+  --color-border-strong: #3d4351;
+  --color-text: #ece8dd; /* almanac ivory */
+  --color-text-muted: #aeaa9d;
+  --color-text-faint: #8f8b7f;
 
   /* data hues */
   --color-sun: #f2b544;
@@ -41,9 +41,9 @@
   --color-focus: #ffffff;
 
   /* primary action: neutral, so it never reads as a data hue */
-  --color-action: #e8e2d4; /* regolith: warm pale grey, never a data hue */
-  --color-action-text: #0b1019;
-  --color-action-hover: #f4efe4;
+  --color-action: #ece8dd; /* ivory: never a data hue */
+  --color-action-text: #0b0e15;
+  --color-action-hover: #fffaf0;
 
   /* spacing: 8 px base (0.25 step for tight groups) */
   --space-1: 0.25rem;
@@ -70,7 +70,7 @@
   /* shape */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 14px;
+  --radius-lg: 12px;
 
   /* motion: state only, short, strong ease-out */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -79,4 +79,10 @@
   /* focus ring */
   --focus-ring: 2px solid var(--color-focus);
   --focus-offset: 2px;
+}
+
+:root {
+  --plate: #080a10; /* chart plates sit one step darker than the page */
+  --rule: var(--color-border);
+  --slip: #11151d;
 }

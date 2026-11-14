@@ -12,7 +12,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  /* Earthshine: one faint cool light from the upper right; atmosphere, not data. */
+  background: radial-gradient(1100px 520px at 88% -8%, rgb(95 168 255 / 0.07), transparent 65%) no-repeat, var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-md);

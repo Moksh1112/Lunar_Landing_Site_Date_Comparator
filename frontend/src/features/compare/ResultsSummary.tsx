@@ -148,9 +148,9 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds, middl
         </ul>
       </section>
 
-      <DeltaStrip data={data} />
-
       {middle}
+
+      <DeltaStrip data={data} />
 
       <section aria-labelledby="metrics-h" className={styles.panel}>
         <div className={styles.panelHead}>

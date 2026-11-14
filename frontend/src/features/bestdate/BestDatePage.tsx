@@ -113,6 +113,8 @@ export function BestDatePage() {
             submit();
           }}
         >
+          <fieldset className={styles.step}>
+            <legend><span className={styles.stepNum} aria-hidden="true">1</span>Site</legend>
           <label className={styles.field}>
             <span>Library site</span>
             <select
@@ -142,7 +144,7 @@ export function BestDatePage() {
             <input type="checkbox" checked={showUnverified} onChange={(e) => setShowUnverified(e.target.checked)} />
             <span>Show unverified (SYNTHETIC) sites</span>
           </label>
-          <div className={styles.grid}>
+          <div className={styles.pair}>
             <label className={styles.field}>
               <span>Latitude (deg, south negative)</span>
               <input type="text" inputMode="decimal" value={form.lat} {...aria("site.lat_deg")} onChange={(e) => set({ lat: e.target.value, siteId: null, siteName: null })} />
@@ -154,6 +156,11 @@ export function BestDatePage() {
               {note && <span className={styles.hint}>{note}</span>}
               {err("site.lon_east_deg")}
             </label>
+          </div>
+          </fieldset>
+          <fieldset className={styles.step}>
+            <legend><span className={styles.stepNum} aria-hidden="true">2</span>Landing days</legend>
+          <div className={styles.pair}>
             <label className={styles.field}>
               <span>First landing day (UTC)</span>
               <input type="date" value={form.rangeStart} {...aria("range_start")} onChange={(e) => set({ rangeStart: e.target.value })} />
@@ -164,20 +171,26 @@ export function BestDatePage() {
               <input type="date" value={form.rangeEnd} {...aria("range_end")} onChange={(e) => set({ rangeEnd: e.target.value })} />
               {err("range_end")}
             </label>
+          </div>
+          <p className={styles.hint}>
+            {nDays !== null ? `${nDays} candidate day${nDays === 1 ? "" : "s"} (up to 183 days).` : "Up to 183 days."}
+          </p>
+          </fieldset>
+          <fieldset className={styles.step}>
+            <legend><span className={styles.stepNum} aria-hidden="true">3</span>Mission</legend>
             <label className={styles.field}>
               <span>Mission length (hours)</span>
               <input type="number" min={1} max={8760} step="any" value={form.missionHours} {...aria("mission_hours")} onChange={(e) => set({ missionHours: e.target.value })} />
               <span className={styles.hint}>708 h is one lunar day.</span>
               {err("mission_hours")}
             </label>
-          </div>
-          <p className={styles.hint}>
-            {nDays !== null ? `${nDays} candidate day${nDays === 1 ? "" : "s"} (up to 183 days). ` : ""}
-            Uses the verdict thresholds set on Compare.
-          </p>
+            <p className={styles.hint}>Scored with the verdict thresholds set on Compare.</p>
+          </fieldset>
+          <div className={styles.go}>
           <button type="submit" className={`btn-primary ${styles.primary}`} disabled={sweep.isPending}>
             {sweep.isPending ? "Scoring days…" : "Find best dates"}
           </button>
+          </div>
         </form>
 
         <section className={styles.results} aria-label="Best-date results" aria-live="polite" aria-busy={sweep.isPending}>
@@ -211,6 +224,9 @@ export function BestDatePage() {
   );
 }
 
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const weekday = (date: string): string => WEEKDAYS[new Date(`${date}T00:00:00Z`).getUTCDay()];
+
 function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepResponse; selected: string | null; onSelect: (d: string) => void; onLoad: (d: SweepDay) => void }) {
   const byDate = new Map(data.days.map((d) => [d.date, d]));
   const top = data.top.map((d) => byDate.get(d)).filter((d): d is SweepDay => d !== undefined);
@@ -230,7 +246,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
       {data.meta.data_label !== "REAL" && <SyntheticResultNote />}
       <section className={styles.panel} aria-labelledby="cal-h">
         <div className={styles.panelHead}>
-          <h3 id="cal-h">Calendar</h3>
+          <h3 id="cal-h"><span className={styles.stepNum} aria-hidden="true">4</span>Pick a landing day</h3>
           <span className={styles.muted}>Coloured by verdict; letter G / A / R repeats it in text.</span>
         </div>
         <ol className={styles.calendar}>
@@ -243,6 +259,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
                 aria-label={`${d.date}: ${d.verdict.level}, rank ${d.rank}`}
                 onClick={() => onSelect(d.date)}
               >
+                <span className={styles.dayWk}>{weekday(d.date)}</span>
                 <span className={styles.dayNum}>{d.date.slice(8)}</span>
                 <span className={styles.dayLetter}>{d.verdict.level[0].toUpperCase()}</span>
               </button>

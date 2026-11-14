@@ -1,81 +1,85 @@
-# Azelux frontend design system: "earthshine"
+# Azelux frontend design system: "night almanac"
 
-Surface mode: **Operate**. Azelux is a planning workspace, not a landing page. One bold
-thing, the comparison stage, sits inside a quiet, disciplined tool. Tokens:
-`src/theme/tokens.css`; base elements: `src/theme/global.css`; faces: `src/theme/fonts.css`.
+Product truth: `PRODUCT.md`. Tokens: `src/theme/tokens.css`; base elements:
+`src/theme/global.css`; faces: `src/theme/fonts.css` (licences in `src/theme/fonts/README.md`).
 
-## Direction
+## Direction contract
 
-The lunar night lit by earthshine: cool blue-ink surfaces, and pale "regolith" for the
-primary action. **Hue is only for data** (TRD 7.6):
+- **Thesis:** a night-edition lunar almanac. The visibility diagram is the page; everything
+  else is tabulation and evidence.
+- **First viewport:** the plan slip (A and B as segments of one perforated pass) beside a
+  one-sentence conclusion, the verdict pair and the banded Sun/Earth/both visibility
+  diagram. The starter example is computed on first visit (PRD 6.2), so the page is never
+  empty.
+- **Reading order:** conclusion → verdicts → visibility diagram + scrubber + countdowns →
+  sky plates → panoramas → deltas → metrics table → sources, method and limits → raw data
+  (Expert).
+- **Signature interaction:** one scrubber moves the diagram rule, both sky plates, the
+  panorama markers and the countdowns together (each mapped to its plan's own time).
+- **Cross-surface:**
+  - Best date is a numbered query slip (1 Site, 2 Landing days, 3 Mission) and a month
+    strip (4 Pick a landing day) with a lifted focused day.
+  - Methods is the almanac's explanatory supplement: a contents rail and one reading
+    column.
+  - Report is the printed almanac page, a paper sheet on screen and on print.
+- **Risk guarded:** ruled-table grammar can turn into decorative hairlines. Every rule
+  here separates data or steps.
 
-| Meaning | Token |
+Process: impeccable concept-seed (key `aa21021273f7ce1efcb57e88cff9d074`) assigned candidate
+7 of a resonance-ordered list. A DSN link-display candidate was removed before the roll
+because it would imply a guaranteed radio link. Challenger raises applied:
+
+- **Boarding pass:** segmented plan slip.
+- **Botanical folio:** identical A/B plates on one scale.
+- **Crouwel grid:** functional rules.
+- **Split-flap:** rows that update in place.
+
+## Colour
+
+| Role | Value |
 | --- | --- |
-| Base / surfaces | `--color-bg` #0b1019 → `--color-surface` #111827 → `-2` #172033 → `-3` #1f2a40 |
-| Text | #ecf0f7, muted #a7b2c7, faint #8794ad (all ≥ 4.5:1 on every surface) |
-| Primary action, current nav | `--color-action` #e8e2d4 (regolith), with ink text |
-| Sun / Earth | amber #f2b544 / blue #5fa8ff |
-| Plan A / Plan B | teal #2fd0b9 / violet #b49cff, as "A"/"B" tags, ring outlines and serif letters |
-| Verdict | green / amber / red, always with the word (sentence case) |
+| Ink ground / slip / plate | #0b0e15 / #11151d / #080a10 |
+| Rules | #2a2f3b (strong #3d4351) |
+| Ivory print | #ece8dd, muted #aeaa9d, faint #8f8b7f (≥ 4.5:1 on every dark surface) |
+| Primary action, current nav | ivory #ece8dd with ink text (never a data hue) |
+| Sun / Earth | #f2b544 / #5fa8ff |
+| Plan A / B | #2fd0b9 / #b49cff |
+| Verdict | green / amber / red, always with the word |
 | SYNTHETIC | amber on #2b2208 |
+| Report paper | #f6f3ea ground, #17181c ink (print-safe palette) |
 
 ## Type
 
-Two families (TRD 7.6), self-hosted under the SIL OFL 1.1 with the latin subset. Licences and
-sources are in `src/theme/fonts/README.md`.
+- Gloock is the display serif: titles, the conclusion sentence, section heads, verdict
+  words, delta numbers, day numbers and plan letters.
+- Schibsted Grotesk (variable 400–800) is used for UI, body, tables and code.
+- Signs (+/−) on deltas are set in the sans.
+- Tabular figures are used only in table cells.
+- No all-caps labels (except the mandated SYNTHETIC), eyebrows or middle-dot meta strings.
 
-- **Gloock** (high-contrast display serif) is the display voice: page and section titles, the wordmark,
-  verdict words, delta values, and the A/B ring letters. Numbers in the display serif are
-  the type treatment that carries the page.
-- **Schibsted Grotesk** (variable weight 400–800) is used for every UI label, body text, table
-  and code chip, with `tabular-nums` on data.
+## Space, surfaces, controls
 
-Avoided on purpose: all-caps labels (except the mandated SYNTHETIC label), eyebrows,
-middle-dot meta strings, and a monospace face for small data.
-
-## Layout
-
-```
-[ wordmark ]        ( Compare | Best date | Methods | Report )        [ Simple | Expert ]
-+ input rail (sticky, own scroll) +  Result title, SYNTHETIC, exports ----------------------+
-| preset segmented control        |  synthetic-result note                                 |
-| Plan A card                     |  verdict A | verdict B                                 |
-| Plan B card                     |  B compared with A (serif delta numbers)               |
-| Pick on map (lazy)              |  STAGE: "The sky above each site"                      |
-| thresholds                      |     sky ring A    sky ring B     (shared scale)        |
-| [Compare A and B] pinned        |     timeline lanes + scrubber + at-time readout        |
-+---------------------------------+  panoramas, metrics, sources and method, raw (Expert)  |
-```
-
-Everything is left-aligned. One column below 64 rem; no horizontal scroll at 375 px.
-
-## The stage (focal point)
-
-`SkyRing` unrolls each site's horizon around a circle:
-
-- Azimuth runs clockwise from north at the top.
-- Elevation on the shared y scale runs inward.
-- The skyline band is shaded.
-- Sun and Earth tracks are solid when visible and dotted when below the skyline.
-- The markers follow the shared scrubber, mapped to each plan's own time (F17).
-
-It is a **schematic data visualization** drawn only from the compare response. It is not
-terrain imagery, not georeferenced and not a 3D model, and it does not bypass the 3D gate.
+- 8 px scale.
+- Sections are separated by full-width rules, not boxed cards. The slip and chart plates
+  are the only framed objects.
+- Pills for segmented choices and the primary action. Disclosures (map, thresholds) use a
+  rotating "+".
+- Desktop: the slip is sticky with the action pinned. Touch (< 64 rem): the action docks
+  to the bottom edge (safe-area aware).
+- Best date's action docks below 40 rem.
 
 ## Motion
 
-Motion appears only for state changes and one authored moment:
-
-- **New result:** blocks rise in order (260 ms, ease-out, 40 ms stagger).
-- **Scroll:** the sky rings tip from a ground-level perspective to flat as they enter
-  view. This uses CSS scroll-driven animation as progressive enhancement, with no
-  GSAP/Lenis dependency.
+- **New result:** a staged 280 ms reveal.
+- **Sky plates:** tip from ground level to flat on scroll (CSS scroll-driven, progressive).
+- **Best date:** the focused day lifts.
 - **Buttons:** 140 ms press.
+- **Never animated:** navigation, scrubbing and keyboard actions.
+- **Reduced motion / print:** reduced motion removes the motion; print removes all of it.
 
-Never applied: scrubbing and keyboard actions are instant. `prefers-reduced-motion`
-removes the scroll tilt and the reveal. Print removes all motion.
+## Truth rules
 
-## Print
-
-Light paper. App chrome and the mock-variant select are hidden. Scroll regions expand,
-long text cells wrap, and figures and table rows stay unbroken.
+- Sky plates are **schematic data visualizations** of the response: not terrain imagery,
+  not georeferenced and not a 3D model. Terrain 3D stays gated.
+- The earthshine glow on the page background is atmosphere only.
+- SYNTHETIC results always carry the badge and the "fixed test response" note.

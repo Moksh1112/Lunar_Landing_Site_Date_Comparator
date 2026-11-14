@@ -103,7 +103,7 @@
   font-size: var(--text-sm);
   font-weight: 550;
   white-space: nowrap;
-  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+  /* No transition: navigation is high-frequency and must reflect state instantly. */
 }
 .link:hover {
   color: var(--color-text);
