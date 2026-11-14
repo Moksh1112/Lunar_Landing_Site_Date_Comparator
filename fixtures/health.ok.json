@@ -1,0 +1,8 @@
+{
+ "status": "ok",
+ "app_version": "0.1.0",
+ "contract_version": "1.0",
+ "kernels_loaded": [],
+ "dems_loaded": [],
+ "mock": true
+}

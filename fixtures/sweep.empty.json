@@ -1,0 +1,29 @@
+{
+ "contract_version": "1.0",
+ "site": {
+  "site_id": "test-pole-1",
+  "name": "Test site 1 (synthetic)",
+  "lat_deg": -85.5,
+  "lon_east_deg": 30.0
+ },
+ "meta": {
+  "ephemeris": "SPICE DE440 (JPL NAIF)",
+  "kernels": [
+   "naif0012.tls",
+   "de440s.bsp",
+   "pck00011.tpc",
+   "moon_pa_de440_200625.bpc",
+   "moon_de440_220930.tf"
+  ],
+  "horizon_mode": "terrain",
+  "dem": "LDEM_80S_20MPP_ADJ + far_160m",
+  "step_minutes": 30,
+  "observer_height_m": 2,
+  "app_version": "0.1.0",
+  "contract_version": "1.0",
+  "computed_at": "2026-11-14T08:00:00Z",
+  "data_label": "SYNTHETIC"
+ },
+ "days": [],
+ "top": []
+}

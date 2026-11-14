@@ -1,0 +1,7 @@
+{
+ "error": {
+  "code": "INTERNAL",
+  "message": "Synthetic health failure for testing.",
+  "details": []
+ }
+}

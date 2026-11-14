@@ -1,4 +1,4 @@
-.PHONY: setup dev hooks check
+.PHONY: setup dev hooks check fixtures
 setup:
 	npm run setup
 dev:
@@ -6,5 +6,9 @@ dev:
 hooks:
 	npm run hooks
 check:
+	npm run check:fixtures
 	npm run check:setup
 	npm run check
+
+fixtures:
+	npm run fixtures

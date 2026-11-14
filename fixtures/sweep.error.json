@@ -1,0 +1,12 @@
+{
+ "error": {
+  "code": "RANGE_TOO_LARGE",
+  "message": "Date range must be 183 days or less.",
+  "details": [
+   {
+    "field": "range_end",
+    "reason": "range longer than 183 days"
+   }
+  ]
+ }
+}

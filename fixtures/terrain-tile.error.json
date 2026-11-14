@@ -1,0 +1,12 @@
+{
+ "error": {
+  "code": "NOT_IN_COVERAGE",
+  "message": "No terrain tile for this point.",
+  "details": [
+   {
+    "field": "lat_deg",
+    "reason": "outside terrain coverage"
+   }
+  ]
+ }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "lunar-comparator",
+  "name": "azelux",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -9,6 +9,8 @@
     "check:setup": "node --check scripts/setup.mjs && node --check scripts/dev.mjs && python -m compileall -q backend/app && node --check scripts/hooks.mjs && node --check scripts/python-runtime.mjs && node --check scripts/backend-check.mjs && node --check scripts/check-startup.mjs",
     "check:backend": "node scripts/backend-check.mjs",
     "hooks": "node scripts/hooks.mjs",
-    "check:startup": "node scripts/check-startup.mjs"
+    "check:startup": "node scripts/check-startup.mjs",
+    "fixtures": "python scripts/make_fixtures.py",
+    "check:fixtures": "python scripts/check-fixtures.py"
   }
 }

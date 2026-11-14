@@ -1,0 +1,37 @@
+{
+ "sites": [
+  {
+   "site_id": "test-pole-1",
+   "name": "Test site 1 (synthetic)",
+   "lat_deg": -85.5,
+   "lon_east_deg": 30.0,
+   "group": "artemis_candidate",
+   "terrain_coverage": true,
+   "source_url": "https://example.invalid/synthetic",
+   "source_note": "SYNTHETIC test site, not a real landing site",
+   "verified": false
+  },
+  {
+   "site_id": "test-pole-2",
+   "name": "Test site 2 (synthetic)",
+   "lat_deg": -86.2,
+   "lon_east_deg": 210.0,
+   "group": "artemis_candidate",
+   "terrain_coverage": true,
+   "source_url": "https://example.invalid/synthetic",
+   "source_note": "SYNTHETIC test site, not a real landing site",
+   "verified": false
+  },
+  {
+   "site_id": "test-near-1",
+   "name": "Test near-side site (synthetic)",
+   "lat_deg": 10.0,
+   "lon_east_deg": 20.0,
+   "group": "apollo",
+   "terrain_coverage": false,
+   "source_url": "https://example.invalid/synthetic",
+   "source_note": "SYNTHETIC test site",
+   "verified": false
+  }
+ ]
+}

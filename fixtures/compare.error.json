@@ -1,7 +1,12 @@
 {
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Exactly two scenarios are required.",
-    "details": []
-  }
+ "error": {
+  "code": "INVALID_INPUT",
+  "message": "Scenario B latitude must be between -90 and 90.",
+  "details": [
+   {
+    "field": "scenarios[1].site.lat_deg",
+    "reason": "must be between -90 and 90"
+   }
+  ]
+ }
 }

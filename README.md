@@ -6,14 +6,19 @@ Live URL, screenshots, verified datasets and demo: pending. No AI/database in pr
 ## Ownership
 P1/user: integration only. All frontend source belongs to frontend owner.
 Backend/SPICE and terrain belong to their respective owners. Read docs/PROJECT.md.
-The earlier root CONTRACT.md and fixtures are legacy proposals. New Azelux contract
-adoption is pending team decisions in docs/CONTRACT_CHANGE_REQUESTS_S0.md.
+Only the new Azelux approach is active. Root PROJECT.md/CONTRACT.md are entry-point
+links to docs/PROJECT.md and docs/CONTRACT.md. Earlier proposals/fixtures are historical
+only in docs/archive/pre-azelux/. Do not build against them.
+Source PRD/TRD/playbook and original kit: docs/specs/ (checksummed copies).
+New contract is adopted as the baseline; team freeze and open clarifications remain
+in docs/CONTRACT_CHANGE_REQUESTS_S0.md. Role prompts: prompts/.
 
 ## Setup
-Install Node >=22.12 (24 is locally verified), npm, uv and Python 3.12 (3.11 is a
-fallback via AZX_SETUP_PYTHON). The kit's Node 20/React 18 proposal conflicts with
-this existing Node-compatible Vite/React 19 scaffold: frontend owner must decide,
-not P1 silently change its stack. Install network access is required.
+Target tooling from TRD: Node 20 (20.19+ required by existing Vite), npm, uv and
+Python 3.12 (3.11 fallback via AZX_SETUP_PYTHON). CI now follows Node 20; local Node
+24 startup was previously verified. React 18 is the new frontend target; the existing
+React 19 empty scaffold awaits frontend owner's migration. Integration has not
+changed frontend product files or lockfile. Install network access is required.
 
 ```sh
 npm run setup
@@ -80,5 +85,21 @@ until real-source integration. Frontend owner handles frontend/.env.local loadin
 Avoid localhost/127.0.0.1 origin mismatch. No runtime config is implemented by P1.
 
 ## Limits
-All existing comparison fixture values are synthetic. SPICE/Horizons/LOLA are not
+All active fixture values/coordinates are synthetic. SPICE/LOLA runtime and Horizons
+offline validation are not
 integrated. No landing-safety certification, watts or guaranteed communications.
+
+## New-only specification alignment
+See docs/SPEC_ALIGNMENT.md for the full old-to-new mapping and deliberate overrides.
+Runtime target is SPICE with verified LOLA terrain; Horizons is validation-only.
+Deltas are A minus B. No backend export/validate HTTP endpoints: report/CSV/JSON
+are frontend responsibilities; validation outputs are files imported by Methods.
+The actual backend currently exposes only baseline liveness; this is not a claim
+that its API already conforms to the new contract.
+
+Fixtures: `npm run fixtures` regenerates 15 new-kit synthetic examples;
+`npm run check:fixtures` checks independent invariants and reproducibility.
+Do not use invented sites for the real demo. Mock site records have verified=false.
+The mock frontend must distinguish preview data without weakening verified-site rules.
+Source ambiguities (including refined sweep metadata/transport labels) stay explicit.
+No sync-0 tag or later-stage work until the real gate passes.

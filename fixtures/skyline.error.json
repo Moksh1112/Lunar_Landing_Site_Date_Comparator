@@ -1,0 +1,12 @@
+{
+ "error": {
+  "code": "NOT_IN_COVERAGE",
+  "message": "Terrain data does not cover this point; results use the geometric horizon.",
+  "details": [
+   {
+    "field": "lat_deg",
+    "reason": "terrain coverage is south of -80.7"
+   }
+  ]
+ }
+}

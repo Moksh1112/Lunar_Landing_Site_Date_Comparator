@@ -1,0 +1,374 @@
+{
+ "contract_version": "1.0",
+ "site": {
+  "site_id": "test-pole-1",
+  "name": "Test site 1 (synthetic)",
+  "lat_deg": -85.5,
+  "lon_east_deg": 30.0
+ },
+ "meta": {
+  "ephemeris": "SPICE DE440 (JPL NAIF)",
+  "kernels": [
+   "naif0012.tls",
+   "de440s.bsp",
+   "pck00011.tpc",
+   "moon_pa_de440_200625.bpc",
+   "moon_de440_220930.tf"
+  ],
+  "horizon_mode": "terrain",
+  "dem": "LDEM_80S_20MPP_ADJ + far_160m",
+  "step_minutes": 30,
+  "observer_height_m": 2,
+  "app_version": "0.1.0",
+  "contract_version": "1.0",
+  "computed_at": "2026-11-14T08:00:00Z",
+  "data_label": "SYNTHETIC"
+ },
+ "days": [
+  {
+   "date": "2027-03-01",
+   "rank": 7,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.5,
+    "sun_el_mean_up_deg": 1.0,
+    "sun_hours": 283.2,
+    "sun_pct": 40.0,
+    "earth_hours": 531.0,
+    "earth_pct": 75.0,
+    "both_hours": 200.0,
+    "both_pct": 28.2,
+    "longest_dark_h": 70.0,
+    "longest_blackout_h": 40.0
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "dark_gap_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-02",
+   "rank": 5,
+   "refined": true,
+   "metrics": {
+    "sun_el_max_deg": 2.17,
+    "sun_el_mean_up_deg": 1.34,
+    "sun_hours": 361.1,
+    "sun_pct": 51.0,
+    "earth_hours": 523.9,
+    "earth_pct": 74.0,
+    "both_hours": 255.0,
+    "both_pct": 36.0,
+    "longest_dark_h": 52.4,
+    "longest_blackout_h": 41.5
+   },
+   "verdict": {
+    "level": "amber",
+    "failed": [
+     "dark_gap_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-03",
+   "rank": 3,
+   "refined": true,
+   "metrics": {
+    "sun_el_max_deg": 2.23,
+    "sun_el_mean_up_deg": 1.36,
+    "sun_hours": 422.7,
+    "sun_pct": 59.7,
+    "earth_hours": 502.7,
+    "earth_pct": 71.0,
+    "both_hours": 298.5,
+    "both_pct": 42.2,
+    "longest_dark_h": 38.4,
+    "longest_blackout_h": 46.0
+   },
+   "verdict": {
+    "level": "green",
+    "failed": []
+   }
+  },
+  {
+   "date": "2027-03-04",
+   "rank": 1,
+   "refined": true,
+   "metrics": {
+    "sun_el_max_deg": 1.61,
+    "sun_el_mean_up_deg": 1.06,
+    "sun_hours": 456.7,
+    "sun_pct": 64.5,
+    "earth_hours": 469.4,
+    "earth_pct": 66.3,
+    "both_hours": 322.5,
+    "both_pct": 45.6,
+    "longest_dark_h": 30.9,
+    "longest_blackout_h": 53.0
+   },
+   "verdict": {
+    "level": "green",
+    "failed": []
+   }
+  },
+  {
+   "date": "2027-03-05",
+   "rank": 2,
+   "refined": true,
+   "metrics": {
+    "sun_el_max_deg": 0.89,
+    "sun_el_mean_up_deg": 0.7,
+    "sun_hours": 454.5,
+    "sun_pct": 64.2,
+    "earth_hours": 428.3,
+    "earth_pct": 60.5,
+    "both_hours": 302.5,
+    "both_pct": 42.7,
+    "longest_dark_h": 31.2,
+    "longest_blackout_h": 61.7
+   },
+   "verdict": {
+    "level": "green",
+    "failed": []
+   }
+  },
+  {
+   "date": "2027-03-06",
+   "rank": 4,
+   "refined": true,
+   "metrics": {
+    "sun_el_max_deg": 0.73,
+    "sun_el_mean_up_deg": 0.62,
+    "sun_hours": 418.4,
+    "sun_pct": 59.1,
+    "earth_hours": 383.7,
+    "earth_pct": 54.2,
+    "both_hours": 271.0,
+    "both_pct": 38.3,
+    "longest_dark_h": 39.5,
+    "longest_blackout_h": 71.3
+   },
+   "verdict": {
+    "level": "green",
+    "failed": []
+   }
+  },
+  {
+   "date": "2027-03-07",
+   "rank": 6,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.28,
+    "sun_el_mean_up_deg": 0.89,
+    "sun_hours": 354.7,
+    "sun_pct": 50.1,
+    "earth_hours": 339.1,
+    "earth_pct": 47.9,
+    "both_hours": 239.5,
+    "both_pct": 33.8,
+    "longest_dark_h": 53.9,
+    "longest_blackout_h": 80.7
+   },
+   "verdict": {
+    "level": "amber",
+    "failed": [
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-08",
+   "rank": 8,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 2.03,
+    "sun_el_mean_up_deg": 1.26,
+    "sun_hours": 276.1,
+    "sun_pct": 39.0,
+    "earth_hours": 299.5,
+    "earth_pct": 42.3,
+    "both_hours": 195.0,
+    "both_pct": 27.5,
+    "longest_dark_h": 71.6,
+    "longest_blackout_h": 89.0
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-09",
+   "rank": 10,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 2.29,
+    "sun_el_mean_up_deg": 1.4,
+    "sun_hours": 198.9,
+    "sun_pct": 28.1,
+    "earth_hours": 269.7,
+    "earth_pct": 38.1,
+    "both_hours": 140.5,
+    "both_pct": 19.8,
+    "longest_dark_h": 89.0,
+    "longest_blackout_h": 95.4
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-10",
+   "rank": 12,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.83,
+    "sun_el_mean_up_deg": 1.16,
+    "sun_hours": 139.5,
+    "sun_pct": 19.7,
+    "earth_hours": 252.0,
+    "earth_pct": 35.6,
+    "both_hours": 98.5,
+    "both_pct": 13.9,
+    "longest_dark_h": 102.5,
+    "longest_blackout_h": 99.2
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-11",
+   "rank": 14,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.06,
+    "sun_el_mean_up_deg": 0.78,
+    "sun_hours": 108.3,
+    "sun_pct": 15.3,
+    "earth_hours": 248.5,
+    "earth_pct": 35.1,
+    "both_hours": 76.5,
+    "both_pct": 10.8,
+    "longest_dark_h": 109.4,
+    "longest_blackout_h": 99.9
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-12",
+   "rank": 13,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 0.7,
+    "sun_el_mean_up_deg": 0.6,
+    "sun_hours": 113.3,
+    "sun_pct": 16.0,
+    "earth_hours": 259.1,
+    "earth_pct": 36.6,
+    "both_hours": 80.0,
+    "both_pct": 11.3,
+    "longest_dark_h": 108.4,
+    "longest_blackout_h": 97.6
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-13",
+   "rank": 11,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.07,
+    "sun_el_mean_up_deg": 0.79,
+    "sun_hours": 152.9,
+    "sun_pct": 21.6,
+    "earth_hours": 283.9,
+    "earth_pct": 40.1,
+    "both_hours": 108.0,
+    "both_pct": 15.3,
+    "longest_dark_h": 99.5,
+    "longest_blackout_h": 92.4
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  },
+  {
+   "date": "2027-03-14",
+   "rank": 9,
+   "refined": false,
+   "metrics": {
+    "sun_el_max_deg": 1.84,
+    "sun_el_mean_up_deg": 1.17,
+    "sun_hours": 218.8,
+    "sun_pct": 30.9,
+    "earth_hours": 319.3,
+    "earth_pct": 45.1,
+    "both_hours": 154.5,
+    "both_pct": 21.8,
+    "longest_dark_h": 84.6,
+    "longest_blackout_h": 84.9
+   },
+   "verdict": {
+    "level": "red",
+    "failed": [
+     "sun_pct_min",
+     "earth_pct_min",
+     "dark_gap_h_max",
+     "blackout_h_max"
+    ]
+   }
+  }
+ ],
+ "top": [
+  "2027-03-04",
+  "2027-03-05",
+  "2027-03-03",
+  "2027-03-06",
+  "2027-03-02"
+ ]
+}

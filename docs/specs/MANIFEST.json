@@ -1,0 +1,22 @@
+{
+  "source": "user-supplied Azelux package",
+  "adoption": "new-only baseline; integration-only ownership override retained",
+  "files": {
+    "Azelux_PRD.pdf": {
+      "bytes": 1047622,
+      "sha256": "75a805850a1d409463c7f7dfac0cc3076551bb74a2888780c8b8801ccf2498d5"
+    },
+    "Azelux_TRD.pdf": {
+      "bytes": 895551,
+      "sha256": "43b056cbd16291e450446ce1968870b871afa4e41a770283b3e18fda659b8820"
+    },
+    "Azelux_Playbook_v4.1.pdf": {
+      "bytes": 598613,
+      "sha256": "3a0ff4c4914bcb4bd6348ecdc55088f6452ff86d8e24375c0048207793f75975"
+    },
+    "azelux-kickoff-kit.zip": {
+      "bytes": 333745,
+      "sha256": "7f36a7116af44c96ea01d9b8fd97319b7319ce604b9df6f52da813eaee5651ce"
+    }
+  }
+}
