@@ -59,3 +59,20 @@ assets; no 3D or stage gate is inferred.
 Preview check: P1 restarted only the recorded dev launcher to refresh Vite's glob
 cache. Methods now visibly shows PASS / Spot check / Owner-reported / REAL inputs,
 plus the explicit not-full-V1 limitation. Backend preview remains mock=true.
+
+## Frontend 9e3aff9 checkpoint — 15 November 2026
+
+P1 integrated exactly 9e3aff94ebc3a783de2c74855234e60632bc5b4b by fast-forward after
+all seven jobs passed in owner run 43638187682. Backend remains d0f81b6. The frontend
+owner's separate worktree was not switched or edited; further visual redesign is
+ongoing and no visual acceptance is implied.
+
+This checkpoint includes the response-based sky rings, F17 per-scenario absolute
+scrub time, self-hosted font notices/source references and corrected handoff. Rings
+are schematic data views, not verified terrain or completion of the F18 3D gate.
+P1 local lint, 118 tests (12 files), strict TypeScript and production build passed.
+Build retains its >500 kB main-chunk advisory and upstream zod annotation warnings.
+Only copied OFL licence texts report trailing whitespace; originals preserved.
+Owner browser/reduced-motion/print results remain owner evidence for this checkpoint;
+P1 did not repeat those browser checks. App preview remains synthetic. Full scientific
+validation, real lunar basemaps, gated 3D and the user's visual redesign remain open.
