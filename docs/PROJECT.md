@@ -92,3 +92,9 @@ AI/ML is not a product workstream; science/data covers SPICE, terrain and valida
 Backend and prior integration CI success reverified; frontend has no branch run.
 Source document checksums unchanged. PROGRESS.md refreshed with immediate owner
 actions; no product change ready for acceptance. S0 remains open.
+
+## Frontend S0 update
+Published 0cd0ae5 now independently checked (27 tests/lint/build/mock startup PASS).
+Earlier no-frontend-work statements are historical snapshots, superseded by
+FRONTEND_S0_REVIEW.md and PROGRESS.md. React/source decision, dev audit, current
+hosted branch CI and remaining contract acceptance are still open. Stay S0.

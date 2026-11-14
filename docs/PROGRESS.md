@@ -1,5 +1,5 @@
 # Azelux progress and to-do board
-Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. No teammate updates since prior review.
+Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Frontend S0 implementation now published and locally checked; see FRONTEND_S0_REVIEW.md.
 
 ## Update procedure
 Whenever the user requests an update/progress check, inspect ALL three remote heads
@@ -13,9 +13,9 @@ Green mock CI/file presence/report stage names do not pass science or team gates
 ## Current branches
 | Workstream | Reviewed revision | Assessment |
 | --- | --- | --- |
-| Integration feat/p1-s0-integration | bb5ae1d code baseline; 755916e progress docs | Verified setup/CI scaffold; product branches not merged |
+| Integration feat/p1-s0-integration | bb5ae1d code baseline; 76b333e progress docs | Verified setup/CI scaffold; product branches not merged |
 | Backend/terrain feat/p2-p3-backend-terrain | d5c137b | Substantial services/tests present; seven hosted jobs green |
-| Frontend feat/p4-frontend-s0 | ea15dfd | Published baseline only; no frontend-specific code; needs latest integration fixes |
+| Frontend feat/p4-frontend-s0 | 0cd0ae5 | S0 shell/client/theme/components present; 27 tests/lint/build/startup pass locally; CI and React/audit decisions pending |
 | AI/ML | Not in product scope | SPICE/terrain/validation tracked as science/data, not an invented AI feature |
 
 ## Source-of-truth feature comparison
@@ -32,11 +32,11 @@ Green mock CI/file presence/report stage names do not pass science or team gates
 | F12-F14 metrics/deltas/verdict | Code/tests/verdict cases present | Thresholds/verdict/tables absent; cross-language parity pending |
 | F15-F17 panorama/timeline/scrubber | Series/windows code present | Views/time alignment absent |
 | F18 3D | Tile code present, orientation contract open | 3D absent; real data and render gate pending |
-| F19-F21 modes/source labels/states | Mock/error backend code present | Product state UI/Simple-Expert/source labels absent |
+| F19-F21 modes/source labels/states | Mock/error backend code present | Shell Simple/Expert, synthetic banner and shared state/label components present; feature-view wiring pending |
 | F22 Horizons | Limited spot check committed | Full V1/V2 and Methods display pending |
 | F23 PGDA | Acquisition/sampling code present | Full comparable long-run V4 pending; mission-vs-long-run average is not V4 |
-| F24 Methods | Backend source reports present | Methods page and full V1-V6 results absent |
-| F25 exports | Browser responsibility per contract | CSV/JSON/report implementation absent |
+| F24 Methods | Backend source reports present | Placeholder page present; actual Methods evidence/full V1-V6 pending |
+| F25 exports | Browser responsibility per contract | Report placeholder present; CSV/JSON/print export absent |
 
 ## Evidence and limits
 Backend d5c137b hosted run 43609681763: all seven jobs SUCCESS.
@@ -46,7 +46,7 @@ blocks pyproj DLL, followed by partial-import errors. No bypass or local full-pa
 Real-data test counts, performance and completed downloads in backend reports are
 OWNER-REPORTED here; data/manifest not available on review host.
 Integration 755916e run 43613287451: completed SUCCESS. Backend d5c137b run
-43609681763: completed SUCCESS. Frontend branch query returned no workflow runs.
+43609681763: completed SUCCESS. Frontend 0cd0ae5 branch query returned no workflow runs; local checks are separate evidence.
 Latest board-refresh revision CI must be reported separately.
 
 ## P1 integration to-do
@@ -54,16 +54,17 @@ Latest board-refresh revision CI must be reported separately.
 - [x] New-only docs/contract/fixtures and portable setup/dependency handoff.
 - [x] Review current backend and frontend revisions; keep product code unchanged.
 - [ ] Resolve sample-cap and schema issues before integration acceptance.
-- [ ] Collect actual frontend S0 implementation and missing contract/React note.
+- [x] Receive and independently check published frontend S0 implementation (0cd0ae5).
+- [ ] Collect missing contract/React note and coordinate dependency/audit decisions.
 - [ ] Collect full manifest/checksum/raster and validation provenance.
 - [ ] Integrate only reviewed conforming green work; do not advance stages implicitly.
       No newly ready product changes at this check: backend cap approval remains
-      blocked, frontend has no feature source changes to integrate.
+      blocked; frontend now has S0 implementation but awaits React/CI/audit decisions.
 - [x] Recheck all branch heads/CI and all four source-document/archive SHA-256s.
 - [ ] Backend owner: next push should resolve aggregate sample cap against TRD or
       carry an explicit approved contract revision; no automatic acceptance of proposal.
-- [ ] Frontend owner: push actual S0 shell/client/theme work and missing decision note;
-      update from integration first so push CI is enabled on that branch.
+- [ ] Frontend owner: incorporate latest integration tooling/CI and push; supply
+      missing decision note and address dev audit/unsupported ESLint.
 - [ ] Confirm P6/Coordinator, timing and remaining Sync 0 evidence.
 
 ## Backend/terrain owner to-do
@@ -78,12 +79,14 @@ Latest board-refresh revision CI must be reported separately.
 
 ## Frontend owner to-do
 - [ ] Update own branch from latest integration while preserving unpushed work.
-- [ ] Push S0 shell/routes/typed mock client/theme/state work with actual checks.
+- [x] Push S0 shell/routes/typed mock client/theme/state work; P1 independently verified 27 tests, lint/build and mock startup.
+- [ ] Resolve React 19 vs TRD React 18 and seven moderate dev-dependency findings.
+- [ ] Get hosted CI on updated frontend/integrated revision.
 - [ ] Send missing C03-C09/React decision note and final integration note.
 - [ ] Confirm all frontend ownership, including kit-P1 client/shell/map.
 
 ## Gate board
-Sync 0: OPEN. Missing contract freeze, actual frontend S0 work, owner confirmations/
+Sync 0: OPEN. Missing contract freeze, frontend acceptance/CI, owner confirmations/
 source evidence and canonical integration gate. Later stages: NOT ACCEPTED by P1.
 Deployment/MVP/RC/submission: NOT VERIFIED. No automatic passage from branch pushes.
 
@@ -95,3 +98,10 @@ Deployment/MVP/RC/submission: NOT VERIFIED. No automatic passage from branch pus
 - Tests were not repeated: no code changed and the earlier local DLL limitation
   remains unresolved. Current hosted success was read from GitHub, not inferred.
 - No product merge, deployment, stage advancement or sync tag performed.
+
+## Frontend S0 publication review (supersedes earlier no-code snapshot)
+Remote 0cd0ae5 contains all twelve reported frontend commits; report's unpushed line
+was stale. Local tsc/lint/build, 27 tests, target setup and mock HTTP startup/shutdown
+passed. Full npm audit reports seven moderate dev-tree affected packages; production
+only audit is clean. React decision and hosted branch CI remain open. No frontend
+code merged or modified. Backend head remains d5c137b. Full review: FRONTEND_S0_REVIEW.md.
