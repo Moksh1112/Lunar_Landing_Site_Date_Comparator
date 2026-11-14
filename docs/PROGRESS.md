@@ -18,7 +18,7 @@ Last remote check: 2026-11-15. Current status below supersedes historical snapsh
   committed print-page imagery. Independent interactive print preview remains unverified.
 - Remaining frontend: visual refinement in owner's worktree; sourced lunar basemap
   images/delivery and raster orientation check; 3D remains gated.
-- P1: verify combined CI, keep preview running, integrate future green owner pushes.
+- Combined integration 03ef7e0: all seven jobs SUCCESS in run 43636520071. P1 keeps the preview running and integrates future green owner pushes.
 - Sync 0/1 remain open as previously recorded; no new science/deployment/stage claim.
 
 ## Historical snapshots (revision-specific; current status above takes precedence)
