@@ -115,3 +115,14 @@ when terrain is unavailable. The owner demonstrated a REAL SPICE/geometric date
 shift, and P1 inspected its saved request/response/export evidence. Terrain-covered
 polar comparisons remain blocked by incomplete DEM downloads; default preview is
 still synthetic. This supersedes earlier theme descriptions, not scientific gates.
+
+## Temporary full-stack completion checkpoint
+
+Real terrain datasets are now available locally; prior missing-DEM descriptions are
+historical. Polar hillshade, whole-Moon visualization context and optional gated 3D
+are implemented. Current source/validation status and reproducible setup are in
+[the non-release takeover guide](docs/NON_RELEASE_HANDOFF.md).
+
+V4 currently fails one scientific comparison target and V6 review is incomplete.
+This build is not scientifically accepted or release-ready merely because CI passes.
+Release/deployment remains with the user.

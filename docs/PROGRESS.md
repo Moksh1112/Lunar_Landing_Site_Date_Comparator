@@ -1,27 +1,22 @@
 # Azelux progress and to-do board
 Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
 
-## Current authoritative status — light layout and real geometric journey
+## Current authoritative status — full-stack engineering milestone
 
-- Frontend d0a3d85 and backend 0d6f382 integrated after green owner CI:
-  runs 43642818525 and 43641136341. User visual acceptance is still separate.
-- Light lunar-atlas system, compact A/B summaries/editor and single Export menu
-  replace the dark/serif theme. Local frontend lint, 122 tests and TypeScript/build PASS.
-- Backend now errors for covered polar sites when this server lacks usable terrain;
-  it does not silently relabel that case as geometric. Outside coverage, SPICE plus
-  explicitly geometric horizon remains available even without raster libraries.
-  P1 local focused tests: 7 passed; changed backend Ruff check PASS.
-- Saved real journey inspected by P1: IM-1 Odysseus, starts 1/15 March 2027, 240 h,
-  REAL/geometric, sunlight 0/224.6 h, 1441 samples per plan. Export request timestamps
-  and all 2882 CSV rows match. Initial review validated saved evidence; the subsequent P1 live check below adds independent live
-  scientific reproduction. Agent's combined suite: 491 passed / 50 skipped (owner-reported).
-- Terrain-covered polar pair remains BLOCKED: NASA PGDA download failed after two
-  attempts, partial 80 m DEM at 167/189 MB, 20 m DEM unfinished. Do not count partial
-  rasters as usable or claim a terrain/coarse comparison. Preserve resumable files.
-- Remaining: recover verified terrain datasets, run covered polar pair, sourced lunar
-  basemap/georeferencing, full V1/V2/V4, gated terrain 3D, deployment and demo checks.
-- Shared preview now runs REAL SPICE with both mock flags false and C:/azx/data. P1 independently reproduced the geometric API and browser journey (0/224.6 h); covered polar requests still fail without DEMs. No Sync/scientific gate accepted here.
-- Evidence references, reproduction limits and latest checks: INTEGRATION_S0.md.
+- [x] Real 20 m near-field + 160 m far-field polar comparisons run successfully.
+- [x] Sourced polar hillshade, projection sign checks and whole-Moon context map.
+- [x] Gated terrain 3D and synchronized playback implemented; 569 ms first frame on host.
+- [x] Live full V1/V2 ephemeris checks passed; executed V3/V5 mathematical checks passed.
+- [x] v1.1 backend/frontend compatibility implemented, v1.0 fixtures retained.
+- [x] Local backend 546 passed / 6 skipped; frontend 126 tests, lint/typecheck/build passed.
+- [ ] V4 scientific target: FAIL at one point (~6.30 pp vs <=5), including 20 m rerun.
+- [ ] V6 qualitative sanity acceptance: diagnostics present, human review pending.
+- [ ] User visual acceptance, two-person usability and cross-device performance checks.
+- [ ] Final combined CI and preview verification: record current run before handoff.
+
+Detailed source provenance, reproduction commands, tests and takeover instructions:
+NON_RELEASE_HANDOFF.md. Release/deployment is reserved for the user. No scientific,
+MVP, RC or final gate is silently passed. History below is revision-specific.
 ## Historical snapshots (revision-specific; current status above takes precedence)
 
 ## Update procedure

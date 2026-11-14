@@ -1,0 +1,205 @@
+{
+  "files": {
+    "dem/LDEM_80S_80MPP_ADJ.TIF": {
+      "bytes": 189158392,
+      "category": "dem",
+      "citation": "Barker et al. 2023, PSJ 4, 183, doi:10.3847/PSJ/acf3e1",
+      "downloaded_utc": "2026-11-14T21:52:01Z",
+      "md5": "553e840f769805963c7b854727cd6286",
+      "role": "far-field DEM source (80 m; resampled to 160 m by prepare_dems.py)",
+      "sha256": "82030dcbdd7c4bb0c7d858e9b4b293b9f2cda5a543ba31ec0f42784bd6beee5a",
+      "source": "NASA GSFC PGDA product 90 (LOLA south pole DEM)",
+      "status": "complete",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_80MPP_ADJ.TIF"
+    },
+    "dem/far_160m.tif": {
+      "bytes": 36909329,
+      "category": "dem-derived",
+      "created_utc": "2026-11-14T21:42:39Z",
+      "derived_from": "dem/LDEM_80S_80MPP_ADJ.TIF",
+      "height": 3800,
+      "method": "2x2 block mean over valid pixels (NaN-aware), float32",
+      "pixel_m": 160.0,
+      "sha256": "43e014ebbc6ee794cfd8ed02767c36fb2f8b70b21e00827b9639acfa9d7ca68a",
+      "status": "complete",
+      "width": 3800
+    },
+    "dem/south_pole_hillshade_2048.json": {
+      "bytes": 1059,
+      "category": "dem-derived",
+      "created_utc": "2026-11-14T21:42:42Z",
+      "derived_from": "dem/south_pole_hillshade_2048.png",
+      "method": "georeferencing sidecar (CRS + bounds)",
+      "sha256": "1d79df9068b724719685ebbc911d9c486141e0d61df9092404d19da304f1519e",
+      "status": "complete"
+    },
+    "dem/south_pole_hillshade_2048.png": {
+      "bytes": 4179785,
+      "category": "dem-derived",
+      "created_utc": "2026-11-14T21:42:42Z",
+      "derived_from": "dem/far_160m.tif",
+      "method": "hillshade az 315 alt 45, 2048 px RGBA PNG",
+      "sha256": "030477d025594ed137bba16038ff8762a3636f835e63da15c9f43676e6b1a979",
+      "status": "complete"
+    },
+    "dem/whole_moon_context.png": {
+      "bytes": 2995600,
+      "category": "dem-derived",
+      "created_utc": "2026-11-14T22:16:19Z",
+      "derived_from": "imagery/lroc_color_2k.jpg",
+      "method": "Half-width cyclic shift: source centred at 0 longitude becomes east-longitude 0..360; no scientific use",
+      "sha256": "d6eab64c8e461c5d2216ebafd9a0e9dab3a1f703a056f91283490ef017528530",
+      "status": "complete"
+    },
+    "illumination/AVGVISIB_85S_060M_201608.TIF": {
+      "bytes": 33994464,
+      "category": "illumination",
+      "citation": "Mazarico et al. 2011, Icarus 211, 1066, doi:10.1016/j.icarus.2010.10.030",
+      "downloaded_utc": "2026-11-14T21:54:20Z",
+      "md5": "68c7b3bf19d1d5bd12fad3129efee325",
+      "role": "V4 reference: average Sun visibility 85-90 S, 60 m",
+      "sha256": "ccf67d4f39e0a970c111196da7d6551ffcf50d075470b93067fb3904c0b05806",
+      "source": "NASA GSFC PGDA product 69 (Lunar Polar Illumination)",
+      "status": "complete",
+      "url": "https://pgda.gsfc.nasa.gov/data/MoonIllumination/AVGVISIB_85S_060M_201608.TIF"
+    },
+    "illumination/AVGVISIB_85S_060M_201608_EARTH.TIF": {
+      "bytes": 24862958,
+      "category": "illumination",
+      "citation": "Mazarico et al. 2011, Icarus 211, 1066, doi:10.1016/j.icarus.2010.10.030",
+      "downloaded_utc": "2026-11-14T21:55:50Z",
+      "md5": "3a7334761aeb126f68a262f65982dafa",
+      "role": "V4 reference: average Earth visibility 85-90 S, 60 m",
+      "sha256": "d71dc5adfff653e0e924e0a4cbf03795b996caa30b4ace3d5843a70a5ab2f3d2",
+      "source": "NASA GSFC PGDA product 69 (Lunar Polar Illumination)",
+      "status": "complete",
+      "url": "https://pgda.gsfc.nasa.gov/data/MoonIllumination/AVGVISIB_85S_060M_201608_EARTH.TIF"
+    },
+    "imagery/lroc_color_2k.jpg": {
+      "bytes": 457942,
+      "category": "imagery",
+      "downloaded_utc": "2026-11-14T22:16:19Z",
+      "md5": "7b62dd26e37155ab43057ecb81d5bfaa",
+      "role": "visual context only",
+      "sha256": "f7130a1822681fa7512d7dcfd40db8c10b9ba4f06777910348698260ed7a2170",
+      "source": "NASA Scientific Visualization Studio CGI Moon Kit",
+      "status": "complete",
+      "url": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_2k.jpg"
+    },
+    "kernels/de440s.bsp": {
+      "bytes": 32726016,
+      "category": "kernel",
+      "downloaded_utc": "2026-11-14T21:01:30Z",
+      "md5": "3917ee56769db332790c751e2168843d",
+      "md5_matches_published": true,
+      "role": "Sun, Earth, Moon positions (DE440 short span)",
+      "sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+      "source": "NASA/JPL NAIF SPICE generic kernels",
+      "status": "complete",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp"
+    },
+    "kernels/moon_de440_250416.tf": {
+      "bytes": 19478,
+      "category": "kernel",
+      "downloaded_utc": "2026-11-14T21:02:07Z",
+      "md5": "3556dde4bb7ca54a89917c301e650bbf",
+      "role": "lunar frames: MOON_ME / MOON_PA aliases (DE440)",
+      "sha256": "a47c71e9c9f33796bdafb2c9d69a7ee447b6016ecad80f71cd6f3e479f9cf768",
+      "source": "NASA/JPL NAIF SPICE generic kernels",
+      "status": "complete",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_de440_250416.tf"
+    },
+    "kernels/moon_pa_de440_200625.bpc": {
+      "bytes": 12863488,
+      "category": "kernel",
+      "downloaded_utc": "2026-11-14T21:02:04Z",
+      "md5": "9f48a8c4cf1c955ac5d3a7d77a127e42",
+      "role": "high-accuracy lunar orientation (DE440)",
+      "sha256": "60cd55aa401ea2ea97360636f567554bfe4e37bb829f901b4460a455dfaf783f",
+      "source": "NASA/JPL NAIF SPICE generic kernels",
+      "status": "complete",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de440_200625.bpc"
+    },
+    "kernels/naif0012.tls": {
+      "bytes": 5257,
+      "category": "kernel",
+      "downloaded_utc": "2026-11-14T21:00:12Z",
+      "md5": "25a2fff30b0dedb4d76c06727b1895b1",
+      "role": "leap seconds (UTC to ET)",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "source": "NASA/JPL NAIF SPICE generic kernels",
+      "status": "complete",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+    },
+    "kernels/pck00011.tpc": {
+      "bytes": 131226,
+      "category": "kernel",
+      "downloaded_utc": "2026-11-14T21:01:33Z",
+      "md5": "3c0bdc01bb4101d6242cf96ece67a586",
+      "role": "body radii and constants",
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "source": "NASA/JPL NAIF SPICE generic kernels",
+      "status": "complete",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc"
+    },
+    "tiles/im2-athena.tif": {
+      "bytes": 12492133,
+      "category": "dem-derived",
+      "derivation": "50 km pixel-aligned crop via HTTP byte ranges; decoded scale/offset",
+      "md5": "1703dc05e6659aa4947fe76c4063296f",
+      "nan_fraction": 0.0,
+      "sha256": "c72001e2504bf7764008ef8826e3e4e2dcde552d679a7b8d098134f91a015b12",
+      "source": "NASA PGDA product 90, 20 m LOLA COG",
+      "source_crs": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "status": "complete",
+      "upstream_full_checksum_verified": false,
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF",
+      "window": [
+        17805,
+        7050,
+        2500,
+        2500
+      ]
+    },
+    "tiles/im2-intended.tif": {
+      "bytes": 12493665,
+      "category": "dem-derived",
+      "derivation": "50 km pixel-aligned crop via HTTP byte ranges; decoded scale/offset",
+      "md5": "0ded3a004f2c08468568ee2529e528c0",
+      "nan_fraction": 0.0,
+      "sha256": "cf6e69e34316a900ae1d1af3fb67313462e04b69859ed488cc542236c2f6dbb7",
+      "source": "NASA PGDA product 90, 20 m LOLA COG",
+      "source_crs": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "status": "complete",
+      "upstream_full_checksum_verified": false,
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF",
+      "window": [
+        17805,
+        7032,
+        2500,
+        2500
+      ]
+    },
+    "tiles/validation-0.tif": {
+      "bytes": 14418840,
+      "category": "dem-derived",
+      "derivation": "50 km pixel-aligned crop via HTTP byte ranges; decoded scale/offset",
+      "md5": "548ac23da61cad34c3207238744f1479",
+      "nan_fraction": 0.0,
+      "sha256": "e9966d614ffbde2efb94834ae35e3ee3543ae43485e263163a01940819f5e512",
+      "source": "NASA PGDA product 90, 20 m LOLA COG",
+      "source_crs": "PROJCS[\"Moon (2015) - Sphere / Ocentric / South Polar\",GEOGCS[\"Moon (2015) - Sphere / Ocentric\",DATUM[\"Moon (2015) - Sphere\",SPHEROID[\"Moon (2015) - Sphere\",1737400,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "status": "complete",
+      "upstream_full_checksum_verified": false,
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF",
+      "window": [
+        16983,
+        13950,
+        2500,
+        2500
+      ]
+    }
+  },
+  "schema": 1,
+  "updated_utc": "2026-11-14T22:16:19Z"
+}
