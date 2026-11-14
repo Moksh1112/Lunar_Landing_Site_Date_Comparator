@@ -81,3 +81,8 @@ See BRANCH_REVIEW_S0.md: backend d5c137b is CI-green but unmerged pending contra
 decisions; frontend branch published at ea15dfd has no frontend-specific work yet.
 Local backend full test collection blocked by pyproj DLL policy; mock startup and
 fixtures passed. All three long-lived remote branches now exist. Remain in S0.
+
+## Shared progress board
+PROGRESS.md tracks all workstreams against the new source documents on each
+user-requested update check, with revisions, evidence, blockers and owner to-dos.
+AI/ML is not a product workstream; science/data covers SPICE, terrain and validation.
