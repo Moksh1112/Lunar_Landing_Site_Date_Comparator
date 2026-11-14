@@ -1,4 +1,6 @@
 import { Link, createBrowserRouter } from "react-router";
+import { MethodsPage } from "../features/methods/MethodsPage";
+import { ReportPage } from "../features/report/ReportPage";
 import { AppShell } from "./AppShell";
 
 // Placeholder pages: replaced by real features in later tasks.
@@ -28,8 +30,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Placeholder title="Compare" /> },
       { path: "/best-date", element: <Placeholder title="Best date" /> },
-      { path: "/methods", element: <Placeholder title="Methods" /> },
-      { path: "/report", element: <Placeholder title="Report" /> },
+      { path: "/methods", element: <MethodsPage /> },
+      { path: "/report", element: <ReportPage /> },
       { path: "*", element: <NotFound /> },
     ],
   },
