@@ -9,10 +9,10 @@ name/revision and explicitly announce the accepted canonical contract path.
 | Request | Boundary / requested decision | Affected owners |
 | --- | --- | --- |
 | C01 | RESOLVED adoption: user selected new-only baseline; docs/CONTRACT.md is sole target; root file is pointer and legacy material archived. Team freeze still pending | All |
-| C02 | FIXTURE CORRECTED: interpolated target windows, combined intersection and complementary gaps share a basis. Confirm both-event policy and rounding tolerances; backend owner still implements | P2, P1, frontend |
+| C02 | FIXTURE CORRECTED: interpolated target windows, combined intersection and complementary gaps share a basis. Backend d5c137b contains window/metrics implementation; confirm both-event policy and rounding tolerances before acceptance | P2, P1, frontend |
 | C03 | FIXTURE CORRECTED: combined hours/percentage agree over 708h; refined-day effective metadata remains open | P2, P1 |
 | C04 | Define 60,000-sample aggregate cap, grid/end/partial-step rules and duration compatibility; two 8760 h/10 min scenarios require 105122 samples | P2, frontend |
-| C05 | Add safe SYNTHETIC provenance to sites/mock health; invented sites are currently verified=true in kit; define empty sweep meaning and health fixture | P2, P1, frontend |
+| C05 | Add safe SYNTHETIC provenance to sites/mock health; original kit invented sites were verified=true; P1 fixtures now use false and include mock health. Missing sites transport label and empty-sweep semantics still need agreement | P2, P1, frontend |
 | C06 | Define threshold ranges, timeout/rate-limit errors, required versus optional Site fields, and request mode enforcement | P2, frontend |
 | C07 | Define shifted-date scrubber mapping and the request context retained by exports/countdowns; one absolute scrubT cannot alone identify both mission-relative moments | P2, frontend |
 | C09 | Reconcile new-source contradictions: kit version example labels 2-to-4 comparison as v1.1 despite breaking-change rule; all-response data_label rule vs omitted sites/health fields; source gate/demo behavior after approved 3D/PDF cuts | Coordinator, backend, frontend |
