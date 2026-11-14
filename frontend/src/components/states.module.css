@@ -1,11 +1,23 @@
 .box {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-3);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-4);
+  color: var(--color-text-muted);
+}
+.box > :last-child {
+  margin-bottom: 0;
+}
+.error {
+  border-style: solid;
+  border-color: var(--color-red);
+  background: var(--color-red-soft);
+  color: var(--color-text);
 }
 .title {
   font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--color-text);
   margin-bottom: var(--space-2);
 }
 .code {
@@ -15,7 +27,7 @@
 .skeleton {
   background: linear-gradient(90deg, var(--color-surface) 25%, var(--color-surface-2) 50%, var(--color-surface) 75%);
   background-size: 200% 100%;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   animation: shimmer 1.4s linear infinite;
 }
 @keyframes shimmer {

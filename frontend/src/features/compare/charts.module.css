@@ -1,24 +1,25 @@
-.figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-.title { margin: 0; font-size: 1rem; color: var(--color-text); }
-.svg { width: 100%; height: auto; display: block; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px; }
-.axis { stroke: var(--color-border); stroke-width: 1; }
-.grid { stroke: var(--color-border); stroke-width: 0.5; opacity: 0.5; }
-.tick { fill: var(--color-text-muted); font-size: 11px; }
+.figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.title { margin: 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
+.svg { width: 100%; height: auto; display: block; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.axis { stroke: var(--color-border-strong); stroke-width: 1; }
+.grid { stroke: var(--color-border); stroke-width: 0.75; }
+.tick { fill: var(--color-text-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 .laneLabel { fill: var(--color-text-muted); font-size: 11px; }
-.skyline { fill: var(--color-surface-2); stroke: var(--color-text-muted); stroke-width: 1; }
-.sun { stroke: var(--color-sun); fill: var(--color-sun); }
-.earth { stroke: var(--color-earth); fill: var(--color-earth); }
-.path { fill: none; stroke-width: 2; }
-.dotted { stroke-dasharray: 2 4; opacity: 0.7; }
-.marker { stroke: var(--color-bg); stroke-width: 1.5; }
-.legend { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: 0; padding: 0; list-style: none; font-size: 0.8125rem; color: var(--color-text-muted); }
-.swatch { display: inline-block; width: 1.5rem; height: 0; border-top: 2px solid currentColor; vertical-align: middle; margin-right: var(--space-1); }
+.skyline { fill: var(--color-surface-3); stroke: var(--color-text-faint); stroke-width: 1; }
+.sun { stroke: var(--color-sun); fill: var(--color-sun); color: var(--color-sun); }
+.earth { stroke: var(--color-earth); fill: var(--color-earth); color: var(--color-earth); }
+.path { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.dotted { stroke-dasharray: 2 4; opacity: 0.75; }
+.marker { stroke: var(--color-bg); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); margin: 0; padding: 0; list-style: none; font-size: var(--text-xs); color: var(--color-text-muted); }
+.swatch { display: inline-block; width: 1.25rem; height: 0; border-top: 2px solid currentColor; vertical-align: middle; margin-right: var(--space-1); fill: none; }
 .swatchDotted { border-top-style: dotted; }
 .barA { fill: var(--color-a); }
 .barB { fill: var(--color-b); }
 .barDiff { fill: var(--color-amber); }
 .scrubLine { stroke: var(--color-text); stroke-width: 1.5; }
-.caption { font-size: 0.8125rem; color: var(--color-text-muted); }
-.scrubber { width: 100%; accent-color: var(--color-a); }
-.scrubber:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
-.scrubLabel { display: flex; flex-direction: column; gap: var(--space-1); font-size: 0.8125rem; color: var(--color-text); }
+.caption { font-size: var(--text-xs); color: var(--color-text-muted); max-width: 75ch; }
+.scrubber { width: 100%; accent-color: var(--color-text); min-height: 1.5rem; }
+.scrubber:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.scrubLabel { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
+@media print { .scrubLabel { display: none; } }

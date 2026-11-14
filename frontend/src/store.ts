@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { CompareMode, Thresholds } from "./api/types";
+import type { CompareMode, CompareRequest, CompareResponse, Thresholds } from "./api/types";
 import type { AlignBy } from "./features/compare/contracts";
 import { linkScenarios, type ScenarioForm } from "./features/compare/compareForm";
 
@@ -16,6 +16,11 @@ type UiState = {
   setThresholds: (patch: Partial<Thresholds>) => void;
   setScrubT: (t: number | null) => void;
   setAlignBy: (a: AlignBy) => void;
+  /** Last successful compare, kept so Report/export and navigation back to Compare keep the result. */
+  lastCompare: { request: CompareRequest; response: CompareResponse } | null;
+  setLastCompare: (c: { request: CompareRequest; response: CompareResponse } | null) => void;
+  /** Best-date "Load as B": replaces Plan B and switches to the free preset so nothing is re-linked. */
+  loadAsB: (patch: Partial<ScenarioForm>) => void;
 };
 
 // Starter example: two south-pole points on the same date (SYNTHETIC data in mock mode).
@@ -42,4 +47,7 @@ export const useStore = create<UiState>((set) => ({
   setThresholds: (patch) => set((s) => ({ thresholds: { ...s.thresholds, ...patch } })),
   setScrubT: (scrubT) => set({ scrubT }),
   setAlignBy: (alignBy) => set({ alignBy, scrubT: null }),
+  lastCompare: null,
+  setLastCompare: (lastCompare) => set({ lastCompare }),
+  loadAsB: (patch) => set((s) => ({ mode: "free", scenarios: { A: s.scenarios.A, B: { ...s.scenarios.B, ...patch } } })),
 }));

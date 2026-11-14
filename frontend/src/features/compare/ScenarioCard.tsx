@@ -34,8 +34,11 @@ export function ScenarioCard({ id, errors }: Props) {
     errors[fieldKey(idx, f)] ? { "aria-invalid": true as const, "aria-describedby": `${uid}-${f}-err` } : {};
 
   return (
-    <fieldset className={styles.card} style={{ borderTopColor: id === "A" ? "var(--color-a)" : "var(--color-b)" }}>
-      <legend>Plan {id}</legend>
+    <fieldset className={styles.card}>
+      <legend>
+        <span className={styles.cardTag} data-id={id} aria-hidden="true">{id}</span>
+        Plan {id}
+      </legend>
       <label className={styles.field}>
         <span>Name</span>
         <input type="text" value={sc.label} maxLength={60} onChange={(e) => setScenario(id, { label: e.target.value })} />

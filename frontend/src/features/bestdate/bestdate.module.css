@@ -1,0 +1,53 @@
+.pageHead { margin-bottom: var(--space-4); }
+.pageHead h1 { margin-bottom: var(--space-1); }
+.lede { color: var(--color-text-muted); margin: 0; max-width: 65ch; }
+.layout { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+@media (max-width: 64rem) { .layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); } }
+
+.inputs { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--space-3); }
+.field { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; font-size: var(--text-sm); }
+.field > span:first-child { color: var(--color-text-muted); font-size: var(--text-xs); font-weight: 600; }
+.check { display: flex; gap: var(--space-2); align-items: center; font-size: var(--text-xs); color: var(--color-text-muted); }
+.hint { color: var(--color-text-muted); font-size: var(--text-xs); margin: 0; }
+.fieldError { color: var(--color-red); font-size: var(--text-xs); font-weight: 600; }
+.primary { min-height: 2.75rem; font-size: var(--text-md); }
+
+.results { min-width: 0; }
+.stack { display: flex; flex-direction: column; gap: var(--space-4); }
+.progress { margin: 0; color: var(--color-text-muted); font-size: var(--text-sm); }
+.resultsHead { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.resultsTitle { margin: 0; font-size: var(--text-xl); margin-right: auto; }
+.muted { color: var(--color-text-muted); font-size: var(--text-xs); }
+.caption { margin: var(--space-3) 0 0; color: var(--color-text-muted); font-size: var(--text-xs); max-width: 75ch; }
+
+.panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4) var(--space-4); min-width: 0; }
+.panelHead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-3); margin-bottom: var(--space-3); }
+.panelHead h3 { margin: 0; font-size: var(--text-md); }
+
+.calendar { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr)); gap: var(--space-1); }
+.day { width: 100%; min-height: 3.25rem; padding: var(--space-1); flex-direction: column; gap: 0; border-radius: var(--radius-md); border: 1px solid currentColor; font-variant-numeric: tabular-nums; }
+.day[aria-pressed="true"] { outline: 2px solid var(--color-text); outline-offset: 1px; }
+.dayNum { font-size: var(--text-sm); font-weight: 650; color: var(--color-text); }
+.dayLetter { font-size: var(--text-xs); font-weight: 750; }
+.green { color: var(--color-green); background: var(--color-green-soft); }
+.amber { color: var(--color-amber); background: var(--color-amber-soft); }
+.red { color: var(--color-red); background: var(--color-red-soft); }
+@media (hover: hover) and (pointer: fine) {
+  .day.green:hover:not(:disabled) { background: rgb(79 216 138 / 0.22); border-color: currentColor; }
+  .day.amber:hover:not(:disabled) { background: rgb(246 196 69 / 0.22); border-color: currentColor; }
+  .day.red:hover:not(:disabled) { background: rgb(255 122 122 / 0.22); border-color: currentColor; }
+}
+
+.word { font-weight: 750; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--text-xs); background: none; }
+.tableWrap { overflow-x: auto; position: relative; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th, .table td { padding: var(--space-2); border-bottom: 1px solid var(--color-border); text-align: left; white-space: nowrap; }
+.table thead th { color: var(--color-text-muted); font-size: var(--text-xs); font-weight: 600; }
+.table tbody tr:last-child > * { border-bottom: 0; }
+.table td button { min-height: 2rem; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--space-3); margin: 0 0 var(--space-3); }
+.stats dt { color: var(--color-text-muted); font-size: var(--text-xs); }
+.stats dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 600; }
+.failed { margin: 0 0 var(--space-2); padding-left: var(--space-4); font-size: var(--text-sm); }
