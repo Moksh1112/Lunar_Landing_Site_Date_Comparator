@@ -10,6 +10,9 @@ export function pythonRuntime() {
     throw new Error('Python setup record is invalid; rerun npm run setup.');
   }
   const env = {...process.env};
+  // Our launcher anchors explicit relative data paths to the repo; standalone
+  // backend commands must implement the same rule in backend settings.
+  if (env.AZX_DATA_DIR) env.AZX_DATA_DIR = resolve(root, env.AZX_DATA_DIR);
   if (data.mode === 'target') {
     env.PYTHONPATH = [resolve(root, '.venv/target'), env.PYTHONPATH].filter(Boolean).join(delimiter);
   }

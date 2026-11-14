@@ -45,3 +45,16 @@ writing source-tree bytecode. npm run check:setup and check:fixtures both PASS,
 also with python absent from PATH. Hosted startup matrix now runs these checks.
 No product-source edits, no contract freeze, no Sync 0 tag. New hosted result must
 be checked by commit; earlier CI evidence is not treated as current acceptance.
+
+
+## Combined backend/terrain owner handoff follow-up
+Reported dependency and CI trigger issues corrected in integration tooling:
+canonical pyproject+uv.lock pair when supplied; locked hashed export used by both
+setup modes and CI, no partial handoff fallback; all branch pushes trigger CI.
+Tested with isolated miniature project: runtime six and dev packaging imported from
+exported target, uv.lock unchanged, partial handoff rejected. These are tooling
+fixtures only, not invented backend production dependencies.
+Current scaffold target setup, backend health and setup syntax checks passed.
+Data-path/cloud-sync rules and combined-role escalation gap documented in
+BACKEND_TERRAIN_HANDOFF_S0.md. No downloads or product code changed.
+Source-size estimates and UTC/frame/tile compatibility assertions remain UNVERIFIED.

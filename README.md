@@ -107,3 +107,35 @@ No sync-0 tag or later-stage work until the real gate passes.
 Python-backed npm checks and fixture commands use scripts/python.mjs and the
 interpreter recorded by setup; no bare python executable or venv activation is needed.
 Run npm run setup first. Direct CI Python invocations use actions/setup-python.
+
+## Backend dependency handoff (canonical source)
+Backend owner declares runtime/dev dependencies in backend/pyproject.toml and
+supplies backend/uv.lock for coordinated P1 review. Once both exist, they are the
+ONLY backend dependency authority for npm setup, target mode and CI. Setup performs
+`uv export --locked --no-emit-project` to an ignored work/ export, then hash-checked
+installation into the selected environment. The export is derived, never edited.
+Default dev dependencies are included so owner checks use the same set.
+A missing/stale lock or only one handoff file is an error, not a fallback.
+Until BOTH files arrive, requirements-lock.txt is explicitly scaffold-only. Do not
+maintain parallel production requirement files. Backend source is run via --app-dir;
+packaged/local workspace build requirements need an explicit owner handoff.
+CI owner tests use the root environment with --locked --no-sync. uv is pinned to
+0.12.5 in CI; owner using 0.13 must demonstrate lock compatibility or request a
+coordinated tooling update. CI runs on all branch pushes and PRs.
+
+## Data outside cloud-sync folders
+Git ignore does NOT stop OneDrive/iCloud/Dropbox syncing. Before any downloads,
+choose an absolute non-synced path and confirm space/source content lengths.
+PowerShell example (choose a location writable on your machine):
+```powershell
+$env:AZX_DATA_DIR = 'C:/azelux-data'
+```
+macOS example: `export AZX_DATA_DIR="$HOME/azelux-data"` (verify it is not synced).
+These are examples, not directories created by integration. Setup does not load
+.env; backend/download owners must explicitly support this variable. Downloaders
+must receive the SAME path as server settings. Never start large downloads assuming
+./data is outside OneDrive. Report actual sizes/checksums, not raster-size estimates.
+Our launcher normalizes an explicit relative AZX_DATA_DIR against repository root;
+backend standalone scripts/settings must also anchor paths independently of cwd.
+Canonical fixtures live at repo-root fixtures/, not backend/fixtures/.
+See docs/BACKEND_TERRAIN_HANDOFF_S0.md for the required backend/terrain decisions.
