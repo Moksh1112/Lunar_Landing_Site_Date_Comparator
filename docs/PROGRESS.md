@@ -13,14 +13,14 @@ Last remote check: 2026-11-15. Current status below supersedes historical snapsh
   P1 local focused tests: 7 passed; changed backend Ruff check PASS.
 - Saved real journey inspected by P1: IM-1 Odysseus, starts 1/15 March 2027, 240 h,
   REAL/geometric, sunlight 0/224.6 h, 1441 samples per plan. Export request timestamps
-  and all 2882 CSV rows match. This validates saved evidence, not independent live
+  and all 2882 CSV rows match. Initial review validated saved evidence; the subsequent P1 live check below adds independent live
   scientific reproduction. Agent's combined suite: 491 passed / 50 skipped (owner-reported).
 - Terrain-covered polar pair remains BLOCKED: NASA PGDA download failed after two
   attempts, partial 80 m DEM at 167/189 MB, 20 m DEM unfinished. Do not count partial
   rasters as usable or claim a terrain/coarse comparison. Preserve resumable files.
 - Remaining: recover verified terrain datasets, run covered polar pair, sourced lunar
   basemap/georeferencing, full V1/V2/V4, gated terrain 3D, deployment and demo checks.
-- Preview remains synthetic by default. No Sync/scientific gate accepted here.
+- Shared preview now runs REAL SPICE with both mock flags false and C:/azx/data. P1 independently reproduced the geometric API and browser journey (0/224.6 h); covered polar requests still fail without DEMs. No Sync/scientific gate accepted here.
 - Evidence references, reproduction limits and latest checks: INTEGRATION_S0.md.
 ## Historical snapshots (revision-specific; current status above takes precedence)
 

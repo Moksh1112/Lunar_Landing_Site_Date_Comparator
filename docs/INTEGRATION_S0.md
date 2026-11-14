@@ -103,3 +103,23 @@ git; never load/claim them as verified terrain. Do not treat geometric journey s
 as the required terrain demo. Full validation, basemap, 3D gate, deployment and demo
 remain outstanding. UI screenshots reflect the new light direction; acceptance is
 still the user's decision. No automatic stage tag/gate passage.
+
+## P1 independent real preview check — 15 November 2026
+
+The shared preview was intentionally mock-backed, causing the SYNTHETIC banner.
+P1 switched both AZX_USE_MOCK and VITE_USE_MOCK to false, set AZX_DATA_DIR=C:/azx/data,
+and restarted only the recorded preview process. Kernel sizes and SHA-256 values
+for all five files match the local provenance manifest; no completed DEM exists
+(the only raster download is a .part file).
+
+Live /health: status ok, mock false, five kernels loaded, zero DEMs. P1 POSTed the
+IM-1 date-shift request through port 8000: REAL/geometric responses, 1441 samples
+per plan, sunlight 0 and 224.6 h. P1 then entered the same two starts and 240-hour
+missions in the actual browser on port 5173 and reproduced the same result. The
+synthetic banner is absent. Request/response saved locally in ignored work/ files.
+This verifies live SPICE/geometric integration, not terrain or full validation.
+
+Preview remains in real mode. Its initial polar starter can show a terrain-unavailable
+error: use IM-1 Odysseus, Date shift, 2027-03-01 / 2027-03-15, 240 h each for the
+supported real example. A fresh page does not persist the manually entered example.
+Do not hide the missing-terrain error or present the partial DEM as usable.
