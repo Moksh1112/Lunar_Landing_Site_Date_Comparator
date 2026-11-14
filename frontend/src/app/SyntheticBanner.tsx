@@ -18,7 +18,7 @@ function VariantSelector() {
   const raw = params.get("mock") ?? "ok";
   const custom = !VARIANTS.includes(raw as (typeof VARIANTS)[number]);
   return (
-    <label className={styles.variant}>
+    <label className={`${styles.variant} no-print`}>
       Mock variant{" "}
       <select
         value={custom ? "custom" : raw}

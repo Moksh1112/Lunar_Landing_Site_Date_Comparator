@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { useHealthQuery } from "../../app/SyntheticBanner";
 import { USE_MOCK } from "../../api/client";
-import { EmptyState } from "../../components/EmptyState";
 import { GLOSSARY } from "../../components/glossary";
+import { EvidenceList } from "./EvidenceList";
 import { validationFiles } from "./validationEvidence";
 import styles from "./methods.module.css";
 
@@ -84,26 +84,7 @@ export function MethodsPage() {
           Two cross-checks will be shown here: maximum azimuth and elevation difference against JPL Horizons for the test
           sites, and long-run sunlight and Earth-visibility percentage against NASA PGDA illumination maps per test point.
         </p>
-        {files.length === 0 ? (
-          <EmptyState title="No validation results yet">
-            <p>
-              No files exist in <code>validation/results/</code>. No match with Horizons or PGDA is claimed until they are
-              committed.
-            </p>
-          </EmptyState>
-        ) : (
-          <>
-            <p className={styles.muted}>
-              {files.length} result file{files.length === 1 ? "" : "s"} committed. The display format is not yet agreed, so
-              the files are listed rather than interpreted.
-            </p>
-            <ul className={styles.files}>
-              {files.map((f) => (
-                <li key={f.name}><code>{f.name}</code></li>
-              ))}
-            </ul>
-          </>
-        )}
+        <EvidenceList files={files} />
       </section>
 
       <section id="limits" className={styles.section}>

@@ -52,7 +52,8 @@ export function ReportPage() {
         </p>
         {prov.data_label !== "REAL" && (
           <p className={styles.synthetic}>
-            SYNTHETIC: these numbers come from fixtures or a mock server, not from a real computation.
+            SYNTHETIC: these numbers come from a fixed test response, not a computation. They do not reflect the plans
+            listed below.
           </p>
         )}
         <div className={`${styles.actions} no-print`}>

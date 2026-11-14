@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Suspense, lazy, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { ApiError } from "../../api/errors";
 import type { CompareRequest } from "../../api/types";
@@ -6,6 +6,7 @@ import { EmptyState } from "../../components/EmptyState";
 import { ErrorState } from "../../components/ErrorState";
 import { Skeleton } from "../../components/Skeleton";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
+import { SyntheticResultNote } from "../../components/SyntheticResultNote";
 import { Term } from "../../components/Term";
 import { useStore } from "../../store";
 import { focusFirstInvalid } from "../../components/focus";
@@ -21,6 +22,23 @@ import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
 import { useCompare } from "./useCompare";
 import styles from "./compare.module.css";
+
+const SiteMap = lazy(() => import("../map/SiteMap"));
+
+/** F3 map, loaded only when opened so the first page load stays small. */
+function MapPicker() {
+  const [open, setOpen] = useState(false);
+  return (
+    <details className={styles.thresholds} onToggle={(e) => setOpen(e.currentTarget.open)}>
+      <summary>Pick on map</summary>
+      {open && (
+        <Suspense fallback={<Skeleton height="16rem" label="Loading map" />}>
+          <SiteMap />
+        </Suspense>
+      )}
+    </details>
+  );
+}
 
 export function ComparePage() {
   const mode = useStore((s) => s.mode);
@@ -93,6 +111,7 @@ export function ComparePage() {
           </div>
           <ScenarioCard id="A" errors={errors} />
           <ScenarioCard id="B" errors={errors} />
+          <MapPicker />
           <ThresholdsPanel value={thresholds} onChange={setThresholds} />
           {errors["request"] && (
             <p className={styles.fieldError} role="alert">
@@ -126,6 +145,7 @@ export function ComparePage() {
                 <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} />
                 <Link to="/report" className="btn no-print">Open report</Link>
               </div>
+              {synthetic && <SyntheticResultNote />}
               <ResultsSummary data={data} expert={expert} thresholds={thresholds} sentThresholds={sentThresholds} />
               <section className={styles.chartPanel} aria-labelledby="where-h">
                 <div className={styles.chartHead}>

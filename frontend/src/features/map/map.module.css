@@ -1,0 +1,17 @@
+.wrap { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.notice { margin: 0; font-size: var(--text-xs); color: var(--color-amber); }
+.map { width: 100%; aspect-ratio: 1 / 1; max-height: 22rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg) !important; cursor: crosshair; }
+.map :global(.leaflet-tooltip) { background: var(--color-surface-3); color: var(--color-text); border-color: var(--color-border-strong); box-shadow: none; font: inherit; font-size: var(--text-xs); }
+.map :global(.leaflet-tooltip-top::before), .map :global(.leaflet-tooltip-bottom::before), .map :global(.leaflet-tooltip-left::before), .map :global(.leaflet-tooltip-right::before) { display: none; }
+.map :global(.leaflet-bar a) { background: var(--color-surface-2); color: var(--color-text); border-color: var(--color-border-strong); }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); list-style: none; margin: 0; padding: 0; font-size: var(--text-xs); color: var(--color-text-muted); }
+.legend li { display: inline-flex; align-items: center; gap: var(--space-1); }
+.swA, .swB, .swSite, .swCov { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 50%; }
+.swA { border: 2px solid var(--color-a); }
+.swB { border: 2px solid var(--color-b); }
+.swSite { background: var(--color-text); }
+.swCov { border: 2px dashed var(--color-amber); border-radius: 2px; }
+.caption { margin: 0; font-size: var(--text-xs); color: var(--color-text-muted); }
+/* Vector overlays are not keyboard targets (coordinate fields are the keyboard path); hide the click focus box. */
+.map :global(path.leaflet-interactive):focus { outline: none; }

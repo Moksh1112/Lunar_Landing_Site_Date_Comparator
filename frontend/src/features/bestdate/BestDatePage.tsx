@@ -10,6 +10,7 @@ import { HorizonModeLabel } from "../../components/HorizonModeLabel";
 import { SiteSource } from "../../components/SiteSource";
 import { Skeleton } from "../../components/Skeleton";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
+import { SyntheticResultNote } from "../../components/SyntheticResultNote";
 import { useStore } from "../../store";
 import { formatHours, formatPct, failedThresholdText } from "../compare/format";
 import { lonNote } from "../compare/compareForm";
@@ -226,6 +227,7 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
         <SiteSource siteId={data.site.site_id} />
       </div>
 
+      {data.meta.data_label !== "REAL" && <SyntheticResultNote />}
       <section className={styles.panel} aria-labelledby="cal-h">
         <div className={styles.panelHead}>
           <h3 id="cal-h">Calendar</h3>

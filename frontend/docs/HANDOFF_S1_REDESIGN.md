@@ -13,7 +13,7 @@
 | --- | --- | --- |
 | F1 site library, coordinate source | complete (follow-up) | `SiteSource`: the note, an http(s)-only link and an unverified/SYNTHETIC flag, on Plan cards, the Best-date form and result, and results/report sources |
 | F2 custom coordinates, longitude conversion | complete | `compareForm.ts`, `sweepForm.ts` (tested) |
-| F3 2D map | **blocked** | Needs the `leaflet` + `react-leaflet` dependency (lockfile, P1) and the Moon/hillshade basemaps (terrain owner). See request R1. |
+| F3 2D map | complete (no basemap) | `features/map/*`: CRS.Simple with polar-stereographic (TRD 4.2) and equirectangular views; clicking sets Plan A/B; curated pins; 80.7°S coverage outline. The map is lazy-loaded. The basemap is explicitly unavailable (see below). |
 | F4 A/B scenarios | complete | `/` |
 | F5 mission length 1–8,760 h, default 708 | complete | |
 | F6 mode presets with linked fields | complete | `ModePresets` (the active preset's hint is now visible text) |
@@ -29,7 +29,7 @@
 | F19 Simple/Expert toggle | complete (follow-up) | Expert adds:<br>• 0.01° precision and the sample step for each plan<br>• run details, including the frame (MOON_ME, a method constant) and tolerances (pending R2)<br>• a skyline readout on pointer hover<br>• raw time-series and skyline tables (`RawData`, first 500 rows, all rows in CSV/JSON) |
 | F20 source label on every result | complete | Compare, Best date, Report and the exports |
 | F21 loading / empty / invalid / error states | complete | Every async view; inputs kept; focus moves to the first invalid field |
-| F22/F23 Horizons and PGDA evidence on Methods | **blocked (empty state)** | `validation/results/*.json` does not exist, and its schema is not in the contract (R2) |
+| F22/F23 Horizons and PGDA evidence on Methods | complete (display) | Evidence v1.0 parser and tables handle ok/invalid/unsupported/empty states and keep the SYNTHETIC, spot-check and owner-reported labels. The only evidence so far is a V1 spot check (backend branch). Full V1/V2/V4 results do not exist. |
 | F24 Methods and sources page | **complete (new)** | `/methods`: method, data products, live `/health` loaded resources, limits, glossary. Linked from every result. |
 | F25 CSV/JSON export with provenance; PDF via print of `/report` | **complete (new)** | `features/export/*`, `/report` with print stylesheet. The manifest hash is reported as unavailable (C08). |
 | PRD 6.4 glossary on hover | complete (follow-up) | `Term`: opens on hover, or on focus plus Enter/Space; Escape closes it; the definition is announced. Used on solar elevation, skyline, Earthset, libration and DTE. One source shared with Methods (`glossary.ts`). |
@@ -111,3 +111,61 @@ Browser checks (mock):
 - **375 px:** with all glossary tips open, scrollWidth is 375.
 
 Screenshots: `desktop-1440-expert-*.jpg` and `mobile-375-glossary-help.jpg`.
+
+## Follow-up 2: after integration `dee7e9e` (R1–R3 resolved by P1)
+
+Status changes:
+
+- **R1:** Leaflet is used. R2: the approved schema is implemented. R3: P1's verdict
+  parity is merged unchanged.
+- **Basemap: unavailable.** The map shows a coordinate grid only. Missing:
+  - `data/dem/south_pole_hillshade_2048.png` and its CRS/bounds sidecar
+    `south_pole_hillshade_2048.json`. `backend/docs/DATA_EVIDENCE.md` says
+    `prepare_dems.py --hillshade` produced them, but they are not on this host or in git.
+  - A sourced global equirectangular Moon image: no source is recorded anywhere.
+  - A delivery route: CONTRACT v1.0 has no basemap endpoint, so serving one needs a v1.1
+    decision from P1.
+- **Map orientation:** follows the TRD 4.2 hand formula (0°E up). The TRD's "TO VERIFY"
+  x/y sign check needs the raster, so the orientation is labelled schematic.
+- **3D (F18): not built.** The gate is unmet:
+  - three/react-three-fiber are not installed (P1 deferred them until the gate).
+  - Only SYNTHETIC terrain tiles exist.
+  - PRD 12.2 cuts 3D first.
+- **Synthetic note:** Compare, Best date and Report now say a SYNTHETIC result is a fixed
+  test response that does not reflect the entered coordinates or dates.
+
+Backend branch `feat/p2-p3-backend-terrain` at `8cc3948`, fast-forwarded to `dee7e9e`:
+
+- `backend/tools/evidence_from_horizons_spot_check.py` adapts the owner's
+  `backend/docs/horizons_spot_check_S1.json` into
+  `validation/results/V1-horizons-spot-check-S1.json`.
+  - It recomputes nothing.
+  - REAL, `spot_check`, `owner_reported`, 24 rows, PASS against the PRD 8.3 0.05° target.
+- `backend/tests/test_evidence_adapter.py`: 4 passed (run with `--noconftest`, because
+  the shared conftest needs `orjson`, which isn't installed on this host).
+- The output was not validated with `jsonschema` (not installed). The test checks required
+  and extra fields only.
+
+Frontend checks:
+
+- `tsc` clean, `eslint` clean, `vitest` 11 files / **114 passed**.
+- `npm run build` and the mock build succeed. The map chunk is 47 kB gzipped and lazy.
+
+Browser checks (mock):
+
+- **Map clicks:** right of the pole → −82.50°, 89.79°E; above → 0.36°E; the marker lands
+  on the click point. In the global view, 3/4 width → 278.9°E.
+- **Methods:** the V1 evidence card shows 24 rows (using a local, uncommitted copy of the
+  backend-branch file).
+- **Downloads:** the real button path, intercepting `createObjectURL`, gives
+  `azelux-compare-synthetic-*.csv` (provenance header, 98 series rows) and `.json`
+  (`provenance.data_label` SYNTHETIC; the request keeps the entered site).
+- **Print:** headless Edge `Page.printToPDF` of a populated `/report` (via CDP) gives
+  5 pages. Fixed in print: scroll-clipped tables, whole-section page breaks, the
+  mock-variant select, and table overflow. Pages are in `docs/screenshots/print-report-page*.png`.
+  An interactive browser print dialog was not opened.
+- **Widths:** at 375 px, Compare with the map and Methods with evidence have
+  scrollWidth = 375. 768 px is fine.
+
+**P1 action:** integrate backend `8cc3948` and frontend (this commit). After that merge,
+the Methods page renders the V1 spot check at build time.

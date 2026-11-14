@@ -252,9 +252,26 @@ table {
   .no-print {
     display: none !important;
   }
+  /* Scroll containers would clip rows on paper: print every row. */
+  [class*="tableWrap"],
+  [class*="rawWrap"] {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  /* Long text cells (Expert run details, evidence sources) wrap; number cells stay whole. */
+  tbody + tbody td,
+  [class*="methodRow"] td {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
   figure,
-  table,
-  section {
+  tr,
+  [class*="verdictCard"],
+  [class*="deltas"] {
     break-inside: avoid;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
   }
 }

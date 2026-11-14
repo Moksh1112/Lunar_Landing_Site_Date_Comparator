@@ -41,6 +41,8 @@ describe("sweep request", () => {
 
 describe("validation evidence (F22/F23)", () => {
   it("is empty when nothing is committed", () => expect(validationFiles({})).toEqual([]));
-  it("lists files by name, sorted", () =>
-    expect(validationFiles({ "/x/validation/results/v2.json": {}, "/x/validation/results/v1.json": {} }).map((f) => f.name)).toEqual(["v1.json", "v2.json"]));
+  it("lists files by name, sorted, marking non-evidence invalid", () => {
+    const files = validationFiles({ "/x/validation/results/v2.json": {}, "/x/validation/results/v1.json": {} });
+    expect(files.map((f) => [f.name, f.state])).toEqual([["v1.json", "invalid"], ["v2.json", "invalid"]]);
+  });
 });
