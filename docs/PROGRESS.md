@@ -1,5 +1,5 @@
 # Azelux progress and to-do board
-Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Combined code integration authorized by user; gate still pending. Frontend S0 implementation now published and locally checked; see FRONTEND_S0_REVIEW.md.
+Last remote check: 2026-11-14 21:33 IST. Stage: S0 OPEN. Combined code integration authorized by user; gate still pending. Frontend S0 and backend source are integrated and CI checked; see INTEGRATION_S0.md.
 
 ## Update procedure
 Whenever the user requests an update/progress check, inspect ALL three remote heads
@@ -10,12 +10,13 @@ Status vocabulary: absent; code present; checked (name evidence); integrated;
 accepted (gate met); deployed (live verified). Owner-reported results are distinct.
 Green mock CI/file presence/report stage names do not pass science or team gates.
 
-## Current combined source snapshot
-User authorized combining integration 60e3830, backend d5c137b and frontend
-0cd0ae5. Both owner histories are included in the candidate. Seven-jobs full Linux
-CI must validate the promoted revision; local checks and limits: INTEGRATION_S0.md.
-No product source was manually changed by P1; dev:s0 is root integration tooling.
-AI/ML remains out of product scope. No extra remote branch or team-stage advancement.
+## Current integrated source snapshot
+Combined code revision 315d22a includes backend d5c137b and frontend 0cd0ae5,
+authorized by user. Both owner histories and unchanged product sources verified.
+Full combined Linux CI run 43617959513 SUCCESS: all seven jobs, including backend
+owner tests/lint and both startup modes. Root target setup/mock startup also passed.
+S0 is still OPEN. Code integration is not contract approval/science/gate acceptance.
+AI/ML remains out of scope. Exactly three remote branches; no main changes or tag.
 
 ## Source-of-truth feature comparison
 | PRD requirements | Backend/science evidence | Frontend evidence / remaining |
@@ -57,7 +58,8 @@ Latest board-refresh revision CI must be reported separately.
 - [ ] Collect missing contract/React note and coordinate dependency/audit decisions.
 - [ ] Collect full manifest/checksum/raster and validation provenance.
 - [x] Assemble and locally test combined owner code as authorized S0 candidate; no stage advancement.
-- [ ] Confirm full combined Linux CI; resolve deviations before Sync 0 acceptance.
+- [x] Confirm full combined Linux CI at 315d22a: run 43617959513 SUCCESS.
+- [ ] Resolve deviations before Sync 0 acceptance.
       Backend cap, schema, React and audit issues remain acceptance blockers;
       code integration is not approval of those proposals.
 - [x] Recheck all branch heads/CI and all four source-document/archive SHA-256s.
@@ -103,7 +105,7 @@ Deployment/MVP/RC/submission: NOT VERIFIED. No automatic passage from branch pus
 Remote 0cd0ae5 contains all twelve reported frontend commits; report's unpushed line
 was stale. Local tsc/lint/build, 27 tests, target setup and mock HTTP startup/shutdown
 passed. Full npm audit reports seven moderate dev-tree affected packages; production
-only audit is clean. React decision and hosted branch CI remain open. Frontend owner source is now imported in combined candidate; P1 did not edit it. Backend head remains d5c137b. Full review: FRONTEND_S0_REVIEW.md.
+only audit is clean. React decision and hosted branch CI remain open. Frontend owner source is now imported on integration; P1 did not edit it. Backend head remains d5c137b. Full review: FRONTEND_S0_REVIEW.md.
 
 ## Authorized combined integration
 User authorized merging/checking both owner branches: backend d5c137b and frontend
@@ -120,6 +122,13 @@ cap/schema/React/audit decisions; no new source-policy approval is inferred.
 - [x] Verify combined frontend 27 tests/lint/build, Ruff, fixtures and mock startup.
 - [x] Run supported local backend subset: 456 passed, 36 skipped; four pyproj-blocked files excluded.
 - [x] Add explicit npm run dev:s0 (both transports synthetic).
-- [ ] Verify full combined Linux CI on promoted revision.
+- [x] Verify full combined Linux CI: 315d22a / run 43617959513, all seven jobs passed.
 - [ ] Resolve open source/contract/React/audit decisions before gate acceptance.
 Sync 0 remains OPEN. No later-stage gates accepted.
+
+## Final integration evidence
+315d22a promoted and pushed. Both source branch tips are ancestors, and diffs of
+frontend/ and backend/app+tests+dependency pair against their owner tips are empty.
+Full Linux CI SUCCESS at 43617959513. Tests requiring actual NASA datasets may skip;
+this does not reproduce owner real-data claims. Documentation follow-up CI is separate.
+Run npm run dev:s0 for synthetic shell/API preview. Compare journey still placeholder.

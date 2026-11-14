@@ -105,3 +105,11 @@ Owner product sources imported unchanged; root tooling supplies npm run dev:s0
 for explicitly synthetic preview. Status: code integrated after verification,
 NOT Sync 0 accepted, NOT later-stage gate accepted, NOT deployed/real-source verified.
 Open contract/React/audit/validation issues remain; see PROGRESS.md and INTEGRATION_S0.md.
+
+## Combined integration result (supersedes prior unmerged snapshots)
+315d22a now contains backend d5c137b and frontend 0cd0ae5; owner sources unchanged.
+CI 43617959513 completed SUCCESS for all seven jobs, including full backend owner
+checks on Linux, frontend tests/lint/build and both startup modes. Local root target
+setup + S0 preview startup/shutdown passed. npm run dev:s0 starts both mock transports.
+No main changes, sync tag or stage advancement. Sync 0 remains open on the explicit
+contract/React/audit/source-evidence acceptance items in PROGRESS.md.

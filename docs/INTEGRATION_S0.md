@@ -31,3 +31,12 @@ only audit was clean); missing full manifests/independent V1-V6 and helper assig
 Later-stage backend code is present from owner branch but its stage reports do not
 advance team gates. Real-mode behavior/data correctness not independently accepted.
 No main changes, extra remote branch, sync tag or deployment.
+
+
+## Published result
+Code integration 315d22a pushed. GitHub run 43617959513 completed SUCCESS: backend,
+frontend, fixtures, attribution, secrets and venv/target startup jobs all passed.
+Actual root target setup and mock HTTP startup/shutdown also passed. Git ancestry
+and byte-for-byte owner-source comparison passed. Local subset is not full local
+suite, and hosted data-dependent skips do not certify real-source validation.
+Remain S0 OPEN; no tag or deployment. Subsequent status-doc commit CI is separate.
