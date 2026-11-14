@@ -1,0 +1,276 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V1",
+  "title": "SPICE vs JPL Horizons azimuth/elevation (S1 spot check)",
+  "data_label": "REAL",
+  "scope": "spot_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-15T00:00:00Z",
+  "producer_commit": "42e2d472090bddded939dc1c3bba217ca292941d",
+  "command": "python backend/tools/evidence_from_horizons_spot_check.py --src backend/docs/horizons_spot_check_S1.json --out validation/results/V1-horizons-spot-check-S1.json",
+  "sources": [
+    {
+      "label": "Owner spot-check output (P2, S1)",
+      "reference": "backend/docs/horizons_spot_check_S1.json",
+      "sha256": "873fe13067277a04918344ee578a0d35fe7d67a96a4579243e828c916c93bb83"
+    },
+    {
+      "label": "Our ephemeris",
+      "reference": "SpiceyPy spkcpo LT+S, MOON_ME, DE440 kernels naif0012.tls, de440s.bsp, pck00011.tpc, moon_pa_de440_200625.bpc, moon_de440_250416.tf"
+    },
+    {
+      "label": "Reference",
+      "reference": "JPL Horizons API, QUANTITIES=4, APPARENT=AIRLESS (DE441)"
+    }
+  ],
+  "coverage": "1 site (lat -84.7906, lon_east 29.1957), 6 times over 30 days from 2027-03-01T00:00:00Z, Sun and Earth. Full V1 needs 3 sites x 48 hourly times.",
+  "status": "pass",
+  "rows": [
+    {
+      "case": "sun 2027-Mar-01 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 236.469092544,
+      "reference": 236.469092548,
+      "unit": "deg",
+      "abs_error": 4.289e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-01 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": -3.454684169,
+      "reference": -3.454684169,
+      "unit": "deg",
+      "abs_error": 4.532e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-07 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 163.073603545,
+      "reference": 163.07360353,
+      "unit": "deg",
+      "abs_error": 1.453e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-07 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": -5.665939881,
+      "reference": -5.66593988,
+      "unit": "deg",
+      "abs_error": 9.032e-10,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-13 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 89.860420298,
+      "reference": 89.860420265,
+      "unit": "deg",
+      "abs_error": 3.259e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-13 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": -0.793261684,
+      "reference": -0.793261681,
+      "unit": "deg",
+      "abs_error": 3.101e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-19 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 16.91466861,
+      "reference": 16.914668573,
+      "unit": "deg",
+      "abs_error": 3.663e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-19 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": 4.016555271,
+      "reference": 4.016555272,
+      "unit": "deg",
+      "abs_error": 1.412e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-25 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 303.930397131,
+      "reference": 303.930397093,
+      "unit": "deg",
+      "abs_error": 3.832e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-25 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": 1.768258561,
+      "reference": 1.768258559,
+      "unit": "deg",
+      "abs_error": 1.972e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-31 00:00 UTC",
+      "metric": "sun azimuth",
+      "actual": 231.107695084,
+      "reference": 231.107695049,
+      "unit": "deg",
+      "abs_error": 3.519e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "sun 2027-Mar-31 00:00 UTC",
+      "metric": "sun elevation",
+      "actual": -4.51651348,
+      "reference": -4.516513482,
+      "unit": "deg",
+      "abs_error": 2.455e-09,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-01 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 335.005209514,
+      "reference": 335.005209778,
+      "unit": "deg",
+      "abs_error": 2.641e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-01 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": -1.533031147,
+      "reference": -1.533031096,
+      "unit": "deg",
+      "abs_error": 5.065e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-07 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 327.040563823,
+      "reference": 327.040564076,
+      "unit": "deg",
+      "abs_error": 2.529e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-07 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": 5.29421899,
+      "reference": 5.29421904,
+      "unit": "deg",
+      "abs_error": 4.98e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-13 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 325.172754229,
+      "reference": 325.172754742,
+      "unit": "deg",
+      "abs_error": 5.127e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-13 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": 10.75981206,
+      "reference": 10.759812071,
+      "unit": "deg",
+      "abs_error": 1.138e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-19 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 330.903019149,
+      "reference": 330.903019407,
+      "unit": "deg",
+      "abs_error": 2.578e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-19 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": 5.162762868,
+      "reference": 5.162762832,
+      "unit": "deg",
+      "abs_error": 3.597e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-25 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 336.38391785,
+      "reference": 336.38391833,
+      "unit": "deg",
+      "abs_error": 4.798e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-25 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": -2.022252634,
+      "reference": -2.02225262,
+      "unit": "deg",
+      "abs_error": 1.382e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-31 00:00 UTC",
+      "metric": "earth azimuth",
+      "actual": 331.304470213,
+      "reference": 331.304470461,
+      "unit": "deg",
+      "abs_error": 2.477e-07,
+      "tolerance": 0.05,
+      "status": "pass"
+    },
+    {
+      "case": "earth 2027-Mar-31 00:00 UTC",
+      "metric": "earth elevation",
+      "actual": 1.105600743,
+      "reference": 1.105600801,
+      "unit": "deg",
+      "abs_error": 5.779e-08,
+      "tolerance": 0.05,
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Spot check only; not the full V1 plan.",
+    "Owner-reported; not independently reproduced.",
+    "The original producer command line is not recorded in the source file.",
+    "Horizons returns 9 decimals of a degree (EXTRA_PREC); differences below ~1e-9 deg are at that output resolution."
+  ]
+}
