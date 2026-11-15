@@ -17,6 +17,8 @@ function NotFound() {
 }
 
 export const router = createBrowserRouter([
+  // Standalone landing page: outside the app shell, so the dashboard is unchanged.
+  { path: "/landing", lazy: async () => ({ Component: (await import("../features/landing/LandingPage")).LandingPage }) },
   {
     element: <AppShell />,
     children: [
