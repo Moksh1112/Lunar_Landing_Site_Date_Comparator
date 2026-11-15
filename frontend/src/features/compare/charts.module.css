@@ -24,3 +24,6 @@
 .scrubLabel { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
 @media print { .scrubLabel { display: none; } }
 .hoverRead { margin: 0; font-size: var(--text-xs); color: var(--color-text); font-variant-numeric: tabular-nums; min-height: 1.2em; }
+
+/* Focused visibility gap: outlined, not filled, so the lanes underneath stay readable. */
+.gapBand { fill: rgb(255 255 255 / 0.06); stroke: var(--color-text); stroke-width: 1.5; stroke-dasharray: 5 3; pointer-events: none; }

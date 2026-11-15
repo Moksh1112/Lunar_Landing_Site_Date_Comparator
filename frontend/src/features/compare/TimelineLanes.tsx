@@ -2,6 +2,7 @@ import { scaleLinear } from "d3-scale";
 import type { ScenarioResult } from "../../api/types";
 import type { TimelineLanesProps } from "./contracts";
 import { symmetricDifference, windowToRange } from "./chartMath";
+import { visibilityGaps } from "../gap/gap";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -30,7 +31,7 @@ function calendarTicks(d0: number, d1: number): { v: number; label: string }[] {
   return out;
 }
 
-export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesProps) {
+export function TimelineLanes({ data, alignBy, scrubT, onScrub, highlight = null }: TimelineLanesProps) {
   const [A, B] = data.scenarios;
   const t0 = (s: ScenarioResult) => s.series.t_unix[0] ?? 0;
   const tEnd = (s: ScenarioResult) => s.series.t_unix[s.series.t_unix.length - 1] ?? 0;
@@ -105,6 +106,27 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
             </g>
           );
         })}
+        {(() => {
+          // Outline the focused plan's longest gap across its three lanes.
+          const s = highlight ? data.scenarios.find((x) => x.id === highlight) : undefined;
+          const r = s ? visibilityGaps(s) : null;
+          if (!s || !r || r.state !== "gaps") return null;
+          const off = cal ? 0 : t0(s);
+          const first = s.id === "A" ? 0 : 3;
+          const y0 = M.top + first * (LANE_H + GAP) - 3;
+          const x0 = x(r.longest.startUnix - off);
+          return (
+            <rect
+              x={x0}
+              y={y0}
+              width={Math.max(2, x(r.longest.endUnix - off) - x0)}
+              height={3 * (LANE_H + GAP)}
+              className={styles.gapBand}
+            >
+              <title>{`Plan ${s.id} longest visibility gap`}</title>
+            </rect>
+          );
+        })()}
         {scrubT !== null && (
           <line x1={x(value)} x2={x(value)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} />
         )}

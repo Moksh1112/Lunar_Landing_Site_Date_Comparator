@@ -1,0 +1,33 @@
+.panel { display: grid; gap: var(--space-3); padding: var(--space-4) 0; border-top: 1px solid var(--color-border); }
+.head h3 { margin: 0 0 var(--space-1); font-size: var(--text-lg); }
+.head p { margin: 0; }
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.plan { display: grid; gap: var(--space-1); align-content: start; justify-items: start; min-width: 0; }
+.plan p { margin: 0; }
+.planHead { display: flex; align-items: center; gap: var(--space-2); font-weight: 650; }
+.tag {
+  display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius-sm);
+  font-size: var(--text-xs); font-weight: 750; color: var(--color-tag-ink, #000);
+}
+.tag[data-plan="A"] { background: var(--color-a); }
+.tag[data-plan="B"] { background: var(--color-b); }
+.duration { font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.01em; }
+.plan button { margin-top: var(--space-2); }
+.plan button[aria-pressed="true"] { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+.muted { color: var(--color-text-muted); font-size: var(--text-sm); }
+.compare { margin: 0; font-weight: 600; }
+.explain { display: grid; gap: var(--space-2); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); background: var(--color-surface); }
+.explain h4 { margin: 0; font-size: var(--text-md); }
+.explain p { margin: 0; max-width: 72ch; }
+.prov { font-size: var(--text-xs); color: var(--color-text-muted); overflow-wrap: anywhere; }
+.notes { margin: 0; padding-left: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+.events summary { cursor: pointer; font-weight: 600; }
+.events ol { margin: var(--space-2) 0 0; padding-left: var(--space-4); display: grid; gap: var(--space-1); }
+.events button { min-height: 2.25rem; }
+.reading ul { margin: var(--space-1) 0 0; padding-left: var(--space-4); display: grid; gap: var(--space-1); font-size: var(--text-sm); }
+.readHead { font-size: var(--text-sm); font-weight: 600; }
+.up { color: var(--color-green); font-weight: 600; }
+.down { color: var(--color-red); font-weight: 600; }
+@media (max-width: 48rem) { .plans { grid-template-columns: 1fr; } }
+@media print { .plan button, .events button { border: 0; padding: 0; min-height: 0; background: none; color: inherit; } .events { display: block; } }
+.parts { margin: 0; padding-left: var(--space-4); display: grid; gap: var(--space-1); font-size: var(--text-sm); }

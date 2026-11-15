@@ -3,6 +3,7 @@
 // and the data label. Fields not in contract v1.0 (e.g. a data manifest hash, C08) are reported as
 // unavailable rather than invented.
 import type { CompareRequest, CompareResponse, ScenarioResult } from "../../api/types";
+import { GAP_DEFINITION, compareLongest, explainGap, fmtUtc, visibilityGaps } from "../gap/gap";
 
 export type Provenance = {
   generated_by: string;
@@ -65,8 +66,16 @@ export function buildProvenance(res: CompareResponse, req: CompareRequest | null
   };
 }
 
+/** Longest visibility gap per plan and its deterministic explanation (derived from canonical windows). */
+export function gapAnalysis(res: CompareResponse) {
+  const [A, B] = res.scenarios;
+  const gaps = { A: visibilityGaps(A), B: visibilityGaps(B) };
+  const ex = (s: ScenarioResult, g: (typeof gaps)["A"]) => (g.state === "gaps" ? explainGap(s, g.longest) : null);
+  return { definition: GAP_DEFINITION, comparison: compareLongest(gaps.A, gaps.B), gaps, explanations: { A: ex(A, gaps.A), B: ex(B, gaps.B) } };
+}
+
 export function buildJson(res: CompareResponse, req: CompareRequest | null, now = new Date()): string {
-  return JSON.stringify({ provenance: buildProvenance(res, req, now), result: res }, null, 2);
+  return JSON.stringify({ provenance: buildProvenance(res, req, now), result: res, visibility_gaps: gapAnalysis(res) }, null, 2);
 }
 
 const csvCell = (v: unknown): string => {
@@ -97,6 +106,19 @@ export function buildCsv(res: CompareResponse, req: CompareRequest | null, now =
   }
   lines.push(`# data manifest: ${p.data_manifest}`);
   lines.push(`# deltas are A minus B`);
+  const ga = gapAnalysis(res);
+  lines.push(`# visibility gap: ${ga.definition} ${ga.comparison}`);
+  for (const id of ["A", "B"] as const) {
+    const g = ga.gaps[id];
+    const e = ga.explanations[id];
+    lines.push(
+      g.state === "gaps"
+        ? `# longest gap ${id}: ${fmtUtc(g.longest.startUnix)} to ${fmtUtc(g.longest.endUnix)} (${g.longest.hours.toFixed(1)} h). ${e?.summary ?? ""}`
+        : g.state === "none"
+          ? `# longest gap ${id}: none (both visible together throughout the sampled mission)`
+          : `# longest gap ${id}: unavailable (${g.reason})`,
+    );
+  }
   lines.push(`# ${p.disclaimer}`);
   lines.push("");
   const keys = Object.keys(res.deltas) as (keyof CompareResponse["deltas"])[];
