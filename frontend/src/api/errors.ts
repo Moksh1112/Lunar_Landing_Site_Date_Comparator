@@ -49,4 +49,5 @@ export const STATUS_FOR_CODE: Record<ApiErrorCode, number> = {
   RANGE_TOO_LARGE: 413,
   UPSTREAM_UNAVAILABLE: 503,
   INTERNAL: 500,
+  RATE_LIMITED: 429,
 };

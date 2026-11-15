@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildRequest, convertLon, linkScenarios, validate, type CompareForm, type ScenarioForm } from "../compareForm";
+import { buildRequest, matchesComputedPlans, convertLon, linkScenarios, validate, type CompareForm, type ScenarioForm } from "../compareForm";
 
 const sc = (o: Partial<ScenarioForm> = {}): ScenarioForm => ({
   label: "Plan", siteId: null, siteName: null, lat: "-89.5", lon: "0", startUtc: "2026-03-01T00:00", missionHours: "708", ...o,
@@ -67,5 +67,24 @@ describe("convertLon / linkScenarios", () => {
     expect(linkScenarios("site_vs_site", a, b)).toMatchObject({ startUtc: "2027-01-01T00:00", lat: "-80" });
     expect(linkScenarios("date_shift", a, b)).toMatchObject({ startUtc: "2026-03-01T00:00", lat: "-85" });
     expect(linkScenarios("free", a, b)).toBe(b);
+  });
+});
+
+describe("matchesComputedPlans", () => {
+  it("recognizes unchanged plans and equivalent formatting", () => {
+    const f = form();
+    expect(matchesComputedPlans(f, buildRequest(f))).toBe(true);
+    expect(matchesComputedPlans(form({ lat: "-89.5000" }), buildRequest(f))).toBe(true);
+  });
+  it("detects date edits and invalid inputs", () => {
+    const req = buildRequest(form());
+    expect(matchesComputedPlans(form({}, { startUtc: "2027-03-15T00:00" }), req)).toBe(false);
+    expect(matchesComputedPlans(form({ lat: "invalid" }), req)).toBe(false);
+  });
+  it("allows threshold-only edits", () => {
+    const f = form();
+    const req = buildRequest(f);
+    f.thresholds.sun_pct_min = 80;
+    expect(matchesComputedPlans(f, req)).toBe(true);
   });
 });

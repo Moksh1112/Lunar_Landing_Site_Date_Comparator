@@ -16,7 +16,8 @@ export type Meta = {
   step_minutes: number;
   observer_height_m: number;
   app_version: string;
-  contract_version: "1.0";
+  contract_version: "1.0" | "1.1";
+  manifest_sha256?: string | null;
   computed_at: string;
   data_label: DataLabel;
 };
@@ -52,12 +53,12 @@ export type CompareMode = "site_vs_site" | "date_shift" | "free";
 export type Health = {
   status: "ok";
   app_version: string;
-  contract_version: "1.0";
+  contract_version: "1.0" | "1.1";
   kernels_loaded: string[];
   dems_loaded: string[];
   mock: boolean;
 };
-export type SiteGroup = "apollo" | "clps" | "commercial" | "international" | "artemis_candidate";
+export type SiteGroup = "apollo" | "clps" | "commercial" | "international" | "artemis_candidate" | "reference";
 export type LibrarySite = {
   site_id: string;
   name: string;
@@ -98,7 +99,7 @@ export type ScenarioResult = {
 };
 export type Deltas = Record<MetricKey, number | null>; // A minus B
 export type CompareResponse = {
-  contract_version: "1.0";
+  contract_version: "1.0" | "1.1";
   scenarios: [ScenarioResult, ScenarioResult];
   deltas: Deltas;
   limitations: string[];
@@ -112,10 +113,13 @@ export type SweepRequest = {
   observer_height_m: number;
   thresholds: Thresholds;
 };
-export type SweepDay = { date: string; rank: number; refined: boolean; metrics: Metrics; verdict: Verdict };
-export type SweepResponse = { contract_version: "1.0"; site: Site; meta: Meta; days: SweepDay[]; top: string[] };
+export type SweepDay = { step_minutes?: number | null; date: string; rank: number; refined: boolean; metrics: Metrics; verdict: Verdict };
+export type SweepResponse = { contract_version: "1.0" | "1.1"; site: Site; meta: Meta; days: SweepDay[]; top: string[] };
 export type SkylineResponse = { site: Site; meta: Meta; skyline: Skyline }; // no contract_version
 export type TerrainTileResponse = {
+  grid_bearing_offset_deg?: number | null;
+  source_dem?: string | null;
+  resolution_m?: number | null;
   site: Site;
   size_km: number;
   width: 256;
@@ -128,7 +132,7 @@ export type TerrainTileResponse = {
 };
 
 export type ApiErrorCode =
-  "INVALID_INPUT" | "NOT_FOUND" | "NOT_IN_COVERAGE" | "RANGE_TOO_LARGE" | "UPSTREAM_UNAVAILABLE" | "INTERNAL";
+  "INVALID_INPUT" | "NOT_FOUND" | "NOT_IN_COVERAGE" | "RANGE_TOO_LARGE" | "UPSTREAM_UNAVAILABLE" | "INTERNAL" | "RATE_LIMITED";
 export type ApiErrorBody = {
   error: { code: ApiErrorCode; message: string; details: { field: string; reason: string }[] };
 };

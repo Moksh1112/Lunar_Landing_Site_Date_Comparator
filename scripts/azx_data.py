@@ -70,7 +70,7 @@ def file_hashes(path: Path) -> tuple[str, str]:
 RETRYABLE = (RuntimeError, OSError, http.client.HTTPException)  # OSError covers URLError, timeouts, resets
 
 
-def download(url: str, dest: Path, expected_bytes: int, attempts: int = 20) -> None:
+def download(url: str, dest: Path, expected_bytes: int, attempts: int = 2) -> None:
     """Download url to dest; on a dropped connection, resume from the .part file (up to `attempts`)."""
     for attempt in range(1, attempts + 1):
         try:

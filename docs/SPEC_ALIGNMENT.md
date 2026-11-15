@@ -1,5 +1,12 @@
 # New-only Azelux alignment - 14 November 2026
 
+## Current authority
+
+Later user instructions temporarily assigned all engineering roles and authorized
+coordinated v1.1 activation after backend/frontend compatibility checks. The user
+then stopped remaining work for takeover. See docs/TAKEOVER_CURRENT.md. Earlier
+integration-only/S0-only and scaffold descriptions below are historical.
+
 ## Precedence and provenance
 User selected existing repo, P1 integration ONLY, frontend with frontend owner,
 no main changes, S0 only. These override template role/setup commands.
@@ -22,7 +29,7 @@ active scripts/prompts contain the corrections and overrides described below.
 | Kit POSIX-only Make setup | Cross-platform npm commands; Make aliases retained; target-mode Python setup works on managed Windows |
 | Kit CI invalid job-level hashFiles / no first-push handling | Keep proven CI fixes; new Node 20 target, fixture and venv/target startup checks |
 | .env.example with values vs names-only TRD rule | Names-only example, documented defaults, setup shell flags separate |
-| Repo has React 19 vs TRD React 18 | Frontend owner must migrate; integration does not alter product deps |
+| Repo has React 19 vs TRD React 18 | React 19.2.0 retained by the later explicit tooling decision below |
 | CI S1 / old 30h schedule | CI S0; eight-stage new playbook gates; actual restart times need Coordinator confirmation |
 | Two competing v1.0 contracts | Only docs/CONTRACT.md active; root is pointer; pre-Azelux version archived |
 
@@ -56,4 +63,11 @@ explicit tooling deviation from TRD 18. Map dependencies, verdict float toleranc
 audit remediation and C03-C09 target decisions are approved in
 FRONTEND_UNBLOCK_DECISIONS.md. Build-time validation interface: validation/README.md.
 These approvals unblock frontend work; they do not certify scientific data or pass
-team stage gates. Version 1.1 additions require consumer conformance before activation.
+team stage gates. Version 1.1 additions are now activated after matching consumer checks; v1.0 fixtures remain supported.
+
+## Temporary full-stack execution
+User authorized the integration agent to perform P1-P6 engineering while teammates
+are away. Keep the same three branches and owner worktrees; publish verified handoffs
+as work proceeds. Release/deployment remains reserved for the user. This overrides
+older integration-only/S0-only limits for this assignment, not truthful data labelling,
+required validation, safety disclaimers, or source provenance.

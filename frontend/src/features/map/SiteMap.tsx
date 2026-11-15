@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CRS, type LatLngBoundsExpression } from "leaflet";
-import { Circle, CircleMarker, MapContainer, Polyline, Rectangle, Tooltip, useMap, useMapEvents } from "react-leaflet";
+import { Circle, CircleMarker, ImageOverlay, MapContainer, Polyline, Rectangle, Tooltip, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { getBasemap, globalMapUrl, hillshadeUrl } from "../../api/basemap";
+import { USE_MOCK } from "../../api/client";
 import { getSites } from "../../api/client";
 import { useStore } from "../../store";
 import { convertLon, parseNum } from "../compare/compareForm";
@@ -72,11 +74,14 @@ function Graticule({ view }: { view: View }) {
 
 /** F3 site picker: click to set a plan's coordinates; curated pins; 80.7 deg S DEM coverage outline. */
 export default function SiteMap() {
+  const [imageFailed, setImageFailed] = useState(false);
   const [view, setView] = useState<View>("polar");
   const [target, setTarget] = useState<Target>("A");
   const mode = useStore((s) => s.mode);
   const scenarios = useStore((s) => s.scenarios);
   const setScenario = useStore((s) => s.setScenario);
+  const basemap = useQuery({ queryKey: ["lunar-basemap", view], queryFn: ({ signal }) => getBasemap(signal, view), enabled: !USE_MOCK, retry: false });
+  const imageBounds = view === "polar" ? basemap.data?.bounds_m?.map((n) => n / 1000) : basemap.data?.bounds_deg;
   const sites = useQuery({ queryKey: ["sites"], queryFn: getSites });
   const bLocked = mode === "date_shift";
   const effTarget: Target = bLocked ? "A" : target;
@@ -113,8 +118,10 @@ export default function SiteMap() {
         </div>
       </div>
       <p className={styles.notice} role="note">
-        <strong>Basemap unavailable.</strong> No sourced Moon image is loaded, so this is a coordinate grid only, not
-        imagery or verified terrain. Click to set coordinates, or type them in the plan fields.
+        {basemap.data && imageBounds && !imageFailed ? <>
+          <strong>{view === "polar" ? "NASA LOLA hillshade." : "NASA whole-Moon context."}</strong> {basemap.data.method}{" "}
+          <a href={basemap.data.source_url} target="_blank" rel="noreferrer">{basemap.data.citation}</a>
+        </> : <><strong>Basemap unavailable.</strong> Coordinate grid only; no lunar imagery is loaded for this view.</>}
       </p>
       <MapContainer
         key={view}
@@ -128,6 +135,11 @@ export default function SiteMap() {
         className={styles.map}
         aria-label={view === "global" ? "Whole-Moon coordinate grid, east longitude 0 to 360" : "South-pole coordinate grid to 75 degrees south"}
       >
+        {basemap.data && imageBounds && !imageFailed && (
+          <ImageOverlay url={view === "polar" ? hillshadeUrl : globalMapUrl}
+            bounds={[[imageBounds[1], imageBounds[0]], [imageBounds[3], imageBounds[2]]]}
+            eventHandlers={{ error: () => setImageFailed(true) }} opacity={0.85} />
+        )}
         <FitOnResize bounds={view === "global" ? GLOBAL_BOUNDS : POLAR_BOUNDS} />
         <Graticule view={view} />
         {view === "polar" ? (
@@ -156,7 +168,7 @@ export default function SiteMap() {
           </CircleMarker>
         ))}
         {plans.map((p) => (
-          <CircleMarker key={p.id} center={p.pos} radius={8} pathOptions={{ color: p.id === "A" ? "#2fd0b9" : "#b49cff", weight: 3, fillOpacity: 0.25 }} interactive={false} />
+          <CircleMarker key={p.id} center={p.pos} radius={8} pathOptions={{ color: p.id === "A" ? "var(--color-a)" : "var(--color-b)", weight: 3, fillOpacity: 0.25 }} interactive={false} />
         ))}
         <ClickPick view={view} onPick={pick} />
       </MapContainer>
@@ -168,7 +180,7 @@ export default function SiteMap() {
       </ul>
       <p className={styles.caption}>
         {view === "polar"
-          ? "Polar stereographic grid to 75°S, rings at 80.7°S and 85°S, spokes every 30° (0°E up). Orientation is schematic until checked against a georeferenced raster."
+          ? "Polar stereographic grid to 75°S, rings at 80.7°S and 85°S, spokes every 30° (0°E up). Hillshade uses NASA polar stereographic bounds; unavailable imagery is explicitly indicated above."
           : "Equirectangular grid: east longitude 0–360° across, latitude up. The shaded band is south of 80.7°S."}
         {bLocked && " Date shift preset: Plan B's site follows Plan A."}
       </p>
