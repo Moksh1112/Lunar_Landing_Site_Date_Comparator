@@ -86,12 +86,15 @@ export function buildCsv(res: CompareResponse, req: CompareRequest | null, now =
   lines.push(`# exported_at: ${p.exported_at}; contract_version: ${p.contract_version}`);
   for (const s of p.scenarios) {
     lines.push(
-      `# scenario ${s.id} (${s.label}): lat ${s.site.lat_deg}, lon_east ${s.site.lon_east_deg}; ephemeris ${s.ephemeris}; ` +
+      `# scenario ${s.id} (${JSON.stringify(s.label)}): lat ${s.site.lat_deg}, lon_east ${s.site.lon_east_deg}; ephemeris ${s.ephemeris}; ` +
         `kernels ${s.kernels.join(" ") || "none listed"}; horizon ${s.horizon_mode}; DEM ${s.dem ?? "none"}; ` +
         `step ${s.step_minutes} min; observer ${s.observer_height_m} m; app ${s.app_version}; computed ${s.computed_at}; label ${s.data_label}`,
     );
   }
-  if (req) lines.push(`# thresholds: ${JSON.stringify(req.thresholds)}; mode: ${req.mode}`);
+  if (req) {
+    lines.push(`# thresholds: ${JSON.stringify(req.thresholds)}; mode: ${req.mode}`);
+    lines.push(`# request: ${JSON.stringify(req)}`);
+  }
   lines.push(`# data manifest: ${p.data_manifest}`);
   lines.push(`# deltas are A minus B`);
   lines.push(`# ${p.disclaimer}`);
@@ -100,6 +103,13 @@ export function buildCsv(res: CompareResponse, req: CompareRequest | null, now =
   lines.push(row(["metric", "A", "B", "A_minus_B"]));
   for (const k of keys) lines.push(row([k, res.scenarios[0].metrics[k], res.scenarios[1].metrics[k], res.deltas[k]]));
   lines.push(row(["verdict", res.scenarios[0].verdict.level, res.scenarios[1].verdict.level, ""]));
+  lines.push("");
+  lines.push(row(["scenario", "az_deg", "skyline_el_deg", "blocking_distance_km"]));
+  for (const s of res.scenarios) {
+    for (let i = 0; i < s.skyline.elev_deg.length; i++) {
+      lines.push(row([s.id, i * s.skyline.az_step_deg, s.skyline.elev_deg[i], s.skyline.block_dist_km?.[i] ?? null]));
+    }
+  }
   lines.push("");
   lines.push(row(["scenario", "t_unix", "utc", "sun_az", "sun_el", "earth_az", "earth_el", "sun_vis", "earth_vis"]));
   for (const s of res.scenarios) {
@@ -130,3 +140,5 @@ export function downloadText(text: string, fileName: string, mime: string): void
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
+
+

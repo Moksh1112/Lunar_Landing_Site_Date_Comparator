@@ -63,3 +63,20 @@ describe("CSV export", () => {
   });
   it("names files by label and time", () => expect(exportFileName(res, "csv", now)).toBe("azelux-compare-synthetic-202611151020.csv"));
 });
+
+describe("CSV completeness", () => {
+  it("includes the complete request and both complete skylines", () => {
+    const csv = buildCsv(res, req, now);
+    const lines = csv.trimEnd().split("\n");
+    expect(JSON.parse(lines.find((line) => line.startsWith("# request: "))!.slice(11))).toEqual(req);
+    const start = lines.indexOf("scenario,az_deg,skyline_el_deg,blocking_distance_km");
+    const end = lines.indexOf("scenario,t_unix,utc,sun_az,sun_el,earth_az,earth_el,sun_vis,earth_vis");
+    expect(lines.slice(start + 1, end).filter(Boolean)).toHaveLength(res.scenarios.reduce((n, s) => n + s.skyline.elev_deg.length, 0));
+  });
+  it("keeps multiline plan labels inside a single provenance line", () => {
+    const changed = structuredClone(res);
+    changed.scenarios[0].label = "First\n=1+1";
+    expect(buildCsv(changed, req, now).split("\n").some((line) => line.startsWith("=1+1"))).toBe(false);
+  });
+});
+
