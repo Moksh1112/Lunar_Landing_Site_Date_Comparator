@@ -9,7 +9,7 @@ demo and a real-backend qualification journey were exercised. Backend health sho
 RED for both tested Plan B dates (15 and 16 March 2027). See the latest section in
 [PROGRESS.md](PROGRESS.md) for the exact measurements and local check limitations.
 Local TypeScript and lint passed. Build and Vitest were blocked by Vite temp-file `EPERM`
-while the local preview occupied the OneDrive workspace; integration hosted CI is pending.
+while the local preview occupied the OneDrive workspace; integration checkpoint 92dc6f4 CI run 43694200641 completed SUCCESS across all seven jobs.
 V4 remains FAIL; no release/MVP gate is declared passed.
 ## Current simulator routes — 15 November 2026
 

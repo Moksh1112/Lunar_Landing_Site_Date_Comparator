@@ -18,8 +18,7 @@ not a successful training challenge or safety finding. Real-data challenge did n
 Local checks on the merged tree: `npm run check` (strict TypeScript) and frontend lint passed.
 The frontend owner's CI is green. Local Vite build and Vitest could not create temporary
 config files under `frontend/node_modules/.vite-temp` (`EPERM`) while the OneDrive preview
-server was running. Do not report these local checks as passed; merged-branch hosted CI is
-pending after this push. V4 remains scientifically FAIL (~6.30 pp); release remains the
+server was running. Do not report these local checks as passed; integration checkpoint 92dc6f4 hosted CI run 43694200641 completed SUCCESS across all seven jobs. V4 remains scientifically FAIL (~6.30 pp); release remains the
 user's responsibility.
 ## Current simulator routes — 15 November 2026
 
