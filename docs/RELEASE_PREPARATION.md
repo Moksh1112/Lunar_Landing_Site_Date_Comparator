@@ -5,6 +5,10 @@ accept the MVP. Moksh retains those decisions. Current blockers and owners are
 maintained only in the top of [PROGRESS.md](PROGRESS.md); feature evidence is in
 [MVP_VERIFICATION.md](MVP_VERIFICATION.md).
 
+## Current deployment readiness
+
+Use the deployment-readiness checkpoint at the top of [PROGRESS.md](PROGRESS.md). Local Lighthouse passes at source 01f99c2. Human/device evidence, final real-data smoke on the nominated build, host/data/CORS configuration and redistribution-notice review remain before authorization. Deployed rehearsals and deployed performance checks follow authorization. Project licence is deferred; ten-site library retained.
+
 ## Architecture and reproducibility
 
 Browser (React/Vite) -> FastAPI -> local SPICE ephemeris and terrain skyline ->
@@ -136,7 +140,7 @@ the offline briefing; Methods validation; the simulator debrief; a 375 px phone 
 | SPICE kernels, LOLA/PGDA DEMs and maps, Horizons | NASA/JPL/GSFC public data; cited in Methods and the data manifest; not in Git | Recorded |
 | Polar and global map assets | NASA sources (`NON_RELEASE_HANDOFF.md`). Source inspection confirms linked NASA citation above loaded imagery; rendered check pending | Source checked; rendered confirmation pending |
 | npm and Python dependencies | Per `frontend/package-lock.json` and `backend/uv.lock` | Inventory generated: docs/evidence/DEPENDENCY_LICENSES_2026-11-15.json (42148f6); refresh on frozen SHA and review notices |
-| Project licence | The repository has no LICENSE file | **Moksh decision** |
+| Project licence | Deferred by Moksh; no LICENSE added | Not a current engineering blocker; third-party terms remain |
 
 ## Review and publication sequence
 

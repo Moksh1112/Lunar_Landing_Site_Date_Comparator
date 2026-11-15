@@ -1,5 +1,30 @@
 # Azelux progress and to-do board
 
+## Deployment-readiness checkpoint — 15 November 2026
+
+Verified source: integration `01f99c2`, hosted CI [43724450530](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43724450530) SUCCESS. No newer remote integration was found during this check. Lighthouse evidence records cold mobile Performance 91/93/94 and Accessibility 100; desktop 100/100. These close the local emulated Lighthouse check, not physical-device or deployed performance.
+
+### Remaining before deployment authorization
+
+- **Human/device evidence:** P-A and P-B independent usability sessions; physical phone and tablet; Firefox or Safari; spoken screen-reader journey; slow-device Moon/terrain-3D usability and fallback. See `USABILITY_TASKS.md`. Each needs actual evidence or an explicit Moksh waiver; none is inferred from viewport emulation.
+- **Final candidate smoke:** exercise the real-backend comparison and new briefing on the nominated post-performance build. The performance owner did not repeat a real-backend comparison after its Home/router change. Verify REAL/full-terrain provenance, navigation, retained state and actual export/offline replay; record the exact SHA.
+- **Deployment configuration:** record the selected host, build/start commands, runtime data provisioning and persistent data path, exact frontend origin/CORS and API URL, health check and rollback revision. Keep secrets out of Git. Confirm resources on the eventual host rather than assuming a clone contains kernels or terrain.
+- **Redistribution notice review:** the dependency inventory exists for 298 npm entries and 41 Python packages; finish required notice/licence-text review for distributed dependencies, vendored components, fonts and assets. Map source code has a linked NASA citation; rendered attribution confirmation remains to be recorded.
+- **Moksh:** nominate the final candidate and explicitly authorize deployment after reviewing remaining failures, evidence or waivers.
+
+### Decisions already made — not engineering blockers
+
+- Keep the ten-site library. No extra public warning is requested; accurate source labels and release documentation remain.
+- Project licence deferred by Moksh. Do not add a LICENSE file or treat choosing one as this release's engineering blocker; third-party obligations still apply.
+- V4b adopted with its recorded limits; original V4 stays FAIL and runtime body-centre science is unchanged.
+- A physical print is optional. Existing browser print/PDF evidence satisfies the documented output mechanism.
+
+### After authorized deployment, before final release/submission
+
+Run PRD 13.3 twice on the deployed URL, using the final datasets and exact release SHA. Recheck real mode, CORS/API connectivity, all direct-route refreshes and mobile layout; measure deployed performance/layout shift with the backend reachable. The prior API-unreachable-notice explanation does not prove CLS disappears in deployment. Then complete final media, credits/AI disclosure and portal requirements. Main merge, tags, submission and MVP acceptance still require Moksh's authorization.
+
+All older pending lists below are checkpoint history where they conflict with this section.
+
 ## Resumed release checks — 15 November 2026
 
 Home performance gate (Lighthouse ≥ 90): **met in browser emulation** after fix `62ffd0c`. Three consecutive cold mobile runs scored 91 / 93 / 94 Performance with Accessibility 100 (baseline 80). See [the performance investigation](PERFORMANCE_HOME_2026-11-15.md); earlier measurements are in [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Physical-device performance is still a human check.
@@ -84,9 +109,8 @@ PDF evidence exist. A physical print is an optional extra check, not a release b
 
 ### Pending: decisions and actions for Moksh
 
-1. **Library scope (F1):** ten sourced entries; international and commercial breadth is
-   partial. Accept as a known limitation or add sourced sites.
-2. **Project licence:** the repository has no LICENSE file. Choose one or confirm none.
+1. **Library scope (F1):** Moksh retained the ten sourced entries; no expansion requested.
+2. **Project licence:** deferred by Moksh; do not add one in this task.
 3. **Release:** nominate the release candidate, authorize deployment, then run PRD 13.3 twice
    on the deployed URL. Then merge to main, tag, record the 30-second video and submit. See
    `RELEASE_PREPARATION.md`.
