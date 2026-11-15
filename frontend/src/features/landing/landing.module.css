@@ -1,22 +1,22 @@
-/* Standalone landing: deep-space dark theme, scoped to this page only (the app keeps its light theme). */
+/* Tour: shared monochrome theme (black canvas, charcoal surfaces, white actions); data hues keep their meaning. */
 .landing {
-  --color-bg: #05070d;
-  --color-surface: #0b1020;
-  --color-surface-2: #121a2e;
-  --color-surface-3: #1a2440;
-  --color-border: #222c45;
-  --color-border-strong: #3a4766;
-  --color-text: #eef1f8;
-  --color-text-muted: #a8b2c8;
-  --color-action: #5b84ff;
-  --color-action-hover: #7a9bff;
-  --color-action-text: #05070d;
+  --color-bg: #000000;
+  --color-surface: #111111;
+  --color-surface-2: #1a1a1a;
+  --color-surface-3: #262626;
+  --color-border: #3a3a3a;
+  --color-border-strong: #737373;
+  --color-text: #f5f5f5;
+  --color-text-muted: #b8b8b8;
+  --color-action: #f5f5f5;
+  --color-action-hover: #ffffff;
+  --color-action-text: #0a0a0a;
   --color-a: #2fd0b9;
   --color-b: #ff8a5c;
-  --color-sun: #f4b740;
+  --color-sun: #f2b544;
   --color-earth: #6ea8ff;
-  --color-focus: #9db8ff;
-  --color-link: #9db8ff;
+  --color-focus: #ffffff;
+  --color-link: #f5f5f5;
   color-scheme: dark;
   min-height: 100vh;
   color: var(--color-text);
@@ -24,7 +24,7 @@
 }
 .landing :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .landing a { color: var(--color-link); }
-.landing :global(.btn), .landing button { background: var(--color-surface-2); border-color: var(--color-border-strong); color: var(--color-text); }
+.landing :global(.btn), .landing button { background: transparent; border-color: var(--color-border-strong); color: var(--color-text); }
 .landing :global(.btn-primary) { background: var(--color-action); border-color: var(--color-action); color: var(--color-action-text); }
 .landing :global(.btn-primary):hover { background: var(--color-action-hover); border-color: var(--color-action-hover); }
 .skip { position: absolute; left: 1rem; top: -3rem; z-index: 50; padding: 0.5rem 1rem; background: var(--color-action); color: var(--color-action-text) !important; border-radius: 6px; font-weight: 650; }
@@ -89,7 +89,7 @@
 .exampleLine { margin: 0 0 var(--space-2); color: var(--color-text) !important; }
 .exampleNums { display: grid; gap: var(--space-1); font-variant-numeric: tabular-nums; }
 .exampleNums strong { font-size: var(--text-lg); }
-.exampleNums b, .siteSwitch b { display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 4px; color: #05070d; font-size: var(--text-xs); margin-right: var(--space-1); }
+.exampleNums b, .siteSwitch b { display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 4px; color: #000; font-size: var(--text-xs); margin-right: var(--space-1); }
 .a { background: var(--color-a); }
 .b { background: var(--color-b); }
 .note { font-size: var(--text-xs); margin: var(--space-2) 0 0; }
@@ -125,8 +125,8 @@
 @media (max-width: 56rem) { .simGrid { grid-template-columns: minmax(0, 1fr); } .topNav { display: none; } }
 @media (max-width: 48rem) {
   .chapter { align-items: flex-end; padding: 5rem var(--space-3) var(--space-4); }
-  .panel { padding: var(--space-4); max-width: none; background: rgb(11 16 32 / 0.86); }
-  .hero .panel { background: rgb(5 7 13 / 0.55); padding: var(--space-4); border-radius: 8px; }
+  .panel { padding: var(--space-4); max-width: none; background: rgb(17 17 17 / 0.9); }
+  .hero .panel { background: rgb(0 0 0 / 0.6); padding: var(--space-4); border-radius: 8px; }
   .facts { grid-template-columns: 1fr; }
   .illus { display: none; }
   .sim, .close { padding: 4rem var(--space-3); }

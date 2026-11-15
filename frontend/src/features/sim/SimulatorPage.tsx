@@ -270,7 +270,7 @@ export function SimulatorPage() {
           <p>Two weeks can turn a sunlit site dark. Learn the console, then find a day that keeps the Sun and Earth in view.</p>
           <div className={styles.row}>
             <Magnet padding={40} magnetStrength={6} maxOffset={6}>
-              <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+              <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
                 <button type="button" className="btn-primary" onClick={() => go("briefing")} autoFocus>Start mission</button>
               </ClickSpark>
             </Magnet>
@@ -398,7 +398,7 @@ export function SimulatorPage() {
             </>
           )}
           <div className={styles.row}>
-            <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+            <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
               <button type="button" className="btn-primary" onClick={openInComparator}>Open in the comparator</button>
             </ClickSpark>
             <button type="button" onClick={replay}>Replay</button>

@@ -9,7 +9,7 @@
 .panelHead h3 { font-weight: 650; font-size: var(--text-lg) !important; }
 
 /* A/B tag: the one place scenario hue identifies a plan. */
-.tag { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 750; color: #fff; background: var(--tone, var(--color-text-muted)); flex: none; }
+.tag { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 750; color: var(--color-tag-ink); background: var(--tone, var(--color-text-muted)); flex: none; }
 .toneA { --tone: var(--color-a); --tone-soft: var(--color-a-soft); }
 .toneB { --tone: var(--color-b); --tone-soft: var(--color-b-soft); }
 

@@ -49,8 +49,8 @@ export function AppShell() {
           surface="none"
           itemStyle="plain"
           indicator="pill"
-          highlightColor="#244bb3"
-          highlightTextColor="#ffffff"
+          highlightColor="#f5f5f5"
+          highlightTextColor="#0a0a0a"
           intro={false}
           bounce={0}
           collapse="auto"
