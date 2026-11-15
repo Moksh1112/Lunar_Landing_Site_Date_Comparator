@@ -18,7 +18,9 @@ type UiState = {
   setAlignBy: (a: AlignBy) => void;
   /** Last successful compare, kept so Report/export and navigation back to Compare keep the result. */
   lastCompare: { request: CompareRequest; response: CompareResponse } | null;
-  setLastCompare: (c: { request: CompareRequest; response: CompareResponse } | null) => void;
+  /** Invalidates comparisons started before a Best Date handoff. */
+  planBRevision: number;
+  setLastCompare: (c: { request: CompareRequest; response: CompareResponse } | null, expectedRevision?: number) => void;
   /** Best-date "Load as B": replaces Plan B and switches to the free preset so nothing is re-linked. */
   loadAsB: (patch: Partial<ScenarioForm>) => void;
 };
@@ -48,6 +50,7 @@ export const useStore = create<UiState>((set) => ({
   setScrubT: (scrubT) => set({ scrubT }),
   setAlignBy: (alignBy) => set({ alignBy, scrubT: null }),
   lastCompare: null,
-  setLastCompare: (lastCompare) => set({ lastCompare }),
-  loadAsB: (patch) => set((s) => ({ mode: "free", scenarios: { A: s.scenarios.A, B: { ...s.scenarios.B, ...patch } }, lastCompare: null, scrubT: null })),
+  planBRevision: 0,
+  setLastCompare: (lastCompare, expectedRevision) => set((s) => expectedRevision !== undefined && expectedRevision !== s.planBRevision ? {} : { lastCompare }),
+  loadAsB: (patch) => set((s) => ({ mode: "free", scenarios: { A: s.scenarios.A, B: { ...s.scenarios.B, ...patch } }, lastCompare: null, scrubT: null, planBRevision: s.planBRevision + 1 })),
 }));

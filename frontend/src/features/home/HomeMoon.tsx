@@ -32,7 +32,10 @@ export function HomeMoon() {
     sun.position.set(-4, 1.5, 3);
     scene.add(sun);
 
-    const tex = new THREE.TextureLoader().load(moonTex);
+    let disposed = false;
+    const tex = new THREE.TextureLoader().load(moonTex, () => {
+      if (!disposed) renderer.render(scene, camera);
+    });
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
     const moon = new THREE.Mesh(new THREE.SphereGeometry(1.5, 96, 64), new THREE.MeshStandardMaterial({ map: tex, roughness: 1, metalness: 0 }));
@@ -89,11 +92,11 @@ export function HomeMoon() {
     };
     if (reduce) {
       orbit.rotation.y = 0.9;
-      tex.onUpdate = () => renderer.render(scene, camera);
       renderer.render(scene, camera);
     } else raf = requestAnimationFrame(frame);
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();

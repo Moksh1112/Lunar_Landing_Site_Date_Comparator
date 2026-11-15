@@ -11,10 +11,14 @@ Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
 Published baseline is `28b56e3`. Local merge `ad2ac2e` preserves parents `28b56e3` and Moksh's theme source `47d8a58`; source CI [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082) passed seven jobs. The user explicitly requested the subsequent frontend milestone and a local commit: see [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md) for its final route map, checks and repeat steps. **Do not push.** No hosted CI is claimed for the local UI revision. Earlier UI_POLISH/UI_RECOVERY notes describe intermediate snapshots; the dedicated `/terrain` page supersedes Compare's old terrain buttons.
 
-Latest committed implementation: `63bf0af552ca54c2abf26ad5f2d0f24d6da8d15c`.
+Current review-fix follow-up (after `04c170d`): [UI_REVIEW_2026-11-15.md](UI_REVIEW_2026-11-15.md),
+166 frontend tests and seven isolated Chrome checks. Camera distance now adapts to
+viewport/relief while preserving the view angle, pan and relative zoom.
+
+Prior implementation checkpoint: `63bf0af552ca54c2abf26ad5f2d0f24d6da8d15c`.
 Latest analyser follow-up: [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
 Height shading is gray only; the continuous slider preserves the user's camera. Earth
-motion is traced from real response positions. Latest frontend checks: 163 tests plus
+motion is traced from real response positions. Checks at that prior checkpoint: 163 tests plus
 lint/typecheck/build. Preserve the no-push instruction.
 
 ## Prior verified baseline (historical)
@@ -57,7 +61,33 @@ No teammate has been contacted by this takeover task.
 
 ## Startup and data
 
-For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (Home), `/compare` (comparator), `/best-date`, `/terrain`, `/methods`, `/report`,
+For an immediate explicitly synthetic demo: `npm run dev:s0`. The route list below
+requires the **local implementation revision `63bf0af` or a descendant**. A fresh
+clone of the last verified published baseline `28b56e3` does **not** contain
+`/terrain`, the redesigned Home/nav or the later Best Date and Simulator flow fixes;
+do not use that clone to reproduce the local UI evidence.
+
+To obtain the local revision without pushing, have the holder of this checkout
+create a bundle outside the repository, then transfer that file to the new machine:
+
+```sh
+# In this local checkout (committed history only; no runtime data/config):
+git bundle create ../azelux-p1-local.bundle feat/p1-s0-integration
+# In a separate, clean clone, after receiving the bundle:
+git bundle verify /absolute/path/azelux-p1-local.bundle
+git fetch /absolute/path/azelux-p1-local.bundle feat/p1-s0-integration
+git merge --ff-only FETCH_HEAD
+npm run setup
+npm run hooks
+npm run dev:s0
+```
+
+Inspect status before updating an existing checkout. The fast-forward deliberately
+stops if its history diverges; preserve that work rather than resetting it. Bundle
+transfer publishes nothing to GitHub. Without the bundle, `/terrain` and those
+local UI revisions remain unavailable in a fresh published-branch clone.
+
+On the local revision, open `/` (Home), `/compare` (comparator), `/best-date`, `/terrain`, `/methods`, `/report`,
 `/learn/simulator` and `/learn/tour`. Old `/landing`, `/landing/tour` and `/tour` links redirect.
 Health: `http://127.0.0.1:8000/health`; frontend: `http://127.0.0.1:5173`.
 

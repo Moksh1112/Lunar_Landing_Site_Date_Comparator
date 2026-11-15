@@ -212,7 +212,7 @@ export function SimulatorPage() {
     };
     const up = () => (drag = null);
     const key = (e: KeyboardEvent) => {
-      if (e.defaultPrevented || document.querySelector('nav[aria-label="Main"][data-open="true"]') || document.activeElement?.closest("header")) return;
+      if (e.defaultPrevented || document.querySelector('nav[aria-label="Main"][data-open="true"]') || document.activeElement?.closest("[data-app-header]")) return;
       if (pauseRef.current?.open) return; // Native dialog handles Escape and restores focus.
       if (e.key === "Escape") { e.preventDefault(); setPaused((p) => !p); return; }
       if (document.activeElement !== canvas) return;

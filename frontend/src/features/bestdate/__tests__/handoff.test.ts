@@ -21,3 +21,19 @@ it("loads the selected day as a fresh free-mode request without relinking Plan A
   expect(after.lastCompare).toBeNull();
   expect(after.scrubT).toBeNull();
 });
+
+it("rejects a comparison completing after Load as B, but accepts a new comparison", async () => {
+  const before = useStore.getState();
+  const request = buildRequest({ mode: before.mode, scenarios: [before.scenarios.A, before.scenarios.B], thresholds: before.thresholds });
+  let finish!: (response: CompareResponse) => void;
+  const pending = new Promise<CompareResponse>(resolve => { finish = resolve; })
+    .then(response => before.setLastCompare({ request, response }, before.planBRevision));
+  before.loadAsB({ startUtc: "2027-03-14T00:00" });
+  finish(fixture as CompareResponse);
+  await pending;
+  expect(useStore.getState().lastCompare).toBeNull();
+  const after = useStore.getState();
+  const currentRequest = buildRequest({ mode: after.mode, scenarios: [after.scenarios.A, after.scenarios.B], thresholds: after.thresholds });
+  after.setLastCompare({ request: currentRequest, response: fixture as CompareResponse }, after.planBRevision);
+  expect(useStore.getState().lastCompare?.request).toEqual(currentRequest);
+});

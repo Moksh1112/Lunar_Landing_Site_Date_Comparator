@@ -4,28 +4,28 @@ import { getTerrainTile } from "../../api/client";
 import type { CompareResponse } from "../../api/types";
 import { useStore } from "../../store";
 import { absoluteTime, momentAt } from "../compare/moment";
-import { viewerErrorHint } from "./viewerError";
+import { isViewerChunkError, viewerErrorHint } from "./viewerError";
 import { missionTime } from "./math";
 import { sampleTime } from "../compare/SampleInspector";
 import styles from "./terrain.module.css";
 
 const TerrainCanvas = lazy(() => import("./TerrainCanvas"));
-class ViewerBoundary extends Component<{ children: ReactNode; onRetry?: () => void; views: ReactNode }, { error: Error | null }> {
+class ViewerBoundary extends Component<{ children: ReactNode; onRetry?: (error: Error) => void; views: ReactNode }, { error: Error | null }> {
   state: { error: Error | null } = { error: null };
   static getDerivedStateFromError(error: Error) { return { error }; }
   render() { return this.state.error ? <div className={styles.recovery} data-viewer-error role="status">
     <strong>Terrain 3D could not start.</strong>
     <p>{viewerErrorHint(this.state.error.message)}</p>
     <details><summary>Graphics details</summary><p>{this.state.error.message.slice(0, 240)}</p></details>
-    {this.props.onRetry ? <button type="button" onClick={this.props.onRetry}>Retry terrain 3D</button> : <p>Two attempts failed. Continue with the sky/horizon graphs and timeline; they do not require 3D.</p>}
+    {this.props.onRetry ? <button type="button" onClick={() => this.props.onRetry?.(this.state.error!)}>Retry terrain 3D</button> : <p>Two attempts failed. Continue with the sky/horizon graphs and timeline; they do not require 3D.</p>}
     {this.props.views}
   </div> : this.props.children; }
 }
-function LoadedViewer({ data, started, views }: { data: CompareResponse; started: number; views: ReactNode }) {
+type PlaybackProps = { playing: boolean; onPlayingChange: (playing: boolean) => void };
+function LoadedViewer({ data, started, views, playing, onPlayingChange: setPlaying }: { data: CompareResponse; started: number; views: ReactNode } & PlaybackProps) {
   const [plan, setPlan] = useState(0);
   const [exaggeration, setExaggeration] = useState(1);
   const [renderMs, setRenderMs] = useState<number | null>(null);
-  const [playing, setPlaying] = useState(false);
   const [attempt, setAttempt] = useState(1);
   const [resetView, setResetView] = useState(0);
   const [showPaths, setShowPaths] = useState(true);
@@ -41,7 +41,10 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
     queryFn: () => getTerrainTile({ lat_deg: scenario.site.lat_deg, lon_east_deg: scenario.site.lon_east_deg, size_km: 20 }), retry: false });
   const readyOnce = useRef(false);
   const ready = useCallback(() => { if (!readyOnce.current) { readyOnce.current = true; setRenderMs(performance.now() - attemptStarted.current); } }, []);
-  const retry = () => { readyOnce.current = false; attemptStarted.current = performance.now(); setRenderMs(null); setPlaying(false); setAttempt(a => a + 1); };
+  const retry = (error: Error) => {
+    if (isViewerChunkError(error.message)) { window.location.reload(); return; }
+    readyOnce.current = false; attemptStarted.current = performance.now(); setRenderMs(null); setPlaying(false); setAttempt(a => a + 1);
+  };
   useEffect(() => {
     if (!playing) return;
     const timer = setInterval(() => {
@@ -50,7 +53,7 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
       if (next >= end) setPlaying(false);
     }, 250);
     return () => clearInterval(timer);
-  }, [playing, time, end, setScrubT]);
+  }, [playing, time, end, setScrubT, setPlaying]);
   const t = absoluteTime(scenario, time, alignBy);
   const m = t === null ? null : momentAt(scenario, t);
   return <section className={styles.panel} aria-label="Terrain 3D">
@@ -78,8 +81,8 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
     {m && <p>Sun {m.sunAz.toFixed(1)}° azimuth / {m.sunEl.toFixed(1)}° elevation; Earth {m.earthAz.toFixed(1)}° / {m.earthEl.toFixed(1)}°. Scrubber controls these markers.</p>}
   </section>;
 }
-export function TerrainPanel({ data, onShow2D }: { data: CompareResponse; onShow2D: (view: "horizon" | "timeline") => void }) {
+export function TerrainPanel({ data, onShow2D, playing, onPlayingChange }: { data: CompareResponse; onShow2D: (view: "horizon" | "timeline") => void } & PlaybackProps) {
   const [started] = useState(() => performance.now());
   const views = <div className={styles.controls}><button type="button" onClick={() => onShow2D("horizon")}>Open 2D sky and horizon graphs</button><button type="button" onClick={() => onShow2D("timeline")}>Open 2D timeline</button></div>;
-  return <LoadedViewer data={data} started={started} views={views} />;
+  return <LoadedViewer data={data} started={started} views={views} playing={playing} onPlayingChange={onPlayingChange} />;
 }

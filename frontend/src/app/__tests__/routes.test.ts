@@ -14,7 +14,11 @@ describe("route map", () => {
     expect(module.Component).toBe(LandingPage);
   });
   it("serves every final route, with home and compare as different pages", () => {
-    for (const p of Object.values(PATHS)) expect(leaf(p)?.path ?? (leaf(p)?.index ? "/" : undefined), p).toBeDefined();
+    for (const p of Object.values(PATHS)) {
+      const route = leaf(p);
+      expect(route?.path ?? (route?.index ? "/" : undefined), p).toBeDefined();
+      expect(route?.path, p).not.toBe("*");
+    }
     expect(leaf("/")).not.toBe(leaf("/compare"));
   });
   it("redirects legacy links with query and hash kept", () => {

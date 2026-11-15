@@ -6,7 +6,7 @@ import { ThemeToggle } from "../components/ThemeToggle";
 import styles from "./AppShell.module.css";
 
 export function AppHeader({ expert = true }: { expert?: boolean }) {
-  return <header className={`${styles.header} no-print`}>
+  return <header data-app-header className={`${styles.header} no-print`}>
     <Link to={PATHS.home} className={styles.brand} aria-label="Azelux home">
       <svg className={styles.mark} viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />

@@ -107,13 +107,15 @@ export function ComparePage() {
   const errors = { ...serverErrors, ...clientErrors };
   const editorOpen = editing || Object.keys(errors).length > 0;
 
-  const run = (req: CompareRequest) =>
+  const run = (req: CompareRequest) => {
+    const revision = useStore.getState().planBRevision;
     compare.mutate(req, {
       onSuccess: (response) => {
-        setLastCompare({ request: req, response });
+        setLastCompare({ request: req, response }, revision);
         setEditing(false); // results take the workspace once a compare succeeds
       },
     });
+  };
 
   const submit = () => {
     if (compare.isPending) return;

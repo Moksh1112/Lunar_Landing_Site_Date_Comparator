@@ -20,7 +20,9 @@ type View = "terrain" | "horizon" | "timeline";
 export function TerrainAnalyserPage() {
   const { mode, scenarios, thresholds, lastCompare, setLastCompare, scrubT, setScrubT, alignBy } = useStore();
   const [view, setView] = useState<View>("terrain");
+  const [playing, setPlaying] = useState(false);
   const show2D = (next: "horizon" | "timeline") => {
+    setPlaying(false);
     setView(next);
     requestAnimationFrame(() => document.getElementById(`terrain-${next}`)?.focus());
   };
@@ -41,10 +43,10 @@ export function TerrainAnalyserPage() {
       <p>Explore the terrain around your landing plans. <Link to="/compare">Edit plans</Link> · <Link to="/methods#visuals">View sources</Link></p>
     </header>
     <div className="segmented" role="group" aria-label="Terrain analyser view">
-      {([ ["terrain", "3D Terrain"], ["horizon", "Sky & horizon"], ["timeline", "Timeline"] ] as const).map(([id, label]) => <button key={id} type="button" aria-pressed={view === id} onClick={() => setView(id)}>{label}</button>)}
+      {([ ["terrain", "3D Terrain"], ["horizon", "Sky & horizon"], ["timeline", "Timeline"] ] as const).map(([id, label]) => <button key={id} type="button" aria-pressed={view === id} onClick={() => id === "terrain" ? setView(id) : show2D(id)}>{label}</button>)}
     </div>
     {!request ? <p>Check the site, date and mission inputs on <Link to="/compare">Compare</Link> to load terrain.</p> : comparison.isError && !data ? <ErrorState error={comparison.error} onRetry={() => void comparison.refetch()} /> : !data || !range ? <Skeleton height="24rem" label="Loading terrain plans" /> : <>
-      <div hidden={view !== "terrain"}><TerrainPanel key={data.scenarios[0].meta.computed_at} data={data} onShow2D={show2D} /></div>
+      <div hidden={view !== "terrain"}><TerrainPanel key={data.scenarios[0].meta.computed_at} data={data} playing={playing} onPlayingChange={setPlaying} onShow2D={show2D} /></div>
       {view === "horizon" && <div id="terrain-horizon" role="region" aria-label="Sky and horizon views" tabIndex={-1} className={styles.grid}>{data.scenarios.map(s => <div key={s.id} className={styles.plan}><h2>{s.label}</h2><SkyRing scenario={s} scrubT={absoluteTime(s, scrubT, alignBy)} yMinDeg={range.yMin} yMaxDeg={range.yMax} /><HorizonPanorama scenario={s} scrubT={absoluteTime(s, scrubT, alignBy)} yMinDeg={range.yMin} yMaxDeg={range.yMax} /></div>)}</div>}
       <div id="terrain-timeline" role="region" aria-label="Terrain timeline" tabIndex={-1} hidden={view !== "timeline"}>
         <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
