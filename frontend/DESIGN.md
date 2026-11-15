@@ -39,8 +39,7 @@ Interface chrome is black and white. Colour appears only where it carries meanin
 Semantic exceptions (kept on purpose): Sun, Earth, Plan A/B, verdict and SYNTHETIC hues,
 the 3D Moon, terrain, stars and room materials. Charts keep their hues and legends.
 Selected, disabled and active states never rely on colour alone: selected segmented
-controls invert to white, disabled controls get a dashed border, the active nav item is a
-filled white pill.
+controls invert to white, disabled controls get a dashed border, the active nav item has a white underline.
 
 Print (/report and any browser print) restores white paper with dark text and the earlier
 print-safe data hues (`global.css` and `report.module.css` print blocks).
@@ -55,9 +54,11 @@ print-safe data hues (`global.css` and `report.module.css` print blocks).
 
 ## Controls and surfaces
 
-- Radii are 6 px (controls) and 8 px (surfaces). The only pill is the active item in the
-  React Bits PillNav header; no oversized rounded buttons.
-- The header is black with plain links; the active route is a filled white pill.
+- Radii are 6 px (controls) and 8 px (surfaces). No pills, no oversized rounded buttons.
+- The header carries the brand (to Home), a Back control (hidden on Home) and the main nav:
+  Home · Compare · Best Date · Learn (Quick tour, Simulator) · Methods. The active page has a
+  2 px white underline (a left bar in the compact menu); below 48rem the nav collapses into a
+  Menu button (Escape closes and returns focus).
 - Primary action is white with near-black text; secondary buttons are transparent with a
   #737373 border and white text.
 - Exports live in one secondary "Export" menu (CSV, JSON, printable report).
@@ -91,3 +92,26 @@ Reviewed for the user's requested landing integration on 15 November 2026.
 The simulator and tour share the monochrome theme above. All procedural/schematic numerical illustrations are SYNTHETIC and
 link to the actual comparator for sourced computation. Its historic example is
 labelled as recorded, and scientific status points to Methods including V4's failure.
+
+## Routes and navigation
+
+| Route | Page |
+| --- | --- |
+| `/` | Home: headline, Compare landing plans, What is Azelux?, Try the simulator, three pillars |
+| `/compare` | Comparator |
+| `/best-date`, `/methods`, `/report` | Best Date, Methods, Report (Report is linked from results) |
+| `/learn/tour`, `/learn/simulator` | Optional tour and simulator (own full-screen chrome with Home and Open comparator) |
+
+Legacy links redirect with replace semantics, keeping the query and hash:
+
+- `/landing` → `/learn/simulator`
+- `/landing/tour` and `/tour` → `/learn/tour`
+
+Back goes to the previous Azelux entry when the router has one (`location.key !== "default"`).
+Otherwise it falls back to a fixed page:
+
+- tour, simulator → Home
+- Best Date, Methods, Report → Compare
+- Compare → Home
+
+Rules and tests: `src/app/routes.ts`, `src/app/__tests__/routes.test.ts`.

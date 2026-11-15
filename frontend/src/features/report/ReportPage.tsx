@@ -31,7 +31,7 @@ export function ReportPage() {
             Run a comparison first. The report then shows verdicts, differences, charts, metrics and provenance, ready to
             print or save as PDF.
           </p>
-          <Link to="/" className="btn">Go to Compare</Link>
+          <Link to="/compare" className="btn">Go to Compare</Link>
         </EmptyState>
       </main>
     );
@@ -61,7 +61,7 @@ export function ReportPage() {
             Print or save as PDF
           </button>
           <ExportButtons response={response} request={request} className={styles.actions} />
-          <Link to="/" className="btn">Back to Compare</Link>
+          <Link to="/compare" className="btn">Back to Compare</Link>
         </div>
       </header>
 

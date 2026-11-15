@@ -1,34 +1,5 @@
-import { Link, createBrowserRouter } from "react-router";
-import { BestDatePage } from "../features/bestdate/BestDatePage";
-import { ComparePage } from "../features/compare/ComparePage";
-import { MethodsPage } from "../features/methods/MethodsPage";
-import { ReportPage } from "../features/report/ReportPage";
-import { AppShell } from "./AppShell";
+import { createBrowserRouter } from "react-router";
+import { routeObjects } from "./routeObjects";
 
-function NotFound() {
-  return (
-    <main>
-      <h1>Page not found</h1>
-      <p>
-        <Link to="/">Back to Compare</Link>
-      </p>
-    </main>
-  );
-}
-
-export const router = createBrowserRouter([
-  // Standalone landing page: outside the app shell, so the dashboard is unchanged.
-  { path: "/landing", lazy: async () => ({ Component: (await import("../features/sim/SimulatorPage")).SimulatorPage }) },
-  { path: "/tour", lazy: async () => ({ Component: (await import("../features/landing/LandingPage")).LandingPage }) },
-  { path: "/landing/tour", lazy: async () => ({ Component: (await import("../features/landing/LandingPage")).LandingPage }) },
-  {
-    element: <AppShell />,
-    children: [
-      { path: "/", element: <ComparePage /> },
-      { path: "/best-date", element: <BestDatePage /> },
-      { path: "/methods", element: <MethodsPage /> },
-      { path: "/report", element: <ReportPage /> },
-      { path: "*", element: <NotFound /> },
-    ],
-  },
-]);
+/** Route map: see ./routes.ts (PATHS, legacy redirects, back fallbacks). */
+export const router = createBrowserRouter(routeObjects);

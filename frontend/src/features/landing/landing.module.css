@@ -132,3 +132,5 @@
   .sim, .close { padding: 4rem var(--space-3); }
 }
 @media (prefers-reduced-motion: reduce) { .canvas { transition: none; } }
+.homeLink { background: transparent !important; }
+@media (max-width: 40rem) { .top .topNav { display: none; } .top .homeLink { display: none; } }

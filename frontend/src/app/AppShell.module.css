@@ -53,7 +53,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  gap: 0 var(--space-5);
+  gap: 0 var(--space-3);
   padding: 0 var(--space-4);
   min-height: 3.5rem;
   background: var(--color-surface);
@@ -75,24 +75,6 @@
   font-weight: 750;
   font-size: var(--text-lg);
   letter-spacing: -0.01em;
-}
-.nav {
-  flex: 1;
-  align-self: center;
-  min-width: 0;
-  /* Flat, token-driven PillNav: no gradients or glow. */
-  --pn-pill: var(--color-action) !important;
-  --pn-pill-ink: var(--color-action-text) !important;
-  --pn-pill-shadow: none !important;
-  --pn-tile: var(--color-surface) !important;
-  --pn-tile-rim: inset 0 0 0 1px var(--color-border) !important;
-  --pn-text: var(--color-text-muted) !important;
-  --pn-strong: var(--color-text) !important;
-  --pn-solid: var(--color-surface) !important;
-  --pn-shadow: 0 16px 32px -16px rgb(0 0 0 / 0.8) !important;
-  --pn-ring: #ffffff !important;
-  --pn-dot: var(--color-text) !important;
-  --pn-row-hover: var(--color-surface-2) !important;
 }
 .notice {
   padding: var(--space-2) var(--space-4);
@@ -132,12 +114,14 @@
     row-gap: 0;
   }
   .brand { min-height: 3.25rem; flex: 1; }
-  .nav {
-    flex: 0 0 auto;
-  }
+  .header > [role="group"] { order: 2; }
+  .header::before { content: ""; order: 3; flex-basis: 100%; }
+  .back { order: 4; margin-bottom: var(--space-2); }
+  .header > nav { order: 5; margin-bottom: var(--space-2); }
   .outlet {
     padding: var(--space-4) var(--space-3) var(--space-5);
   }
 }
 .header > [role="group"] { align-self: center; }
 .brand { text-decoration: none; color: inherit; }
+
