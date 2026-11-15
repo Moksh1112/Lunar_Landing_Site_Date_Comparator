@@ -1,5 +1,18 @@
 # Non-release engineering takeover — 15 November 2026
 
+## Active resumed engineering — 15 November 2026
+
+The user resumed full-stack work. Earlier stopped/unmerged descriptions below are
+historical. Backend 79936a5 and frontend fd7bf03 plus 8bd7dd4 are integrated.
+Current evidence and the F1–F25 acceptance checklist: docs/MVP_VERIFICATION.md.
+The ten-site API discrepancy was stale process cache and resolved by safe restart.
+Real Best Date -> Plan B -> Compare works with sourced 20 m terrain. The previous
+result ambiguity after input edits is fixed and browser-verified. Frontend now has
+129 passing tests; lint/build pass. Owner CI 43686142434 SUCCESS. Current 3D first
+frame measured 1000 ms on this host. V4 FAIL / V6 pending remain open. Deployment
+and release remain with the user; no MVP/RC/final gate has been declared passed.
+
+
 ## Current stop checkpoint
 
 The user stopped pending implementation. Read [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md)
