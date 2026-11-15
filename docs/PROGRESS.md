@@ -1,5 +1,9 @@
 # Azelux progress and to-do board
 
+## Resumed release checks — 15 November 2026
+
+See [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Production Home Lighthouse is now measured: **Performance 80, Accessibility 100**; the ≥90 performance gate remains open. Dependency licence inventory is generated (298 npm entries, 41 locked Python packages); full notice review remains. Map source code contains a visible linked NASA credit above loaded imagery. Moksh retained the ten-site library; no additional public warning was introduced. Project licence remains undecided. Real backend :8012 health and production build rechecked successfully. Human/device and final release checks remain pending.
+
 ## Current status — 15 November 2026, release preparation (authoritative)
 
 This is the single current done / pending / go-no-go list. Sections below it are dated
@@ -72,8 +76,7 @@ passed, failed or pending.
 3. A second browser (Firefox or Safari).
 4. A spoken screen-reader session (NVDA, VoiceOver or Narrator).
 5. Slow-device 3D and its fallback.
-6. Lighthouse ≥ 90 for Performance and Accessibility on `/` (Playbook quality bar). Not yet
-   measured: the tool is not installed here.
+6. Lighthouse measured on production Home: Performance 80 / Accessibility 100; ≥90 performance target remains unmet. See RELEASE_CHECKS_RESUMED_2026-11-15.md.
 
 **Physical print:** not required by the canonical documents. TRD: "PDF is the browser's
 print-to-PDF of a report page"; PRD 13.3 step 6: "export CSV and PDF". Print preview and

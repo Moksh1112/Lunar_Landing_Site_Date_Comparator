@@ -134,8 +134,8 @@ the offline briefing; Methods validation; the simulator debrief; a 375 px phone 
 | Moon texture | NASA SVS CGI Moon Kit (SVS 4720), public domain; credited in Home, tour and simulator | Recorded |
 | React Bits (Magnet, ClickSpark) | MIT + Commons Clause (`frontend/src/components/reactbits/LICENSE-NOTE.md`) | Recorded; not resold |
 | SPICE kernels, LOLA/PGDA DEMs and maps, Horizons | NASA/JPL/GSFC public data; cited in Methods and the data manifest; not in Git | Recorded |
-| Polar and global map assets | NASA sources (`NON_RELEASE_HANDOFF.md`). The map's attribution control is off: confirm the visible credit | **Check** |
-| npm and Python dependencies | Per `frontend/package-lock.json` and `backend/uv.lock` | **Generate an inventory on the frozen SHA** |
+| Polar and global map assets | NASA sources (`NON_RELEASE_HANDOFF.md`). Source inspection confirms linked NASA citation above loaded imagery; rendered check pending | Source checked; rendered confirmation pending |
+| npm and Python dependencies | Per `frontend/package-lock.json` and `backend/uv.lock` | Inventory generated: docs/evidence/DEPENDENCY_LICENSES_2026-11-15.json (42148f6); refresh on frozen SHA and review notices |
 | Project licence | The repository has no LICENSE file | **Moksh decision** |
 
 ## Review and publication sequence
