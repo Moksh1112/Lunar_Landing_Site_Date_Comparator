@@ -1,0 +1,15 @@
+/*!
+ * GSAP 3.12.5
+ * https://gsap.com
+ *
+ * @license Copyright 2008-2024, GreenSock. All rights reserved.
+ * Subject to the terms at https://gsap.com/standard-license or for
+ * Club GSAP members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+Azelux uses GSAP 3.12.5 (gsap/index.js, ScrollTrigger) for camera and scroll animation in the simulator and tour.
+The notice above is GSAP's own; its terms are at https://gsap.com/standard-license. That page (effective
+30 April 2025) permits use "on any website, web application, or digital interface" and prohibits no-code
+visual-animation builders that compete with Webflow and removing GSAP's proprietary notices. It also states
+that versions released before that date remain under the terms licensed before it.
