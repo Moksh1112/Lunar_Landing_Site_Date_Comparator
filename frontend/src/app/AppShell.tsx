@@ -1,28 +1,14 @@
-import { forwardRef, type AnchorHTMLAttributes } from "react";
-import { Link, Outlet, useLocation } from "react-router";
-import PillNav from "../components/reactbits/PillNav";
+import { Link, Outlet } from "react-router";
+import { BackButton, SiteNav } from "./SiteNav";
+import { PATHS } from "./routes";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ExpertToggle } from "./ExpertToggle";
 import { SyntheticBanner, useHealthQuery } from "./SyntheticBanner";
 import { USE_MOCK } from "../api/client";
 import styles from "./AppShell.module.css";
 
-const NAV = [
-  { href: "/", label: "Compare" },
-  { href: "/best-date", label: "Best date" },
-  { href: "/methods", label: "Methods" },
-  { href: "/report", label: "Report" },
-];
-
-/** PillNav renders `href`; route it through the client-side router. */
-const RouterLink = forwardRef<HTMLAnchorElement, AnchorHTMLAttributes<HTMLAnchorElement>>(({ href = "/", ...rest }, ref) => (
-  <Link ref={ref} to={href} {...rest} />
-));
-RouterLink.displayName = "RouterLink";
-
 export function AppShell() {
   const health = useHealthQuery();
-  const { pathname } = useLocation();
   const unreachable = !USE_MOCK && health.isError;
   return (
     <div className={styles.shell}>
@@ -31,30 +17,15 @@ export function AppShell() {
       </a>
       <SyntheticBanner />
       <header className={`${styles.header} no-print`}>
-        <Link to="/landing" className={styles.brand} aria-label="Azelux simulator home">
+        <Link to={PATHS.home} className={styles.brand} aria-label="Azelux home">
           <svg className={styles.mark} viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
             <path d="M3 13.5 L8 11 L11 12.5 L15 9.5 L21 12" fill="none" stroke="currentColor" strokeWidth="1.5" />
           </svg>
           <span className={styles.name}>Azelux</span>
         </Link>
-        <PillNav
-          className={styles.nav}
-          items={NAV}
-          activeHref={pathname}
-          linkComponent={RouterLink}
-          theme="light"
-          layout="joined"
-          size="sm"
-          surface="none"
-          itemStyle="plain"
-          indicator="pill"
-          highlightColor="#244bb3"
-          highlightTextColor="#ffffff"
-          intro={false}
-          bounce={0}
-          collapse="auto"
-        />
+        <BackButton className={styles.back} />
+        <SiteNav />
         <ExpertToggle />
       </header>
       {unreachable && (

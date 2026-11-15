@@ -1,54 +1,55 @@
 /*
- * Azelux design tokens: "light lunar atlas" (frontend/DESIGN.md).
- * Warm light canvas, white working surfaces, restrained cobalt actions.
- * Data hues are fixed meanings: Sun ochre, Earth blue, Plan A teal, Plan B burnt orange;
- * verdicts green/amber/red always with the word. Contrast is measured in DESIGN.md.
+ * Azelux design tokens: unified monochrome (frontend/DESIGN.md).
+ * Black canvas, charcoal surfaces, white type and white primary actions.
+ * Data hues keep fixed meanings: Sun amber, Earth blue, Plan A teal, Plan B orange;
+ * verdicts green/amber/red always with the word. Print restores white paper (global.css).
  */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* neutrals */
-  --color-bg: #f1f3f4; /* page canvas: cool regolith grey */
-  --color-surface: #ffffff; /* main working surfaces */
-  --color-surface-2: #eceff0; /* secondary surfaces */
-  --color-surface-3: #e1e6e6; /* pressed / chart terrain fill */
-  --color-border: #d4dcda;
-  --color-border-strong: #a9b6b4;
-  --color-text: #18252b;
-  --color-text-muted: #50616a;
-  --color-text-faint: #5d6d75;
+  /* neutrals: black canvas, charcoal surfaces, white type */
+  --color-bg: #000000; /* page canvas */
+  --color-surface: #111111; /* primary surfaces */
+  --color-surface-2: #1a1a1a; /* secondary / raised surfaces */
+  --color-surface-3: #262626; /* pressed, selected, chart terrain fill */
+  --color-border: #3a3a3a; /* dividers */
+  --color-border-strong: #737373; /* control borders (3:1+ on black) */
+  --color-text: #f5f5f5;
+  --color-text-muted: #b8b8b8;
+  --color-text-faint: #a3a3a3;
 
-  /* data hues */
-  --color-sun: #956000;
-  --color-earth: #245bb5;
-  --color-a: #086c65;
-  --color-b: #a44828;
-  --color-a-soft: rgb(8 108 101 / 0.08);
-  --color-b-soft: rgb(164 72 40 / 0.08);
+  /* data hues: kept as meaning, lifted for >= 4.5:1 on #111111 */
+  --color-sun: #f2b544;
+  --color-earth: #6ea8ff;
+  --color-a: #2fd0b9;
+  --color-b: #ff8a5c;
+  --color-a-soft: rgb(47 208 185 / 0.12);
+  --color-b-soft: rgb(255 138 92 / 0.12);
+  --color-tag-ink: #000000; /* A/B letter on its plan colour */
 
-  /* verdicts and change direction */
-  --color-green: #1d7a3e;
-  --color-amber: #8a5a00;
-  --color-red: #b3261e;
-  --color-green-soft: #e6f3ea;
-  --color-amber-soft: #fbf0d9;
-  --color-red-soft: #fbe7e5;
+  /* verdicts and change direction: always paired with the word */
+  --color-green: #4fd88a;
+  --color-amber: #f6c445;
+  --color-red: #ff7a7a;
+  --color-green-soft: rgb(79 216 138 / 0.14);
+  --color-amber-soft: rgb(246 196 69 / 0.14);
+  --color-red-soft: rgb(255 122 122 / 0.14);
 
   /* status */
-  --color-synthetic: #7a4f00;
-  --color-synthetic-bg: #fff3d4;
-  --color-link: #244bb3;
-  --color-focus: #244bb3;
+  --color-synthetic: #f6c445;
+  --color-synthetic-bg: #1f1806;
+  --color-link: #f5f5f5;
+  --color-focus: #ffffff;
 
-  /* primary action: cobalt */
-  --color-action: #244bb3;
-  --color-action-text: #ffffff;
-  --color-action-hover: #1c3d93;
+  /* primary action: white with near-black text */
+  --color-action: #f5f5f5;
+  --color-action-text: #0a0a0a;
+  --color-action-hover: #ffffff;
 
   /* structural aliases used by feature styles */
-  --plate: #ffffff;
-  --rule: #d4dcda;
-  --slip: #ffffff;
+  --plate: #111111;
+  --rule: #2e2e2e;
+  --slip: #1a1a1a;
 
   /* spacing: 8 px base */
   --space-1: 0.25rem;

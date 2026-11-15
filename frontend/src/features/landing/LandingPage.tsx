@@ -77,7 +77,7 @@ export function LandingPage() {
     <div className={styles.landing}>
       <a href="#landing-main" className={styles.skip}>Skip to content</a>
       <header className={styles.top}>
-        <Link to="/landing" className={styles.brand} aria-label="Azelux home">
+        <Link to="/" className={styles.brand} aria-label="Azelux home">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
             <path d="M3 13.5 L8 11 L11 12.5 L15 9.5 L21 12" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -90,7 +90,8 @@ export function LandingPage() {
           <a href="#h-sim">Simulation</a>
           <a href="#h-proof">Proof</a>
         </nav>
-        <Link to="/" className={`btn btn-primary ${styles.launch}`}>Open the app</Link>
+        <Link to="/" className={`btn ${styles.launch} ${styles.homeLink}`}>Back to home</Link>
+        <Link to="/compare" className={`btn btn-primary ${styles.launch}`}>Open comparator</Link>
       </header>
 
       <main id="landing-main" tabIndex={-1}>
@@ -111,7 +112,7 @@ export function LandingPage() {
               </p>
               <p className={styles.note}>SYNTHETIC illustration on this page: schematic geometry, a NASA LROC visualization texture for the Moon, and illustrative Sun/Earth directions. Open the comparator for sourced SPICE results.</p>
               <div className={styles.ctas}>
-                <Link to="/" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
+                <Link to="/compare" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
                 <Link to="/best-date" className={`btn ${styles.cta} ${styles.ghost}`}>Find the best date</Link>
               </div>
               <p className={styles.scrollHint} aria-hidden="true">Scroll to descend to the south pole</p>
@@ -191,8 +192,8 @@ export function LandingPage() {
           <h2 id="h-close">Pick two plans and see the difference.</h2>
           <p>The comparator computes a starter example on first visit; edit either plan to explore your own comparison.</p>
           <div className={styles.ctas}>
-            <Link to="/" className={`btn btn-primary ${styles.cta}`}>Open the comparator</Link>
-            <Link to="/methods" className={`btn ${styles.cta} ${styles.ghost}`}>Read the method</Link>
+            <Link to="/compare" className={`btn btn-primary ${styles.cta}`}>Compare landing plans</Link>
+            <Link to="/learn/simulator" className={`btn ${styles.cta} ${styles.ghost}`}>Try the simulator</Link>
           </div>
         </section>
       </main>
@@ -200,7 +201,8 @@ export function LandingPage() {
       <footer className={styles.footer}>
         <span>Azelux: a planning and education aid. Not a safety certification, power prediction or guaranteed radio link.</span>
         <nav aria-label="Footer">
-          <Link to="/">Compare</Link>
+          <Link to="/">Home</Link>
+          <Link to="/compare">Compare</Link>
           <Link to="/best-date">Best date</Link>
           <Link to="/methods">Methods</Link>
         </nav>
@@ -362,7 +364,7 @@ function SimSection() {
             </div>
           </dl>
           {state === "off" && <p className={styles.simNote}>3D is unavailable in this browser; the comparator works without it.</p>}
-          <Link to="/" className={`btn btn-primary ${styles.cta}`}>Get terrain-aware numbers</Link>
+          <Link to="/compare" className={`btn btn-primary ${styles.cta}`}>Get terrain-aware numbers</Link>
         </div>
       </div>
     </section>
