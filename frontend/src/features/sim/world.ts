@@ -11,6 +11,7 @@ export type World = {
   setConsole: (c: Console, glow: Control | null, done: Partial<Record<Control, boolean>>) => void;
   setLevel: (l: Level) => void;
   look: (dx: number, dy: number) => void;
+  onBriefing: (cb: () => void) => void;
   onPick: (cb: (c: Control, shift: boolean) => void) => void;
   /** CSS-pixel position of a physical control on the canvas (for verification and focus hints). */
   screenPoint: (c: Control) => { x: number; y: number } | null;
@@ -59,7 +60,7 @@ function briefingTexture(): THREE.CanvasTexture {
   g.fillText("GOAL: keep the Sun and Earth in view.", 56, 420);
   g.fillStyle = "#6b7685";
   g.font = '500 22px "Schibsted Grotesk", system-ui, sans-serif';
-  g.fillText("Illustration. Real numbers come from the comparator.", 56, 540);
+  g.fillText("Click this board to watch the demonstration.", 56, 540);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
@@ -343,6 +344,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
 
   // picking
   const ray = new THREE.Raycaster();
+  let briefingCb: (() => void) | null = null;
   let pickCb: ((c: Control, shift: boolean) => void) | null = null;
   let downAt: { x: number; y: number } | null = null;
   const onDown = (e: PointerEvent) => (downAt = { x: e.clientX, y: e.clientY });
@@ -352,6 +354,10 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     if (!start || Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) return; // a drag, not a click
     const r = canvas.getBoundingClientRect();
     ray.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
+    if (level === "briefing") {
+      if (ray.intersectObject(screen).length) briefingCb?.();
+      return;
+    }
     const hit = ray.intersectObjects(pickables.map((p) => p.obj), true)[0];
     if (!hit) return;
     const p = pickables.find((q) => q.obj === hit.object || q.obj.getObjectById(hit.object.id));
@@ -392,6 +398,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     setConsole,
     setLevel,
     look,
+    onBriefing: (cb) => { briefingCb = cb; },
     onPick: (cb) => { pickCb = cb; },
     screenPoint: (c) => {
       const p = pickables.find((q) => q.control === c);

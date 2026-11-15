@@ -117,6 +117,10 @@ export function SimulatorPage() {
     }
   }, []);
 
+  useEffect(() => {
+    worldRef.current?.onBriefing(() => { if (level === "briefing" && !paused) go("demo"); });
+  }, [level, paused, go, gl]);
+
   // User-paced demonstration: no disappearing explanations or timed camera jumps.
   useEffect(() => {
     if (level === "demo") worldRef.current?.setView(demo.view);
@@ -303,7 +307,7 @@ export function SimulatorPage() {
       )}
 
       {level === "briefing" && (
-        <section className={styles.card} aria-labelledby="brief-h">
+        <section className={gl === "ok" ? styles.boardAccess : styles.card} aria-labelledby="brief-h">
           <h2 id="brief-h">Briefing</h2>
           <ul>
             <li>At the lunar south pole the Sun skims the horizon.</li>
@@ -311,7 +315,7 @@ export function SimulatorPage() {
             <li>A two-week date shift can turn day into night.</li>
           </ul>
           <p className={styles.goal}>Goal: choose a landing plan that keeps the Sun and Earth in view.</p>
-          <button type="button" className="btn-primary" onClick={() => go("demo")}>Watch the demonstration</button>
+          <button type="button" className="btn-primary" onClick={() => { if (!paused) go("demo"); }}>Watch the demonstration</button>
         </section>
       )}
 

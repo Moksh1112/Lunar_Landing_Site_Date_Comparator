@@ -101,3 +101,7 @@
 }
 .hudTop .row { margin-top: 0; align-items: center; }
 .hudTop .row > * { min-height: 2.25rem; }
+
+/* The wall board is the visual briefing; retain its DOM equivalent for keyboard/AT. */
+.boardAccess { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.boardAccess:focus-within { width: auto; height: auto; margin: 0; padding: 1rem; left: 1rem; bottom: 2rem; clip-path: none; white-space: normal; background: var(--panel); border: 1px solid var(--line); max-width: calc(100% - 2rem); max-height: 45%; overflow: auto; }
