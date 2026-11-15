@@ -14,7 +14,7 @@ rasterio = pytest.importorskip("rasterio")
 pytest.importorskip("pyproj")
 from rasterio.transform import from_origin
 
-from app.terrain.interface import NotInCoverage
+from app.terrain.interface import NotInCoverage, TerrainUnavailable
 from app.terrain.real import RealTerrain
 
 SCRIPTS = Path(__file__).resolve().parents[2] / "scripts"
@@ -174,3 +174,51 @@ def test_real_data_sites(tmp_path: Path) -> None:
     assert r.data_label == "REAL" and r.elev_deg.shape == (720,) and np.all(np.isfinite(r.elev_deg))
     assert t.coverage(-80.13, 1.44) == "geometric"
     assert t.skyline(-80.13, 1.44, 2.0).mode == "geometric"
+
+
+# -- regression: horizon mode must match the DEMs actually used (contract: terrain = near + far) --
+
+def test_near_only_is_not_reported_as_terrain(tmp_path: Path) -> None:
+    _write(tmp_path / "tiles" / "x.tif", 25_000.0, 100.0, value=50.0)
+    t = RealTerrain(tmp_path)
+    with pytest.raises(TerrainUnavailable, match=r"near \+ far"):
+        t.coverage(LAT, LON)
+    with pytest.raises(TerrainUnavailable):
+        t.skyline(LAT, LON, 2.0)
+
+
+def test_near_plus_far_is_terrain_with_both_in_label(far_only: Path) -> None:
+    _write(far_only / "tiles" / "x.tif", 25_000.0, 100.0, value=50.0)
+    sky = RealTerrain(far_only).skyline(LAT, LON, 2.0)
+    assert sky.mode == "terrain" and sky.dem_name is not None and "far_160m" in sky.dem_name
+
+
+def test_far_not_covering_site_with_tile_is_unavailable(tmp_path: Path) -> None:
+    _write(tmp_path / "tiles" / "x.tif", 25_000.0, 100.0)
+    # far DEM placed 300 km away: does not cover the site
+    cx, cy = _site_xy()
+    n = 100
+    path = tmp_path / "dem" / "far_160m.tif"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with rasterio.open(path, "w", driver="GTiff", dtype="float32", count=1, width=n, height=n, crs=CRS_WKT,
+                       transform=from_origin(cx + 300_000.0, cy + 8_000.0, 160.0, 160.0), nodata=float("nan")) as dst:
+        dst.write(np.full((n, n), 10.0, np.float32), 1)
+    with pytest.raises(TerrainUnavailable):
+        RealTerrain(tmp_path).coverage(LAT, LON)
+
+
+def test_neither_dem_is_unavailable(tmp_path: Path) -> None:
+    with pytest.raises(TerrainUnavailable):
+        RealTerrain(tmp_path).coverage(LAT, LON)
+
+
+def test_cache_does_not_survive_far_removal(far_only: Path) -> None:
+    _write(far_only / "tiles" / "x.tif", 25_000.0, 100.0, value=50.0)
+    assert RealTerrain(far_only).skyline(LAT, LON, 2.0).mode == "terrain"  # cached near+far
+    import shutil
+
+    moved = far_only.parent / (far_only.name + "_nofar")  # same tile + skyline cache, far DEM gone
+    shutil.copytree(far_only / "tiles", moved / "tiles")
+    shutil.copytree(far_only / "cache", moved / "cache")
+    with pytest.raises(TerrainUnavailable):
+        RealTerrain(moved).skyline(LAT, LON, 2.0)

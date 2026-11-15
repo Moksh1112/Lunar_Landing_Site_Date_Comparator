@@ -95,7 +95,7 @@ def register_error_handlers(app: FastAPI) -> None:
         return error_response(
             "INTERNAL",
             "Terrain data is not available on this server for points inside south-pole DEM coverage "
-            "(south of 80.7 S). No result was computed.",
+            f"(south of 80.7 S): {exc.reason}. No result was computed.",
             http=500,
         )
 
