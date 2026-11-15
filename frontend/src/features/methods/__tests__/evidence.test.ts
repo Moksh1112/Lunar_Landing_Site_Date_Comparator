@@ -46,4 +46,8 @@ describe("validation evidence parser", () => {
     expect(f.state).toBe("unsupported");
   });
   it("missing results is empty, never a pass", () => expect(validationFiles({})).toEqual([]));
+  it("every committed validation/results file parses (none shown as invalid on Methods)", () => {
+    const bad = validationFiles().filter((f) => f.state !== "ok").map((f) => `${f.name}: ${"reason" in f ? f.reason : ""}`);
+    expect(bad).toEqual([]);
+  });
 });
