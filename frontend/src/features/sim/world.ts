@@ -281,7 +281,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   // ---------- camera views ----------
   const views: Record<View, { pos: THREE.Vector3; look: THREE.Vector3 }> = {
     boot: { pos: new THREE.Vector3(0, 1.75, 3.2), look: new THREE.Vector3(0, 1.6, -4) },
-    console: { pos: new THREE.Vector3(0, 1.95, 0.05), look: new THREE.Vector3(0, 0.98, -1.62) },
+    console: { pos: new THREE.Vector3(0, 2.5, 1.4), look: new THREE.Vector3(0, 0.98, -1.62) },
     briefing: { pos: new THREE.Vector3(-1.2, 1.65, -0.6), look: new THREE.Vector3(-3.9, 1.65, -0.6) },
     window: { pos: new THREE.Vector3(0, 1.8, -2.6), look: MOON_POS.clone() },
     moon: {
@@ -348,7 +348,9 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   let downAt: { x: number; y: number } | null = null;
   const onDown = (e: PointerEvent) => (downAt = { x: e.clientX, y: e.clientY });
   const onUp = (e: PointerEvent) => {
-    if (!downAt || Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6) return; // a drag, not a click
+    const start = downAt;
+    downAt = null;
+    if (!start || Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) return; // a drag, not a click
     const r = canvas.getBoundingClientRect();
     ray.setFromCamera(new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera);
     const hit = ray.intersectObjects(pickables.map((p) => p.obj), true)[0];
@@ -391,7 +393,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     setConsole,
     setLevel,
     look,
-    onPick: (cb) => (pickCb = cb),
+    onPick: (cb) => { pickCb = cb; },
     resize,
     dispose: () => {
       cancelAnimationFrame(raf);
