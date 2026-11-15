@@ -13,6 +13,8 @@
     "fixtures": "node scripts/python.mjs scripts/make_fixtures.py",
     "check:fixtures": "node scripts/python.mjs scripts/check-fixtures.py",
     "check:dependencies": "node scripts/check-dependencies.mjs",
-    "dev:s0": "node scripts/dev.mjs --mock"
+    "dev:s0": "node scripts/dev.mjs --mock",
+    "watch:integration": "node scripts/watch-integration.mjs",
+    "test:watch-integration": "node --test scripts/watch-integration.test.mjs"
   }
 }

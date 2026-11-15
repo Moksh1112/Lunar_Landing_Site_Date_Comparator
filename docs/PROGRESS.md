@@ -1,6 +1,13 @@
 # Azelux progress and to-do board
 
-## Current local integration ? merge recovery, 15 November 2026
+## Current local integration - merge recovery, 15 November 2026
+
+**Latest tooling follow-up:** [shared-branch watcher](INTEGRATION_WATCHER.md)
+automatically fetches/fast-forwards `origin/feat/p1-s0-integration` every 60 seconds;
+divergence waits for the user's manual integration request. Eight Git scenario
+subtests pass. A live check fetched `729f228`: **four new remote commits are pending**,
+including the `62ffd0c` performance milestone below. No incoming code was merged
+in the watcher task; no push is authorized.
 
 The user-requested pull merge combines local `194aa94` with published `89ce28c`.
 Incoming source [CI 43721206324](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43721206324)
@@ -25,8 +32,10 @@ passed all seven jobs; there is no hosted CI for the combined local revision.
 - **Next owner milestone:** `origin/feat/p4-frontend-s0` has `62ffd0c` (Home performance),
   which is not part of `89ce28c` and is deliberately not added to this recovery. Review
   its exact CI and compatibility with the local tour landing separately.
-- **Coordination:** ask teammates to work on their owner branches and hand over exact
-  green SHAs; reserve P1 integration updates for the P1 person. No teammate was messaged.
+- **Coordination (updated user preference):** teammate pushes directly to the shared P1
+  branch; the watcher fetches/fast-forwards, and the user requests integration separately.
+  Preserve both histories and check exact SHAs/CI during that integration. No teammate
+  was messaged.
 
 The following release notes/status list are incoming owner snapshots at `89ce28c`,
 retained as evidence, not a second current task list. Newer library decision: Moksh

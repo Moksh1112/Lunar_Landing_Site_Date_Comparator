@@ -121,6 +121,7 @@ jobs:
       - run: npm run check:setup
       - run: npm run check:fixtures
       - run: npm run check:dependencies
+      - run: npm run test:watch-integration
       - run: npm run check:startup
       - run: npm run check:backend
   fixtures:

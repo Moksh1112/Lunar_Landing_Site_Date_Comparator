@@ -34,6 +34,24 @@ npm run dev:s0
 Target mode isolates dependencies without changing OS protections. Setup records the
 selected interpreter; no manual activation is needed for npm checks.
 
+## Watch shared integration pushes
+
+```sh
+npm run watch:integration
+# One check, or a different polling interval (seconds):
+npm run watch:integration -- --once
+npm run watch:integration -- --interval 120
+```
+
+Checks `origin/feat/p1-s0-integration` every 60 seconds and pulls by fast-forward
+when that branch is checked out with a clean worktree. Diverged history is fetched
+and reported for manual integration; it never creates a merge commit or conflicts.
+Local changes, other checkouts and unfinished Git operations are left alone.
+The watcher never commits, stashes, resets or pushes. Stop it with Ctrl+C before
+manual integration. Keep this command running in a terminal; it is not a boot task.
+New code still needs the integration review/tests you request manually.
+See [watcher behavior and checks](docs/INTEGRATION_WATCHER.md).
+
 ## Real data and reproducibility
 
 A clone contains no runtime kernels, DEMs or acquired imagery. Set `AZX_DATA_DIR` to
