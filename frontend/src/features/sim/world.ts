@@ -166,11 +166,32 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   earth.position.set(-22, 3, -58);
   scene.add(earth);
 
-  // Earth beyond the side window gives the room an orbital observation POV.
-  // This illustrative placement is independent of the scientific comparator.
-  const observationEarth = realEarthMesh(renderer, 4.5);
-  observationEarth.position.set(24, 2.3, -8);
-  scene.add(observationEarth);
+  // Spacecraft hardware outside the side viewport establishes an onboard POV.
+  // Illustrative geometry only, independent of the scientific comparator.
+  const exterior = new THREE.Group();
+  const railMat = new THREE.MeshStandardMaterial({ color: 0xa4adb7, metalness: 0.65, roughness: 0.4 });
+  const cellMat = new THREE.MeshStandardMaterial({ color: 0x25364d, metalness: 0.45, roughness: 0.5 });
+  const hardware = (w: number, h: number, d: number, material: THREE.Material, x: number, y: number, z: number) => {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+    mesh.position.set(x, y, z);
+    exterior.add(mesh);
+  };
+  // Segmented solar wing and its support boom, visible through the clear pane.
+  hardware(5, 0.12, 0.12, railMat, 7.1, 0.3, -1);
+  hardware(0.12, 0.1, 5.6, railMat, 9.5, 0.3, -1);
+  for (let row = 0; row < 2; row++) {
+    for (let column = 0; column < 6; column++) {
+      hardware(1.25, 0.06, 0.78, cellMat, 8.85 + row * 1.35, 0.38, -3.25 + column * 0.9);
+    }
+  }
+  // Antenna mast and a small outward-facing dish alongside the array.
+  hardware(0.09, 2.1, 0.09, railMat, 6.2, 0.35, 1.5);
+  const dish = new THREE.Mesh(new THREE.SphereGeometry(0.65, 24, 12, 0, Math.PI * 2, 0, Math.PI / 3),
+    new THREE.MeshStandardMaterial({ color: 0xc3c7cc, metalness: 0.5, roughness: 0.55, side: THREE.DoubleSide }));
+  dish.position.set(6.2, 1.45, 1.5);
+  dish.rotation.z = -Math.PI / 4;
+  exterior.add(dish);
+  scene.add(exterior);
 
   // south-pole site with schematic skyline ring + sun path (demonstration)
   const site = SIM_SITES[1];
