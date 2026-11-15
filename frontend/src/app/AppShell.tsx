@@ -40,7 +40,10 @@ export function AppShell() {
       </div>
       <footer className={styles.footer}>
         <span>Planning aid only. Not a safety certification, power prediction or radio-link guarantee.</span>
-        <span className={styles.version}>App {health.data?.app_version ?? "n/a"}, contract {health.data?.contract_version ?? "n/a"}</span>
+        <span className={styles.version}>
+          App {health.data?.app_version ?? "n/a"}, contract {health.data?.contract_version ?? "n/a"} ·{" "}
+          <a href="/THIRD_PARTY_NOTICES.txt">Third-party notices</a>
+        </span>
       </footer>
     </div>
   );

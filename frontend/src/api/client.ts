@@ -9,6 +9,7 @@ import {
   terrainTileResponseSchema,
 } from "./schemas";
 import type { ApiRequest, Transport } from "./transport";
+import { API_BASE } from "./apiBase";
 import type {
   CompareRequest,
   CompareResponse,
@@ -37,7 +38,7 @@ function chooseTransport(): Transport {
       },
     };
   }
-  return createHttpTransport(import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000");
+  return createHttpTransport(API_BASE);
 }
 
 let transport: Transport = chooseTransport();
