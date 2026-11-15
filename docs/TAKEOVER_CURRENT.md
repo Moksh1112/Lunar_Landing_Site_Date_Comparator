@@ -1,5 +1,26 @@
 # Start here — engineering takeover, 15 November 2026
 
+## Current simulator routes — 15 November 2026
+
+Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;
+comparator: /; features: /best-date, /methods, /report. Dashboard brand links back to
+the simulator. Result handoff resets the scrubber and preserves computed inputs and
+response. Browser checked all routes and not-found behavior; 141 tests, lint and build
+pass. See LANDING_INTEGRATION.md. Earlier descriptions of /landing as the scroll tour
+are superseded. Existing V4 and physical-device/usability limitations remain.
+
+
+## Latest landing integration — 15 November 2026
+
+Reviewed frontend-landing, corrected its source labels/dependency downgrade and
+animation cleanup, and merged green df60cbc (CI 43688963732) into integration.
+The optional dark /landing presentation keeps the light comparator at /.
+All illustrative readouts are SYNTHETIC; actual computation is in the comparator.
+134 tests, lint/typecheck/build pass; responsive bounds and interactions checked.
+See [LANDING_INTEGRATION.md](LANDING_INTEGRATION.md) for exact evidence and preview.
+V4 remains failed; V6 is an owner qualitative spot check. Release stays with user.
+
+
 ## Latest acceptance update — 15 November 2026
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read

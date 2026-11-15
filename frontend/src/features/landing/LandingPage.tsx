@@ -97,7 +97,7 @@ export function LandingPage() {
         <div className={styles.story} ref={storyRef}>
           <div className={styles.stage} aria-hidden="true">
             <canvas ref={canvasRef} className={styles.canvas} data-state={webgl} />
-            <p className={styles.illus}>Illustration: procedural Moon, lander and schematic diagrams, not terrain data.</p>
+            <p className={styles.illus}>Illustration: Moon texture from NASA's LROC visualization mosaic; lander and diagrams are schematic, not terrain data.</p>
           </div>
 
           <section className={`${styles.chapter} ${styles.hero}`} data-chapter="0" aria-labelledby="h-hero">
@@ -109,7 +109,7 @@ export function LandingPage() {
                 Azelux compares two lunar landing plans, site and date, hour by hour: sunlight for power, Earth in view
                 for direct-to-Earth contact, and the hours you get both.
               </p>
-              <p className={styles.note}>SYNTHETIC illustration on this page: procedural geometry and invented Sun/Earth directions. Open the comparator for sourced SPICE results.</p>
+              <p className={styles.note}>SYNTHETIC illustration on this page: schematic geometry, a NASA LROC visualization texture for the Moon, and illustrative Sun/Earth directions. Open the comparator for sourced SPICE results.</p>
               <div className={styles.ctas}>
                 <Link to="/" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
                 <Link to="/best-date" className={`btn ${styles.cta} ${styles.ghost}`}>Find the best date</Link>
