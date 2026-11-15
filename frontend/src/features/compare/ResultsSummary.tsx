@@ -205,7 +205,7 @@ export function ResultsSummary({ data, expert, thresholds, sentThresholds, middl
                 </tr>
                 <tr className={styles.methodRow}>
                   <th scope="row">Validation tolerances</th>
-                  <td colSpan={3}>Not available until validation results are committed (see Methods)</td>
+                  <td colSpan={3}>See <Link to="/methods">Methods</Link> for criteria and current validation results.</td>
                 </tr>
               </tbody>
             )}
