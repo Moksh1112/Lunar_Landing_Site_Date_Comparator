@@ -1,5 +1,50 @@
 # Non-release engineering takeover — 15 November 2026
 
+## Current P1 takeover authority and portable reproduction
+
+The user has assigned P1 integration/tooling/CI/docs/evidence only; the all-rounder
+owns backend/terrain and ALL frontend implementation. Earlier full-stack and stop
+snapshots below are historical. The single current work list is the top of
+[PROGRESS.md](PROGRESS.md). Current commands/results and remaining dataset scope:
+[TAKEOVER_VERIFICATION_2026-11-15.md](TAKEOVER_VERIFICATION_2026-11-15.md).
+
+A fresh remote clone at `38f72b7` completed setup, hooks and synthetic dual startup
+on the takeover host, without another machine's env/config or runtime files.
+Node 22.19.0 / npm 11.12.1 / Python 3.12.15 were used here; CI targets Node 20.
+The existing venv works here; target mode is a fallback, not universally required.
+Stop this checkout's verified Python/Vite processes before rerunning setup on Windows.
+The P1 diff fixes uv's existing-venv refusal and adds repeat setup to both CI modes.
+It awaits human review before commit; no hosted result for this diff is claimed.
+
+Choose an absolute non-cloud data directory outside the repository. The takeover
+uses `R:/azelux-data`; the old `C:/azx/data` examples below are not required. From
+the new checkout in PowerShell:
+
+```powershell
+$env:AZX_DATA_DIR = 'R:/azelux-data' # choose your own absolute non-cloud directory
+node scripts/python.mjs scripts/download_kernels.py --data-dir $env:AZX_DATA_DIR
+node scripts/python.mjs scripts/download_dems.py --data-dir $env:AZX_DATA_DIR --skip-20m --pgda69
+node scripts/python.mjs scripts/prepare_dems.py --data-dir $env:AZX_DATA_DIR --far --hillshade
+node scripts/python.mjs scripts/prepare_remote_tiles.py --data-dir $env:AZX_DATA_DIR
+node scripts/python.mjs scripts/download_basemap.py --data-dir $env:AZX_DATA_DIR
+$env:AZX_USE_MOCK = 'false'
+$env:VITE_USE_MOCK = 'false'
+$env:VITE_API_URL = 'http://127.0.0.1:8000'
+npm run dev:all
+```
+
+Do not proceed past failed acquisition/preparation. Kernels alone permit REAL
+geometric comparisons, but not the full polar demo. Near tiles without the far DEM
+currently return mode `terrain`; that does not meet the contract's near+far definition
+and is recorded for the backend owner. Inspect actual DEM names, not just mode/banners.
+Health must report mock=false, all five expected kernels and the installed DEMs;
+results must retain REAL, source DEM, step, contract 1.1 and manifest identity.
+The downloader uses two attempts and keeps resumable `.part` files; do not silently
+restart repeatedly at a failed boundary. No source-data bytes belong in Git.
+
+The following sections retain dated original-host evidence. Their paths, PIDs,
+counts and pending lists do not override the current progress board or new evidence.
+
 ## Latest acceptance update — 15 November 2026
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read

@@ -2,11 +2,22 @@
 
 ## Current project status and pending work — 15 November 2026
 
-**Integration:** `feat/p1-s0-integration` contains backend/terrain `7d6ac55` and frontend
-`414e7dd`, merged as `acbf22a`. Both owner heads are integrated. Latest verified hosted CI:
-P1 merge run `43696473842`, P2/P3 run `43687231193`, and P4/P5 run `43695763208`; all seven
-jobs passed on each run. The most recent progress-doc checkpoint before this update also
-passed P1 CI run `43697012466`.
+**Integration:** `feat/p1-s0-integration` is now `3721130`, containing backend/terrain
+`7d6ac55` and frontend `6310e18`. The final fetch discovered the owner's already-published
+UI milestone and merge; P1 fast-forwarded both local checkouts without a new merge commit
+or losing local work. P2/P3 `7d6ac55`, P4/P5 `6310e18` and preserved `frontend-landing`
+`72de289` are ancestors of P1. Latest push-triggered hosted CI is
+[43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533)
+at exact P1 SHA `37211307b248da9b7c3e679a263afe0bbeb6d4b7`, seven jobs SUCCESS.
+Frontend source run `43701473118` and backend run `43687231193` also passed seven jobs.
+Earlier `38f72b7` / run `43698317379` is the initial takeover checkpoint. This takeover diff
+is uncommitted pending required human review; its CI rerun step has no hosted result yet.
+
+**Current assignment:** P1 edits root tooling, CI and integration docs only. Kush
+([kushpagariya](https://github.com/kushpagariya)) is the likely all-rounder: GitHub maps
+backend author `d5c137b` to that account, and author Kush also supplied frontend `9901476`.
+This is a history-based identification, not confirmation of current availability.
+The user relays coordination; no teammate message was sent. Owner editing activity is unknown.
 
 **Completed / evidenced**
 
@@ -23,12 +34,34 @@ passed P1 CI run `43697012466`.
 - CSV provenance/skyline coverage and native five-page print-preview checks were completed.
   Responsive viewport and selected keyboard/accessibility checks are in
   `docs/ACCEPTANCE_2026-11-15.md`.
+- Takeover checks: 142 frontend tests, lint/typecheck/build; backend Ruff; setup syntax,
+  15 synthetic fixtures, dependency handoff and combined startup/shutdown pass. A fresh
+  remote clone independently starts both modules. Real HTTP health reports mock=false,
+  five acquired kernels and contract 1.1; Apollo geometric comparison, signed deltas,
+  empty/censored windows, input rejections and a 60-day geometric sweep were exercised.
+  After documented far-DEM preparation, the fresh clone also returned REAL near+far
+  terrain for two polar sites over 708 h and a 60-day terrain sweep (479.89 ms observed
+  end-to-end here). The revised challenge API independently reproduced RED on March 1,
+  GREEN on March 14 and +210.1 h for B; the revised browser journey remains owner-reported.
+  Exact environment, data scope and results: `docs/TAKEOVER_VERIFICATION_2026-11-15.md`.
+- Complete documented acquisition/preparation succeeded in external `R:/azelux-data`;
+  final backend run: **551 passed, 6 cached-skyline skips**. All 16 completed manifest
+  entries match the local file hashes. Runtime data remains outside Git; the review-only
+  manifest snapshot and real HTTP summaries are in `docs/evidence/TAKEOVER_*`.
+- Concurrent frontend `6310e18` changes nav/buttons/copy and vendors React Bits components;
+  it changes no backend, contract, lockfile or threshold. Source/merge CI were read before
+  fast-forward. Current UI browser/keyboard/mobile/reduced-motion review is still required.
 
 **Still pending**
 
 1. **Scientific V4:** FAIL, about 6.2989 percentage points against the ≤5 pp target. Source
    review identifies unresolved reference/runtime convention differences (disc visibility,
    epoch/averaging window, DEM). Keep FAIL visible; do not loosen tolerances or tune to pass.
+   **Partial-data mode mismatch:** near-only Athena tiles produce `horizon_mode=terrain`
+   without a far DEM, although the contract defines terrain as near+far. Backend owner
+   must resolve or seek a Coordinator-approved clarification; P1 has not changed source.
+   This state reproduced the 240 h RED/GREEN API outcomes with +210.0 h for B, but it
+   does not independently verify the owner's +210.1 h near+far browser result.
 2. **Remaining feature acceptance:** finish the outstanding F1–F25 checks in
    `docs/MVP_VERIFICATION.md`: official-site coverage/source audit; coordinate, mission and
    terrain tile/coverage boundaries; broader/slower Best Date ranges; censored windows;
@@ -43,6 +76,19 @@ passed P1 CI run `43697012466`.
 No runtime AI/ML is required in v1. Green CI and a passing training exercise do not resolve
 V4 or pass the MVP/release gate. The sections below are dated checkpoints; where they
 conflict with this current list, this section and the linked acceptance ledger take priority.
+
+### Owner work to coordinate through the user
+
+| Owner | Next coherent milestone / required evidence |
+| --- | --- |
+| All-rounder, backend/terrain | V4 reference epoch/disc/DEM investigation with original FAIL retained; partial-data mode mismatch; tile/coverage edges; sourced international/commercial library breadth and mission/sample/date limits. Send exact source SHA, green CI, commands, source modes and remaining limits. |
+| All-rounder, frontend | Real simulator rerun with complete near+far provenance; date-shift and panorama/timeline/scrubber alignment; threshold/delta/countdown cases; slow/error/retry/double-submit/stale-result behavior; current exports/report after affected changes. Send exact source SHA and attributed browser evidence. |
+| P1 | Human review of the prepared tooling/CI/docs diff, then commit/push P1 and verify its exact hosted CI; review future owner source/contract diffs only after the source SHA is green; maintain evidence and release drafts. Clean-clone real near+far startup is reproduced. No owner source edits. |
+| Humans/device owners | Full keyboard and spoken screen-reader journey, physical phone/tablet, alternate browser, slow-device 3D/fallback and two outside-team usability participants (unassisted finish/time/stuck point; target each under two minutes). |
+| Moksh / Coordinator | Resolve scientific/contract decisions and stage sync; review P1 diff before commit; authorize any final deployment/main merge/tag/submission/MVP decision separately. |
+
+Release draft and demo procedure: `docs/RELEASE_PREPARATION.md`. No new F1–F25 gate is
+marked fully accepted by the takeover checks. Earlier sections below are dated history.
 
 ## Latest simulator integration — 15 November 2026
 

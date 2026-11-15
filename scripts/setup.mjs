@@ -37,7 +37,7 @@ if (targetMode) {
   else run(python, ['-m', 'pip', 'install', '--target', target, '--require-hashes', '-r', requirements]);
 } else {
   if (!process.env.AZX_SETUP_PYTHON && probe.status === 0) {
-    run('uv', ['venv', '--python', '3.12', '.venv']);
+    run('uv', ['venv', '--python', '3.12', '--allow-existing', '.venv']);
   } else {
     const selected = process.env.AZX_SETUP_PYTHON || 'python';
     run(selected, ['-c', "import sys; assert sys.version_info[:2] in ((3,11),(3,12)), 'Python 3.11/3.12 required'"]);

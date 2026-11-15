@@ -2,10 +2,14 @@
 
 ## Current authority
 
-Later user instructions temporarily assigned all engineering roles and authorized
-coordinated v1.1 activation after backend/frontend compatibility checks. The user
-then stopped remaining work for takeover. See docs/TAKEOVER_CURRENT.md. Earlier
-integration-only/S0-only and scaffold descriptions below are historical.
+The 15 November takeover instruction assigns P1 integration, root tooling, CI,
+coordination, acceptance evidence and release preparation only. The all-rounder
+owns backend/terrain and ALL frontend implementation on the two existing owner
+branches. Earlier temporary full-stack authorization is historical and does not
+authorize P1 implementation now. Keep the three existing branches; do not create
+stage branches. Human diff review precedes a commit. Final deployment, main merge,
+tags, submission and MVP acceptance require Moksh's explicit release authorization.
+Current status: PROGRESS.md; takeover procedure: TAKEOVER_CURRENT.md.
 
 ## Precedence and provenance
 User selected existing repo, P1 integration ONLY, frontend with frontend owner,
@@ -65,7 +69,7 @@ FRONTEND_UNBLOCK_DECISIONS.md. Build-time validation interface: validation/READM
 These approvals unblock frontend work; they do not certify scientific data or pass
 team stage gates. Version 1.1 additions are now activated after matching consumer checks; v1.0 fixtures remain supported.
 
-## Temporary full-stack execution
+## Temporary full-stack execution (historical, superseded by takeover above)
 User authorized the integration agent to perform P1-P6 engineering while teammates
 are away. Keep the same three branches and owner worktrees; publish verified handoffs
 as work proceeds. Release/deployment remains reserved for the user. This overrides

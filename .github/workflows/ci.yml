@@ -114,6 +114,10 @@ jobs:
       - run: npm run setup
         env:
           AZX_PYTHON_MODE: ${{ matrix.mode }}
+      - name: Verify setup can be rerun
+        run: npm run setup
+        env:
+          AZX_PYTHON_MODE: ${{ matrix.mode }}
       - run: npm run check:setup
       - run: npm run check:fixtures
       - run: npm run check:dependencies

@@ -1,0 +1,3203 @@
+{
+  "source_commit": "38f72b7e21a453e8b5e7c51dd9e64185ffb9f2f6",
+  "generated_at": "2026-11-15T09:52:35.352331+00:00",
+  "source_mode": "checks: explicit real service with independently acquired kernels/near tiles and incomplete far acquisition; full_terrain_checks: restarted explicit real service after far DEM preparation",
+  "checks": [
+    {
+      "path": "/health",
+      "request": null,
+      "status": 200,
+      "duration_ms": 30.03,
+      "request_id": "e2308d4dd65c4d26975197e7dc866c09",
+      "response_summary": {
+        "status": "ok",
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "kernels_loaded": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "dems_loaded": [
+          "im2-athena.tif",
+          "im2-intended.tif"
+        ],
+        "mock": false,
+        "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172"
+      }
+    },
+    {
+      "path": "/api/v1/sites",
+      "request": null,
+      "status": 200,
+      "duration_ms": 1.94,
+      "request_id": "c5505cf55b224dd7bc3dbc746fca837c",
+      "response_summary": {
+        "data_label": "REAL",
+        "sites": [
+          {
+            "site_id": "im1-odysseus",
+            "name": "IM-1 Odysseus landing site (near Malapert A)",
+            "group": "clps",
+            "lat_deg": -80.13,
+            "lon_east_deg": 1.44,
+            "terrain_coverage": false,
+            "source_url": "https://www.nasa.gov/missions/lro/nasas-lro-images-intuitive-machines-odysseus-lander/",
+            "source_note": "NASA LRO release: landed at 80.13 degrees south latitude, 1.44 degrees east longitude. Retrieved 2026-11-14. North of the -80.7 deg terrain limit, so geometric horizon only.",
+            "verified": true
+          },
+          {
+            "site_id": "im2-athena",
+            "name": "IM-2 Athena landing site (Mons Mouton region)",
+            "group": "clps",
+            "lat_deg": -84.7906,
+            "lon_east_deg": 29.1957,
+            "terrain_coverage": true,
+            "source_url": "https://lroc.im-ldi.com/images/1408",
+            "source_note": "LROC 'IM-2 Athena Seen Obliquely': lander rests in a 20 m crater at 84.7906 S, 29.1957 E. Retrieved 2026-11-14.",
+            "verified": true
+          },
+          {
+            "site_id": "im2-intended",
+            "name": "IM-2 intended landing site (Mons Mouton region)",
+            "group": "clps",
+            "lat_deg": -84.78,
+            "lon_east_deg": 29.13,
+            "terrain_coverage": true,
+            "source_url": "https://lroc.im-ldi.com/images/1401",
+            "source_note": "LROC 'IM-2 Landing Region': intended landing site (-84.78, 29.13 E), planned target, not the actual landing point. Retrieved 2026-11-14.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-11",
+            "name": "Apollo 11 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": 0.67416,
+            "lon_east_deg": 23.47314,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-12",
+            "name": "Apollo 12 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": -3.0128,
+            "lon_east_deg": 336.5781,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-14",
+            "name": "Apollo 14 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": -3.64589,
+            "lon_east_deg": 342.52806,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-15",
+            "name": "Apollo 15 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": 26.13239,
+            "lon_east_deg": 3.6333,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-16",
+            "name": "Apollo 16 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": -8.9734,
+            "lon_east_deg": 15.5011,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "apollo-17",
+            "name": "Apollo 17 lunar-module landing site",
+            "group": "apollo",
+            "lat_deg": 20.1911,
+            "lon_east_deg": 30.7723,
+            "terrain_coverage": false,
+            "source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html",
+            "source_note": "NASA NSSDCA lunar-module coordinates, DE421 ME/PA. Retrieved 2026-11-15; longitude normalized east-positive.",
+            "verified": true
+          },
+          {
+            "site_id": "lcross-impact",
+            "name": "LCROSS Centaur impact site (not a landing site)",
+            "group": "reference",
+            "lat_deg": -84.6796,
+            "lon_east_deg": 311.2907,
+            "terrain_coverage": true,
+            "source_url": "https://ntrs.nasa.gov/citations/20140005563",
+            "source_note": "Weighted impact location; 1-sigma uncertainty 115 m latitude and 44 m longitude. Retrieved 2026-11-15. Longitude normalized east-positive.",
+            "verified": true
+          }
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-14T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 11.09,
+      "request_id": "4d619e19cb4d40e2918c2d4b72bf1441",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "apollo-11",
+              "name": "Apollo 11 lunar-module landing site",
+              "lat_deg": 0.67416,
+              "lon_east_deg": 23.47314
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "geometric",
+              "dem": null,
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:52:35Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -27.95,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 240.0,
+              "earth_pct": 100.0,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 0.0
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T00:00:00Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 240.0,
+                  "start_censored": true,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441,
+            "first_t_unix": 1803859200,
+            "last_t_unix": 1804723200
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "apollo-11",
+              "name": "Apollo 11 lunar-module landing site",
+              "lat_deg": 0.67416,
+              "lon_east_deg": 23.47314
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "geometric",
+              "dem": null,
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:52:35Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": 89.647,
+              "sun_el_mean_up_deg": 58.686,
+              "sun_hours": 240.0,
+              "sun_pct": 100.0,
+              "earth_hours": 240.0,
+              "earth_pct": 100.0,
+              "both_hours": 240.0,
+              "both_pct": 100.0,
+              "longest_dark_h": 0.0,
+              "longest_blackout_h": 0.0
+            },
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "windows": {
+              "sun": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-25T00:00:00Z",
+                  "hours": 240.0,
+                  "start_censored": true,
+                  "end_censored": true
+                }
+              ],
+              "earth": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-25T00:00:00Z",
+                  "hours": 240.0,
+                  "start_censored": true,
+                  "end_censored": true
+                }
+              ],
+              "both": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-25T00:00:00Z",
+                  "hours": 240.0,
+                  "start_censored": true,
+                  "end_censored": true
+                }
+              ]
+            },
+            "series_count": 1441,
+            "first_t_unix": 1805068800,
+            "last_t_unix": 1805932800
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": -117.597,
+          "sun_el_mean_up_deg": null,
+          "sun_hours": -240.0,
+          "sun_pct": -100.0,
+          "earth_hours": 0.0,
+          "earth_pct": 0.0,
+          "both_hours": -240.0,
+          "both_pct": -100.0,
+          "longest_dark_h": 240.0,
+          "longest_blackout_h": 0.0
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification.",
+          "Scenario A uses geometric horizon only (no terrain data at this site).",
+          "Scenario B uses geometric horizon only (no terrain data at this site)."
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        },
+        "unknown": true
+      },
+      "status": 400,
+      "duration_ms": 2.1,
+      "request_id": "1ad0835c295349fb99525ca0f02bb20a",
+      "response_summary": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "Invalid input: unknown unknown field.",
+          "details": [
+            {
+              "field": "unknown",
+              "reason": "unknown field"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 8761
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 413,
+      "duration_ms": 2.37,
+      "request_id": "da9204f632b3481a9a69a1c3da9a87e1",
+      "response_summary": {
+        "error": {
+          "code": "RANGE_TOO_LARGE",
+          "message": "Mission length must be 8,760 hours (12 months) or less.",
+          "details": [
+            {
+              "field": "scenarios[0].mission_hours",
+              "reason": "longer than 8760 hours"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "lat_deg": -90,
+              "lon_east_deg": 0
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 400,
+      "duration_ms": 2.11,
+      "request_id": "ace80f1ed5364464b98c63b64cf94de2",
+      "response_summary": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "Invalid input: scenarios[0].site.lat_deg must be at least 0.01 degrees away from the poles.",
+          "details": [
+            {
+              "field": "scenarios[0].site.lat_deg",
+              "reason": "must be at least 0.01 degrees away from the poles"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "lat_deg": 0,
+              "lon_east_deg": 360
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 400,
+      "duration_ms": 2.12,
+      "request_id": "35f1f1e22c47499daccda2b30b036297",
+      "response_summary": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "message": "Invalid input: scenarios[0].site.lon_east_deg must be at least 0 and less than 360.",
+          "details": [
+            {
+              "field": "scenarios[0].site.lon_east_deg",
+              "reason": "must be at least 0 and less than 360"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 8760
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "apollo-11"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 8760
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 413,
+      "duration_ms": 2.48,
+      "request_id": "9b69356037f244e8bbe9e456e8750861",
+      "response_summary": {
+        "error": {
+          "code": "RANGE_TOO_LARGE",
+          "message": "Too many time samples in this request (105,122; max 60,000): use a larger step or shorter missions.",
+          "details": [
+            {
+              "field": "scenarios",
+              "reason": "105122 samples requested, max 60000 per request"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/skyline?lat_deg=0&lon_east_deg=0",
+      "request": null,
+      "status": 422,
+      "duration_ms": 2.28,
+      "request_id": "932dd8a916274c60864e7b57a38f8998",
+      "response_summary": {
+        "error": {
+          "code": "NOT_IN_COVERAGE",
+          "message": "No terrain data covers this point; only the geometric horizon applies here.",
+          "details": [
+            {
+              "field": "lat_deg",
+              "reason": "geometric horizon only"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/sweep",
+      "request": {
+        "site": {
+          "site_id": "apollo-11"
+        },
+        "range_start": "2027-03-01",
+        "range_end": "2027-08-31",
+        "mission_hours": 240,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 11.79,
+      "request_id": "f314bf5fc0624ff593eb352743830c98",
+      "response_summary": {
+        "contract_version": "1.1",
+        "meta": {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "geometric",
+          "dem": null,
+          "step_minutes": 30.0,
+          "observer_height_m": 2.0,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+          "computed_at": "2026-11-15T09:52:35Z",
+          "data_label": "REAL"
+        },
+        "site": {
+          "site_id": "apollo-11",
+          "name": "Apollo 11 lunar-module landing site",
+          "lat_deg": 0.67416,
+          "lon_east_deg": 23.47314
+        },
+        "days_count": 60,
+        "top": [
+          "2027-03-14",
+          "2027-03-15",
+          "2027-03-16",
+          "2027-03-17",
+          "2027-03-18"
+        ],
+        "days": [
+          {
+            "date": "2027-03-01",
+            "rank": 51,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-02",
+            "rank": 52,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-03",
+            "rank": 53,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-04",
+            "rank": 48,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-05",
+            "rank": 44,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-06",
+            "rank": 40,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-07",
+            "rank": 36,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-08",
+            "rank": 32,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-09",
+            "rank": 28,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-10",
+            "rank": 24,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-11",
+            "rank": 20,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-12",
+            "rank": 16,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-13",
+            "rank": 12,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-14",
+            "rank": 1,
+            "refined": true,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-15",
+            "rank": 2,
+            "refined": true,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-16",
+            "rank": 3,
+            "refined": true,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-17",
+            "rank": 4,
+            "refined": true,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-18",
+            "rank": 5,
+            "refined": true,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-19",
+            "rank": 13,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-20",
+            "rank": 17,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-03-21",
+            "rank": 21,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-22",
+            "rank": 25,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-23",
+            "rank": 29,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-24",
+            "rank": 33,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-25",
+            "rank": 37,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-26",
+            "rank": 41,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-27",
+            "rank": 45,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-28",
+            "rank": 49,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-29",
+            "rank": 54,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-30",
+            "rank": 55,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-03-31",
+            "rank": 56,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-01",
+            "rank": 57,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-02",
+            "rank": 50,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-03",
+            "rank": 46,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-04",
+            "rank": 42,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-05",
+            "rank": 38,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-06",
+            "rank": 34,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-07",
+            "rank": 30,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-08",
+            "rank": 26,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-09",
+            "rank": 22,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-10",
+            "rank": 18,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-11",
+            "rank": 14,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-12",
+            "rank": 6,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-13",
+            "rank": 7,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-14",
+            "rank": 8,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-15",
+            "rank": 9,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-16",
+            "rank": 10,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-17",
+            "rank": 11,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-18",
+            "rank": 15,
+            "refined": false,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            }
+          },
+          {
+            "date": "2027-04-19",
+            "rank": 19,
+            "refined": false,
+            "verdict": {
+              "level": "amber",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-20",
+            "rank": 23,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-21",
+            "rank": 27,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-22",
+            "rank": 31,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-23",
+            "rank": 35,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-24",
+            "rank": 39,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-25",
+            "rank": 43,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-26",
+            "rank": 47,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-27",
+            "rank": 58,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-28",
+            "rank": 59,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          },
+          {
+            "date": "2027-04-29",
+            "rank": 60,
+            "refined": false,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/sweep",
+      "request": {
+        "site": {
+          "site_id": "apollo-11"
+        },
+        "range_start": "2027-03-01",
+        "range_end": "2027-08-31",
+        "mission_hours": 240,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 413,
+      "duration_ms": 19.77,
+      "request_id": "799890cc63d04088bd76882733cf2fe6",
+      "response_summary": {
+        "error": {
+          "code": "RANGE_TOO_LARGE",
+          "message": "Date range must be 183 days or less.",
+          "details": [
+            {
+              "field": "range_end",
+              "reason": "range longer than 183 days"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "lat_deg": -85,
+              "lon_east_deg": 180
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "lat_deg": -85,
+              "lon_east_deg": 180
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 500,
+      "duration_ms": 120.49,
+      "request_id": "94f79dc31a3b484e88eb0e2aacb753d4",
+      "response_summary": {
+        "error": {
+          "code": "INTERNAL",
+          "message": "Terrain data is not available on this server for points inside south-pole DEM coverage (south of 80.7 S). No result was computed.",
+          "details": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "request_id": "f8005a2867c64a3393b69fd9310b3187",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:53:08Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441,
+            "first_t_unix": 1803859200,
+            "last_t_unix": 1804723200
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:53:08Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441,
+            "first_t_unix": 1803859200,
+            "last_t_unix": 1804723200
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": 0.0,
+          "sun_el_mean_up_deg": null,
+          "sun_hours": 0.0,
+          "sun_pct": 0.0,
+          "earth_hours": 0.0,
+          "earth_pct": 0.0,
+          "both_hours": 0.0,
+          "both_pct": 0.0,
+          "longest_dark_h": 0.0,
+          "longest_blackout_h": 0.0
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification."
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-14T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "request_id": "c63b99f14012436b9bb865b62b492e2a",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:53:08Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441,
+            "first_t_unix": 1803859200,
+            "last_t_unix": 1804723200
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "2bfeff7d3cb9d02035687d894ea718c0a009579f8a23e480651fdb9e4a30a172",
+              "computed_at": "2026-11-15T09:53:08Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": 4.199,
+              "sun_el_mean_up_deg": 3.325,
+              "sun_hours": 222.3,
+              "sun_pct": 92.6,
+              "earth_hours": 227.7,
+              "earth_pct": 94.9,
+              "both_hours": 210.0,
+              "both_pct": 87.5,
+              "longest_dark_h": 17.7,
+              "longest_blackout_h": 12.3
+            },
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "windows": {
+              "sun": [
+                {
+                  "start": "2027-03-14T17:39:56Z",
+                  "end": "2027-03-24T00:00:00Z",
+                  "hours": 222.3,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "earth": [
+                {
+                  "start": "2027-03-14T00:00:00Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 227.7,
+                  "start_censored": true,
+                  "end_censored": false
+                }
+              ],
+              "both": [
+                {
+                  "start": "2027-03-14T17:39:56Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 210.0,
+                  "start_censored": false,
+                  "end_censored": false
+                }
+              ]
+            },
+            "series_count": 1441,
+            "first_t_unix": 1804982400,
+            "last_t_unix": 1805846400
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": -7.099,
+          "sun_el_mean_up_deg": null,
+          "sun_hours": -222.3,
+          "sun_pct": -92.6,
+          "earth_hours": 1.0,
+          "earth_pct": 0.4,
+          "both_hours": -210.0,
+          "both_pct": -87.5,
+          "longest_dark_h": 222.3,
+          "longest_blackout_h": -1.0
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification."
+        ]
+      }
+    }
+  ],
+  "scope": "Actual P1 HTTP requests/responses summarized without bulk series/skyline arrays. checks preserves partial-data observations; full_terrain_checks records REAL near-plus-far API evidence. Timings may be cached; browser/device acceptance is not inferred.",
+  "full_terrain_checks": [
+    {
+      "path": "/health",
+      "request": null,
+      "status": 200,
+      "duration_ms": 102.14,
+      "request_id": "65cf29c8a0c2451da6282acaf5a3581b",
+      "response_summary": {
+        "status": "ok",
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "kernels_loaded": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "dems_loaded": [
+          "far_160m.tif",
+          "im2-athena.tif",
+          "im2-intended.tif",
+          "lcross-impact.tif"
+        ],
+        "mock": false,
+        "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880"
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 107.4,
+      "request_id": "d33ced5a9cdf4fb789a675f4589a0603",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:50Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:50Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": 0.0,
+          "sun_el_mean_up_deg": null,
+          "sun_hours": 0.0,
+          "sun_pct": 0.0,
+          "earth_hours": 0.0,
+          "earth_pct": 0.0,
+          "both_hours": 0.0,
+          "both_pct": 0.0,
+          "longest_dark_h": 0.0,
+          "longest_blackout_h": 0.0
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification."
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "date_shift",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-01T00:00:00Z",
+            "mission_hours": 240
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-14T00:00:00Z",
+            "mission_hours": 240
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 89.08,
+      "request_id": "126cdc1c14b8489e992bfde4344fd003",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:50Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": -2.9,
+              "sun_el_mean_up_deg": null,
+              "sun_hours": 0.0,
+              "sun_pct": 0.0,
+              "earth_hours": 228.7,
+              "earth_pct": 95.3,
+              "both_hours": 0.0,
+              "both_pct": 0.0,
+              "longest_dark_h": 240.0,
+              "longest_blackout_h": 11.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [],
+              "earth": [
+                {
+                  "start": "2027-03-01T11:18:36Z",
+                  "end": "2027-03-11T00:00:00Z",
+                  "hours": 228.7,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": []
+            },
+            "series_count": 1441
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:50Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": 4.199,
+              "sun_el_mean_up_deg": 3.325,
+              "sun_hours": 222.4,
+              "sun_pct": 92.7,
+              "earth_hours": 227.7,
+              "earth_pct": 94.9,
+              "both_hours": 210.1,
+              "both_pct": 87.5,
+              "longest_dark_h": 17.6,
+              "longest_blackout_h": 12.3
+            },
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "windows": {
+              "sun": [
+                {
+                  "start": "2027-03-14T17:37:45Z",
+                  "end": "2027-03-24T00:00:00Z",
+                  "hours": 222.4,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "earth": [
+                {
+                  "start": "2027-03-14T00:00:00Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 227.7,
+                  "start_censored": true,
+                  "end_censored": false
+                }
+              ],
+              "both": [
+                {
+                  "start": "2027-03-14T17:37:45Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 210.1,
+                  "start_censored": false,
+                  "end_censored": false
+                }
+              ]
+            },
+            "series_count": 1441
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": -7.099,
+          "sun_el_mean_up_deg": null,
+          "sun_hours": -222.4,
+          "sun_pct": -92.7,
+          "earth_hours": 1.0,
+          "earth_pct": 0.4,
+          "both_hours": -210.1,
+          "both_pct": -87.5,
+          "longest_dark_h": 222.4,
+          "longest_blackout_h": -1.0
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification."
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/compare",
+      "request": {
+        "mode": "site_vs_site",
+        "scenarios": [
+          {
+            "id": "A",
+            "label": "A",
+            "site": {
+              "site_id": "im2-athena"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 708
+          },
+          {
+            "id": "B",
+            "label": "B",
+            "site": {
+              "site_id": "im2-intended"
+            },
+            "start_utc": "2027-03-15T00:00:00Z",
+            "mission_hours": 708
+          }
+        ],
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 464.29,
+      "request_id": "1a5ed2713da2466ea9e79f267969dc79",
+      "response_summary": {
+        "contract_version": "1.1",
+        "scenarios": [
+          {
+            "id": "A",
+            "site": {
+              "site_id": "im2-athena",
+              "name": "IM-2 Athena landing site (Mons Mouton region)",
+              "lat_deg": -84.7906,
+              "lon_east_deg": 29.1957
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:51Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": 4.199,
+              "sun_el_mean_up_deg": 2.953,
+              "sun_hours": 274.4,
+              "sun_pct": 38.8,
+              "earth_hours": 585.7,
+              "earth_pct": 82.7,
+              "both_hours": 203.7,
+              "both_pct": 28.8,
+              "longest_dark_h": 411.6,
+              "longest_blackout_h": 122.3
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-25T23:26:45Z",
+                  "hours": 263.4,
+                  "start_censored": true,
+                  "end_censored": false
+                },
+                {
+                  "start": "2027-03-26T21:28:58Z",
+                  "end": "2027-03-27T08:24:05Z",
+                  "hours": 10.9,
+                  "start_censored": false,
+                  "end_censored": false
+                }
+              ],
+              "earth": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 203.7,
+                  "start_censored": true,
+                  "end_censored": false
+                },
+                {
+                  "start": "2027-03-28T13:58:03Z",
+                  "end": "2027-04-13T12:00:00Z",
+                  "hours": 382.0,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-23T11:41:39Z",
+                  "hours": 203.7,
+                  "start_censored": true,
+                  "end_censored": false
+                }
+              ]
+            },
+            "series_count": 4249
+          },
+          {
+            "id": "B",
+            "site": {
+              "site_id": "im2-intended",
+              "name": "IM-2 intended landing site (Mons Mouton region)",
+              "lat_deg": -84.78,
+              "lon_east_deg": 29.13
+            },
+            "meta": {
+              "ephemeris": "SPICE DE440 (JPL NAIF)",
+              "kernels": [
+                "naif0012.tls",
+                "de440s.bsp",
+                "pck00011.tpc",
+                "moon_pa_de440_200625.bpc",
+                "moon_de440_250416.tf"
+              ],
+              "horizon_mode": "terrain",
+              "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+              "step_minutes": 10.0,
+              "observer_height_m": 2.0,
+              "app_version": "0.1.0",
+              "contract_version": "1.1",
+              "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+              "computed_at": "2026-11-15T10:08:51Z",
+              "data_label": "REAL"
+            },
+            "metrics": {
+              "sun_el_max_deg": 4.21,
+              "sun_el_mean_up_deg": 3.15,
+              "sun_hours": 257.8,
+              "sun_pct": 36.4,
+              "earth_hours": 585.8,
+              "earth_pct": 82.7,
+              "both_hours": 203.6,
+              "both_pct": 28.8,
+              "longest_dark_h": 450.2,
+              "longest_blackout_h": 122.2
+            },
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "windows": {
+              "sun": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-25T17:50:22Z",
+                  "hours": 257.8,
+                  "start_censored": true,
+                  "end_censored": false
+                }
+              ],
+              "earth": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-23T11:36:17Z",
+                  "hours": 203.6,
+                  "start_censored": true,
+                  "end_censored": false
+                },
+                {
+                  "start": "2027-03-28T13:48:08Z",
+                  "end": "2027-04-13T12:00:00Z",
+                  "hours": 382.2,
+                  "start_censored": false,
+                  "end_censored": true
+                }
+              ],
+              "both": [
+                {
+                  "start": "2027-03-15T00:00:00Z",
+                  "end": "2027-03-23T11:36:17Z",
+                  "hours": 203.6,
+                  "start_censored": true,
+                  "end_censored": false
+                }
+              ]
+            },
+            "series_count": 4249
+          }
+        ],
+        "deltas": {
+          "sun_el_max_deg": -0.011,
+          "sun_el_mean_up_deg": -0.197,
+          "sun_hours": 16.6,
+          "sun_pct": 2.4,
+          "earth_hours": -0.1,
+          "earth_pct": 0.0,
+          "both_hours": 0.1,
+          "both_pct": 0.0,
+          "longest_dark_h": -38.6,
+          "longest_blackout_h": 0.1
+        },
+        "limitations": [
+          "Visibility uses the centre of the Sun and Earth; partially visible disks are not modelled.",
+          "Sunlight is not power and Earth in view is not a radio link (no watts, no link budget).",
+          "Terrain beyond the DEM edge and features smaller than a DEM pixel are ignored.",
+          "Planning and education aid only: not a landing-safety certification."
+        ]
+      }
+    },
+    {
+      "path": "/api/v1/sweep",
+      "request": {
+        "site": {
+          "site_id": "im2-athena"
+        },
+        "range_start": "2027-03-01",
+        "range_end": "2027-04-29",
+        "mission_hours": 240,
+        "observer_height_m": 2,
+        "thresholds": {
+          "sun_pct_min": 50,
+          "earth_pct_min": 50,
+          "dark_gap_h_max": 48,
+          "blackout_h_max": 72
+        }
+      },
+      "status": 200,
+      "duration_ms": 479.89,
+      "request_id": "3a0964e54caa4adfac0b757fb9d4e2c3",
+      "response_summary": {
+        "contract_version": "1.1",
+        "site": {
+          "site_id": "im2-athena",
+          "name": "IM-2 Athena landing site (Mons Mouton region)",
+          "lat_deg": -84.7906,
+          "lon_east_deg": 29.1957
+        },
+        "meta": {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "terrain",
+          "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+          "step_minutes": 30.0,
+          "observer_height_m": 2.0,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "392049a4d518072835eb4176f86589de33fe2511fc712c483b7c1548a63e8880",
+          "computed_at": "2026-11-15T10:08:51Z",
+          "data_label": "REAL"
+        },
+        "days_count": 60,
+        "top": [
+          "2027-03-14",
+          "2027-03-15",
+          "2027-03-13",
+          "2027-03-16",
+          "2027-04-12"
+        ],
+        "days": [
+          {
+            "date": "2027-03-01",
+            "rank": 45,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-02",
+            "rank": 46,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-03",
+            "rank": 47,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-04",
+            "rank": 48,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-05",
+            "rank": 35,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-06",
+            "rank": 31,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-07",
+            "rank": 27,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-08",
+            "rank": 23,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-09",
+            "rank": 19,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-10",
+            "rank": 15,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-11",
+            "rank": 11,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-12",
+            "rank": 8,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-13",
+            "rank": 3,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "refined": true
+          },
+          {
+            "date": "2027-03-14",
+            "rank": 1,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "refined": true
+          },
+          {
+            "date": "2027-03-15",
+            "rank": 2,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "refined": true
+          },
+          {
+            "date": "2027-03-16",
+            "rank": 4,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "refined": true
+          },
+          {
+            "date": "2027-03-17",
+            "rank": 6,
+            "verdict": {
+              "level": "amber",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-18",
+            "rank": 13,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-19",
+            "rank": 17,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "earth_pct_min",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-20",
+            "rank": 21,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "earth_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-21",
+            "rank": 25,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "earth_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-22",
+            "rank": 29,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "earth_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-23",
+            "rank": 33,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "earth_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-24",
+            "rank": 37,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-25",
+            "rank": 39,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-26",
+            "rank": 41,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-27",
+            "rank": 43,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-28",
+            "rank": 49,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-29",
+            "rank": 50,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-30",
+            "rank": 51,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-03-31",
+            "rank": 52,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-01",
+            "rank": 53,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-02",
+            "rank": 54,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-03",
+            "rank": 55,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-04",
+            "rank": 34,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-05",
+            "rank": 30,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-06",
+            "rank": 26,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-07",
+            "rank": 22,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-08",
+            "rank": 18,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-09",
+            "rank": 14,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-10",
+            "rank": 10,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-11",
+            "rank": 9,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-12",
+            "rank": 5,
+            "verdict": {
+              "level": "green",
+              "failed": []
+            },
+            "refined": true
+          },
+          {
+            "date": "2027-04-13",
+            "rank": 7,
+            "verdict": {
+              "level": "amber",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-14",
+            "rank": 12,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-15",
+            "rank": 16,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-16",
+            "rank": 20,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-17",
+            "rank": 24,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-18",
+            "rank": 28,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-19",
+            "rank": 32,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-20",
+            "rank": 36,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-21",
+            "rank": 38,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max",
+                "blackout_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-22",
+            "rank": 40,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-23",
+            "rank": 42,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-24",
+            "rank": 44,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-25",
+            "rank": 56,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-26",
+            "rank": 57,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-27",
+            "rank": 58,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-28",
+            "rank": 59,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          },
+          {
+            "date": "2027-04-29",
+            "rank": 60,
+            "verdict": {
+              "level": "red",
+              "failed": [
+                "sun_pct_min",
+                "dark_gap_h_max"
+              ]
+            },
+            "refined": false
+          }
+        ]
+      }
+    }
+  ]
+}

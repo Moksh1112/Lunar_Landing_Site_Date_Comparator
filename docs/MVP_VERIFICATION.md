@@ -1,5 +1,43 @@
 # MVP verification ledger — 15 November 2026
 
+## P1 takeover evidence scope - 15 November 2026
+
+Final fetch confirms integration `3721130` contains current owner heads `7d6ac55`
+and `6310e18`. Source CI `43701473118` and hosted P1 run
+[43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533)
+passed seven jobs. The owner had already merged the UI milestone; P1 fast-forwarded
+without creating a new merge. Its nav/buttons/copy still need current UI acceptance.
+Backend/API evidence below was produced against unchanged `7d6ac55`. New takeover
+checks and actual HTTP source modes are recorded in
+[TAKEOVER_VERIFICATION_2026-11-15.md](TAKEOVER_VERIFICATION_2026-11-15.md).
+
+The fresh-clone startup check is SYNTHETIC. Separately, real health/network responses
+confirm five freshly acquired SPICE kernels and contract 1.1; Apollo 240 h date-shift,
+A-minus-B metrics (including null), empty/full censored windows, input rejections and
+a 60-day geometric sweep were exercised. These API checks do not certify UI countdowns,
+slow-network handling, cross-view synchronization or full terrain performance.
+
+Near-only Athena tiles returned REAL/terrain without a far DEM. This conflicts with
+the contract's near+far terrain definition and needs the backend owner. Partial-data
+API checks gave RED at B=2027-03-01 and GREEN at B=2027-03-14, +210.0 h both-visible
+for B. They do not replace the owner's +210.1 h near+far browser evidence. V4 FAIL
+and V6 owner-review scope are unchanged. No feature is promoted to full acceptance.
+
+After documented far-DEM preparation and a fresh restart, P1 independently reproduced
+the +210.1 h RED/GREEN challenge result through the REAL near+far API, two polar-site
+708 h comparisons, and a 60-day terrain sweep (479.89 ms observed on this host).
+This adds complete-data API evidence; browser/device and deployed acceptance remain open.
+
+Current library coordinates match the opened primary source pages; see
+[the site-source review](evidence/SITE_SOURCE_REVIEW_2026-11-15.md). International
+and separate commercial coverage are absent; the intended target and impact reference
+are not two additional actual landings. F1 breadth remains partial.
+
+P1 changes root tooling/CI and integration docs only. Implementation and acceptance
+tasks for the all-rounder, P1 and human/device reviewers are assigned in the single
+current list at the top of [PROGRESS.md](PROGRESS.md). Earlier dated evidence below
+retains its original revision/source scope.
+
 ## Latest simulator qualification update — 15 November 2026
 
 Frontend `414e7dd` is integrated by `acbf22a`; hosted CI passed seven of seven jobs on both
@@ -48,19 +86,19 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 
 | PRD feature | Implementation/evidence | Remaining acceptance |
 | --- | --- | --- |
-| F1 Library | Ten sourced entries; live API and browser picker show all ten after restart | International/commercial breadth; official sources only |
-| F2 Coordinates | Real custom coordinate comparison and sweep exercised | Complete edge-case checklist |
+| F1 Library | Ten entries in real API; P1 primary-source transcription audit matches all ten (six Apollo, three CLPS, impact reference) | International/commercial breadth; intended target and impact are not actual landings |
+| F2 Coordinates | Real custom coordinate comparison/sweep; takeover API rejects exact pole and east longitude 360 with 400 INVALID_INPUT | Complete edge-case and browser checklist |
 | F3 Map | Sourced polar and global assets integrated | Final cross-device map interaction pass |
-| F4 Two plans | Real A/B comparison; owner-reported REAL/terrain simulator challenge: B=2027-03-14 GREEN at 240 h | Independent rerun and user-owned deployed rehearsal |
-| F5 Mission length | 240 h Best Date and 240 h REAL/terrain simulator challenge exercised; 708 h comparison supported | Full mission/input-limit checklist |
+| F4 Two plans | P1 fresh-clone REAL near+far API reproduces revised challenge RED/GREEN and +210.1 h for B; browser evidence remains owner-reported | Independent revised browser journey and user-owned deployed rehearsal |
+| F5 Mission length | 240 h and 708 h prior evidence; takeover API rejects 8761 h and aggregate sample overflow with 413 | Full mission/date-limit and browser checklist |
 | F6 Presets | Site-vs-site and free-mode handoff exercised; date-shift code/tests present | Fresh browser date-shift regression |
-| F7 Best date | Live three-day polar sweep, March 15–17 2027, 240 h; ranked green/green/amber | Broader/slow-range acceptance |
+| F7 Best date | Takeover REAL geometric and near+far 60-day sweeps (Mar 1-Apr 29 2027, 240 h); terrain observed 479.89 ms on one host; >183-day rejection | Slow-network/device, broader range extremes and UI error acceptance |
 | F8 Ephemeris | SPICE runtime; full V1/V2 evidence passes; V6 owner qualitative spot check passed | No external scientific certification is claimed |
 | F9 Skyline | Real near-field + far terrain in sweep and Plan B | Scientific V4 discrepancy |
-| F10 Coverage modes | Starter explicitly coarse; Plan B 20 m near + 160 m far | Complete edge/coverage checklist |
+| F10 Coverage modes | Prior coarse/near+far evidence; takeover near-only returns terrain without far DEM | Owner resolves partial-data mode mismatch; complete tile/coverage checklist |
 | F11 Visibility | Computed windows; V3/V5 mathematical tests | Scientific V4 discrepancy |
-| F12 Metrics/countdowns | Browser real comparison shows metrics and event countdowns | Complete censored-event browser checklist |
-| F13 Deltas | Real +13.7 h headline; signed A-minus-B metric table | Complete visual sign review |
+| F12 Metrics/countdowns | Prior browser countdowns; takeover REAL geometric empty/full censored windows verified through API | Complete censored-event browser/countdown checklist |
+| F13 Deltas | Prior real headline/table; takeover REAL API A-minus-B arithmetic, null mean-up and opposite signs checked | Complete visual sign and threshold interaction review |
 | F14 Verdicts | Real sweep produced different verdicts; threshold tests retained | Fresh keyboard threshold interaction |
 | F15 Panorama | Both real skylines and response paths displayed | Complete scrubber interaction pass |
 | F16 Timeline | Real Sun/Earth/both/difference lanes displayed | Fresh date-alignment regression |

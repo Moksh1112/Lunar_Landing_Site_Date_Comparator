@@ -1,12 +1,13 @@
-# Azelux — lunar site/date comparator
+# Azelux - lunar site/date comparator
 
-Compare two lunar scenarios for Sun/Earth visibility, terrain horizon and overlapping
-windows. The integrated frontend provides Compare, Best Date, Methods, CSV/JSON
-exports and a printable Report. No AI or database is part of the product.
+Compare two lunar plans using local SPICE ephemeris and sourced terrain horizons.
+The comparator provides panoramas, timelines, shared playback, Best Date, provenance,
+CSV/JSON and a printable report. The optional learning simulator is at `/landing`.
+No runtime AI, database, authentication or uploads are required in v1.
 
 ## Start locally
 
-Requirements: Node 20.19+, npm, uv and Python 3.12 (3.11 fallback supported by setup).
+Requirements: Node 20.19+, npm, uv and Python 3.12 (3.11 fallback supported).
 
 ```sh
 npm run setup
@@ -14,12 +15,13 @@ npm run hooks
 npm run dev:s0
 ```
 
-Open http://127.0.0.1:5173/; backend health is http://127.0.0.1:8000/health.
-`dev:s0` explicitly selects synthetic frontend and backend modes; no NASA files are
-needed. Fixture responses are fixed examples and do not reflect the coordinates or
-dates submitted. Ctrl+C stops both modules.
+Open http://127.0.0.1:5173/; health is http://127.0.0.1:8000/health.
+`dev:s0` explicitly selects SYNTHETIC frontend/backend fixtures. Their fixed results
+do not reflect submitted inputs. Ctrl+C stops both modules. Stop running Python/Vite
+processes belonging to this checkout before rerunning setup; Windows can lock their files.
+The proposed setup fix preserves an existing venv; CI checks repeat setup in both modes.
 
-On managed Windows where Application Control blocks venv launchers:
+On managed Windows where generated venv launchers are blocked:
 
 ```powershell
 $env:AZX_PYTHON_MODE = 'target'
@@ -27,29 +29,30 @@ npm run setup
 npm run dev:s0
 ```
 
-Target mode uses an approved base interpreter with isolated dependencies; it does not
-change OS protections or install packages into system Python. No venv activation is
-needed for npm checks. `npm run dev:all` honors configured environment settings and
-can request real services; it is not a claim of real-data readiness.
+Target mode isolates dependencies without changing OS protections. Setup records the
+selected interpreter; no manual activation is needed for npm checks.
 
-## Dependencies and configuration
+## Real data and reproducibility
 
-Backend authority: `backend/pyproject.toml` plus `backend/uv.lock`. Setup exports the
-locked runtime/dev dependencies with uv and installs them with hashes into the
-selected environment. Frontend dependencies use `frontend/package-lock.json` and
-`npm ci`. React 19.2 is an approved tooling deviation; details in
-[alignment](docs/SPEC_ALIGNMENT.md).
+A clone contains no runtime kernels, DEMs or acquired imagery. Set `AZX_DATA_DIR` to
+an absolute non-cloud directory outside the repository, for example `R:/azelux-data`.
+Follow [data acquisition and real startup](docs/NON_RELEASE_HANDOFF.md), then verify
+actual `/health` resource lists and response provenance. `mock=false` alone does not
+prove terrain readiness. Do not reuse another machine's local configuration or data paths.
 
-`.env.example` describes settings. Never commit real .env files, kernels, rasters,
-caches or secrets. Set `AZX_DATA_DIR` to an absolute path outside cloud-sync folders
-(e.g. `C:/azelux-data`) for actual datasets: gitignore does not prevent OneDrive sync.
-Keep CORS origins exact. Do not mix localhost and 127.0.0.1 unintentionally.
+The takeover reproduced real geometric and near+far polar comparisons from freshly
+acquired data, including a 60-day terrain sweep. Near-only startup also exposed a
+`terrain` mode/contract mismatch when far terrain is absent. Remaining acceptance is tracked
+in [the current progress board](docs/PROGRESS.md); detailed checks are in
+[the takeover verification](docs/TAKEOVER_VERIFICATION_2026-11-15.md).
 
-## Checks
+## Checks and dependency authority
 
 ```sh
 npm run check:setup
 npm run check:fixtures
+npm run check:dependencies
+npm run check
 npm --prefix frontend run lint
 npm --prefix frontend test -- --run
 npm --prefix frontend run build
@@ -57,72 +60,40 @@ npm run check:backend
 npm run check:startup
 ```
 
-Stop the preview before `check:startup`; it needs ports 5173/8000 free and checks
-startup/shutdown only. CI runs on all branch pushes and PRs: frontend, backend,
-fixtures, attribution guard, secret scan and startup in venv/target modes. Data-dependent
-backend tests may skip without datasets; skips do not validate real science.
+Stop previews before `check:startup`; it needs ports 5173/8000 free. It checks synthetic
+startup/shutdown, not feature or scientific acceptance. Full backend lint/tests use:
 
-## Current capabilities and limits
+```sh
+node scripts/python.mjs -m ruff check backend
+node scripts/python.mjs -m pytest -c backend/pyproject.toml backend/tests -q -rs
+```
 
-- Compare: A/B inputs and presets, panorama, aligned timelines, scrubber, metrics,
-  verdicts, countdowns, Simple/Expert views and raw-data tables.
-- Best Date: calendar/ranking and Load as Plan B; Methods: labelled validation
-  artifacts; Report: CSV/JSON downloads and print styles.
-- Map: schematic coordinate picker and library pins. Lunar basemap imagery and
-  raster sign/georeferencing verification are unavailable; no Earth tiles are used.
-  The coverage outline does not certify terrain availability for an arbitrary site.
-- Current app preview is SYNTHETIC. The Methods artifact is a REAL-input,
-  owner-reported Horizons spot check (one site, six times), not full V1/V2/V4.
-- Runtime ephemeris is SPICE; Horizons is offline validation only. Deltas are A minus B.
-  Geometric mode must say "geometric horizon only". Fixtures are never real data.
-- 3D remains gated. No deployment, science acceptance or Sync pass is implied by CI.
-- Planning/education aid only: no safety certification, wattage prediction or
-  guaranteed communication link.
+Backend dependency authority is `backend/pyproject.toml` plus `backend/uv.lock`;
+frontend uses `frontend/package-lock.json`. Setup uses locked, hashed installs.
+CI has seven jobs, including synthetic startup in venv/target modes. Dataset-dependent
+skips do not validate science. Configuration names: `.env.example`; never commit actual
+env files, secrets, kernels, rasters or caches. Use exact CORS origins.
 
-Owner print-engine evidence and screenshots are in `frontend/docs/`; P1's embedded
-browser did not expose interactive print preview. See [progress](docs/PROGRESS.md)
-for exact commits, independent checks and remaining tasks.
+## Methods, limits and ownership
 
-## Sources and ownership
+SPICE is runtime ephemeris; Horizons is offline validation only. Deltas are A minus B.
+Results must identify REAL/SYNTHETIC and actual terrain/coarse/geometric provenance;
+geometric mode is labelled "geometric horizon only". NASA SVS context imagery is for
+visualization, not science. Terrain 3D is optional; 2D remains available.
 
-Canonical documents: `docs/specs/` PRD v2.0, TRD v1.0, Playbook v4.1 and supplied kit;
-API baseline: [contract](docs/CONTRACT.md). `docs/archive/` is historical.
+V1/V2 live checks and V3/V5 mathematical checks are recorded; V6 is a P2-owner qualitative
+spot check. V4 remains FAIL (~6.2989 percentage points, target <=5). This is a planning
+and education aid: no landing-safety certification, watts or guaranteed communications.
+See [F1-F25 evidence](docs/MVP_VERIFICATION.md) and [release draft](docs/RELEASE_PREPARATION.md).
+Green CI does not pass an MVP or release gate.
 
-P1 owns integration, shared tooling/CI, lockfiles and integration docs. The acting
-frontend owner also has user-authorized supporting backend scope. Use separate
-worktrees and the three existing remote branches: `feat/p1-s0-integration`,
-`feat/p4-frontend-s0`, `feat/p2-p3-backend-terrain`. Never switch another owner's
-working directory or merge into integration from an owner task.
+P1 owns root tooling, CI, shared locks and integration docs. The all-rounder owns ALL
+backend/terrain and frontend implementation. Keep `feat/p1-s0-integration`,
+`feat/p2-p3-backend-terrain`, `feat/p4-frontend-s0` and preserve other branches/local edits.
+Human diff review precedes commit. Deployment, main merge, tags, submission and final
+acceptance require Moksh's explicit release authorization.
 
-Approved unblock decisions: [handoff](docs/FRONTEND_UNBLOCK_DECISIONS.md).
-Validation artifact interface: [validation](validation/README.md).
-Source provenance is required before real-data acceptance. Disclose actual AI
-assistance where the event requires it; do not invent scientific or verification claims.
-
-### Frontend checkpoint (15 November 2026)
-
-Frontend 9e3aff9 is integrated, including schematic sky rings, mission-day marker
-alignment and self-hosted font licences. This is not final visual acceptance: a new
-user-requested UI redesign is underway in the frontend owner's separate worktree.
-App results remain SYNTHETIC; owner-reported Horizons spot-check scope is unchanged.
-Current task status and exact checks: docs/PROGRESS.md.
-
-### Light lunar-atlas checkpoint
-
-Frontend d0a3d85 replaces the dark/serif checkpoint with a light system and compact
-plan editor. Backend 0d6f382 now returns an explicit error for covered polar points
-when terrain is unavailable. The owner demonstrated a REAL SPICE/geometric date
-shift, and P1 inspected its saved request/response/export evidence. Terrain-covered
-polar comparisons remain blocked by incomplete DEM downloads; default preview is
-still synthetic. This supersedes earlier theme descriptions, not scientific gates.
-
-## Temporary full-stack completion checkpoint
-
-Real terrain datasets are now available locally; prior missing-DEM descriptions are
-historical. Polar hillshade, whole-Moon visualization context and optional gated 3D
-are implemented. Current source/validation status and reproducible setup are in
-[the non-release takeover guide](docs/NON_RELEASE_HANDOFF.md).
-
-V4 currently fails one scientific comparison target and V6 review is incomplete.
-This build is not scientifically accepted or release-ready merely because CI passes.
-Release/deployment remains with the user.
+Canonical scope: `docs/specs/` PRD v2.0, TRD v1.0 and Playbook v4.1;
+API: [docs/CONTRACT.md](docs/CONTRACT.md); overrides: [alignment](docs/SPEC_ALIGNMENT.md).
+Root pointer files and `docs/archive/` are not active specifications. Disclose actual AI
+assistance honestly where required without inventing authorship or verification claims.
