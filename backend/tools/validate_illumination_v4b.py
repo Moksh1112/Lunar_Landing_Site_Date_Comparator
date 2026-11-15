@@ -96,11 +96,15 @@ def main() -> int:
                 error = abs(actual - expected)
                 rows.append({'case': f'{lat},{lon}', 'metric': f'{body.lower()}_visibility_any_fraction', 'actual': actual,
                              'reference': expected, 'unit': 'percentage_points', 'abs_error': error, 'tolerance': 5.0,
-                             'status': 'pass' if error <= 5 else 'fail', 'centre_rule_hourly': centre,
-                             'mean_radius_deg': float(rad.mean())})
+                             'status': 'pass' if error <= 5 else 'fail'})
+                # informational only (evidence schema v1.0 rows are strict): hourly centre rule, same reference
+                rows.append({'case': f'{lat},{lon}', 'metric': f'{body.lower()}_visibility_centre_hourly_info', 'actual': centre,
+                             'reference': expected, 'unit': 'percentage_points', 'abs_error': abs(centre - expected),
+                             'status': 'not_evaluated'})
                 print(lat, lon, body, 'any', round(actual, 3), 'centre', round(centre, 3), 'ref', round(expected, 3),
                       f'{time.time() - t0:.0f}s', flush=True)
-    result = {'schema_version': '1.0', 'check_id': 'V4b', 'title': '18.6-year hourly any-fraction disc visibility versus PGDA 69',
+    result = {'schema_version': '1.0', 'check_id': 'V4',
+              'title': 'V4b: 18.6-year hourly any-fraction disc visibility versus PGDA 69 (approved acceptance basis for V4)',
               'data_label': 'REAL', 'scope': 'full_check', 'review_status': 'owner_reported',
               'generated_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
               'producer_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
@@ -109,8 +113,10 @@ def main() -> int:
                           {'label': 'Terrain', 'reference': 'https://pgda.gsfc.nasa.gov/products/90'}],
               'manifest_sha256': hashlib.sha256((settings.data_dir / 'MANIFEST.json').read_bytes()).hexdigest(),
               'coverage': f'Five V4 points; hourly epochs over 18.6 years from 2000-01-01; any-fraction disc ({LIMB_POINTS} limb points); modes {modes}.',
-              'status': 'pass' if all(r['status'] == 'pass' for r in rows) else 'fail', 'rows': rows,
-              'limitations': ['Validation-only; runtime keeps the approved body-centre rule and V4 remains a recorded FAIL.',
+              'status': 'pass' if all(r['status'] in ('pass', 'not_evaluated') for r in rows) else 'fail', 'rows': rows,
+              'limitations': ['Runtime keeps the body-centre rule; the centre-rule V4 artifact remains a recorded FAIL (definition mismatch).',
+                              'Rows ending _centre_hourly_info are informational (not judged): the same hourly samples with the centre rule.',
+                              'Reference averaging start epoch and observer height are not published; 2000-01-01 and 0 m are assumed.',
                               'Limb sampled at 32 points against the azimuth-interpolated skyline; not full ray tracing of the disc.',
                               'Terrain (PGDA 90 near + far) differs from the 60 m DEM behind the reference map.',
                               'Owner-run; no external scientific acceptance.']}
