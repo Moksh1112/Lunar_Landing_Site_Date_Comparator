@@ -136,10 +136,11 @@ the offline briefing; Methods validation; the simulator debrief; a 375 px phone 
 | --- | --- | --- |
 | Schibsted Grotesk font | SIL OFL 1.1 (`frontend/src/theme/fonts/README.md`, OFL text bundled) | Recorded |
 | Moon texture | NASA SVS CGI Moon Kit (SVS 4720), public domain; credited in Home, tour and simulator | Recorded |
-| React Bits (Magnet, ClickSpark) | MIT + Commons Clause (`frontend/src/components/reactbits/LICENSE-NOTE.md`) | Recorded; not resold |
+| React Bits (Magnet, ClickSpark) | MIT + Commons Clause; full text in `frontend/src/components/reactbits/LICENSE-react-bits.md` and the notices | **Moksh:** confirm that vendoring the source in a public repository is acceptable, or replace the two components |
 | SPICE kernels, LOLA/PGDA DEMs and maps, Horizons | NASA/JPL/GSFC public data; cited in Methods and the data manifest; not in Git | Recorded |
-| Polar and global map assets | NASA sources (`NON_RELEASE_HANDOFF.md`). Source inspection confirms linked NASA citation above loaded imagery; rendered check pending | Source checked; rendered confirmation pending |
-| npm and Python dependencies | Per `frontend/package-lock.json` and `backend/uv.lock` | Inventory generated: docs/evidence/DEPENDENCY_LICENSES_2026-11-15.json (42148f6); refresh on frozen SHA and review notices |
+| Polar and global map assets | NASA LOLA/PGDA 90 hillshade and SVS 4720 context; the citation is visible and linked on the map when imagery loads (checked 15 Nov) | Done |
+| npm and Python dependencies | `THIRD_PARTY_NOTICES.txt` is generated from the 24 bundled frontend packages with their licence texts (`scripts/third_party_notices.mjs`). The full inventory is in `evidence/DEPENDENCY_LICENSES_2026-11-15.json`. Python packages run server-side and are not shipped to browsers | Done; regenerate when dependencies change |
+| GSAP 3.12.5 | GreenSock Standard no-charge licence (not MIT), referenced in the notices | **Moksh:** confirm compatibility (not sold) |
 | Project licence | Deferred by Moksh; no LICENSE added | Not a current engineering blocker; third-party terms remain |
 
 ## Review and publication sequence

@@ -1,6 +1,80 @@
 # Azelux progress and to-do board
 
-## Deployment-readiness checkpoint — 15 November 2026
+## Deployment-readiness status — 15 November 2026 (authoritative)
+
+**Candidate:** the `feat/p1-s0-integration` SHA in the commit that publishes this section, with
+its hosted CI link. That commit merges frontend `47642ae` on top of `729f228`. Nothing has been
+deployed, merged to main, tagged or submitted, and MVP acceptance is not claimed.
+
+### Passed (own checks, browser emulation; evidence linked)
+
+- **Final-build real smoke** on `729f228`, against a real backend (`mock:false`, 5 kernels, far
+  DEM + tiles, manifest `1dcb16ff…`). See `evidence/FINAL_SMOKE_2026-11-15.md`.
+  - **Journey:** Home → Compare → Athena date shift (A 2027-03-01, B 2027-03-14, 240 h: REAL
+    terrain, +210.1 h) → gap explanation and event jump → Best Date → Load as Plan B →
+    Compare → Report print preview → CSV, JSON and briefing.
+  - **Offline briefing:** keyboard scrubbing and jumps work with 0 requests.
+  - **Also checked:** Methods V4/V4b wording; Tour navigation; Simulator qualification and
+    handoff.
+- **Defect fixed (`47642ae`):** a same-origin build pointed basemap imagery at the visitor's
+  localhost. Now verified behind a proxy emulating the documented nginx routing: all requests
+  same-origin, the hillshade loads, deep links work.
+- **Third-party notices:** `THIRD_PARTY_NOTICES.txt` is generated from the 24 bundled packages
+  (`scripts/third_party_notices.mjs`).
+  - It adds the vendored React Bits terms, the font's OFL, an upstream react-three-fiber
+    licence (its npm package ships none) and the NASA credits.
+  - It is served with the build and linked from the footer.
+- **Map citation:** visible and linked in both map views when imagery loads.
+- **Layout shift:** CLS 0 with a reachable API (same-origin build, mobile Lighthouse 95/100). The
+  earlier 0.063 came from the "API unreachable" notice.
+- **Lighthouse:** cold mobile 91/93/94 Performance, 100 Accessibility (`PERFORMANCE_HOME_2026-11-15.md`).
+- **Deployment configuration prepared for review:** `DEPLOYMENT.md` and `deploy/`.
+
+### Pending: human and device checks (each needs real evidence or an explicit Moksh waiver)
+
+| Check (`USABILITY_TASKS.md`) | Status |
+| --- | --- |
+| Usability participant P-A | pending |
+| Usability participant P-B | pending |
+| Physical phone | pending |
+| Physical tablet | pending |
+| Firefox or Safari | pending |
+| Spoken screen reader (NVDA, VoiceOver or Narrator) | pending |
+| Slow-device Moon / terrain 3D and fallback | pending |
+| Physical print | optional (not required) |
+
+### Decisions for Moksh
+
+1. **Hosting choice and deployment authorization.** See the options in `DEPLOYMENT.md`; no host
+   or URL has been invented.
+2. **React Bits Commons Clause.** The licence allows use "as part of an application, website, or
+   product" but forbids redistributing "the components themselves … whether alone, in a
+   bundle". This public repository contains their source (`Magnet`, `ClickSpark`). Either accept
+   that reading or replace the two decorative components. This is a licence interpretation and
+   is not decided here.
+3. **GSAP 3.12.5** is under GreenSock's "Standard no-charge" licence, not MIT. It is listed in
+   the notices; confirm the use is compatible (Azelux is not sold).
+
+### Decisions already made, not engineering blockers
+
+- Keep the ten-site library.
+- The project licence is deferred (no LICENSE file).
+- V4b is adopted with its limits; V4 stays FAIL; runtime is unchanged.
+- A physical print is optional.
+
+### After authorized deployment
+
+Run PRD 13.3 twice on the deployed URL with the final datasets and record the following:
+
+- URL, SHA, health, source modes, manifest, browser and device;
+- direct routes and CORS;
+- a deployed Lighthouse run and CLS with the API reachable.
+
+Then complete the media, credits, AI-use statement and portal steps. Main merge, tags,
+submission and MVP acceptance need Moksh's authorization.
+
+## Superseded readiness checkpoint at `01f99c2` (history)
+
 
 Verified source: integration `01f99c2`, hosted CI [43724450530](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43724450530) SUCCESS. No newer remote integration was found during this check. Lighthouse evidence records cold mobile Performance 91/93/94 and Accessibility 100; desktop 100/100. These close the local emulated Lighthouse check, not physical-device or deployed performance.
 

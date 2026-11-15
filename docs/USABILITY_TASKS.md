@@ -18,7 +18,7 @@ not what they "should" do.
   - Confirm `http://127.0.0.1:8000/health` shows `"mock":false`.
   - Confirm no "SYNTHETIC DATA" banner is visible.
   - A phone on the same network needs the LAN address and a matching `AZX_CORS_ORIGINS`.
-- **After deployment authorization:** use the deployed URL and record it.
+- **After deployment authorization:** use the deployed URL and record it (setup: `docs/DEPLOYMENT.md`).
 
 ## Before you start
 

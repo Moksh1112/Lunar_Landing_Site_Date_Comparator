@@ -1,0 +1,20 @@
+# systemd unit for the Azelux backend (example for review). Install the backend with `uv sync --locked`
+# in /srv/azelux/current/backend first (Python 3.12; pyproject requires >=3.11,<3.13).
+[Unit]
+Description=Azelux backend (FastAPI + SPICE)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=azelux
+WorkingDirectory=/srv/azelux/current/backend
+EnvironmentFile=/etc/azelux/backend.env
+# One worker: rate limits are kept in process memory, so several workers would multiply them.
+ExecStart=/srv/azelux/current/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=5
+# The data directory must be on persistent storage; the skyline cache writes to <AZX_DATA_DIR>/cache.
+ReadWritePaths=/var/lib/azelux
+
+[Install]
+WantedBy=multi-user.target
