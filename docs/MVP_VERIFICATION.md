@@ -1,14 +1,32 @@
 # MVP verification ledger — 15 November 2026
 
-## Simulator qualification evidence — 15 November 2026
+## Latest simulator qualification update — 15 November 2026
 
-After integrating frontend `9c644a6`, the guided six-lesson demo was completed and the
-qualification UI submitted real requests to the non-mock backend (`/health` reported
-`mock:false`). IM-2 Athena, 708 h: Plan A 2027-03-01 vs Plan B 2027-03-15 returned RED;
-Plan B 2027-03-16 also returned RED. The debrief marked both results `terrain`; A Sun/Earth/
-both = 280.7/574.4/210.1 h and B = 272.8/585.7/202.1 h (A−B both = +8.0 h). This is
-live-path evidence only: the training challenge did not pass and this says nothing about
-landing safety. A green challenge outcome and manual usability review remain open.
+Frontend `414e7dd` is integrated by `acbf22a`; hosted CI passed seven of seven jobs on both
+the frontend branch (run `43695763208`) and integration (run `43696473842`). The frontend
+handoff reports the original training goal was impossible at IM-2 Athena for a 708 h mission:
+all Plan B start dates from 2027-03-01 through 2027-03-30 were RED under the unchanged
+verdict rules. Reported sunlight was 35.5–39.7%, with longest dark gaps 209.6–413.2 h and
+Earth blackout 87.3–122.3 h. This was a challenge-design mismatch, not evidence that the
+backend should be relaxed.
+
+The challenge now uses 240 h, initializes Plan B on Plan A's date, and leaves the user to
+search for a passing date. No scientific threshold, verdict logic, backend, or API contract
+was changed. The frontend owner reports a real-browser run: B=2027-03-01 RED, then B=2027-03-14
+GREEN; the terrain-mode debrief reported Plan B had 210.1 h more Sun-and-Earth-both-visible
+time. The source handoff identifies REAL data, terrain coverage, the Athena DEM, SPICE DE440,
+contract 1.1, and manifest hash `1dcb16ff…5175`. P1 reviewed the code and CI but did not
+independently repeat the browser test. Treat this as owner-reported live-path evidence, not a
+safety result or final MVP acceptance.
+
+## Prior P1 qualification observation before the 240 h fix — 15 November 2026
+
+P1's earlier real-backend 708 h browser run used Plan A 2027-03-01 and Plan B 2027-03-15,
+then 2027-03-16. Both returned RED; the debrief showed A/B Sun/Earth/both durations of
+280.7/574.4/210.1 h and 272.8/585.7/202.1 h (A−B both +8.0 h). These results are
+consistent with the later diagnosis that the 708 h challenge had no passing Plan B date.
+They are historical and do not describe the corrected 240 h challenge.
+
 ## Latest acceptance update — 15 November 2026
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read

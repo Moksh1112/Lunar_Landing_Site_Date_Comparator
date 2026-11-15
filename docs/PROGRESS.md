@@ -2,24 +2,28 @@
 
 ## Latest simulator integration — 15 November 2026
 
-Integrated frontend commit `9c644a6` (simulator journey fixes, evidence, screenshots) into
-`feat/p1-s0-integration`; merge commit currently `d232f34`. The frontend source commit's
-hosted CI run `43693356786` is SUCCESS (frontend, fixtures, secrets, attribution, backend,
-and both integration-startup jobs).
+Frontend `414e7dd` was integrated into `feat/p1-s0-integration` by merge `acbf22a`.
+Hosted CI passed all seven jobs for the frontend commit (run `43695763208`) and the
+integration merge (run `43696473842`). The local P1 worktree fast-forwarded to `acbf22a`;
+its pre-existing untracked `.claude/launch.json` was preserved.
 
-Verified the guided demo through all six lessons and used the qualification flow against the
-running local real backend. `/health` reported `mock:false`, contract 1.1, five kernels and
-four DEMs loaded; `/api/v1/sites` returned 10 sites. The live qualification requests used
-IM-2 Athena, 708 h: A 2027-03-01 versus B 2027-03-15 (RED), then B 2027-03-16 (RED).
-The debrief identified both responses as `terrain`: A Sun/Earth/both 280.7/574.4/210.1 h;
-B 272.8/585.7/202.1 h, A−B both +8.0 h. This proves a live terrain-backed UI journey,
-not a successful training challenge or safety finding. Real-data challenge did not pass.
+The frontend handoff diagnoses the earlier 708-hour qualification as unsolvable at IM-2
+Athena under the existing verdict rule: Plan B days 1–30 March 2027 all returned RED, with
+sunlight 35.5–39.7% and long dark/blackout intervals. The simulator challenge now uses a
+240-hour mission and starts Plan B at Plan A's day; no threshold, verdict, API contract or
+backend science was changed. A regression test covers the setup.
 
-Local checks on the merged tree: `npm run check` (strict TypeScript) and frontend lint passed.
-The frontend owner's CI is green. Local Vite build and Vitest could not create temporary
-config files under `frontend/node_modules/.vite-temp` (`EPERM`) while the OneDrive preview
-server was running. Do not report these local checks as passed; integration checkpoint 92dc6f4 hosted CI run 43694200641 completed SUCCESS across all seven jobs. V4 remains scientifically FAIL (~6.30 pp); release remains the
-user's responsibility.
+The frontend owner reports a real-backend browser check of the revised challenge: Plan B
+2027-03-01 returned RED, then 2027-03-14 returned GREEN. The debrief marked the responses
+REAL/terrain and reported 210.1 more hours with Sun and Earth both visible for Plan B.
+This browser run is documented in `frontend/docs/HANDOFF_SIMULATOR.md`; P1 verified the
+source diff and hosted CI but did not independently repeat this browser run. It demonstrates
+the training flow, not landing safety or the MVP acceptance gate.
+
+V4 remains scientifically FAIL (~6.30 percentage points); final release and acceptance
+remain with the user. Earlier 708-hour UI measurements in this file are historical and are
+superseded as the simulator challenge scenario by the 240-hour fix.
+
 ## Current simulator routes — 15 November 2026
 
 Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;

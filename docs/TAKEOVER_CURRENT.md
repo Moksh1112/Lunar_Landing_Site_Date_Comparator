@@ -2,15 +2,18 @@
 
 ## Latest integration checkpoint — 15 November 2026
 
-The frontend owner commit `9c644a6` is merged into `feat/p1-s0-integration` (local merge
-`d232f34`). The source branch hosted CI is green, run `43693356786`. The six-step simulator
-demo and a real-backend qualification journey were exercised. Backend health showed
-`mock:false`, 5 kernels and 4 DEMs; the real terrain-backed results for Athena at 708 h were
-RED for both tested Plan B dates (15 and 16 March 2027). See the latest section in
-[PROGRESS.md](PROGRESS.md) for the exact measurements and local check limitations.
-Local TypeScript and lint passed. Build and Vitest were blocked by Vite temp-file `EPERM`
-while the local preview occupied the OneDrive workspace; integration checkpoint 92dc6f4 CI run 43694200641 completed SUCCESS across all seven jobs.
-V4 remains FAIL; no release/MVP gate is declared passed.
+Frontend `414e7dd` is integrated in `feat/p1-s0-integration` at merge `acbf22a`. Its source
+CI passed all seven jobs (run `43695763208`); the integration merge CI also passed all seven
+(run `43696473842`). The current local integration worktree fast-forwarded to the pushed
+merge; its pre-existing `.claude/launch.json` remains untracked and preserved.
+
+The frontend owner reports the 708 h qualification objective was unsolvable at IM-2 Athena
+under the unchanged science rules. The challenge now uses 240 h; the owner-reported real
+browser run returned RED for B=2027-03-01 and GREEN for B=2027-03-14, with terrain provenance
+and +210.1 h both-visible time for B. See `frontend/docs/HANDOFF_SIMULATOR.md` and
+[PROGRESS.md](PROGRESS.md). P1 reviewed the diff and CI, but did not independently repeat
+the owner’s browser run. V4 remains FAIL; no MVP/release gate is declared passed.
+
 ## Current simulator routes — 15 November 2026
 
 Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;
