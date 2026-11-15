@@ -85,12 +85,19 @@ export function MethodsPage() {
           Earth-visibility percentages against NASA PGDA illumination maps at five polar test points.
         </p>
         <p>
-          <strong>About the PGDA comparison (V4).</strong> PGDA counts the Sun or Earth as visible when any part of its disc
-          is above the terrain, averaged hourly over 18.6 years. Azelux counts a body as visible only when its centre is
-          above the skyline. The original V4 check used Azelux's centre rule and fails the 5 percentage-point target
-          because it measures a stricter quantity. V4b repeats the check with PGDA's own any-part rule and hourly sampling;
-          it is within 5 points at all ten rows and is the approved acceptance basis. The largest difference is the Sun at
-          88° S, 90° E (4.1 points), likely because the terrain models differ. Azelux results still use the centre rule.
+          <strong>About the PGDA comparison (V4 and V4b).</strong> PGDA counts the Sun or Earth as visible when any part of
+          its disc is above the terrain, averaged hourly over 18.6 years. Azelux counts a body as visible only when its
+          centre is above the skyline. The original V4 check uses Azelux's centre rule (sampled daily) and stays a recorded
+          FAIL, about 6.3 percentage points against the 5-point target. V4b repeats the check with PGDA's any-part rule and
+          hourly sampling at the same five points and target; all ten rows are within 5 points (largest difference
+          4.13 points, the Sun at 88° S, 90° E).
+        </p>
+        <p>
+          <strong>Decision (Moksh, 15 November 2026):</strong> V4b is the adopted acceptance basis for the PGDA comparison.
+          V4b validates a different visibility definition from the one Azelux uses, so it does not show that Azelux's
+          centre-based results match PGDA within 5 points. The differences in disc rule and sampling are not shown to
+          explain the whole V4 gap; the terrain maps also differ (a 60 m reference map against the 20 m and 160 m maps used
+          here), and the reference epoch and observer height are not published.
         </p>
         <EvidenceList files={files} />
       </section>

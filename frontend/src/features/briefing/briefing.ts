@@ -246,7 +246,7 @@ ${th ? `<p class="muted">Thresholds: sunlight ≥ ${esc(th.sun_pct_min)} %, Eart
 <h2>Sources and methods</h2><p>Positions from SPICE at runtime; visibility is the body centre above ${esc(horizonPhrase(A.meta.horizon_mode))} for Plan A and ${esc(horizonPhrase(B.meta.horizon_mode))} for Plan B.</p>
 <div class="tbl"><table><thead>${tr(["Plan", "Ephemeris", "Kernels", "DEM", "Data manifest (SHA-256)", "Contract", "App", "Computed at"], true)}</thead><tbody>${prov}</tbody></table></div>
 <h2>Validation status</h2><div class="tbl"><table><thead>${tr(["Check", "Status", "Scope", "Review", "Title", "Sources"], true)}</thead><tbody>${val || tr(["—", "No validation files bundled", "", "", "", ""])}</tbody></table></div>
-<p class="muted">V4 compares against a reference that counts any visible part of the solar disc; this app uses body centres. Its recorded FAIL is shown as is. V6 is an owner-reviewed qualitative check, not independent certification.</p>
+<p class="muted">PGDA comparison: V4 (this app's body-centre rule) stays a recorded FAIL. V4b, using the reference's any-visible-fraction disc rule hourly at the same five points and 5-point target, passes all ten rows and is the acceptance basis adopted by Moksh on 15 Nov 2026. V4b validates a different visibility definition, so it does not show that the centre-based results in this briefing match PGDA within 5 points. V6 is an owner-reviewed qualitative check, not independent certification.</p>
 <h2>Limitations</h2><ul>${[...res.limitations, snap.provenance.disclaimer].map((l) => `<li>${esc(l)}</li>`).join("")}</ul>
 <h2>Glossary</h2><dl class="gloss">
 <dt>Visibility gap</dt><dd>${esc(GAP_DEFINITION)}</dd>
