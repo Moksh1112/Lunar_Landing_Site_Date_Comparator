@@ -1,4 +1,6 @@
 import { Link, Navigate, useLocation, type RouteObject } from "react-router";
+import { HomePage } from "../features/home/HomePage";
+import { AppShell } from "./AppShell";
 import { LEGACY_REDIRECTS, PATHS, legacyTarget } from "./routes";
 
 /** Old link → new route, with replace semantics so Back does not bounce through the redirect. */
@@ -28,9 +30,10 @@ export const routeObjects: RouteObject[] = [
   { path: PATHS.simulator, ...page(async () => ({ Component: (await import("../features/sim/SimulatorPage")).SimulatorPage })) },
   ...Object.keys(LEGACY_REDIRECTS).map((path) => ({ path, element: <LegacyRedirect /> })),
   {
-    ...page(async () => ({ Component: (await import("./AppShell")).AppShell })),
+    // Shell and Home ship in the entry bundle: lazy-loading them added a serial request before first paint.
+    Component: AppShell,
     children: [
-      { index: true, ...page(async () => ({ Component: (await import("../features/home/HomePage")).HomePage })) },
+      { index: true, Component: HomePage },
       { path: PATHS.compare, ...page(async () => ({ Component: (await import("../features/compare/ComparePage")).ComparePage })) },
       { path: PATHS.bestDate, ...page(async () => ({ Component: (await import("../features/bestdate/BestDatePage")).BestDatePage })) },
       { path: PATHS.methods, ...page(async () => ({ Component: (await import("../features/methods/MethodsPage")).MethodsPage })) },
