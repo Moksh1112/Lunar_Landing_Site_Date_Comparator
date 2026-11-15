@@ -1,8 +1,23 @@
 .panel { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--rule); }
-.panel h3, .panel p { margin: 0; }
+.panel h2, .panel p { margin: 0; }
 .panel p { max-width: 75ch; font-size: var(--text-sm); }
 .controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); min-width: 0; }
 .field { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 10rem; min-width: 0; max-width: 16rem; font-size: var(--text-sm); }
 .field > span { color: var(--color-text-muted); font-weight: 600; }
 .field select, .controls > button { min-height: 2.75rem; }
-.viewport { width: 100%; min-width: 0; height: clamp(18rem, 45vw, 24rem); }
+.toolbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3) var(--space-5); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.toolbar .field { flex: 0 1 auto; max-width: none; }
+.toolbar button { min-height: 2.75rem; white-space: nowrap; }
+.viewActions { display: flex; flex-wrap: wrap; min-width: 0; gap: var(--space-2); margin-left: auto; }
+.viewport { position: relative; width: 100%; min-width: 0; height: clamp(22rem, 62vh, 38rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
+.viewerHint { position: absolute; bottom: 12px; left: 12px; padding: 6px 10px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: var(--text-xs); pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); color: var(--color-text-muted); font-size: var(--text-xs); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend span:last-child { margin-left: auto; }
+.legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.siteDot { background: var(--color-text); }
+.sunDot { background: var(--color-sun); }
+.earthDot { background: var(--color-earth); }
+@media (max-width: 40rem) { .viewActions { margin-left: 0; flex: 1 1 100%; } .viewActions button { flex: 1; } .legend span:last-child { margin-left: 0; } }
+.recovery { display: grid; justify-items: start; gap: var(--space-2); padding: var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.recovery details { font-size: var(--text-xs); overflow-wrap: anywhere; }

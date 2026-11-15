@@ -24,6 +24,7 @@ export function MethodsPage() {
       <nav aria-label="On this page" className={styles.toc}>
         <a href="#method">Method</a>
         <a href="#data">Data products</a>
+        <a href="#visuals">Visualisation credits</a>
         <a href="#validation">Validation</a>
         <a href="#limits">Limits</a>
         <a href="#glossary">Glossary</a>
@@ -76,6 +77,16 @@ export function MethodsPage() {
             </dd>
           </div>
         </dl>
+      </section>
+
+      <section id="visuals" className={styles.section}>
+        <h2>Visualisation credits</h2>
+        <p>The landing page and Simulator are explanatory illustrations. Their body spacing, orientations, lander and diagrams are schematic; they are not computed mission results.</p>
+        <ul>
+          <li>Moon colour and height preview: <a href="https://svs.gsfc.nasa.gov/4720/">NASA Scientific Visualization Studio CGI Moon Kit</a>, LROC and LOLA instrument teams.</li>
+          <li>Earth surface and historical cloud composite: <a href="https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/">NASA Blue Marble</a>, NASA Goddard Space Flight Center, Reto Stöckli; enhancements by Robert Simmon.</li>
+          <li>Terrain Analyser uses server DEM tiles. Sun/Earth marker distances, fill lighting and vertical exaggeration aid viewing; brightness is not a shadow or power calculation. Tile sides and base frame the finite display extent; only the top surface represents the DEM.</li>
+        </ul>
       </section>
 
       <section id="validation" className={styles.section}>

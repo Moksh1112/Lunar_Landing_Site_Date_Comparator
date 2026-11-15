@@ -115,3 +115,47 @@ Otherwise it falls back to a fixed page:
 - Compare → Home
 
 Rules and tests: `src/app/routes.ts`, `src/app/__tests__/routes.test.ts`.
+
+## User-requested theme and chart follow-up
+
+The app now offers light and dark themes using the shared token system, including
+tour and simulator controls. The first visit follows the system preference; an
+explicit toggle choice is remembered locally. Print remains light in both modes.
+Navigation links directly to Simulator; Back lives in a quiet row below app chrome.
+Chart data cards appear only on graph hover/focus, are compact, follow the cursor
+by 25 percent of remaining distance each frame, and respect reduced motion. Extra
+persistent inspection panels and sliders were removed; retain the shared timeline
+scrubber and existing moment summary. No new pictures or decorative assets added.
+
+
+## Follow-up: explicit handoff and graphics recovery
+
+Load as Plan B saves the selected date without navigation. A nearby status confirms it,
+with a separate Compare A and B action. Theme uses a labelled `role=switch` control
+with sun/moon track, keyboard support and persistent preference. Graph markers ease
+25 percent toward selected positions; numeric readouts retain exact response samples.
+Reduced motion places them immediately; panorama wrap resets at north rather than
+sweeping across unrelated azimuths.
+
+NASA Blue Marble surface/cloud textures replace the decorative blue Earth sphere.
+The Moon retains its 4K LROC colour map and uses a separate subtle LOLA preview bump.
+These are explanatory visualization assets, not runtime computation inputs. Terrain
+uses neutral light/dark scene backgrounds and illustrative fill; graphics failures
+collapse to a readable recovery panel with details and one retry. Two failures stop
+retries. The existing three-second first-frame gate remains unchanged.
+
+
+## Final terrain and navigation follow-up
+
+Terrain has its own `/terrain` route beside Best Date, titled 3D Terrain Analyser.
+It reuses current plans/results, or computes valid current inputs on direct entry.
+3D, sky/horizon and timeline views share the response and scrubber. Compare no longer
+contains terrain launcher buttons. The 3D toolbar uses segmented plan/height controls,
+Reset view and playback. Camera framing accounts for exaggerated relief and narrow
+screens. A tile base/sides frame the finite extent without changing DEM surface heights;
+Sun/Earth rays originate at the landing point and have a concise marker legend.
+
+Simulator uses the shared AppHeader. Pause is a native dialog, excludes paused time
+from the challenge clock, and restores focus. The debrief timeline now controls time.
+Landing illumination is brighter neutral white. Overlay illustration credits and
+repeated caveats are consolidated in Methods, with source-mode labels preserved.

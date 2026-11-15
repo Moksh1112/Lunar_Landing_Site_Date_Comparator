@@ -28,6 +28,7 @@ import type { World } from "./world";
 import ClickSpark from "../../components/reactbits/ClickSpark";
 import Magnet from "../../components/reactbits/Magnet";
 import styles from "./sim.module.css";
+import { AppHeader } from "../../app/AppHeader";
 
 const CONTROL_LABEL: Record<Control, string> = { site: "Site", date: "Date", mission: "Mission", plan: "Plan A/B", compare: "Compare" };
 const DEMO_STEPS = [
@@ -60,6 +61,9 @@ export function SimulatorPage() {
   const [last, setLast] = useState<{ request: CompareRequest; response: CompareResponse } | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [paused, setPaused] = useState(false);
+  const pauseRef = useRef<HTMLDialogElement>(null);
+  const pauseStarted = useRef<number | null>(null);
+  const [debriefScrubT, setDebriefScrubT] = useState<number | null>(null);
   const [t0, setT0] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -108,6 +112,7 @@ export function SimulatorPage() {
     if (l === "debrief") w?.setView("window");
     if (l === "qualify") {
       setT0(performance.now());
+      setSeconds(0);
       setAttempts([]);
     }
   }, []);
@@ -120,10 +125,23 @@ export function SimulatorPage() {
   }, [level, demoIndex, demo.view, gl]);
 
   useEffect(() => {
-    if (level !== "qualify") return;
+    if (level !== "qualify" || paused) return;
     const id = window.setInterval(() => setSeconds((performance.now() - t0) / 1000), 500);
     return () => clearInterval(id);
-  }, [level, t0]);
+  }, [level, t0, paused]);
+  useEffect(() => {
+    if (level !== "qualify") { pauseStarted.current = null; return; }
+    if (paused) pauseStarted.current = performance.now();
+    else if (pauseStarted.current !== null) {
+      const duration = performance.now() - pauseStarted.current;
+      setT0(previous => previous + duration);
+      pauseStarted.current = null;
+    }
+  }, [paused, level]);
+  useEffect(() => {
+    if (paused) pauseRef.current?.showModal();
+    else pauseRef.current?.close();
+  }, [paused]);
 
   // ---------- compare via the real typed client ----------
   const runCompare = async (c: Console) => {
@@ -135,6 +153,7 @@ export function SimulatorPage() {
     try {
       const response = await postCompare(request);
       setLast({ request, response });
+      setDebriefScrubT(null);
       return { response, synthetic: response.scenarios.some((s) => s.meta.data_label !== "REAL") };
     } catch (e) {
       setHint(`The comparator could not compute this request: ${(e as Error).message} Your settings are kept; press COMPARE to try again.`);
@@ -193,7 +212,9 @@ export function SimulatorPage() {
     };
     const up = () => (drag = null);
     const key = (e: KeyboardEvent) => {
-      if (e.key === "Escape") return setPaused((p) => !p);
+      if (e.defaultPrevented || document.querySelector('nav[aria-label="Main"][data-open="true"]') || document.activeElement?.closest("header")) return;
+      if (pauseRef.current?.open) return; // Native dialog handles Escape and restores focus.
+      if (e.key === "Escape") { e.preventDefault(); setPaused((p) => !p); return; }
       if (document.activeElement !== canvas) return;
       const k = e.key.toLowerCase();
       const m: Record<string, [number, number]> = { arrowleft: [-0.08, 0], a: [-0.08, 0], arrowright: [0.08, 0], d: [0.08, 0], arrowup: [0, -0.06], w: [0, -0.06], arrowdown: [0, 0.06], s: [0, 0.06] };
@@ -245,9 +266,10 @@ export function SimulatorPage() {
   const twinDisabled = busy || paused || !(level === "demo" || level === "practice" || level === "qualify");
 
   return (
+    <div className={styles.page}>
+      <AppHeader expert={false} />
     <main className={styles.sim} data-guided={level === "demo" || level === "practice" || level === "qualify"}>
       <canvas ref={canvasRef} className={styles.canvas} data-state={gl} tabIndex={0} aria-label="3D mission control room (illustration). Drag or use the arrow keys or WASD to look around; use the console controls below." />
-      <p className={styles.truth}>Moon imagery: NASA LROC, SVS CGI Moon Kit</p>
 
       {/* HUD: level + objective */}
       {level !== "boot" && (
@@ -259,8 +281,6 @@ export function SimulatorPage() {
                 Reset camera
               </button>
             )}
-            <Link to="/" className={styles.exit}>Home</Link>
-            <Link to="/compare" className={styles.exit}>Open comparator</Link>
           </span>
         </header>
       )}
@@ -381,7 +401,6 @@ export function SimulatorPage() {
               : attempts.length === 0
                 ? "Challenge ended without a scored attempt."
                 : "Not passed this time."}</p>
-          <p className={styles.note}>Training result only, not a landing-safety assessment.</p>
           {last && (
             <>
               <p>{conclusion(last.response)}</p>
@@ -395,7 +414,7 @@ export function SimulatorPage() {
                 ))}
               </ul>
               <div className={styles.timeline}>
-                <TimelineLanes data={last.response} alignBy="calendar" scrubT={null} onScrub={() => undefined} />
+                <TimelineLanes data={last.response} alignBy="calendar" scrubT={debriefScrubT} onScrub={setDebriefScrubT} />
               </div>
             </>
           )}
@@ -408,8 +427,7 @@ export function SimulatorPage() {
         </section>
       )}
 
-      {paused && (
-        <div className={styles.pause} role="dialog" aria-modal="true" aria-labelledby="pause-h">
+        <dialog ref={pauseRef} className={styles.pause} aria-labelledby="pause-h" onCancel={e => { e.preventDefault(); setPaused(false); }}>
           <h2 id="pause-h">Paused</h2>
           <div className={styles.row}>
             <button type="button" className="btn-primary" onClick={() => setPaused(false)} autoFocus>Resume</button>
@@ -417,8 +435,8 @@ export function SimulatorPage() {
             <Link to="/compare" className="btn">Open comparator</Link>
             <Link to="/" className="btn">Back to home</Link>
           </div>
-        </div>
-      )}
+        </dialog>
     </main>
+    </div>
   );
 }

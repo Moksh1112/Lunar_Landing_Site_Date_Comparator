@@ -1,8 +1,11 @@
 // Landing-page 3D illustration (three.js). It is an explanatory model, NOT terrain data:
-// the Moon surface is procedural, the skyline ring is schematic, and nothing here is computed
+// the Moon/Earth use NASA visualization textures, the skyline ring is schematic, and nothing here is computed
 // from DEMs or ephemerides. Site markers sit at the library coordinates of two verified sites.
 import * as THREE from "three";
 import moonTextureUrl from "./assets/moon_lroc_color_4k.jpg";
+import moonHeightUrl from "./assets/moon_lola_height_1k.jpg";
+import earthTextureUrl from "./assets/earth_blue_marble_2k.jpg";
+import earthCloudsUrl from "./assets/earth_clouds_2k.jpg";
 
 export type Readout = { site: "A" | "B"; sunElDeg: number; earthElDeg: number; sunUp: boolean; earthUp: boolean };
 export type MoonScene = {
@@ -39,14 +42,48 @@ export function chapterBlend(p: number, n: number): { i: number; t: number } {
 /**
  * Moon mesh textured with NASA's CGI Moon Kit LROC colour mosaic (public domain, visualization only).
  * Equirectangular map: texture centre = 0 deg E, which three's sphere UVs place at +x, matching toXYZ().
- * The same image drives a subtle bump map for relief shading; no elevation data is used.
+ * LOLA's visualization height preview supplies subtle relief, separate from surface colour.
  */
 export function realMoonMesh(renderer: THREE.WebGLRenderer, radius = 1, onLoad?: () => void): THREE.Mesh {
   const tex = new THREE.TextureLoader().load(moonTextureUrl, () => onLoad?.());
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  const mat = new THREE.MeshStandardMaterial({ map: tex, bumpMap: tex, bumpScale: 1.2, roughness: 1, metalness: 0 });
+  const height = new THREE.TextureLoader().load(moonHeightUrl, () => onLoad?.());
+  height.anisotropy = tex.anisotropy;
+  const mat = new THREE.MeshStandardMaterial({ map: tex, bumpMap: height, bumpScale: radius * 0.008, roughness: 1, metalness: 0 });
   return new THREE.Mesh(new THREE.SphereGeometry(radius, 192, 128), mat);
+}
+
+/** NASA Blue Marble composite, not current weather or an ephemeris-driven Earth orientation. */
+export function realEarthMesh(renderer: THREE.WebGLRenderer, radius: number, onLoad?: () => void): THREE.Group {
+  const loader = new THREE.TextureLoader();
+  const surface = loader.load(earthTextureUrl, () => onLoad?.());
+  surface.colorSpace = THREE.SRGBColorSpace;
+  surface.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const clouds = loader.load(earthCloudsUrl, () => onLoad?.());
+  clouds.anisotropy = surface.anisotropy;
+  const earth = new THREE.Group();
+  // A soft illustrative fill keeps continents readable on small displays.
+  earth.add(new THREE.Mesh(new THREE.SphereGeometry(radius, 96, 64), new THREE.MeshStandardMaterial({ map: surface, emissiveMap: surface, emissive: 0xffffff, emissiveIntensity: 0.18, roughness: 0.8 })));
+  earth.add(new THREE.Mesh(new THREE.SphereGeometry(radius * 1.006, 96, 64), new THREE.MeshStandardMaterial({ color: 0xffffff, alphaMap: clouds, transparent: true, opacity: 0.85, depthWrite: false, roughness: 1 })));
+  earth.add(new THREE.Mesh(new THREE.SphereGeometry(radius * 1.025, 64, 48), new THREE.MeshBasicMaterial({ color: 0x7ebaff, transparent: true, opacity: 0.06, side: THREE.BackSide, depthWrite: false })));
+  earth.rotation.y = -1.3;
+  return earth;
+}
+
+/** Release maps as well as materials; route changes must not retain GPU resources. */
+export function disposeScene(scene: THREE.Scene) {
+  const textures = new Set<THREE.Texture>();
+  scene.traverse(o => {
+    const m = o as THREE.Mesh;
+    m.geometry?.dispose();
+    const material = m.material as THREE.Material | THREE.Material[] | undefined;
+    (Array.isArray(material) ? material : material ? [material] : []).forEach(mat => {
+      for (const value of Object.values(mat)) if (value instanceof THREE.Texture) textures.add(value);
+      mat.dispose();
+    });
+  });
+  textures.forEach(texture => texture.dispose());
 }
 
 export function moonGeometry(): THREE.SphereGeometry {
@@ -154,10 +191,11 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
   let landingRaf = 0;
   let removeControlListener = () => {};
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
 
-  scene.add(new THREE.HemisphereLight(0xaab8ff, 0x0b1020, 0.35));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x707070, 0.75));
   // Starfield (decorative): deterministic points on a far shell.
   {
     let seed = 11;
@@ -172,7 +210,7 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xdfe6ff, size: 0.06, sizeAttenuation: true, transparent: true, opacity: 0.85 })));
   }
   const sunDir = new THREE.Vector3(1, 0.02, 0.35).normalize(); // near the equator plane: grazing at the poles
-  const sunLight = new THREE.DirectionalLight(0xfff1d6, 2.6);
+  const sunLight = new THREE.DirectionalLight(0xffffff, 3.8);
   sunLight.position.copy(sunDir.clone().multiplyScalar(10));
   scene.add(sunLight);
 
@@ -181,11 +219,8 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
   const sun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 16), new THREE.MeshBasicMaterial({ color: 0xf2b544 }));
   sun.position.copy(sunDir.clone().multiplyScalar(7));
   scene.add(sun);
-  const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(0.26, 48, 32),
-    new THREE.MeshStandardMaterial({ color: COLORS.earth, roughness: 0.6, emissive: 0x0d2a5c, emissiveIntensity: 0.35 }),
-  );
-  earth.position.set(2.9, 0.12, -2.6); // near the Moon's equatorial plane, like the real Earth direction
+  const earth = realEarthMesh(renderer, 0.3, () => render());
+  earth.position.set(1.7, 0.35, -2.6); // illustrative direction and spacing, kept in frame on laptop windows
   scene.add(earth);
 
   const a = toXYZ(SITE_A.lat, SITE_A.lon, 1.0);
@@ -255,6 +290,8 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     const h = canvas.clientHeight || 1;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
+    // Preserve the wide composition on taller windows so Earth remains in frame.
+    camera.fov = 2 * Math.atan(Math.tan(35 * D2R / 2) * Math.max(1, 1.9 / camera.aspect)) / D2R;
     camera.updateProjectionMatrix();
     render();
   };
@@ -339,13 +376,9 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     cancelAnimationFrame(landingRaf);
     removeControlListener();
     controls?.dispose();
-    scene.traverse((o) => {
-      const m = o as THREE.Mesh;
-      m.geometry?.dispose();
-      const mat = m.material as THREE.Material | THREE.Material[] | undefined;
-      (Array.isArray(mat) ? mat : mat ? [mat] : []).forEach((x) => x.dispose());
-    });
+    disposeScene(scene);
     renderer.dispose();
+    renderer.forceContextLoss();
   };
 
   resize();

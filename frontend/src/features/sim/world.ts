@@ -2,7 +2,7 @@
 // lander and skyline ring are not data; the Moon uses NASA's LROC visualization texture.
 import * as THREE from "three";
 import { gsap } from "gsap";
-import { realMoonMesh, siteDiagram, toXYZ } from "../landing/moonScene";
+import { disposeScene, realEarthMesh, realMoonMesh, siteDiagram, toXYZ } from "../landing/moonScene";
 import { SIM_SITES, dayToDate, type Console, type Control, type Level } from "./levels";
 
 export type View = "boot" | "console" | "briefing" | "window" | "moon";
@@ -146,10 +146,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     sunLight.position.copy(MOON_POS).add(new THREE.Vector3(Math.cos(ang) * 40, 0.8, Math.sin(ang) * 40));
   };
   setSunAngle(0.5);
-  const earth = new THREE.Mesh(
-    new THREE.SphereGeometry(1.6, 48, 32),
-    new THREE.MeshStandardMaterial({ color: 0x3f7fe8, roughness: 0.6, emissive: 0x0d2a5c, emissiveIntensity: 0.4 }),
-  );
+  const earth = realEarthMesh(renderer, 1.6);
   earth.position.set(-22, 3, -58);
   scene.add(earth);
 
@@ -412,16 +409,9 @@ export function createWorld(canvas: HTMLCanvasElement): World {
       sunTween?.kill();
       canvas.removeEventListener("pointerdown", onDown);
       canvas.removeEventListener("pointerup", onUp);
-      scene.traverse((o) => {
-        const m = o as THREE.Mesh;
-        m.geometry?.dispose();
-        const mat = m.material as THREE.Material | THREE.Material[] | undefined;
-        (Array.isArray(mat) ? mat : mat ? [mat] : []).forEach((x) => {
-          (x as THREE.MeshBasicMaterial).map?.dispose();
-          x.dispose();
-        });
-      });
+      disposeScene(scene);
       renderer.dispose();
+      renderer.forceContextLoss();
     },
   };
 }

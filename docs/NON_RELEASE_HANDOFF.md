@@ -13,6 +13,9 @@ on the takeover host, without another machine's env/config or runtime files.
 Node 22.19.0 / npm 11.12.1 / Python 3.12.15 were used here; CI targets Node 20.
 The existing venv works here; target mode is a fallback, not universally required.
 Stop this checkout's verified Python/Vite processes before rerunning setup on Windows.
+Run one Vite dev server per checkout. Separate previews must use an isolated checkout
+or a distinct Vite cache directory; competing servers can overwrite dependency chunks
+and cause stale React initialization or HTTP 504 failures.
 The P1 diff fixes uv's existing-venv refusal and adds repeat setup to both CI modes.
 It awaits human review before commit; no hosted result for this diff is claimed.
 

@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-15",
+  "branch": "feat/p1-s0-integration",
+  "base_commit": "ad2ac2e",
+  "state": "local uncommitted user-authorized frontend changes; no push or hosted CI",
+  "checks": {
+    "frontend_tests": "158 passed / 21 files",
+    "lint": "PASS",
+    "typescript": "PASS",
+    "production_build": "PASS; existing large lazy Three chunk and Zod annotation warnings"
+  },
+  "health": {
+    "status": "ok",
+    "app_version": "0.1.0",
+    "contract_version": "1.1",
+    "kernels_loaded": [
+      "naif0012.tls",
+      "de440s.bsp",
+      "pck00011.tpc",
+      "moon_pa_de440_200625.bpc",
+      "moon_de440_250416.tf"
+    ],
+    "dems_loaded": [
+      "far_160m.tif",
+      "im2-athena.tif",
+      "im2-intended.tif",
+      "lcross-impact.tif"
+    ],
+    "mock": false,
+    "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb"
+  },
+  "best_date": {
+    "selected": "2026-03-02",
+    "routeAfterLoad": "/best-date",
+    "routeAfterExplicitCompare": "/compare",
+    "mode": "terrain_coarse"
+  },
+  "terrain": {
+    "original_failure_reproduced": false,
+    "source_mode": "REAL terrain_coarse; actual compare and terrain-tile HTTP 200",
+    "induced_failure": {
+      "text": "Terrain 3D could not start.\n\nThe panorama and timeline still work. Close other 3D tabs and check that graphics acceleration is enabled in your browser.\n\nGraphics details\nRetry terrain 3D",
+      "height": 179.5
+    },
+    "recovered": "Terrain 3D\n\nREAL \u00b7 terrain_coarse. Terrain geometry; Sun/Earth marker distances are schematic. Brightness is illustrative, not a shadow or power simulation.\n\nPlan\nA\nB\nVertical exaggeration\n1\u00d7\n2\u00d7\n5\u00d7\nPlay mission\n\nFirst frame: 199 ms (includes request and lazy loading). Vertical exaggeration 1\u00d7.\n\nSun 34.9\u00b0 azimuth / 0.4\u00b0 elevation; Earth 3.8\u00b0 / 3.6\u00b0. Scrubber controls these markers.",
+    "plan_b_5x": "Terrain 3D\n\nREAL \u00b7 terrain_coarse. Terrain geometry; Sun/Earth marker distances are schematic. Brightness is illustrative, not a shadow or power simulation.\n\nPlan\nA\nB\nVertical exaggeration\n1\u00d7\n2\u00d7\n5\u00d7\nPlay mission\n\nFirst frame: 199 ms (includes request and lazy loading). Vertical exaggeration 5\u00d7.\n\nSun 22.8\u00b0 azimuth / 0.4\u00b0 elevation; Earth 4.3\u00b0 / 2.1\u00b0. Scrubber controls these markers.",
+    "repeated_route_first_frame_ms": [
+      "172",
+      "169",
+      "179",
+      "164"
+    ],
+    "context_loss": "Reported; no empty canvas; stops after two failures",
+    "three_second_gate": "unchanged"
+  },
+  "theme_switch": "role=switch, aria-checked, persisted",
+  "marker_easing": {
+    "start": {
+      "x": 215.2664888888889,
+      "y": 150.83294117647057
+    },
+    "early": {
+      "x": 246.43471805555555,
+      "y": 151.99926470588235
+    },
+    "end": {
+      "x": 286.50815555555556,
+      "y": 153.49882352941177
+    }
+  },
+  "reduced_motion": {
+    "early": "360.02955555555553",
+    "end": "360.02955555555553"
+  },
+  "responsive_bounds": [
+    {
+      "width": 320,
+      "scroll": 305
+    },
+    {
+      "width": 375,
+      "scroll": 360
+    },
+    {
+      "width": 768,
+      "scroll": 753
+    },
+    {
+      "width": 1440,
+      "scroll": 1425
+    }
+  ],
+  "textures": [
+    {
+      "requestId": "43144.45",
+      "url": "http://127.0.0.1:5173/src/features/landing/assets/moon_lola_height_1k.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "requestId": "43144.46",
+      "url": "http://127.0.0.1:5173/src/features/landing/assets/earth_blue_marble_2k.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "requestId": "43144.47",
+      "url": "http://127.0.0.1:5173/src/features/landing/assets/earth_clouds_2k.jpg",
+      "status": 200,
+      "type": "Image"
+    }
+  ],
+  "simulator": "3D initialized, Start mission works, no overflow at 320 and 1440",
+  "simulator_bounds": [
+    {
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "width": 1440,
+      "scroll": 1440
+    }
+  ],
+  "unexpected_browser_exceptions": [],
+  "limits": [
+    "Headless Edge on one Windows host; no physical-device or spoken screen-reader certification",
+    "Original user GPU error unknown; graphics recovery tested by deliberately denying WebGL and losing its context",
+    "Texture directions, cloud composite, atmosphere and illumination are illustrative; not live ephemeris/weather or terrain inputs",
+    "V4 remains FAIL; broader F1-F25 acceptance remains pending"
+  ]
+}

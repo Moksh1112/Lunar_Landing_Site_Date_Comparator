@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { matchRoutes } from "react-router";
-import { LEARN_NAV, MAIN_NAV, PATHS, TRAILING_NAV, backFallback, hasInAppHistory, legacyTarget } from "../routes";
+import { MAIN_NAV, PATHS, TRAILING_NAV, backFallback, hasInAppHistory, legacyTarget } from "../routes";
 import { routeObjects } from "../routeObjects";
 
 const leaf = (path: string) => matchRoutes(routeObjects, path)?.at(-1)?.route;
@@ -34,6 +34,7 @@ describe("back control", () => {
     expect(backFallback("/learn/tour")).toBe("/");
     expect(backFallback("/learn/simulator")).toBe("/");
     expect(backFallback("/best-date")).toBe("/compare");
+    expect(backFallback("/terrain")).toBe("/compare");
     expect(backFallback("/methods")).toBe("/compare");
     expect(backFallback("/report")).toBe("/compare");
     expect(backFallback("/compare")).toBe("/");
@@ -46,7 +47,6 @@ describe("back control", () => {
 
 describe("navigation", () => {
   it("lists Home · Compare · Best Date · Learn (tour, simulator) · Methods", () => {
-    expect([...MAIN_NAV, ...TRAILING_NAV].map((n) => n.to)).toEqual(["/", "/compare", "/best-date", "/methods"]);
-    expect(LEARN_NAV.map((n) => n.to)).toEqual(["/learn/tour", "/learn/simulator"]);
+    expect([...MAIN_NAV, ...TRAILING_NAV].map((n) => n.to)).toEqual(["/", "/compare", "/best-date", "/terrain", "/learn/simulator", "/methods"]);
   });
 });

@@ -3,6 +3,7 @@ export const PATHS = {
   home: "/",
   compare: "/compare",
   bestDate: "/best-date",
+  terrain: "/terrain",
   methods: "/methods",
   report: "/report",
   tour: "/learn/tour",
@@ -24,7 +25,7 @@ export function legacyTarget(pathname: string, search = "", hash = ""): string |
 /** Where the app's Back control goes when there is no earlier Azelux page (direct entry, reload, external referrer). */
 export function backFallback(pathname: string): string {
   if (pathname.startsWith("/learn/")) return PATHS.home;
-  if (pathname === PATHS.bestDate || pathname === PATHS.methods || pathname === PATHS.report) return PATHS.compare;
+  if (pathname === PATHS.bestDate || pathname === PATHS.terrain || pathname === PATHS.methods || pathname === PATHS.report) return PATHS.compare;
   return PATHS.home;
 }
 
@@ -36,14 +37,12 @@ export function backFallback(pathname: string): string {
 export const hasInAppHistory = (locationKey: string) => locationKey !== "default";
 
 export type NavItem = { to: string; label: string; end?: boolean };
-/** Main nav: Home · Compare · Best Date · Learn (menu) · Methods. Report is reached from results. */
+/** Main navigation; the tour is Home and the simulator has a direct link. */
 export const MAIN_NAV: NavItem[] = [
   { to: PATHS.home, label: "Home", end: true },
   { to: PATHS.compare, label: "Compare" },
   { to: PATHS.bestDate, label: "Best Date" },
-];
-export const LEARN_NAV: NavItem[] = [
-  { to: PATHS.tour, label: "Quick tour" },
+  { to: PATHS.terrain, label: "3D Terrain" },
   { to: PATHS.simulator, label: "Simulator" },
 ];
 export const TRAILING_NAV: NavItem[] = [{ to: PATHS.methods, label: "Methods" }];

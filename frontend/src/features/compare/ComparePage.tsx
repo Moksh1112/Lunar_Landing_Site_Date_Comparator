@@ -21,7 +21,6 @@ import { SkyRing } from "./SkyRing";
 import { ScenarioCard } from "./ScenarioCard";
 import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
-import { TerrainPanel } from "../terrain3d/TerrainPanel";
 import { useCompare } from "./useCompare";
 import styles from "./compare.module.css";
 
@@ -237,7 +236,7 @@ export function ComparePage() {
                   <>
                     <section className={styles.diagram} aria-labelledby="when-h">
                       <div className={styles.sectionHead}>
-                        <h3 id="when-h">When each plan has Sun, Earth and both</h3>
+                        <h3 id="when-h" tabIndex={-1} style={{ scrollMarginTop: "5rem" }}>When each plan has Sun, Earth and both</h3>
                         <div role="group" aria-label="Align timeline by" className="segmented">
                           <button type="button" aria-pressed={alignBy === "calendar"} onClick={() => setAlignBy("calendar")}>
                             Calendar date
@@ -252,7 +251,7 @@ export function ComparePage() {
                       </div>
                       <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
                     </section>
-                    <details className={styles.secondary} open>
+                    <details id="sky-horizon-views" className={styles.secondary} open style={{ scrollMarginTop: "5rem" }}>
                     <summary>Sky and horizon views</summary>
                     <section className={styles.sky} aria-labelledby="stage-h">
                       <div className={styles.sectionHead}>
@@ -283,7 +282,6 @@ export function ComparePage() {
                   </>
                 }
               />
-              <TerrainPanel key={data.scenarios[0].meta.computed_at} data={data} />
               {expert && <RawData data={data} />}
             </div>
           ) : (

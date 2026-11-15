@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
+import { ThemeToggle } from "../../components/ThemeToggle";
 import type { MoonScene, Readout } from "./moonScene";
 import styles from "./landing.module.css";
 
@@ -91,6 +92,7 @@ export function LandingPage() {
           <a href="#h-sim">Simulation</a>
           <a href="#h-proof">Proof</a>
         </nav>
+        <ThemeToggle />
         {pathname !== "/" && <Link to="/" className={`btn ${styles.launch} ${styles.homeLink}`}>Back to home</Link>}
         <Link to="/compare" className={`btn btn-primary ${styles.launch}`}>Open comparator</Link>
       </header>
@@ -99,7 +101,6 @@ export function LandingPage() {
         <div className={styles.story} ref={storyRef}>
           <div className={styles.stage} aria-hidden="true">
             <canvas ref={canvasRef} className={styles.canvas} data-state={webgl} />
-            <p className={styles.illus}>Illustration: Moon texture from NASA's LROC visualization mosaic; lander and diagrams are schematic, not terrain data.</p>
           </div>
 
           <section className={`${styles.chapter} ${styles.hero}`} data-chapter="0" aria-labelledby="h-hero">
@@ -111,7 +112,6 @@ export function LandingPage() {
                 Azelux compares two lunar landing plans, site and date, hour by hour: sunlight for power, Earth in view
                 for direct-to-Earth contact, and the hours you get both.
               </p>
-              <p className={styles.note}>SYNTHETIC illustration on this page: schematic geometry, a NASA LROC visualization texture for the Moon, and illustrative Sun/Earth directions. Open the comparator for sourced SPICE results.</p>
               <div className={styles.ctas}>
                 <Link to="/compare" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
                 <Link to="/landing" className={`btn ${styles.cta} ${styles.ghost}`}>Briefing</Link>

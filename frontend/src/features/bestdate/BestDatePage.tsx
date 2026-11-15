@@ -44,6 +44,7 @@ export function BestDatePage() {
   const [clientErrors, setClientErrors] = useState<SweepErrors>({});
   const [lastReq, setLastReq] = useState<SweepRequest | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [loadedDay, setLoadedDay] = useState<string | null>(null);
   const [showUnverified, setShowUnverified] = useState(false);
   const sites = useQuery({ queryKey: ["sites"], queryFn: getSites });
   const sweep = useMutation<SweepResponse, ApiError, SweepRequest>({ mutationFn: postSweep });
@@ -81,7 +82,7 @@ export function BestDatePage() {
       startUtc: `${day.date}T00:00`,
       missionHours: lastReq ? String(lastReq.mission_hours) : form.missionHours,
     });
-    navigate("/compare", { state: { loadedPlanB: true } });
+    setLoadedDay(day.date);
   };
 
   const err = (k: string) =>
@@ -211,7 +212,7 @@ export function BestDatePage() {
                 {data.meta.data_label !== "REAL" && <SyntheticBadge />}
               </EmptyState>
             ) : (
-              <SweepResults data={data} selected={selected} onSelect={setSelected} onLoad={(d) => load(d, data)} />
+              <SweepResults data={data} selected={selected} onSelect={setSelected} onLoad={(d) => load(d, data)} loadedDay={loadedDay} onCompare={() => navigate("/compare", { state: { loadedPlanB: true } })} />
             )
           ) : (
             <EmptyState title="Pick a site and a range of landing days">
@@ -227,7 +228,7 @@ export function BestDatePage() {
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const weekday = (date: string): string => WEEKDAYS[new Date(`${date}T00:00:00Z`).getUTCDay()];
 
-function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepResponse; selected: string | null; onSelect: (d: string) => void; onLoad: (d: SweepDay) => void }) {
+function SweepResults({ data, selected, onSelect, onLoad, loadedDay, onCompare }: { data: SweepResponse; selected: string | null; onSelect: (d: string) => void; onLoad: (d: SweepDay) => void; loadedDay: string | null; onCompare: () => void }) {
   const byDate = new Map(data.days.map((d) => [d.date, d]));
   const top = data.top.map((d) => byDate.get(d)).filter((d): d is SweepDay => d !== undefined);
   const sel = selected ? byDate.get(selected) : undefined;
@@ -272,6 +273,10 @@ function SweepResults({ data, selected, onSelect, onLoad }: { data: SweepRespons
         </p>
       </section>
 
+      {loadedDay && <div className={styles.loaded}>
+        <p role="status"><strong>Plan B loaded: {loadedDay} at 00:00 UTC.</strong> Your search stays here. Open Compare when you are ready to calculate A and B.</p>
+        <button type="button" className="btn-primary" onClick={onCompare}>Compare A and B</button>
+      </div>}
       {sel && (
         <section className={styles.panel} aria-labelledby="sel-h">
           <div className={styles.panelHead}>

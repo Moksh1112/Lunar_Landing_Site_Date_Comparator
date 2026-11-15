@@ -1,7 +1,10 @@
-import { useState, type PointerEvent } from "react";
+import { useId, useState, type PointerEvent } from "react";
 import type { ScenarioResult } from "../../api/types";
 import { countVisible, nearestIndex, nearestTrackSample, splitAtWrap } from "./chartMath";
-import { SampleInspector, sampleTime } from "./SampleInspector";
+import { SampleInspector } from "./SampleInspector";
+import { ChartTooltip } from "./ChartTooltip";
+import { SmoothMarker } from "./SmoothMarker";
+import type { TooltipPoint } from "./tooltipMath";
 import chartStyles from "./charts.module.css";
 import { ringPoint, ringRadius } from "./skyRingMath";
 import styles from "./skyRing.module.css";
@@ -21,7 +24,8 @@ type Props = { scenario: ScenarioResult; scrubT: number | null; yMinDeg: number;
  */
 export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
   const [inspected, setInspected] = useState<number | null>(null);
-  const [hovering, setHovering] = useState(false);
+  const [anchor, setAnchor] = useState<TooltipPoint | null>(null);
+  const tooltipId = useId();
   const { skyline, series, label, id } = scenario;
   const r = (el: number) => ringRadius(el, yMinDeg, yMaxDeg, R_OUT, R_IN);
   const pt = (az: number, el: number) => ringPoint(C, C, az, r(el));
@@ -47,7 +51,7 @@ export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
   const t = scrubT ?? series.t_unix[0];
   const idx = series.t_unix.length ? Math.min(inspected ?? nearestIndex(series.t_unix, t), series.t_unix.length - 1) : -1;
   const inspect = (e: PointerEvent<SVGSVGElement>) => {
-    setHovering(true);
+    setAnchor({ x: e.clientX, y: e.clientY });
     const matrix = e.currentTarget.getScreenCTM();
     if (!matrix) return;
     const point = new DOMPoint(e.clientX, e.clientY).matrixTransform(matrix.inverse());
@@ -58,9 +62,19 @@ export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
   const summary = `Sun visible in ${countVisible(series.sun_vis)} of ${series.t_unix.length} samples, Earth in ${countVisible(series.earth_vis)}. Azimuth clockwise from north; elevation ${yMinDeg.toFixed(0)}° at the rim to ${yMaxDeg.toFixed(0)}° inside.`;
 
   return (
-    <figure className={styles.figure} data-plan={id} onKeyDown={e => { if (e.key === "Escape") setHovering(false); }}>
+    <figure className={styles.figure} data-plan={id} >
       <div className={`${styles.tilt} ${chartStyles.chartCanvas}`}>
-        <svg viewBox={`0 0 ${S} ${S}`} className={styles.svg} role="img" aria-label={`Sky ring for plan ${id}, ${label}. ${summary}`} onPointerMove={inspect} onPointerDown={inspect} onPointerLeave={e => { if (e.pointerType === "mouse") setHovering(false); }}>
+        <svg viewBox={`0 0 ${S} ${S}`} className={styles.svg} role="img" aria-label={`Sky ring for plan ${id}, ${label}. ${summary}`} onPointerMove={inspect} onPointerDown={inspect} tabIndex={0} aria-describedby={anchor ? tooltipId : undefined}
+          onPointerLeave={() => { setAnchor(null); setInspected(null); }}
+          onBlur={() => { setAnchor(null); setInspected(null); }}
+          onFocus={e => { const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 }); }}
+          onKeyDown={e => {
+            if (e.key === "Escape") { setAnchor(null); return; }
+            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+              e.preventDefault(); setInspected(Math.min(Math.max(idx + (e.key === "ArrowRight" ? 1 : -1), 0), series.t_unix.length - 1));
+              const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 });
+            }
+          }}>
           <circle cx={C} cy={C} r={R_OUT} className={styles.sky} />
           <path d={terrain} className={styles.terrain} fillRule="evenodd" />
           {zero !== null && <circle cx={C} cy={C} r={zero} className={styles.zero} />}
@@ -74,8 +88,8 @@ export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
           {sun.map((s, i) => <path key={`s${i}`} d={s.d} className={`${styles.track} ${styles.sun} ${s.visible ? "" : styles.hidden}`} />)}
           {idx >= 0 && (
             <>
-              <circle {...xy(pt(series.earth_az[idx], series.earth_el[idx]))} r={6.5} className={`${styles.marker} ${styles.earthFill}`} />
-              <circle {...xy(pt(series.sun_az[idx], series.sun_el[idx]))} r={7.5} className={`${styles.marker} ${styles.sunFill}`} />
+              <SmoothMarker {...pt(series.earth_az[idx], series.earth_el[idx])} r={6.5} className={`${styles.marker} ${styles.earthFill}`} />
+              <SmoothMarker {...pt(series.sun_az[idx], series.sun_el[idx])} r={7.5} className={`${styles.marker} ${styles.sunFill}`} />
             </>
           )}
           {(["N", "E", "S", "W"] as const).map((l, i) => {
@@ -85,22 +99,12 @@ export function SkyRing({ scenario, scrubT, yMinDeg, yMaxDeg }: Props) {
           <text x={C} y={C - 6} className={styles.planId} textAnchor="middle">{id}</text>
           <text x={C} y={C + 16} className={styles.planSub} textAnchor="middle">{yMaxDeg.toFixed(0)}° elev.</text>
         </svg>
-        {hovering && idx >= 0 && <div className={chartStyles.chartTooltip} role="tooltip" aria-hidden="true"><SampleInspector scenario={scenario} index={idx} /></div>}
+        <ChartTooltip anchor={idx >= 0 ? anchor : null} id={tooltipId}><SampleInspector scenario={scenario} index={idx} /></ChartTooltip>
       </div>
-      <p className={chartStyles.caption}>North is at the top; directions run clockwise. Higher in the sky is nearer the centre. Hover or tap a track to read its nearest sample.</p>
-      {idx >= 0 && <>
-        <label className={chartStyles.scrubLabel}>
-          <span>Inspect {label} sky: {sampleTime(series.t_unix[idx])}</span>
-          <input className={chartStyles.scrubber} type="range" min={0} max={series.t_unix.length - 1} step={1} value={idx} aria-label={`Inspect ${label} sky sample`} aria-valuetext={sampleTime(series.t_unix[idx])} onChange={e => setInspected(Number(e.target.value))} />
-        </label>
-        <SampleInspector scenario={scenario} index={idx} />
-        {inspected !== null && <button className={chartStyles.resetInspection} type="button" onClick={() => { setInspected(null); setHovering(false); }}>Follow shared timeline</button>}
-      </>}
+      <p className={chartStyles.caption}>North is at the top; directions run clockwise. Higher in the sky is nearer the centre. Hover a track to inspect a sample, or focus the chart and use arrow keys.</p>
       <figcaption className={styles.caption}>
         <strong className={styles.capTitle}>{label}</strong> {summary}
       </figcaption>
     </figure>
   );
 }
-
-const xy = (p: { x: number; y: number }) => ({ cx: p.x, cy: p.y });

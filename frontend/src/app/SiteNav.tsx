@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router";
-import { LEARN_NAV, MAIN_NAV, PATHS, TRAILING_NAV, backFallback, hasInAppHistory, type NavItem } from "./routes";
+import { MAIN_NAV, PATHS, TRAILING_NAV, backFallback, hasInAppHistory, type NavItem } from "./routes";
 import styles from "./SiteNav.module.css";
 
 /** App Back: previous Azelux page when there is one, otherwise a fixed fallback (never an external site). */
@@ -20,15 +20,12 @@ export function BackButton({ className = "" }: { className?: string }) {
   );
 }
 
-/** Main navigation: Home · Compare · Best Date · Learn (menu) · Methods. Compact menu on narrow screens. */
+/** Main navigation: Home · Compare · Best Date · Simulator · Methods. Compact menu on narrow screens. */
 export function SiteNav() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false); // compact menu
-  const [learn, setLearn] = useState(false); // Learn submenu
-  const learnBtn = useRef<HTMLButtonElement>(null);
   const menuBtn = useRef<HTMLButtonElement>(null);
   const root = useRef<HTMLElement>(null);
-  const learnId = useId();
   const menuId = useId();
 
   // Close menus on route change.
@@ -36,30 +33,27 @@ export function SiteNav() {
   if (seen !== pathname) {
     setSeen(pathname);
     setOpen(false);
-    setLearn(false);
   }
 
   useEffect(() => {
-    if (!open && !learn) return;
+    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
-      if (learn) { setLearn(false); learnBtn.current?.focus(); }
-      else { setOpen(false); menuBtn.current?.focus(); }
+      setOpen(false); menuBtn.current?.focus();
     };
     const onDown = (e: PointerEvent) => {
-      if (root.current && !root.current.contains(e.target as Node)) { setLearn(false); setOpen(false); }
+      if (root.current && !root.current.contains(e.target as Node)) { setOpen(false); }
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("pointerdown", onDown);
     return () => { window.removeEventListener("keydown", onKey); window.removeEventListener("pointerdown", onDown); };
-  }, [open, learn]);
+  }, [open]);
 
   const link = (n: NavItem) => (
     <li key={n.to}>
       <NavLink to={n.to} end={n.end} className={styles.link}>{n.label}</NavLink>
     </li>
   );
-  const inLearn = pathname.startsWith("/learn/");
 
   return (
     <nav aria-label="Main" className={styles.nav} ref={root} data-open={open}>
@@ -78,23 +72,6 @@ export function SiteNav() {
       </button>
       <ul id={menuId} className={styles.list}>
         {MAIN_NAV.map(link)}
-        <li className={styles.learn}>
-          <button
-            ref={learnBtn}
-            type="button"
-            className={styles.link}
-            aria-expanded={learn}
-            aria-controls={learnId}
-            aria-current={inLearn ? "page" : undefined}
-            onClick={() => setLearn((v) => !v)}
-          >
-            Learn
-            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
-          <ul id={learnId} className={styles.sub} hidden={!learn}>
-            {LEARN_NAV.map(link)}
-          </ul>
-        </li>
         {TRAILING_NAV.map(link)}
       </ul>
     </nav>

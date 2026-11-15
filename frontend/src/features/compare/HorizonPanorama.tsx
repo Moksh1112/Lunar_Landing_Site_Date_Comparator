@@ -1,10 +1,12 @@
-import { useState, type PointerEvent } from "react";
+import { useId, useState, type PointerEvent } from "react";
 import { scaleLinear } from "d3-scale";
 import { area, line } from "d3-shape";
 import type { HorizonPanoramaProps } from "./contracts";
 import { countVisible, nearestIndex, nearestTrackSample, splitAtWrap } from "./chartMath";
-import { SampleInspector, sampleTime } from "./SampleInspector";
-import { skylineAt } from "./skyline";
+import { SampleInspector } from "./SampleInspector";
+import { ChartTooltip } from "./ChartTooltip";
+import { SmoothMarker } from "./SmoothMarker";
+import type { TooltipPoint } from "./tooltipMath";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -12,20 +14,21 @@ const H = 260;
 const M = { top: 12, right: 16, bottom: 28, left: 40 };
 const COMPASS: [number, string][] = [[0, "N"], [90, "E"], [180, "S"], [270, "W"], [360, "N"]];
 
-export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg, expert = false }: HorizonPanoramaProps) {
+export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg }: HorizonPanoramaProps) {
   const { skyline, series, label } = scenario;
-  const [hoverAz, setHoverAz] = useState<number | null>(null);
+  const [anchor, setAnchor] = useState<TooltipPoint | null>(null);
+  const tooltipId = useId();
   const [inspected, setInspected] = useState<number | null>(null);
   const onMove = (e: PointerEvent<SVGSVGElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     const vx = ((e.clientX - r.left) / r.width) * W;
     const az = ((vx - M.left) / (W - M.left - M.right)) * 360;
-    setHoverAz(az >= 0 && az <= 360 ? az : null);
+    if (az < 0 || az > 360) { setAnchor(null); return; }
+    setAnchor({ x: e.clientX, y: e.clientY });
     const vy = ((e.clientY - r.top) / r.height) * H;
     const closest = nearestTrackSample(series, (a, el) => ({ x: x(a), y: y(el) }), { x: vx, y: vy });
     if (closest) setInspected(closest.index);
   };
-  const hover = expert && hoverAz !== null ? skylineAt(skyline, hoverAz) : null;
   const x = scaleLinear().domain([0, 360]).range([M.left, W - M.right]);
   const y = scaleLinear().domain([yMinDeg, yMaxDeg]).range([H - M.bottom, M.top]);
 
@@ -60,7 +63,7 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg, expert = f
     });
 
   return (
-    <figure className={styles.figure} onKeyDown={e => { if (e.key === "Escape") setHoverAz(null); }}>
+    <figure className={styles.figure} >
       <h3 className={styles.title}>{title}</h3>
       <div className={styles.chartCanvas}>
       <svg
@@ -70,7 +73,18 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg, expert = f
         aria-label={`${title}. ${summary}`}
         onPointerMove={onMove}
         onPointerDown={onMove}
-        onPointerLeave={e => { if (e.pointerType === "mouse") setHoverAz(null); }}
+        tabIndex={0}
+        aria-describedby={anchor ? tooltipId : undefined}
+        onPointerLeave={() => { setAnchor(null); setInspected(null); }}
+        onBlur={() => { setAnchor(null); setInspected(null); }}
+        onFocus={e => { const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 }); }}
+        onKeyDown={e => {
+          if (e.key === "Escape") { setAnchor(null); return; }
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault(); setInspected(Math.min(Math.max(readIndex + (e.key === "ArrowRight" ? 1 : -1), 0), n - 1));
+            const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 });
+          }
+        }}
       >
         {yTicks.map((t) => (
           <g key={t}>
@@ -87,32 +101,16 @@ export function HorizonPanorama({ scenario, scrubT, yMinDeg, yMaxDeg, expert = f
         <path d={skyPath} className={styles.skyline} />
         {renderSegs(earthSegs, styles.earth, "e")}
         {renderSegs(sunSegs, styles.sun, "s")}
-        {hover && <line x1={x(hover.az)} x2={x(hover.az)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} opacity={0.5} />}
         {series.t_unix.length > 0 && (
           <>
-            <circle cx={x(series.earth_az[readIndex])} cy={y(series.earth_el[readIndex])} r={5} className={`${styles.marker} ${styles.earth}`} />
-            <circle cx={x(series.sun_az[readIndex])} cy={y(series.sun_el[readIndex])} r={5} className={`${styles.marker} ${styles.sun}`} />
+            <SmoothMarker x={x(series.earth_az[readIndex])} y={y(series.earth_el[readIndex])} r={5} wrapWidth={W - M.left - M.right} className={`${styles.marker} ${styles.earth}`} />
+            <SmoothMarker x={x(series.sun_az[readIndex])} y={y(series.sun_el[readIndex])} r={5} wrapWidth={W - M.left - M.right} className={`${styles.marker} ${styles.sun}`} />
           </>
         )}
       </svg>
-      {hoverAz !== null && series.t_unix.length > 0 && <div className={styles.chartTooltip} role="tooltip" aria-hidden="true"><SampleInspector scenario={scenario} index={readIndex} /></div>}
+      <ChartTooltip anchor={n > 0 ? anchor : null} id={tooltipId}><SampleInspector scenario={scenario} index={readIndex} /></ChartTooltip>
       </div>
-      <p className={styles.caption}>Look around the site: N → E → S → W → N. Height is degrees above the local horizontal; shaded terrain blocks the view. Solid paths are visible, dotted paths are hidden. Hover or tap a path to inspect the nearest sample.</p>
-      {series.t_unix.length > 0 && <>
-        <label className={styles.scrubLabel}>
-          <span>Inspect {label}: {sampleTime(series.t_unix[readIndex])}</span>
-          <input type="range" min={0} max={series.t_unix.length - 1} step={1} value={readIndex} className={styles.scrubber} aria-label={`Inspect ${label} horizon sample`} aria-valuetext={sampleTime(series.t_unix[readIndex])} onChange={e => setInspected(Number(e.target.value))} />
-        </label>
-        <SampleInspector scenario={scenario} index={readIndex} />
-        {inspected !== null && <button type="button" className={styles.resetInspection} onClick={() => { setInspected(null); setHoverAz(null); }}>Follow shared timeline</button>}
-      </>}
-      {expert && (
-        <p className={styles.hoverRead} aria-hidden="true">
-          {hover
-            ? `Azimuth ${hover.az.toFixed(1)}°: skyline ${hover.elev.toFixed(2)}°${hover.distKm !== null ? `, blocked at ${hover.distKm.toFixed(2)} km` : ""}`
-            : "Point at the chart to read skyline values (also in Raw data below)."}
-        </p>
-      )}
+      <p className={styles.caption}>Look around the site: N → E → S → W → N. Height is degrees above the local horizontal; shaded terrain blocks the view. Solid paths are visible, dotted paths are hidden. Hover a path to inspect a sample; focus the chart and use arrow keys for keyboard inspection.</p>
       <ul className={styles.legend} aria-hidden="true">
         <li><span className={`${styles.swatch} ${styles.sun}`} />Sun (visible)</li>
         <li><span className={`${styles.swatch} ${styles.swatchDotted} ${styles.sun}`} />Sun (below horizon)</li>

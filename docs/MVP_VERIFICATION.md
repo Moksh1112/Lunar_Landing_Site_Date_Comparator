@@ -1,5 +1,18 @@
 # MVP verification ledger — 15 November 2026
 
+## Current local UI evidence - 15 November 2026
+
+Local merge `ad2ac2e` contains source `47d8a58` over `28b56e3`. The subsequent user-directed
+UI milestone adds `/terrain` beside Best Date, shared Simulator chrome, improved terrain
+framing/controls and clearer 2D recovery. Repeated visual credits/caveats moved into Methods.
+**161 frontend tests, lint, TypeScript and production build pass.** Isolated Chrome/Brave
+loaded REAL coarse terrain, switched 5x scale, recovered from induced context loss, opened
+2D graphs and completed real Simulator practice/debrief interactions. Its pause timer and
+debrief slider are fixed. Original Chrome-profile hook error was user-reported; a competing
+Vite cache writer and HTTP 504 were independently observed and resolved. No push or hosted
+CI is claimed. Details/repeat steps: [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md).
+This supplements F7/F15/F17/F18/F21 evidence; device, accessibility and science gates stay open.
+
 ## Redesign integration evidence - 15 November 2026
 
 Moksh's theme/navigation/Home source `47d8a58` is prepared in the integration worktree over `28b56e3`; source CI `43707999082` is successful. Details: [THEME_INTEGRATION_2026-11-15.md](THEME_INTEGRATION_2026-11-15.md). The comparator is now `/compare`; `/` is Home. Existing simulator/tour URLs redirect to `/learn/simulator` and `/learn/tour`.
@@ -98,7 +111,7 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 | F4 Two plans | P1 fresh-clone REAL near+far API reproduces revised challenge RED/GREEN and +210.1 h for B; browser evidence remains owner-reported | Independent revised browser journey and user-owned deployed rehearsal |
 | F5 Mission length | 240 h and 708 h prior evidence; takeover API rejects 8761 h and aggregate sample overflow with 413 | Full mission/date-limit and browser checklist |
 | F6 Presets | Site-vs-site and free-mode handoff exercised; date-shift code/tests present | Fresh browser date-shift regression |
-| F7 Best date | Takeover REAL geometric and near+far 60-day sweeps (Mar 1-Apr 29 2027, 240 h); terrain observed 479.89 ms on one host; >183-day rejection | Slow-network/device, broader range extremes and UI error acceptance |
+| F7 Best date | Prior REAL 60-day API sweeps; current Edge saves B without navigation, explicit Compare computes selected UTC date with REAL/terrain_coarse | Slow-network/device, broader range extremes and UI error acceptance |
 | F8 Ephemeris | SPICE runtime; full V1/V2 evidence passes; V6 owner qualitative spot check passed | No external scientific certification is claimed |
 | F9 Skyline | Real near-field + far terrain in sweep and Plan B | Scientific V4 discrepancy |
 | F10 Coverage modes | Prior coarse/near+far evidence; takeover near-only returns terrain without far DEM | Owner resolves partial-data mode mismatch; complete tile/coverage checklist |
@@ -106,10 +119,10 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 | F12 Metrics/countdowns | Prior browser countdowns; takeover REAL geometric empty/full censored windows verified through API | Complete censored-event browser/countdown checklist |
 | F13 Deltas | Prior real headline/table; takeover REAL API A-minus-B arithmetic, null mean-up and opposite signs checked | Complete visual sign and threshold interaction review |
 | F14 Verdicts | Real sweep produced different verdicts; threshold tests retained | Fresh keyboard threshold interaction |
-| F15 Panorama | Both real skylines and response paths displayed | Complete scrubber interaction pass |
+| F15 Panorama | Real skylines/paths; current graph-only tooltips and gradual marker movement with immediate reduced-motion positioning checked | Complete scrubber interaction pass |
 | F16 Timeline | Real Sun/Earth/both/difference lanes displayed | Fresh date-alignment regression |
 | F17 Scrubber | Shared store and regression tests; earlier interaction evidence | Full current cross-view sync check |
-| F18 Terrain 3D | Lazy terrain 3D and 2D fallback implemented; one-host first-frame measurement recorded | Other hardware and slow-device performance/fallback |
+| F18 Terrain 3D | Dedicated /terrain route; REAL coarse tile, 5x framing, Reset view and 2D fallback checked in isolated Chrome/Brave on one host | Other hardware and slow-device performance/fallback |
 | F19 Simple/Expert | Implemented; raw tables and method details present | Full keyboard and screen-reader review |
 | F20 Provenance | Coarse/terrain source labels visible; actual CSV/JSON downloads and corrected CSV checked | No known open defect; preserve provenance on future changes |
 | F21 UI states | Prior fixtures/tests; stale-plan notice now browser-verified | Full break-it pass, slow network |

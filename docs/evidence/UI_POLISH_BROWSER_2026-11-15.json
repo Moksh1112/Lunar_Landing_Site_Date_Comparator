@@ -1,0 +1,924 @@
+{
+  "source": "UI polish over ad2ac2e",
+  "layout": [],
+  "errors": [],
+  "network": [
+    {
+      "requestId": "9778F9D3D8D728093976B7AA765ADEC8",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.133",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.132",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.134",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.269",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.268",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.270",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.331",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.330",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.395",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.470",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.660",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.659",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.661",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.723",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.722",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.786",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.861",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1051",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1050",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1052",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1114",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1113",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1177",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1252",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1442",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1441",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1443",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1505",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1504",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1568",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1643",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1833",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1832",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1834",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1896",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1895",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.1959",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2034",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2224",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2223",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2225",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2287",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2286",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2350",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2425",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2615",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2614",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2616",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2677",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2676",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2741",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.2816",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3006",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3005",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3007",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3069",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3068",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3132",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3207",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3357",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3356",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "50228.3358",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    }
+  ],
+  "back": {
+    "button": {
+      "x": 24,
+      "y": 80,
+      "width": 69.75,
+      "height": 44,
+      "top": 80,
+      "right": 93.75,
+      "bottom": 124,
+      "left": 24
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1425,
+      "height": 56,
+      "top": 0,
+      "right": 1425,
+      "bottom": 56,
+      "left": 0
+    }
+  },
+  "tooltip": {
+    "first": {
+      "text": "2026-03-22 09:50:00 UTCSun -0.9\u00c2\u00b0 elev \u00c2\u00b7 134.2\u00c2\u00b0 az \u00c2\u00b7 hiddenEarth 6.5\u00c2\u00b0 elev \u00c2\u00b7 358.9\u00c2\u00b0 az \u00c2\u00b7 visible",
+      "x": 588.796875,
+      "y": 524.625,
+      "width": 228.65625,
+      "height": 82.171875,
+      "top": 524.625,
+      "right": 817.453125,
+      "bottom": 606.796875,
+      "left": 588.796875
+    },
+    "moving": {
+      "text": "2026-03-15 23:50:00 UTCSun -0.9\u00c2\u00b0 elev \u00c2\u00b7 212.5\u00c2\u00b0 az \u00c2\u00b7 hiddenEarth -2.3\u00c2\u00b0 elev \u00c2\u00b7 354.3\u00c2\u00b0 az \u00c2\u00b7 hidden",
+      "x": 798.84375,
+      "y": 562.65625,
+      "width": 236.84375,
+      "height": 82.171875,
+      "top": 562.65625,
+      "right": 1035.6875,
+      "bottom": 644.828125,
+      "left": 798.84375
+    },
+    "settled": {
+      "text": "2026-03-15 23:50:00 UTCSun -0.9\u00c2\u00b0 elev \u00c2\u00b7 212.5\u00c2\u00b0 az \u00c2\u00b7 hiddenEarth -2.3\u00c2\u00b0 elev \u00c2\u00b7 354.3\u00c2\u00b0 az \u00c2\u00b7 hidden",
+      "x": 864.03125,
+      "y": 574.453125,
+      "width": 236.84375,
+      "height": 82.171875,
+      "top": 574.453125,
+      "right": 1100.875,
+      "bottom": 656.625,
+      "left": 864.03125
+    }
+  },
+  "print": {
+    "bg": "rgb(255, 255, 255)",
+    "scheme": "light"
+  },
+  "themes": [
+    {
+      "path": "/",
+      "width": 320,
+      "scroll": 305,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 320,
+      "scroll": 305,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 320,
+      "scroll": 305,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 320,
+      "scroll": 305,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 320,
+      "scroll": 320,
+      "theme": "light",
+      "bg": "rgb(255, 255, 255)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 320,
+      "scroll": 320,
+      "theme": "light",
+      "bg": "rgb(247, 248, 250)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 375,
+      "scroll": 360,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 375,
+      "scroll": 360,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 375,
+      "scroll": 360,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 375,
+      "scroll": 360,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 375,
+      "scroll": 375,
+      "theme": "light",
+      "bg": "rgb(255, 255, 255)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 375,
+      "scroll": 375,
+      "theme": "light",
+      "bg": "rgb(247, 248, 250)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "scroll": 753,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 768,
+      "scroll": 753,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 768,
+      "scroll": 753,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 768,
+      "scroll": 753,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 768,
+      "scroll": 768,
+      "theme": "light",
+      "bg": "rgb(255, 255, 255)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 768,
+      "scroll": 768,
+      "theme": "light",
+      "bg": "rgb(247, 248, 250)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "light",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "light",
+      "bg": "rgb(255, 255, 255)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "light",
+      "bg": "rgb(247, 248, 250)",
+      "body": "rgb(247, 248, 250)",
+      "color": "rgb(25, 33, 45)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 320,
+      "scroll": 305,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 320,
+      "scroll": 305,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 320,
+      "scroll": 305,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 320,
+      "scroll": 305,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 320,
+      "scroll": 320,
+      "theme": "dark",
+      "bg": "rgb(17, 17, 17)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 320,
+      "scroll": 320,
+      "theme": "dark",
+      "bg": "rgb(0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 375,
+      "scroll": 360,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 375,
+      "scroll": 360,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 375,
+      "scroll": 360,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 375,
+      "scroll": 360,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 375,
+      "scroll": 375,
+      "theme": "dark",
+      "bg": "rgb(17, 17, 17)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 375,
+      "scroll": 375,
+      "theme": "dark",
+      "bg": "rgb(0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "scroll": 753,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 768,
+      "scroll": 753,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 768,
+      "scroll": 753,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 768,
+      "scroll": 753,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 768,
+      "scroll": 768,
+      "theme": "dark",
+      "bg": "rgb(17, 17, 17)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 768,
+      "scroll": 768,
+      "theme": "dark",
+      "bg": "rgb(0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/compare",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/best-date",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/methods",
+      "width": 1440,
+      "scroll": 1425,
+      "theme": "dark",
+      "bg": "rgba(0, 0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/report",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "dark",
+      "bg": "rgb(17, 17, 17)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 1440,
+      "scroll": 1440,
+      "theme": "dark",
+      "bg": "rgb(0, 0, 0)",
+      "body": "rgb(0, 0, 0)",
+      "color": "rgb(245, 245, 245)",
+      "toggles": 1
+    }
+  ],
+  "mobileNav": "MenuHomeCompareBest DateSimulatorMethods",
+  "final_checks": {
+    "source": "UI polish over ad2ac2e",
+    "layout": [],
+    "errors": [],
+    "network": [
+      {
+        "requestId": "925906E094CCCD65A26C6E01D3E380D1",
+        "url": "http://127.0.0.1:8000/api/v1/compare",
+        "status": 200
+      },
+      {
+        "requestId": "38716.151",
+        "url": "http://127.0.0.1:8000/api/v1/sites",
+        "status": 200
+      },
+      {
+        "requestId": "38716.150",
+        "url": "http://127.0.0.1:8000/health",
+        "status": 200
+      },
+      {
+        "requestId": "38716.152",
+        "url": "http://127.0.0.1:8000/api/v1/compare",
+        "status": 200
+      }
+    ],
+    "themeButton": {
+      "theme": "light",
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(25, 33, 45)"
+    },
+    "simLayout": {
+      "width": 320,
+      "scroll": 320,
+      "toggle": {
+        "x": 268,
+        "y": 16,
+        "width": 36,
+        "height": 40,
+        "top": 16,
+        "right": 304,
+        "bottom": 56,
+        "left": 268
+      },
+      "header": {
+        "x": 16,
+        "y": 16,
+        "width": 288,
+        "height": 89.96875,
+        "top": 16,
+        "right": 304,
+        "bottom": 105.96875,
+        "left": 16
+      }
+    },
+    "timelineTooltip": "2026-03-20 22:07:47 UTCPlan A: Earth only; Sun hiddenPlan B: Earth only; Sun hidden"
+  },
+  "scope": "Actual isolated headless Edge UI checks, emulated widths and themes. Not physical-device or spoken screen-reader acceptance."
+}

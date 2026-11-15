@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { chapterBlend, toXYZ } from "../moonScene";
+import { describe, expect, it, vi } from "vitest";
+import * as THREE from "three";
+import { chapterBlend, disposeScene, toXYZ } from "../moonScene";
 
 describe("illustration coordinates", () => {
   it("keeps east-positive lunar longitudes on the declared sphere axes", () => {
@@ -17,5 +18,18 @@ describe("illustration coordinates", () => {
   it("clamps chapter endpoints to valid camera shots", () => {
     expect(chapterBlend(-1, 5)).toEqual({ i: 0, t: 0 });
     expect(chapterBlend(2, 5)).toEqual({ i: 3, t: 1 });
+  });
+  it("releases colour, height and cloud textures without disposing shared textures twice", () => {
+    const scene = new THREE.Scene();
+    const surface = new THREE.Texture(), height = new THREE.Texture(), clouds = new THREE.Texture();
+    const spies = [surface, height, clouds].map(t => vi.spyOn(t, "dispose"));
+    const geometry = new THREE.SphereGeometry();
+    const disposeGeometry = vi.spyOn(geometry, "dispose");
+    const material = new THREE.MeshStandardMaterial({ map: surface, bumpMap: height, alphaMap: clouds });
+    scene.add(new THREE.Mesh(geometry, material));
+    scene.add(new THREE.Mesh(new THREE.SphereGeometry(), new THREE.MeshBasicMaterial({ map: surface })));
+    disposeScene(scene);
+    spies.forEach(spy => expect(spy).toHaveBeenCalledTimes(1));
+    expect(disposeGeometry).toHaveBeenCalledOnce();
   });
 });

@@ -20,6 +20,8 @@
 .primary { min-height: 3rem; font-size: var(--text-md); border-radius: var(--radius-md); padding: 0 var(--space-5); width: 100%; white-space: nowrap; }
 
 .results { min-width: 0; }
+.loaded { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); padding: var(--space-3); margin-bottom: var(--space-4); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-surface); }
+.loaded p { margin: 0; max-width: 70ch; font-size: var(--text-sm); }
 .stack { display: flex; flex-direction: column; gap: var(--space-4); }
 .progress { margin: 0; color: var(--color-text-muted); font-size: var(--text-sm); }
 .resultsHead { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }

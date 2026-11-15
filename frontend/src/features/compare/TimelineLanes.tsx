@@ -1,9 +1,11 @@
-import { useState, type PointerEvent } from "react";
+import { useId, useState, type PointerEvent } from "react";
 import { scaleLinear } from "d3-scale";
 import type { ScenarioResult } from "../../api/types";
 import type { TimelineLanesProps } from "./contracts";
 import { symmetricDifference, visibilityAt, windowToRange } from "./chartMath";
 import { sampleTime } from "./SampleInspector";
+import { ChartTooltip } from "./ChartTooltip";
+import type { TooltipPoint } from "./tooltipMath";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -33,6 +35,8 @@ function calendarTicks(d0: number, d1: number): { v: number; label: string }[] {
 }
 
 export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesProps) {
+  const [anchor, setAnchor] = useState<TooltipPoint | null>(null);
+  const tooltipId = useId();
   const [inspectT, setInspectT] = useState<number | null>(null);
   const [A, B] = data.scenarios;
   const t0 = (s: ScenarioResult) => s.series.t_unix[0] ?? 0;
@@ -87,7 +91,7 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
   if (!hasData) return <p className={styles.caption}>No timeline data available.</p>;
 
   return (
-    <figure className={styles.figure} onKeyDown={e => { if (e.key === "Escape") setInspectT(null); }}>
+    <figure className={styles.figure} >
       <h3 className={styles.title}>Timeline — {cal ? "calendar (UTC)" : "mission day"}</h3>
       <div className={styles.chartCanvas}>
       <svg
@@ -95,9 +99,19 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
         className={styles.svg}
         role="img"
         aria-label={`Sun, Earth and both-visible windows for A and B, with a difference lane. ${summary}.`}
-        onPointerMove={e => setInspectT(pointTime(e))}
-        onPointerLeave={e => { if (e.pointerType === "mouse") setInspectT(null); }}
-        onPointerDown={e => { const time = pointTime(e); setInspectT(time); onScrub(time); }}
+        onPointerMove={e => { setInspectT(pointTime(e)); setAnchor({ x: e.clientX, y: e.clientY }); }}
+        onPointerLeave={() => { setInspectT(null); setAnchor(null); }}
+        onPointerDown={e => { const time = pointTime(e); setInspectT(time); onScrub(time); setAnchor({ x: e.clientX, y: e.clientY }); }}
+        tabIndex={0} aria-describedby={anchor ? tooltipId : undefined}
+        onBlur={() => { setInspectT(null); setAnchor(null); }}
+        onFocus={e => { const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 }); }}
+        onKeyDown={e => {
+          if (e.key === "Escape") { setAnchor(null); return; }
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault(); const next = Math.min(Math.max(inspected + (e.key === "ArrowRight" ? 600 : -600), dMin), dMax); setInspectT(next); onScrub(next);
+            const r = e.currentTarget.getBoundingClientRect(); setAnchor({ x: r.x + r.width / 2, y: r.y + r.height / 2 });
+          }
+        }}
       >
         {ticks.map((t) => (
           <g key={t.v}>
@@ -123,18 +137,11 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
         })}
         <line x1={x(inspected)} x2={x(inspected)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} />
       </svg>
-      {inspectT !== null && <div className={styles.chartTooltip} role="tooltip" aria-hidden="true">
-        <div className={styles.inspector}><strong>{describe(inspected)}</strong>{[A, B].map(s => <span key={s.id}><b>{s.label}</b>: {visibilityAt(s, cal ? inspected : t0(s) + inspected)}.</span>)}</div>
-      </div>}
+      <ChartTooltip anchor={anchor} id={tooltipId}>
+        <div className={styles.tooltipContent}><strong>{describe(inspected)}</strong>{[A, B].map(s => <span key={s.id}><b>Plan {s.id}</b>: {visibilityAt(s, cal ? inspected : t0(s) + inspected)}</span>)}</div>
+      </ChartTooltip>
       </div>
       <p className={styles.caption}>Filled bars mean visible; gaps mean hidden. Both means Sun and Earth together. Difference marks times when only one plan has both. Hover to inspect, tap to move the shared time, or use the time slider.</p>
-      <div className={styles.inspector} aria-live="polite" aria-atomic="true">
-        <strong>{describe(inspected)}</strong>
-        {[A, B].map(s => {
-          const time = cal ? inspected : t0(s) + inspected;
-          return <span key={s.id}><b>{s.label}</b>: {visibilityAt(s, time)}{!cal ? ` — ${sampleTime(time)}` : ""}.</span>;
-        })}
-      </div>
       <label className={styles.scrubLabel}>
         <span>Time: {scrubText}</span>
         <input
@@ -145,7 +152,7 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
           step={60}
           value={value}
           aria-valuetext={scrubText}
-          onChange={(e) => { setInspectT(null); onScrub(Number(e.target.value)); }}
+          onChange={(e) => { setInspectT(null); setAnchor(null); onScrub(Number(e.target.value)); }}
         />
       </label>
       <figcaption className={styles.caption}>{summary}.</figcaption>

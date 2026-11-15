@@ -23,11 +23,9 @@
 .scrubber:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
 .scrubLabel { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-text); font-variant-numeric: tabular-nums; }
 @media print { .scrubLabel { display: none; } }
-.hoverRead { margin: 0; font-size: var(--text-xs); color: var(--color-text); font-variant-numeric: tabular-nums; min-height: 1.2em; }
-.inspector { display: grid; gap: var(--space-1); padding: var(--space-2) var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: var(--text-sm); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.resetInspection { align-self: flex-start; font-size: var(--text-sm); }
 .chartCanvas { position: relative; min-width: 0; width: 100%; }
-.chartTooltip { position: absolute; top: var(--space-2); right: var(--space-2); width: min(20rem, calc(100% - 1rem)); pointer-events: none; z-index: 1; }
-@media (max-width: 40rem) { .chartTooltip { display: none; } }
-.scrubber { min-height: 2.75rem; }
-@media print { .inspector, .resetInspection, .chartTooltip { display: none; } }
+.tooltipContent { display: grid; gap: 4px; font-size: 0.75rem; line-height: 1.45; font-variant-numeric: tabular-nums; }
+.tooltipContent strong { font-size: 0.75rem; font-weight: 650; }
+.chartTooltip { position: fixed; left: 0; top: 0; width: max-content; max-width: min(17rem, calc(100vw - 16px)); padding: 10px 12px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); box-shadow: 0 6px 20px rgb(0 0 0 / 0.16); pointer-events: none; z-index: 100; }
+.svg:focus-visible { outline: var(--focus-ring); outline-offset: 3px; }
+@media print { .chartTooltip { display: none; } }

@@ -33,6 +33,7 @@ export const routeObjects: RouteObject[] = [
     children: [
       { path: PATHS.compare, ...page(async () => ({ Component: (await import("../features/compare/ComparePage")).ComparePage })) },
       { path: PATHS.bestDate, ...page(async () => ({ Component: (await import("../features/bestdate/BestDatePage")).BestDatePage })) },
+      { path: PATHS.terrain, ...page(async () => ({ Component: (await import("../features/terrain3d/TerrainAnalyserPage")).TerrainAnalyserPage })) },
       { path: PATHS.methods, ...page(async () => ({ Component: (await import("../features/methods/MethodsPage")).MethodsPage })) },
       { path: PATHS.report, ...page(async () => ({ Component: (await import("../features/report/ReportPage")).ReportPage })) },
       { path: "*", element: <NotFound /> },

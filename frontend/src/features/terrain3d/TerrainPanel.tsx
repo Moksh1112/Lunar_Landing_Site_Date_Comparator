@@ -4,19 +4,29 @@ import { getTerrainTile } from "../../api/client";
 import type { CompareResponse } from "../../api/types";
 import { useStore } from "../../store";
 import { absoluteTime, momentAt } from "../compare/moment";
+import { viewerErrorHint } from "./viewerError";
 import styles from "./terrain.module.css";
 
 const TerrainCanvas = lazy(() => import("./TerrainCanvas"));
-class ViewerBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
-  static getDerivedStateFromError() { return { failed: true }; }
-  render() { return this.state.failed ? <p role="status">3D could not start. Use the panorama and timeline.</p> : this.props.children; }
+class ViewerBoundary extends Component<{ children: ReactNode; onRetry?: () => void; views: ReactNode }, { error: Error | null }> {
+  state: { error: Error | null } = { error: null };
+  static getDerivedStateFromError(error: Error) { return { error }; }
+  render() { return this.state.error ? <div className={styles.recovery} data-viewer-error role="status">
+    <strong>Terrain 3D could not start.</strong>
+    <p>{viewerErrorHint(this.state.error.message)}</p>
+    <details><summary>Graphics details</summary><p>{this.state.error.message.slice(0, 240)}</p></details>
+    {this.props.onRetry ? <button type="button" onClick={this.props.onRetry}>Retry terrain 3D</button> : <p>Two attempts failed. Continue with the sky/horizon graphs and timeline; they do not require 3D.</p>}
+    {this.props.views}
+  </div> : this.props.children; }
 }
-function LoadedViewer({ data, started }: { data: CompareResponse; started: number }) {
+function LoadedViewer({ data, started, views }: { data: CompareResponse; started: number; views: ReactNode }) {
   const [plan, setPlan] = useState(0);
   const [exaggeration, setExaggeration] = useState(1);
   const [renderMs, setRenderMs] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
+  const [attempt, setAttempt] = useState(1);
+  const [resetView, setResetView] = useState(0);
+  const attemptStarted = useRef(started);
   const scrubT = useStore((s) => s.scrubT);
   const setScrubT = useStore((s) => s.setScrubT);
   const alignBy = useStore((s) => s.alignBy);
@@ -24,7 +34,8 @@ function LoadedViewer({ data, started }: { data: CompareResponse; started: numbe
   const tile = useQuery({ queryKey: ["terrain3d", scenario.site.lat_deg, scenario.site.lon_east_deg],
     queryFn: () => getTerrainTile({ lat_deg: scenario.site.lat_deg, lon_east_deg: scenario.site.lon_east_deg, size_km: 20 }), retry: false });
   const readyOnce = useRef(false);
-  const ready = useCallback(() => { if (!readyOnce.current) { readyOnce.current = true; setRenderMs(performance.now() - started); } }, [started]);
+  const ready = useCallback(() => { if (!readyOnce.current) { readyOnce.current = true; setRenderMs(performance.now() - attemptStarted.current); } }, []);
+  const retry = () => { readyOnce.current = false; attemptStarted.current = performance.now(); setRenderMs(null); setPlaying(false); setAttempt(a => a + 1); };
   useEffect(() => {
     if (!playing) return;
     const timer = setInterval(() => {
@@ -38,28 +49,26 @@ function LoadedViewer({ data, started }: { data: CompareResponse; started: numbe
   const t = absoluteTime(scenario, scrubT, alignBy);
   const m = t === null ? null : momentAt(scenario, t);
   return <section className={styles.panel} aria-label="Terrain 3D">
-    <h3>Terrain 3D</h3>
-    <p>{tile.data?.data_label ?? scenario.meta.data_label} · {scenario.meta.horizon_mode === "geometric" ? "geometric horizon only" : scenario.meta.horizon_mode}.
-      Terrain geometry; Sun/Earth marker distances are schematic. Brightness is illustrative, not a shadow or power simulation.</p>
-    <div className={styles.controls} role="group" aria-label="Terrain controls">
-      <label className={styles.field}>
-        <span>Plan</span>
-        <select value={plan} onChange={(e) => setPlan(Number(e.target.value))}><option value={0}>A</option><option value={1}>B</option></select>
-      </label>
-      <label className={styles.field}>
-        <span>Vertical exaggeration</span>
-        <select value={exaggeration} onChange={(e) => setExaggeration(Number(e.target.value))}>{[1, 2, 5].map((v) => <option key={v} value={v}>{v}×</option>)}</select>
-      </label>
-      <button type="button" onClick={() => setPlaying(!playing)}>{playing ? "Pause mission" : "Play mission"}</button>
+    <h2>{scenario.label} — terrain</h2>
+    <p>{scenario.site.name ?? `${scenario.site.lat_deg}°, ${scenario.site.lon_east_deg}° E`} · {new Date(scenario.series.t_unix[0] * 1000).toISOString().slice(0, 16).replace("T", " ")} UTC</p>
+    <p>{tile.data?.data_label ?? scenario.meta.data_label} · {scenario.meta.horizon_mode === "geometric" ? "geometric horizon only" : scenario.meta.horizon_mode}</p>
+    <div className={styles.toolbar} role="group" aria-label="Terrain controls">
+      <div className={styles.field}><span>Plan</span><div className="segmented" role="group" aria-label="Terrain plan">{[0, 1].map(p => <button key={p} type="button" aria-pressed={plan === p} onClick={() => setPlan(p)}>Plan {p === 0 ? "A" : "B"}</button>)}</div></div>
+      <div className={styles.field}><span>Height scale</span><div className="segmented" role="group" aria-label="Vertical exaggeration">{[1, 2, 5].map(v => <button key={v} type="button" aria-pressed={exaggeration === v} onClick={() => setExaggeration(v)}>{v}×</button>)}</div></div>
+      <div className={styles.viewActions}>
+        <button type="button" onClick={() => setResetView(v => v + 1)}>↺ Reset view</button>
+        <button type="button" className="btn-primary" onClick={() => setPlaying(!playing)}><span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span> {playing ? "Pause mission" : "Play mission"}</button>
+      </div>
     </div>
-    {tile.isPending ? <p role="status">Loading terrain…</p> : tile.isError ? <p role="status">Terrain unavailable. The 2D views remain available.</p> : renderMs !== null && renderMs > 3000 ? <p role="status">3D exceeded the 3-second gate ({Math.round(renderMs)} ms). Use the 2D views.</p> : m && <div className={styles.viewport}>
-      <ViewerBoundary><Suspense fallback={<p>Preparing 3D…</p>}><TerrainCanvas tile={tile.data} sunAz={m.sunAz} sunEl={m.sunEl} earthAz={m.earthAz} earthEl={m.earthEl} exaggeration={exaggeration} onReady={ready} /></Suspense></ViewerBoundary>
-    </div>}
+    {tile.isPending ? <p role="status">Loading terrain…</p> : tile.isError ? <div className={styles.recovery}><p role="status">Terrain unavailable. The comparison's 2D graphs remain available.</p>{views}</div> : renderMs !== null && renderMs > 3000 ? <div className={styles.recovery}><p role="status">3D exceeded the 3-second gate ({Math.round(renderMs)} ms). Continue with the 2D graphs.</p>{views}</div> : m &&
+      <ViewerBoundary key={attempt} onRetry={attempt < 2 ? retry : undefined} views={views}><div className={styles.viewport}><Suspense fallback={<p>Preparing 3D…</p>}><TerrainCanvas tile={tile.data} sunAz={m.sunAz} sunEl={m.sunEl} earthAz={m.earthAz} earthEl={m.earthEl} exaggeration={exaggeration} resetView={resetView} onReady={ready} /></Suspense><div className={styles.viewerHint}>Drag to orbit · Scroll to zoom</div></div></ViewerBoundary>}
+    <div className={styles.legend}><span><i className={styles.siteDot} />Landing point</span><span><i className={styles.sunDot} />Sun</span><span><i className={styles.earthDot} />Earth</span><span>{tile.data?.size_km ?? 20} km tile · {exaggeration}× height</span></div>
     {renderMs !== null && <p>First frame: {Math.round(renderMs)} ms (includes request and lazy loading). Vertical exaggeration {exaggeration}×.</p>}
     {m && <p>Sun {m.sunAz.toFixed(1)}° azimuth / {m.sunEl.toFixed(1)}° elevation; Earth {m.earthAz.toFixed(1)}° / {m.earthEl.toFixed(1)}°. Scrubber controls these markers.</p>}
   </section>;
 }
-export function TerrainPanel({ data }: { data: CompareResponse }) {
-  const [started, setStarted] = useState<number | null>(null);
-  return started === null ? <button type="button" onClick={() => setStarted(performance.now())}>Open terrain 3D</button> : <LoadedViewer data={data} started={started} />;
+export function TerrainPanel({ data, onShow2D }: { data: CompareResponse; onShow2D: (view: "horizon" | "timeline") => void }) {
+  const [started] = useState(() => performance.now());
+  const views = <div className={styles.controls}><button type="button" onClick={() => onShow2D("horizon")}>Open 2D sky and horizon graphs</button><button type="button" onClick={() => onShow2D("timeline")}>Open 2D timeline</button></div>;
+  return <LoadedViewer data={data} started={started} views={views} />;
 }
