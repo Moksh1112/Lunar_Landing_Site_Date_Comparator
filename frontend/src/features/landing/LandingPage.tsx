@@ -50,15 +50,18 @@ export function LandingPage() {
           const gsap = gsapMod.gsap;
           const { ScrollTrigger } = stMod;
           gsap.registerPlugin(ScrollTrigger);
+          const ctx = gsap.context(() => {
           const state = { p: 0 };
-          const st = ScrollTrigger.create({
+          const tween = gsap.to(state, { p: 1, ease: "none", onUpdate: () => scene.setProgress(state.p) });
+          ScrollTrigger.create({
             trigger: story,
             start: "top top",
             end: "bottom bottom",
             scrub: 0.8,
-            animation: gsap.to(state, { p: 1, ease: "none", onUpdate: () => scene.setProgress(state.p) }),
+            animation: tween,
           });
-          cleanups.push(() => st.kill());
+          }, story);
+          cleanups.push(() => ctx.revert());
         }
       } catch {
         if (!cancelled) setWebgl("off"); // no WebGL: the text and diagrams carry the page alone
@@ -90,7 +93,7 @@ export function LandingPage() {
         <Link to="/" className={`btn btn-primary ${styles.launch}`}>Open the app</Link>
       </header>
 
-      <main id="landing-main">
+      <main id="landing-main" tabIndex={-1}>
         <div className={styles.story} ref={storyRef}>
           <div className={styles.stage} aria-hidden="true">
             <canvas ref={canvasRef} className={styles.canvas} data-state={webgl} />
@@ -106,6 +109,7 @@ export function LandingPage() {
                 Azelux compares two lunar landing plans, site and date, hour by hour: sunlight for power, Earth in view
                 for direct-to-Earth contact, and the hours you get both.
               </p>
+              <p className={styles.note}>SYNTHETIC illustration on this page: procedural geometry and invented Sun/Earth directions. Open the comparator for sourced SPICE results.</p>
               <div className={styles.ctas}>
                 <Link to="/" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
                 <Link to="/best-date" className={`btn ${styles.cta} ${styles.ghost}`}>Find the best date</Link>
@@ -132,9 +136,9 @@ export function LandingPage() {
           <section className={styles.chapter} data-chapter="2" aria-labelledby="h-method">
             <div className={styles.panel}>
               <h2 id="h-method">How Azelux answers it.</h2>
-              <p>Every result comes from three steps, run for both plans on the same time grid.</p>
+              <p>Every result comes from three steps, run for both plans at their requested dates and sample step.</p>
               <ol className={styles.steps}>
-                <li><strong>Where the Sun and Earth are.</strong> NASA SPICE (DE440) gives their azimuth and elevation at the site every 10 minutes.</li>
+                <li><strong>Where the Sun and Earth are.</strong> NASA SPICE (DE440) gives their azimuth and elevation at the site (10-minute default for comparisons).</li>
                 <li><strong>Where the skyline is.</strong> Inside south-pole coverage, LOLA terrain gives the horizon in every direction; elsewhere the result says "geometric horizon only".</li>
                 <li><strong>Which one is higher.</strong> Visible when the body's centre clears the skyline. Windows, gaps, A − B deltas and a verdict follow.</li>
               </ol>
@@ -169,12 +173,12 @@ export function LandingPage() {
                   <span><b className={styles.b}>B</b> 15 Mar 2027 <strong>224.6 h</strong> sunlight</span>
                 </div>
                 <p className={styles.note}>
-                  Geometric horizon only (the site is north of the 80.7° S terrain limit). A live computation, not a validation.
+                  Geometric horizon only (the site is north of the 80.7° S terrain limit). A recorded computation from an earlier local run, not a live result or validation.
                 </p>
               </figure>
               <ul className={styles.ticks}>
                 <li>Every result names its ephemeris, horizon mode and terrain data.</li>
-                <li>SPICE vs JPL Horizons: owner-reported spot check, 1 site × 6 times, all differences far below the 0.05° target. Not full validation.</li>
+                <li>Full V1/V2 ephemeris checks are recorded in Methods. Terrain-map comparison V4 still fails its target; see the published results and limitations.</li>
                 <li>No safety certification, no wattage prediction, no guaranteed radio link.</li>
               </ul>
             </div>
@@ -185,7 +189,7 @@ export function LandingPage() {
 
         <section className={styles.close} aria-labelledby="h-close">
           <h2 id="h-close">Pick two plans and see the difference.</h2>
-          <p>A starter example is loaded, so the first comparison takes one click.</p>
+          <p>The comparator computes a starter example on first visit; edit either plan to explore your own comparison.</p>
           <div className={styles.ctas}>
             <Link to="/" className={`btn btn-primary ${styles.cta}`}>Open the comparator</Link>
             <Link to="/methods" className={`btn ${styles.cta} ${styles.ghost}`}>Read the method</Link>
@@ -295,8 +299,9 @@ function SimSection() {
   return (
     <section className={styles.sim} aria-labelledby="h-sim">
       <div className={styles.simHead}>
-        <h2 id="h-sim">Try the mission.</h2>
-        <p>Orbit the Moon, sweep the Sun through one lunar day and land at either site. Watch the Sun skim the south-pole horizon.</p>
+        <h2 id="h-sim">Explore an illustrative mission.</h2>
+        <p>Orbit the Moon and move a schematic Sun through a 708-hour cycle. This demonstrates the controls, not the conditions of an actual mission.</p>
+        <p role="note">SYNTHETIC: invented Sun/Earth directions, smooth-sphere visibility, no SPICE or terrain computation. Site names locate markers only.</p>
       </div>
       <div className={styles.simGrid}>
         <div className={styles.simStage}>
@@ -305,7 +310,7 @@ function SimSection() {
             className={styles.simCanvas}
             data-state={state}
             tabIndex={0}
-            aria-label="Interactive Moon illustration. Drag, or focus and use the arrow keys, to orbit; scroll or pinch to zoom."
+            aria-label="Synthetic interactive Moon illustration. Drag, or focus and use Control/Command plus arrow keys, to orbit; scroll or pinch to zoom."
           />
           <p className={styles.simNote}>Illustration with a smooth-sphere horizon. Terrain-aware results come from the comparator.</p>
         </div>
@@ -325,10 +330,11 @@ function SimSection() {
           </div>
           <label className={styles.slider}>
             <span>
-              Hour of the lunar day <output>{hours} h</output>
+              Illustrative hour <output>{hours} h</output>
             </span>
             <input
               type="range"
+              aria-label="Illustrative hour (synthetic)"
               min={0}
               max={708}
               step={6}
@@ -344,14 +350,14 @@ function SimSection() {
           <dl className={styles.readout} aria-live="polite">
             <div>
               <dt>Site</dt>
-              <dd>{read ? `${read.site}: ${SITE_NAMES[read.site]}` : "Loading…"}</dd>
+              <dd>{read ? `${read.site}: ${SITE_NAMES[read.site]}` : state === "off" ? "3D unavailable" : "Loading…"}</dd>
             </div>
             <div>
-              <dt className={styles.sunText}>Sun elevation</dt>
+              <dt className={styles.sunText}>Illustrative Sun elevation</dt>
               <dd>{read ? `${fmt(read.sunElDeg)} ${read.sunUp ? "above" : "below"} the horizon` : "–"}</dd>
             </div>
             <div>
-              <dt className={styles.earthText}>Earth elevation</dt>
+              <dt className={styles.earthText}>Illustrative Earth elevation</dt>
               <dd>{read ? `${fmt(read.earthElDeg)} ${read.earthUp ? "in view" : "below the horizon"}` : "–"}</dd>
             </div>
           </dl>

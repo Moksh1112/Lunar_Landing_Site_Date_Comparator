@@ -22,7 +22,7 @@
   color: var(--color-text);
   background:
     radial-gradient(1200px 700px at 80% -10%, rgb(91 132 255 / 0.18), transparent 60%),
-    radial-gradient(900px 600px at -10% 40%, rgb(124 77 255 / 0.12), transparent 60%),
+    radial-gradient(900px 600px at -10% 40%, rgb(36 91 181 / 0.12), transparent 60%),
     var(--color-bg);
 }
 .landing :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
@@ -40,7 +40,7 @@
 .topNav { display: flex; gap: var(--space-1); margin-left: auto; }
 .topNav a { color: var(--color-text-muted); text-decoration: none; font-size: var(--text-sm); font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 6px; }
 .topNav a:hover { color: var(--color-text); background: rgb(255 255 255 / 0.06); }
-.launch { min-height: 2.5rem; }
+.launch { min-height: 2.75rem; }
 
 /* Story: chapters scroll over a sticky 3D stage. */
 .story { position: relative; }
@@ -56,7 +56,7 @@
 .panel p { color: var(--color-text-muted); max-width: 60ch; }
 
 .display { font-size: clamp(2.75rem, 1.5rem + 4.6vw, 5.25rem); line-height: 0.98; letter-spacing: -0.035em; font-weight: 750; margin-bottom: var(--space-4); text-wrap: balance;
-  background: linear-gradient(180deg, #ffffff 30%, #b9c7ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  color: var(--color-text); }
 .lead { font-size: var(--text-lg); color: var(--color-text) !important; }
 .ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
 .cta { min-height: 3rem; padding: 0 var(--space-4); font-size: var(--text-md); font-weight: 650; }
@@ -131,7 +131,7 @@
   .panel { padding: var(--space-4); max-width: none; background: rgb(11 16 32 / 0.86); }
   .hero .panel { background: rgb(5 7 13 / 0.55); padding: var(--space-4); border-radius: 12px; backdrop-filter: blur(6px); }
   .facts { grid-template-columns: 1fr; }
-  .illus { left: var(--space-3); right: auto; top: 4.5rem; bottom: auto; }
+  .illus { display: none; }
   .sim, .close { padding: 4rem var(--space-3); }
 }
 @media (prefers-reduced-motion: reduce) { .canvas { transition: none; } }

@@ -136,6 +136,9 @@ function lander(): THREE.Group {
 
 export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?: boolean } = {}): MoonScene {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  let disposed = false;
+  let landingRaf = 0;
+  let removeControlListener = () => {};
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
@@ -241,12 +244,12 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     camera.updateProjectionMatrix();
     render();
   };
-  const render = () => renderer.render(scene, camera);
+  const render = () => { if (!disposed) renderer.render(scene, camera); };
 
   // ---- interactive simulation (illustrative geometry, smooth-sphere horizon) ----
   let current: "A" | "B" = "A";
   let sunHours = 0;
-  let raf = 0;
+
   let controls: { update: () => void; dispose: () => void; target: THREE.Vector3 } | null = null;
   const sites = { A: a, B: b };
   const elevation = (site: THREE.Vector3, target: THREE.Vector3) => {
@@ -267,10 +270,11 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     const d = new THREE.Vector3(Math.cos(ang), 0.03, -Math.sin(ang)).normalize();
     sunLight.position.copy(d.clone().multiplyScalar(10));
     sun.position.copy(d.clone().multiplyScalar(7));
-    if (!raf) render();
+    render();
     return readout();
   };
   const landAt = (site: "A" | "B"): Readout => {
+    cancelAnimationFrame(landingRaf);
     current = site;
     const s = sites[site];
     const up = s.clone().normalize();
@@ -280,11 +284,12 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
     craft.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), up);
     pathMat.opacity = 0;
     const step = () => {
+      if (disposed) return;
       const k = dur ? Math.min(1, (performance.now() - t0) / dur) : 1;
       const e = 1 - Math.pow(1 - k, 3);
       craft.position.copy(start.clone().lerp(s.clone().multiplyScalar(1.006), e));
-      if (!raf) render();
-      if (k < 1) requestAnimationFrame(step);
+      render();
+      if (k < 1) landingRaf = requestAnimationFrame(step);
     };
     step();
     if (controls) {
@@ -296,8 +301,9 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
 
   if (opts.interactive) {
     void import("three/examples/jsm/controls/OrbitControls.js").then(({ OrbitControls }) => {
+      if (disposed) return;
       const c = new OrbitControls(camera, canvas);
-      c.enableDamping = true;
+      c.enableDamping = false;
       c.minDistance = 1.35;
       c.maxDistance = 9;
       c.enablePan = false;
@@ -305,19 +311,19 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
       c.target.copy(a);
       camera.position.set(1.2, -2.3, 2.4);
       controls = c;
-      const loop = () => {
-        c.update();
-        renderer.render(scene, camera);
-        raf = requestAnimationFrame(loop);
-      };
-      loop();
+      c.addEventListener("change", render);
+      removeControlListener = () => c.removeEventListener("change", render);
+      c.update();
+      render();
     });
     craft.position.copy(a.clone().multiplyScalar(1.006));
     pathMat.opacity = 0;
   }
 
   const dispose = () => {
-    cancelAnimationFrame(raf);
+    disposed = true;
+    cancelAnimationFrame(landingRaf);
+    removeControlListener();
     controls?.dispose();
     scene.traverse((o) => {
       const m = o as THREE.Mesh;
