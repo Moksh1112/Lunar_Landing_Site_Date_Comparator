@@ -35,8 +35,8 @@ npm run dev:all
 
 Do not proceed past failed acquisition/preparation. Kernels alone permit REAL
 geometric comparisons, but not the full polar demo. Near tiles without the far DEM
-currently return mode `terrain`; that does not meet the contract's near+far definition
-and is recorded for the backend owner. Inspect actual DEM names, not just mode/banners.
+return the honest TerrainUnavailable error since `fd38ce5` (earlier builds wrongly returned
+mode `terrain`). Inspect actual DEM names, not just mode/banners.
 Health must report mock=false, all five expected kernels and the installed DEMs;
 results must retain REAL, source DEM, step, contract 1.1 and manifest identity.
 The downloader uses two attempts and keeps resumable `.part` files; do not silently

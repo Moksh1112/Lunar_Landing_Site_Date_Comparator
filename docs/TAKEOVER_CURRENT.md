@@ -5,7 +5,9 @@ preparation. The all-rounder owns backend/terrain and ALL frontend implementatio
 Earlier temporary full-stack instructions and dated service/PID snapshots are historical.
 Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
-## Verified baseline
+## Verified baseline (takeover snapshot, historical)
+
+Current heads, CI and the release status are in the top section of [PROGRESS.md](PROGRESS.md). The table below records the takeover starting point only.
 
 | Ref | SHA | Takeover finding |
 | --- | --- | --- |

@@ -1,6 +1,109 @@
 # Azelux progress and to-do board
 
-## Current status — 15 November 2026, release-candidate preparation (authoritative)
+## Current status — 15 November 2026, release preparation (authoritative)
+
+This is the single current done / pending / go-no-go list. Sections below it are dated
+history. Release preparation is owned by the main session (frontend owner), by the user's
+assignment.
+
+**Code under review:** `feat/p1-s0-integration`; the exact SHA and hosted CI link are in the
+commit that publishes this section. It contains:
+
+- backend `c116ceb`: near-only terrain fix `fd38ce5`, V4 decision docs, V4b tool `d6a7d56`
+  and schema-conformant V4b artifact `5723ef8`;
+- frontend `b2b7cc9`: theme and entry flow, single-flight fix `f9a842d`, gap / explanation /
+  briefing `4f0e746`, and Methods V4/V4b wording `d60adf1` + `b2b7cc9`.
+
+Nothing has been deployed, merged to main, tagged or submitted, and MVP acceptance is not
+claimed.
+
+### Decision recorded
+
+- **PGDA validation basis (Moksh, 15 Nov 2026): V4b adopted.**
+  - V4b passes 10/10 within the unchanged ≤ 5 pp target (largest difference 4.134843 pp, the
+    Sun at −88°, 90° E).
+  - V4 stays a recorded FAIL (6.299 pp).
+  - The runtime keeps body-centre visibility. V4b does not show that centre-based results
+    match PGDA within 5 pp.
+  - The full record and limits are in `backend/docs/V4_DECISION_2026-11-15.md`.
+- **Iteration-1 extensions:** three were explicitly authorized and integrated: start with the
+  visibility gap, Explain this interval, and the offline HTML briefing. They change no
+  science, thresholds or contract. Other Iteration 1/2 work stays out of scope.
+
+### Done (with evidence)
+
+- **F10 defect fixed (`fd38ce5`):** a near tile without a far DEM now returns
+  TerrainUnavailable instead of `terrain`. Reproduced before and after on real Athena data;
+  five regression tests.
+- **Defect fixed (`f9a842d`):** double submission of Compare and Best Date. A real browser
+  check now sends 1 POST.
+- **Defect fixed (`5723ef8`, `d60adf1`):** the first V4b artifact did not match the evidence
+  schema, so Methods would have listed it as an invalid file. It was regenerated with the same
+  values, and a test now parses every committed result.
+- **Wording corrected (`b2b7cc9`):** Methods and the briefing now state the V4b decision and
+  its limits, and no longer imply that the disc rule explains the whole V4 gap.
+- **Integrated acceptance on a REAL stack:** `MVP_VERIFICATION.md` "Current F1–F25 status" and
+  "Integrated acceptance".
+- **Feature evidence:**
+  - gap / explanation / briefing: `frontend/docs/HANDOFF_GAP_BRIEFING.md`. Includes a real
+    downloaded briefing replayed with the network off and 0 requests.
+  - theme / navigation: `frontend/docs/HANDOFF_MONOCHROME.md`.
+- **Real preview re-verified at `7bc75e8`** (backend :8012, frontend :5191):
+  - `/health` reports `mock:false`, 5 kernels, `far_160m.tif` + 3 tiles, manifest `1dcb16ff…`.
+  - Athena date shift (A 2027-03-01, B 2027-03-14, 240 h): REAL `terrain`, "tile im2-athena +
+    far_160m", A red, B green, A − B both −210.1 h.
+  - A fresh briefing from that preview (409 KB) replayed offline with 0 requests.
+- **Tests:**
+  - Backend with real data: 556 passed, 6 skipped (need pre-cached skylines).
+  - Backend without data, as in CI: 506 passed, 50 skipped (data-gated). Skips are not
+    passes.
+  - Frontend: 178 passed; typecheck, lint and build clean.
+- **Clean clone:** default venv setup is blocked by Windows Application Control (OS policy,
+  not bypassed). The documented `AZX_PYTHON_MODE=target` setup succeeded, and its real
+  backend reproduced the Athena result.
+
+### Pending: human and device checks (Moksh is arranging; not simulated)
+
+Script and results template: `docs/USABILITY_TASKS.md`. Record each item separately as
+passed, failed or pending.
+
+1. Two independent usability participants.
+2. A physical phone and a physical tablet.
+3. A second browser (Firefox or Safari).
+4. A spoken screen-reader session (NVDA, VoiceOver or Narrator).
+5. Slow-device 3D and its fallback.
+6. Lighthouse ≥ 90 for Performance and Accessibility on `/` (Playbook quality bar). Not yet
+   measured: the tool is not installed here.
+
+**Physical print:** not required by the canonical documents. TRD: "PDF is the browser's
+print-to-PDF of a report page"; PRD 13.3 step 6: "export CSV and PDF". Print preview and
+PDF evidence exist. A physical print is an optional extra check, not a release blocker.
+
+### Pending: decisions and actions for Moksh
+
+1. **Library scope (F1):** ten sourced entries; international and commercial breadth is
+   partial. Accept as a known limitation or add sourced sites.
+2. **Project licence:** the repository has no LICENSE file. Choose one or confirm none.
+3. **Release:** nominate the release candidate, authorize deployment, then run PRD 13.3 twice
+   on the deployed URL. Then merge to main, tag, record the 30-second video and submit. See
+   `RELEASE_PREPARATION.md`.
+
+### Go / no-go
+
+- **Go** needs all of these:
+  - green CI on the nominated SHA;
+  - the human and device checks above passed, or explicitly waived by Moksh;
+  - two deployed PRD 13.3 rehearsals passed;
+  - Moksh's authorization.
+- **No-go** if any of these happen:
+  - a REAL/SYNTHETIC label or horizon mode does not match the data used;
+  - V4 is presented as passing, or V4b as validating the runtime rule;
+  - any safety, wattage or guaranteed-radio-link claim.
+
+## Superseded snapshot — release-candidate preparation at `d13b893` (history)
+
+Superseded by the section above: the V4 basis has since been decided (V4b adopted), and the items it lists as pending are now classified there.
+
 
 **Integration** `feat/p1-s0-integration` contains, on top of `28b56e3`:
 

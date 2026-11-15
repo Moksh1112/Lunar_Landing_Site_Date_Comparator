@@ -1,5 +1,48 @@
 # MVP verification ledger — 15 November 2026
 
+## Current F1–F25 status (authoritative, release preparation, 15 Nov 2026)
+
+How to read the Status column:
+
+- **Verified:** complete, with evidence.
+- **Fixed:** a demonstrated defect, fixed and checked.
+- **Human:** a human or device check is pending.
+- **Decision:** an explicit scope or acceptance decision is needed.
+- **Limit:** a known limitation kept in the release material.
+
+The evidence uses REAL integrated runs with headless Edge and viewport emulation, unless
+stated otherwise. No physical device was used. Owner-reported items stay owner-reported.
+
+| Item | Status | Evidence / what remains |
+| --- | --- | --- |
+| F1 Library | Verified + **Decision** + Limit | Ten entries match their primary sources (`evidence/SITE_SOURCE_REVIEW_2026-11-15.md`). International and commercial breadth is partial, and two entries are not actual landings. Moksh: accept or extend. |
+| F2 Coordinates | Verified | Integrated acceptance: API boundaries and inline UI validation. |
+| F3 Map | Verified + **Human** | Sourced assets render. Cross-device touch interaction pending. Map attribution control is off; confirm the basemap credit is shown elsewhere (licence checklist). |
+| F4 Two plans | Verified | Real browser journeys (Compare, simulator handoff +210.1 h). The deployed rehearsal waits for authorization. |
+| F5 Mission length | Verified | 0 / 1 / 8760 / 8761 h and step bounds (API). |
+| F6 Presets | Verified | Date-shift preset applied in the browser. |
+| F7 Best Date | Verified + **Human** | 1 / 183 / 184-day bounds; Load as Plan B; single submit. Slow-device run pending. |
+| F8 Ephemeris | Verified + Limit | V1/V2 pass. No external scientific certification. |
+| F9 Skyline | Verified | Real near+far terrain in Compare and Best Date. |
+| F10 Coverage modes | **Fixed** (`fd38ce5`) | Near-only returns TerrainUnavailable; near+far is `terrain`; far-only is `terrain_coarse`; outside coverage is `geometric` (real data). |
+| F11 Visibility | Verified + Limit | V3/V5 pass. Runtime uses body centres; see F23. |
+| F12 Metrics / countdowns | Verified | Censored windows checked through the API. Gap panel shows censoring in the browser (`HANDOFF_GAP_BRIEFING.md`). Countdowns covered by earlier browser evidence. |
+| F13 Deltas | Verified | Every delta equals A − B (real). Gap comparison uses labelled A and B values. |
+| F14 Verdicts | Verified | Real red/green. Local threshold re-verdict covered by unit tests. |
+| F15–F17 Panorama / timeline / scrubber | Verified | Keyboard scrub syncs the views; gap focus and event jumps move the shared scrubber; mission-day alignment works. |
+| F18 Terrain 3D | Verified + **Human** | The no-WebGL fallback renders. Slow-device performance pending. |
+| F19 Simple / Expert | Verified + **Human** | Raw-data table and keyboard checks done. Spoken screen-reader session pending. |
+| F20 Provenance | Verified | CSV, JSON, report and briefing carry REAL/SYNTHETIC, mode, DEM and manifest. |
+| F21 UI states | **Fixed** (`f9a842d`) + Verified | 429, blocked API with Retry, slow network, single submit. |
+| F22 Horizons | Verified + Limit | V1/V2 artifacts pass; validation only. |
+| F23 PGDA | **Decision recorded** | V4 FAIL 6.299 pp (unchanged). V4b adopted by Moksh, 10/10 within 5 pp, max 4.134843 pp. Runtime stays centre-based; V4b does not validate it. `backend/docs/V4_DECISION_2026-11-15.md`. |
+| F24 Methods | Verified (`b2b7cc9`) | Rendered: V4 fail, V4b pass, decision note with limits, no invalid evidence files. |
+| F25 Export / report | Verified | Real CSV/JSON; print preview white, 8 charts, REAL. Physical print is not required (TRD: PDF via browser print). |
+| Gap / explain / briefing (authorized Iteration-1 extensions) | Verified | `frontend/docs/HANDOFF_GAP_BRIEFING.md`: real data; the downloaded file replayed offline with 0 requests; no-JS view, print and safety tests. |
+| Quality bar: Lighthouse ≥ 90 Perf / A11y on `/` | **Human** / pending | Not measured; the tool is unavailable offline here. Run Chrome DevTools Lighthouse on the release build. |
+| Usability (2 people), physical devices, second browser | **Human** | `USABILITY_TASKS.md` script and template. |
+| Deployed PRD 13.3 rehearsal ×2 | Pending authorization | `RELEASE_PREPARATION.md`. |
+
 ## P1 takeover evidence scope - 15 November 2026
 
 Final fetch confirms integration `3721130` contains current owner heads `7d6ac55`
@@ -17,8 +60,8 @@ A-minus-B metrics (including null), empty/full censored windows, input rejection
 a 60-day geometric sweep were exercised. These API checks do not certify UI countdowns,
 slow-network handling, cross-view synchronization or full terrain performance.
 
-Near-only Athena tiles returned REAL/terrain without a far DEM. This conflicts with
-the contract's near+far terrain definition and needs the backend owner. Partial-data
+Near-only Athena tiles returned REAL/terrain without a far DEM (historical; fixed by `fd38ce5`, see current status). This conflicted with
+the contract's near+far terrain definition. Partial-data
 API checks gave RED at B=2027-03-01 and GREEN at B=2027-03-14, +210.0 h both-visible
 for B. They do not replace the owner's +210.1 h near+far browser evidence. V4 FAIL
 and V6 owner-review scope are unchanged. No feature is promoted to full acceptance.
@@ -109,11 +152,13 @@ Scripts are local evidence, not committed:
 | A11y | 0 contrast failures across 5,181 rendered text elements on 6 routes. The skip link is the first Tab stop and moves focus to `main`. The Learn and Menu dropdowns close on Escape and return focus. Reduced motion renders all routes. Without WebGL, Home falls back to the Moon image and the simulator and tour still render their content. |
 | Layout | 8 routes × 320×640, 375×812, 768×1024, 1440×900, 1440×600 and 1280×560: 48/48 with no horizontal overflow, no clipped controls, a black canvas and no script errors. |
 | Tests | Backend with real data: 556 passed, 6 skipped (they need pre-cached skylines). Without data, as in CI: 506 passed, 50 skipped for missing kernels, DEMs or maps. Frontend: 150 passed at `fbe70aa`. |
-| F23 PGDA | V4 (centre, daily) FAIL 6.299 pp, unchanged. **V4b** (any-fraction disc, hourly; approved and run) passes 10/10 within 5 pp, max 4.135 pp at Sun (−88, 90 E): `validation/results/V4b-any-fraction.json`. Moksh decides the acceptance basis. |
-| Not done | Physical phone and tablet, other browsers, screen-reader speech, 2 usability participants (`USABILITY_TASKS.md`), physical print, deployed rehearsal. |
+| F23 PGDA | V4 (centre, daily) FAIL 6.299 pp, unchanged. **V4b** (any-fraction disc, hourly) passes 10/10 within 5 pp, max 4.135 pp at Sun (−88, 90 E): `validation/results/V4b-any-fraction.json`. Moksh has since adopted V4b (see current status). |
+| Not done | Physical phone and tablet, other browsers, screen-reader speech, 2 usability participants (`USABILITY_TASKS.md`), deployed rehearsal. A physical print is optional (see current status). |
 
 Earlier pending V6/export/print entries below are historical, superseded here.
 
+
+### Historical ledger (superseded by "Current F1–F25 status" above)
 
 User resumed full-stack engineering. Release remains reserved for the user.
 Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
@@ -169,7 +214,9 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 
 ## Gate status
 
-MVP acceptance remains OPEN: V4 fails; the remaining acceptance
-checks above are incomplete. Deployed demo twice is reserved for release by user.
-No Iteration 1/2 features or release tags are authorized by this ledger.
-Read NON_RELEASE_HANDOFF.md for real dataset reproduction and historical checks.
+MVP acceptance is **OPEN** and is Moksh's decision. The engineering items are classified in
+"Current F1–F25 status". Open items are the human and device checks, Lighthouse, the F1 scope
+decision and the two deployed rehearsals. V4 is a recorded FAIL with V4b as the adopted
+basis. Three Iteration-1 extensions were explicitly authorized; no other Iteration 1/2 work
+and no release tag are authorized by this ledger. Read `NON_RELEASE_HANDOFF.md` for
+real-dataset reproduction.

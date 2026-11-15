@@ -44,7 +44,7 @@ prove terrain readiness. Do not reuse another machine's local configuration or d
 
 The takeover reproduced real geometric and near+far polar comparisons from freshly
 acquired data, including a 60-day terrain sweep. Near-only startup also exposed a
-`terrain` mode/contract mismatch when far terrain is absent. Remaining acceptance is tracked
+`terrain` mode/contract mismatch when far terrain was absent; `fd38ce5` fixed it (TerrainUnavailable). Remaining acceptance is tracked
 in [the current progress board](docs/PROGRESS.md); detailed checks are in
 [the takeover verification](docs/TAKEOVER_VERIFICATION_2026-11-15.md).
 
