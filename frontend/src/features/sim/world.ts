@@ -147,12 +147,43 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   const moon = realMoonMesh(renderer, MOON_R);
   moonGroup.add(moon);
   scene.add(moonGroup);
+  // Illustrative 3D photosphere. Its position also drives the Moon's light source.
+  // Enlarged for teaching; this room does not represent real distances or angular sizes.
+  const sun = new THREE.Mesh(
+    new THREE.SphereGeometry(2.8, 48, 32),
+    new THREE.ShaderMaterial({
+      vertexShader: `varying vec3 surface; varying vec3 viewNormal; varying vec3 viewDir;
+        void main() {
+          surface = position;
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          viewNormal = normalize(normalMatrix * normal);
+          viewDir = normalize(-mv.xyz);
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `varying vec3 surface; varying vec3 viewNormal; varying vec3 viewDir;
+        void main() {
+          float granules = sin(surface.x * 39.0 + sin(surface.z * 27.0))
+            * sin(surface.y * 43.0 + sin(surface.x * 31.0));
+          float limb = pow(max(dot(normalize(viewNormal), normalize(viewDir)), 0.0), 0.35);
+          float patches = 0.5 + 0.5 * sin(surface.x * 4.0 + sin(surface.z * 3.0))
+            * sin(surface.y * 5.0 + surface.z * 2.0);
+          vec3 orange = vec3(1.0, 0.20, 0.008);
+          vec3 yellow = vec3(1.0, 0.76, 0.055);
+          vec3 photosphere = mix(orange, yellow, patches * 0.7 + limb * 0.3);
+          gl_FragColor = vec4(photosphere * (0.90 + granules * 0.10) * (0.65 + limb * 0.35), 1.0);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`,
+    }),
+  );
+  scene.add(sun);
   const sunLight = new THREE.DirectionalLight(0xfff4e0, 3.2);
   sunLight.target = moonGroup;
   scene.add(sunLight);
   const setSunAngle = (ang: number) => {
     // Sun near the Moon's equatorial plane: it grazes the poles
     sunLight.position.copy(MOON_POS).add(new THREE.Vector3(Math.cos(ang) * 40, 0.8, Math.sin(ang) * 40));
+    sun.position.copy(sunLight.position);
   };
   setSunAngle(0.5);
   const earth = realEarthMesh(renderer, 1.6);
@@ -390,7 +421,12 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   };
 
   let raf = 0;
+  let previousFrame = performance.now();
   const loop = () => {
+    const now = performance.now();
+    const elapsed = Math.min((now - previousFrame) / 1000, 0.1);
+    previousFrame = now;
+    if (!reduce) sun.rotation.y += elapsed * 0.12;
     moon.rotation.y += level === "demo" ? 0 : 0.0003;
     renderer.render(scene, camera);
     raf = requestAnimationFrame(loop);
