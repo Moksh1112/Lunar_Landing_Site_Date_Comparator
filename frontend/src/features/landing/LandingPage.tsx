@@ -114,10 +114,20 @@ export function LandingPage() {
               </p>
               <div className={styles.ctas}>
                 <Link to="/compare" className={`btn btn-primary ${styles.cta}`}>Compare two plans</Link>
-                <Link to="/landing" className={`btn ${styles.cta} ${styles.ghost}`}>Briefing</Link>
                 <Link to="/best-date" className={`btn ${styles.cta} ${styles.ghost}`}>Find the best date</Link>
               </div>
-              <p className={styles.scrollHint} aria-hidden="true">Scroll to descend to the south pole</p>
+              <Link to="/learn/simulator" className={styles.simCta}>
+                <svg className={styles.simIcon} viewBox="0 0 32 32" aria-hidden="true">
+                  <rect x="3" y="9" width="26" height="15" rx="7.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M10 13.5v6M7 16.5h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  <circle cx="21" cy="15" r="1.6" fill="currentColor" /><circle cx="24.5" cy="18.5" r="1.6" fill="currentColor" />
+                </svg>
+                <span className={styles.simText}>
+                  <strong>Try the simulator</strong>
+                  <span>Fly a mission console in 3D and find a landing day that keeps the lights on.</span>
+                </span>
+                <svg className={styles.simArrow} viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </Link>
             </div>
           </section>
 
