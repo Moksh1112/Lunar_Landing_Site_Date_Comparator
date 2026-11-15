@@ -10,6 +10,7 @@ authorize P1 implementation now. Keep the three existing branches; do not create
 stage branches. Human diff review precedes a commit. Final deployment, main merge,
 tags, submission and MVP acceptance require Moksh's explicit release authorization.
 Current status: PROGRESS.md; takeover procedure: TAKEOVER_CURRENT.md.
+Latest user instruction: commit locally only; do not push.
 
 ## Precedence and provenance
 User selected existing repo, P1 integration ONLY, frontend with frontend owner,

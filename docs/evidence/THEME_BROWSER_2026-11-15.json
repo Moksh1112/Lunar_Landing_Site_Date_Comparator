@@ -1,0 +1,798 @@
+{
+  "source": "47d8a58083f5a440d41d20d8a8c5b829cc0300ba",
+  "layout": [
+    {
+      "path": "/",
+      "width": 320,
+      "scroll": 305,
+      "h1": "Compare lunar landing sites and dates.",
+      "canvas": {
+        "x": 16,
+        "y": 129,
+        "width": 273,
+        "height": 273,
+        "top": 129,
+        "right": 289,
+        "bottom": 402,
+        "left": 16
+      }
+    },
+    {
+      "path": "/compare",
+      "width": 320,
+      "scroll": 305,
+      "h1": "Compare two landing plans"
+    },
+    {
+      "path": "/best-date",
+      "width": 320,
+      "scroll": 305,
+      "h1": "Find the best landing date"
+    },
+    {
+      "path": "/methods",
+      "width": 320,
+      "scroll": 305,
+      "h1": "Methods and sources"
+    },
+    {
+      "path": "/report",
+      "width": 320,
+      "scroll": 320,
+      "h1": "Comparison report"
+    },
+    {
+      "path": "/learn/tour",
+      "width": 320,
+      "scroll": 305,
+      "h1": "Land where the Sun and Earth stay in view.",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 305,
+        "height": 900,
+        "top": 0,
+        "right": 305,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 320,
+      "scroll": 320,
+      "h1": "Pick the landing day at the lunar south pole",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 900,
+        "top": 0,
+        "right": 320,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/unknown-route",
+      "width": 320,
+      "scroll": 320,
+      "h1": "Page not found"
+    },
+    {
+      "path": "/",
+      "width": 375,
+      "scroll": 360,
+      "h1": "Compare lunar landing sites and dates.",
+      "canvas": {
+        "x": 36,
+        "y": 129,
+        "width": 288,
+        "height": 288,
+        "top": 129,
+        "right": 324,
+        "bottom": 417,
+        "left": 36
+      }
+    },
+    {
+      "path": "/compare",
+      "width": 375,
+      "scroll": 360,
+      "h1": "Compare two landing plans"
+    },
+    {
+      "path": "/best-date",
+      "width": 375,
+      "scroll": 360,
+      "h1": "Find the best landing date"
+    },
+    {
+      "path": "/methods",
+      "width": 375,
+      "scroll": 360,
+      "h1": "Methods and sources"
+    },
+    {
+      "path": "/report",
+      "width": 375,
+      "scroll": 375,
+      "h1": "Comparison report"
+    },
+    {
+      "path": "/learn/tour",
+      "width": 375,
+      "scroll": 360,
+      "h1": "Land where the Sun and Earth stay in view.",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 360,
+        "height": 900,
+        "top": 0,
+        "right": 360,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 375,
+      "scroll": 375,
+      "h1": "Pick the landing day at the lunar south pole",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 900,
+        "top": 0,
+        "right": 375,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/unknown-route",
+      "width": 375,
+      "scroll": 375,
+      "h1": "Page not found"
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "scroll": 753,
+      "h1": "Compare lunar landing sites and dates.",
+      "canvas": {
+        "x": 232.5,
+        "y": 129,
+        "width": 288,
+        "height": 288,
+        "top": 129,
+        "right": 520.5,
+        "bottom": 417,
+        "left": 232.5
+      }
+    },
+    {
+      "path": "/compare",
+      "width": 768,
+      "scroll": 753,
+      "h1": "Compare two landing plans"
+    },
+    {
+      "path": "/best-date",
+      "width": 768,
+      "scroll": 753,
+      "h1": "Find the best landing date"
+    },
+    {
+      "path": "/methods",
+      "width": 768,
+      "scroll": 753,
+      "h1": "Methods and sources"
+    },
+    {
+      "path": "/report",
+      "width": 768,
+      "scroll": 768,
+      "h1": "Comparison report"
+    },
+    {
+      "path": "/learn/tour",
+      "width": 768,
+      "scroll": 753,
+      "h1": "Land where the Sun and Earth stay in view.",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 753,
+        "height": 900,
+        "top": 0,
+        "right": 753,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 768,
+      "scroll": 768,
+      "h1": "Pick the landing day at the lunar south pole",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 900,
+        "top": 0,
+        "right": 768,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/unknown-route",
+      "width": 768,
+      "scroll": 768,
+      "h1": "Page not found"
+    },
+    {
+      "path": "/",
+      "width": 1024,
+      "scroll": 1009,
+      "h1": "Compare lunar landing sites and dates.",
+      "canvas": {
+        "x": 543.71875,
+        "y": 155.359375,
+        "width": 441.265625,
+        "height": 441.265625,
+        "top": 155.359375,
+        "right": 984.984375,
+        "bottom": 596.625,
+        "left": 543.71875
+      }
+    },
+    {
+      "path": "/compare",
+      "width": 1024,
+      "scroll": 1009,
+      "h1": "Compare two landing plans"
+    },
+    {
+      "path": "/best-date",
+      "width": 1024,
+      "scroll": 1024,
+      "h1": "Find the best landing date"
+    },
+    {
+      "path": "/methods",
+      "width": 1024,
+      "scroll": 1009,
+      "h1": "Methods and sources"
+    },
+    {
+      "path": "/report",
+      "width": 1024,
+      "scroll": 1024,
+      "h1": "Comparison report"
+    },
+    {
+      "path": "/learn/tour",
+      "width": 1024,
+      "scroll": 1009,
+      "h1": "Land where the Sun and Earth stay in view.",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1009,
+        "height": 900,
+        "top": 0,
+        "right": 1009,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 1024,
+      "scroll": 1024,
+      "h1": "Pick the landing day at the lunar south pole",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 900,
+        "top": 0,
+        "right": 1024,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/unknown-route",
+      "width": 1024,
+      "scroll": 1024,
+      "h1": "Page not found"
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "scroll": 1425,
+      "h1": "Compare lunar landing sites and dates.",
+      "canvas": {
+        "x": 809.546875,
+        "y": 104,
+        "width": 544,
+        "height": 544,
+        "top": 104,
+        "right": 1353.546875,
+        "bottom": 648,
+        "left": 809.546875
+      }
+    },
+    {
+      "path": "/compare",
+      "width": 1440,
+      "scroll": 1425,
+      "h1": "Compare two landing plans"
+    },
+    {
+      "path": "/best-date",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": "Find the best landing date"
+    },
+    {
+      "path": "/methods",
+      "width": 1440,
+      "scroll": 1425,
+      "h1": "Methods and sources"
+    },
+    {
+      "path": "/report",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": "Comparison report"
+    },
+    {
+      "path": "/learn/tour",
+      "width": 1440,
+      "scroll": 1425,
+      "h1": "Land where the Sun and Earth stay in view.",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1425,
+        "height": 900,
+        "top": 0,
+        "right": 1425,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/learn/simulator",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": "Pick the landing day at the lunar south pole",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "top": 0,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    {
+      "path": "/unknown-route",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": "Page not found"
+    }
+  ],
+  "errors": [],
+  "network": [
+    {
+      "requestId": "47348.50",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "991E397973538ADF09AEB550E3285C33",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.139",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.138",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.199",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.198",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.261",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.331",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.462",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.511",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.600",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.599",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.601",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.661",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.660",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.722",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.792",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.923",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.972",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1061",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1060",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1062",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1122",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1121",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1183",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1253",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1384",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1433",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1522",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1521",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1523",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1583",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1582",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1644",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1714",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1845",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1894",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1983",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1982",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.1984",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2044",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2043",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2105",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2175",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2306",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2479",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2525",
+      "url": "http://127.0.0.1:8008/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2526",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2527",
+      "url": "http://127.0.0.1:8008/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2576",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    },
+    {
+      "requestId": "47348.2627",
+      "url": "http://127.0.0.1:8008/health",
+      "status": 200
+    }
+  ],
+  "compareButtons": [
+    "Back",
+    "Menu",
+    "Learn",
+    "Simple",
+    "Expert",
+    "Edit plans",
+    "Compare",
+    "Site vs site",
+    "Date shift",
+    "Free",
+    "Compare A and B",
+    "Done",
+    "Download CSV",
+    "Download JSON",
+    "Calendar date",
+    "Mission day",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Open terrain 3D"
+  ],
+  "realCompare": {
+    "modes": [
+      {
+        "ephemeris": "SPICE DE440 (JPL NAIF)",
+        "kernels": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "horizon_mode": "terrain_coarse",
+        "dem": "far_160m",
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+        "computed_at": "2026-11-15T11:23:55Z",
+        "data_label": "REAL"
+      },
+      {
+        "ephemeris": "SPICE DE440 (JPL NAIF)",
+        "kernels": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "horizon_mode": "terrain_coarse",
+        "dem": "far_160m",
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+        "computed_at": "2026-11-15T11:23:55Z",
+        "data_label": "REAL"
+      }
+    ],
+    "deltas": {
+      "sun_el_max_deg": -0.756,
+      "sun_el_mean_up_deg": -0.667,
+      "sun_hours": 11.6,
+      "sun_pct": 1.6,
+      "earth_hours": -60.1,
+      "earth_pct": -8.4,
+      "both_hours": -13.7,
+      "both_pct": -1.9,
+      "longest_dark_h": -96.7,
+      "longest_blackout_h": 36.4
+    }
+  },
+  "reducedMotion": true,
+  "supplement": {
+    "source": "47d8a58083f5a440d41d20d8a8c5b829cc0300ba",
+    "layout": [],
+    "errors": [],
+    "network": [
+      {
+        "requestId": "23088.51",
+        "url": "http://127.0.0.1:8008/health",
+        "status": 200
+      },
+      {
+        "requestId": "FEA2EBEAADF3A51DFA7679D8D255F75A",
+        "url": "http://127.0.0.1:8008/api/v1/compare",
+        "status": 200
+      },
+      {
+        "requestId": "23088.137",
+        "url": "http://127.0.0.1:8008/health",
+        "status": 200
+      },
+      {
+        "requestId": "23088.138",
+        "url": "http://127.0.0.1:8008/api/v1/sites",
+        "status": 200
+      },
+      {
+        "requestId": "23088.139",
+        "url": "http://127.0.0.1:8008/api/v1/compare",
+        "status": 200
+      },
+      {
+        "requestId": "23088.200",
+        "url": "http://127.0.0.1:8008/health",
+        "status": 200
+      },
+      {
+        "requestId": "23088.238",
+        "url": "http://127.0.0.1:8008/api/v1/sites",
+        "status": 200
+      },
+      {
+        "requestId": "23088.239",
+        "url": "http://127.0.0.1:8008/api/v1/compare",
+        "status": 200
+      }
+    ],
+    "fallback": {
+      "images": [
+        {
+          "src": "http://127.0.0.1:5188/src/features/landing/assets/moon_lroc_color_4k.jpg",
+          "complete": true,
+          "width": 4096
+        }
+      ],
+      "canvases": 0
+    },
+    "learn": {
+      "focus": "Learn",
+      "expanded": "false"
+    },
+    "menu": {
+      "focus": "Menu",
+      "expanded": "false"
+    }
+  },
+  "review_note": "P1 actual headless Edge results. Reduced-motion screenshot separately showed missing Moon texture. Normal screenshots inspected; not full device acceptance."
+}

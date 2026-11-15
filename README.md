@@ -2,7 +2,9 @@
 
 Compare two lunar plans using local SPICE ephemeris and sourced terrain horizons.
 The comparator provides panoramas, timelines, shared playback, Best Date, provenance,
-CSV/JSON and a printable report. The optional learning simulator is at `/landing`.
+CSV/JSON and a printable report. The tour is the default landing page at `/`; comparison is `/compare`. The
+Briefing button opens the simulator through `/landing` (redirecting to
+`/learn/simulator`). The tour also remains available at `/learn/tour`.
 No runtime AI, database, authentication or uploads are required in v1.
 
 ## Start locally
@@ -90,7 +92,8 @@ Green CI does not pass an MVP or release gate.
 P1 owns root tooling, CI, shared locks and integration docs. The all-rounder owns ALL
 backend/terrain and frontend implementation. Keep `feat/p1-s0-integration`,
 `feat/p2-p3-backend-terrain`, `feat/p4-frontend-s0` and preserve other branches/local edits.
-Human diff review precedes commit. Deployment, main merge, tags, submission and final
+Human diff review precedes commit. Current user instruction: commit locally only; no push.
+Deployment, main merge, tags, submission and final
 acceptance require Moksh's explicit release authorization.
 
 Canonical scope: `docs/specs/` PRD v2.0, TRD v1.0 and Playbook v4.1;

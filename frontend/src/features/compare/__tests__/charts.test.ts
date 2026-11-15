@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { countVisible, nearestIndex, splitAtWrap, symmetricDifference, windowToRange } from "../chartMath";
+import { countVisible, nearestIndex, nearestTrackSample, splitAtWrap, symmetricDifference, visibilityAt, windowToRange } from "../chartMath";
+import fixture from "../../../../../fixtures/compare.ok.json";
+import type { CompareResponse } from "../../../api/types";
 
 describe("splitAtWrap", () => {
   it("breaks at 360->0 wrap", () => {
@@ -39,4 +41,26 @@ describe("symmetricDifference / countVisible", () => {
     expect(symmetricDifference([[0, 10]], [[0, 10]])).toEqual([]);
   });
   it("counts", () => expect(countVisible([1, 0, 1, 1])).toBe(3));
+});
+
+describe("interactive inspection", () => {
+  it("picks actual Sun/Earth positions even when a direction repeats at different times", () => {
+    const series = { ...(fixture as CompareResponse).scenarios[0].series, t_unix: [0, 10, 20], sun_az: [350, 10, 10], sun_el: [1, 2, 8], earth_az: [90, 100, 110], earth_el: [1, 2, 3] };
+    const project = (az: number, el: number) => ({ x: az, y: el });
+    expect(nearestTrackSample(series, project, { x: 10, y: 7 })).toEqual({ body: "sun", index: 2 });
+    expect(nearestTrackSample(series, project, { x: 100, y: 2 })).toEqual({ body: "earth", index: 1 });
+    expect(nearestTrackSample({ ...series, t_unix: [] }, project, { x: 0, y: 0 })).toBeNull();
+  });
+  it("distinguishes gaps, censored mission ends and times outside a plan", () => {
+    const scenario = { ...(fixture as CompareResponse).scenarios[0], series: { ...(fixture as CompareResponse).scenarios[0].series, t_unix: [0, 10, 20] }, windows: {
+      sun: [{ start: "1970-01-01T00:00:00Z", end: "1970-01-01T00:00:10Z", hours: 10 / 3600, start_censored: true, end_censored: false }],
+      earth: [{ start: "1970-01-01T00:00:05Z", end: "1970-01-01T00:00:20Z", hours: 15 / 3600, start_censored: false, end_censored: true }], both: [],
+    } };
+    expect(visibilityAt(scenario, -1)).toBe("outside this mission");
+    expect(visibilityAt(scenario, 0)).toBe("Sun only; Earth hidden");
+    expect(visibilityAt(scenario, 6)).toBe("Sun and Earth in view");
+    expect(visibilityAt(scenario, 10)).toBe("Earth only; Sun hidden");
+    expect(visibilityAt(scenario, 20)).toBe("Earth only; Sun hidden");
+    expect(visibilityAt(scenario, 21)).toBe("outside this mission");
+  });
 });

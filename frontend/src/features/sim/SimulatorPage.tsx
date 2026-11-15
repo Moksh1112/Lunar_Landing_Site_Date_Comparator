@@ -215,7 +215,7 @@ export function SimulatorPage() {
   }, []);
 
   const openInComparator = () => {
-    if (!last) return navigate("/");
+    if (!last) return navigate("/compare");
     const [a, b] = last.request.scenarios;
     setMode("date_shift");
     for (const [id, s] of [["A", a], ["B", b]] as const)
@@ -230,7 +230,7 @@ export function SimulatorPage() {
       });
     setScrubT(null);
     setLastCompare(last);
-    navigate("/");
+    navigate("/compare");
   };
 
   const replay = () => {
@@ -259,7 +259,8 @@ export function SimulatorPage() {
                 Reset camera
               </button>
             )}
-            <Link to="/" className={styles.exit}>Exit to comparator</Link>
+            <Link to="/" className={styles.exit}>Home</Link>
+            <Link to="/compare" className={styles.exit}>Open comparator</Link>
           </span>
         </header>
       )}
@@ -270,11 +271,12 @@ export function SimulatorPage() {
           <p>Two weeks can turn a sunlit site dark. Learn the console, then find a day that keeps the Sun and Earth in view.</p>
           <div className={styles.row}>
             <Magnet padding={40} magnetStrength={6} maxOffset={6}>
-              <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+              <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
                 <button type="button" className="btn-primary" onClick={() => go("briefing")} autoFocus>Start mission</button>
               </ClickSpark>
             </Magnet>
-            <Link to="/" className="btn">Open the comparator</Link>
+            <Link to="/compare" className="btn">Open the comparator</Link>
+            <Link to="/" className="btn">Back to home</Link>
           </div>
           <p className={styles.keys}>{gl === "off" ? "3D unavailable: same steps in 2D." : "Drag to look · Esc to pause"}</p>
         </section>
@@ -398,7 +400,7 @@ export function SimulatorPage() {
             </>
           )}
           <div className={styles.row}>
-            <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+            <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
               <button type="button" className="btn-primary" onClick={openInComparator}>Open in the comparator</button>
             </ClickSpark>
             <button type="button" onClick={replay}>Replay</button>
@@ -412,7 +414,8 @@ export function SimulatorPage() {
           <div className={styles.row}>
             <button type="button" className="btn-primary" onClick={() => setPaused(false)} autoFocus>Resume</button>
             <button type="button" onClick={() => { setPaused(false); replay(); }}>Restart</button>
-            <Link to="/" className="btn">Exit to comparator</Link>
+            <Link to="/compare" className="btn">Open comparator</Link>
+            <Link to="/" className="btn">Back to home</Link>
           </div>
         </div>
       )}

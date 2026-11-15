@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import { EmptyState } from "../../components/EmptyState";
 import { SyntheticBadge } from "../../components/SyntheticBadge";
@@ -18,6 +18,7 @@ const LIMITS = [
 ];
 
 export function ReportPage() {
+  const [scrubT, setScrubT] = useState<number | null>(null);
   const last = useStore((s) => s.lastCompare);
   const thresholds = useStore((s) => s.thresholds);
   const range = useMemo(() => (last ? sharedYRange(last.response.scenarios) : null), [last]);
@@ -31,7 +32,7 @@ export function ReportPage() {
             Run a comparison first. The report then shows verdicts, differences, charts, metrics and provenance, ready to
             print or save as PDF.
           </p>
-          <Link to="/" className="btn">Go to Compare</Link>
+          <Link to="/compare" className="btn">Go to Compare</Link>
         </EmptyState>
       </main>
     );
@@ -61,7 +62,7 @@ export function ReportPage() {
             Print or save as PDF
           </button>
           <ExportButtons response={response} request={request} className={styles.actions} />
-          <Link to="/" className="btn">Back to Compare</Link>
+          <Link to="/compare" className="btn">Back to Compare</Link>
         </div>
       </header>
 
@@ -108,9 +109,9 @@ export function ReportPage() {
         <h2 id="charts-h">Horizon and timeline</h2>
         <div className={styles.charts}>
           {response.scenarios.map((s) => (
-            <HorizonPanorama key={s.id} scenario={s} scrubT={null} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
+            <HorizonPanorama key={s.id} scenario={s} scrubT={scrubT} yMinDeg={range.yMin} yMaxDeg={range.yMax} />
           ))}
-          <TimelineLanes data={response} alignBy="calendar" scrubT={null} onScrub={() => undefined} />
+          <TimelineLanes data={response} alignBy="calendar" scrubT={scrubT} onScrub={setScrubT} />
         </div>
       </section>
 

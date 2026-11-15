@@ -1,0 +1,40 @@
+.home { display: grid; gap: var(--space-6); }
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: center;
+  gap: var(--space-5); min-height: min(36rem, calc(100svh - 12rem));
+}
+.copy { display: grid; justify-items: start; gap: var(--space-3); max-width: 36rem; }
+.copy h1 { margin: 0; font-size: clamp(2.25rem, 1.4rem + 3.2vw, 4rem); line-height: 1.04; letter-spacing: -0.03em; }
+.lede { margin: 0; font-size: var(--text-lg); color: var(--color-text-muted); max-width: 34rem; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.actions > a { min-height: 2.75rem; padding: 0 var(--space-4); font-size: var(--text-md); }
+.moon { width: 100%; max-width: 30rem; height: auto; aspect-ratio: 1; justify-self: center; border-radius: 50%; }
+.moon3d { position: relative; width: 100%; min-width: 0; max-width: 34rem; aspect-ratio: 1; justify-self: center; }
+.moon3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pillars {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5);
+  padding-top: var(--space-4); border-top: 1px solid var(--color-border);
+}
+.pillar h2 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.pillar p { margin: 0; color: var(--color-text-muted); max-width: 36ch; }
+.credit { margin: 0; font-size: var(--text-xs); color: var(--color-text-faint); }
+@media (max-width: 48rem) {
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .moon3d { order: -1; max-width: 18rem; }
+  .pillars { grid-template-columns: 1fr; gap: var(--space-4); }
+  .actions > a { flex: 1 1 100%; }
+}
+.simCta {
+  display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-3); padding: var(--space-3) var(--space-4) var(--space-3) var(--space-3);
+  max-width: 30rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); background: var(--color-surface);
+  color: var(--color-text); text-decoration: none; transition: border-color 160ms ease, background-color 160ms ease, transform 160ms var(--ease-out);
+}
+.simCta:hover { border-color: var(--color-text); background: var(--color-surface-2); text-decoration: none; }
+.simCta:active { transform: scale(0.98); }
+.simIcon { flex: none; width: 2.75rem; height: 2.75rem; padding: 0.35rem; border-radius: var(--radius-md); background: var(--color-text); color: var(--color-bg); }
+.simText { display: grid; gap: 2px; min-width: 0; }
+.simText strong { font-size: var(--text-md); }
+.simText span { font-size: var(--text-sm); color: var(--color-text-muted); }
+.simArrow { flex: none; width: 1.1rem; height: 1.1rem; margin-left: auto; transition: transform 200ms var(--ease-out); }
+.simCta:hover .simArrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .simCta, .simArrow { transition: none; } .simCta:hover .simArrow, .simCta:active { transform: none; } }

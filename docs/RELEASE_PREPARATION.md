@@ -31,7 +31,7 @@ the final integration run before nominating a release candidate.
 Use the unchanged PRD 13.3 journey, first locally with full datasets, then twice
 on the deployed URL only after deployment authorization:
 
-1. Open `/` and verify real health/network/provenance. Warm the backend.
+1. Open Home `/`, choose Compare (`/compare`) and verify real health/network/provenance. Warm the backend.
 2. Compare the two curated IM-2 polar points on the same date for 708 h. Check
    both near+far terrain sources, verdicts, signed deltas and source labels.
 3. Scrub to a sunset; inspect windows, countdowns, censored edges and date alignment.
@@ -44,7 +44,7 @@ Record exact URL, commit, UTC time, request IDs, input dates/duration, source mo
 manifest identity, device/browser and result for each run. Local HTTP checks and
 owner-reported browser runs do not count as two deployed rehearsals.
 
-Optional simulator demonstration: `/landing`, fixed 240 h qualification, Athena,
+Optional simulator demonstration: `/learn/simulator` (legacy `/landing` redirects), fixed 240 h qualification, Athena,
 A=2027-03-01; search B rather than changing thresholds. Owner-reported B=2027-03-14
 is GREEN with +210.1 h both-visible time under full terrain. Independently repeat
 with complete near+far data before using that exact figure in release media.

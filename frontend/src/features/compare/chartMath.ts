@@ -1,9 +1,32 @@
 // Pure helpers for the Compare charts (no React, no DOM).
-import type { Window } from "../../api/types";
+import type { ScenarioResult, Window } from "../../api/types";
 import type { AlignBy } from "./contracts";
 
 export type Point = { x: number; y: number };
 export type Segment = { visible: boolean; points: Point[] };
+
+/** Pick the closest actual Sun/Earth sample in the chart's own coordinates. */
+export function nearestTrackSample(series: ScenarioResult["series"], project: (az: number, el: number) => Point, point: Point): { index: number; body: "sun" | "earth" } | null {
+  let best: { index: number; body: "sun" | "earth" } | null = null;
+  let distance = Infinity;
+  for (const body of ["sun", "earth"] as const) {
+    for (let i = 0; i < series.t_unix.length; i++) {
+      const p = project(series[`${body}_az`][i], series[`${body}_el`][i]);
+      const d = (point.x - p.x) ** 2 + (point.y - p.y) ** 2;
+      if (d < distance) { distance = d; best = { index: i, body }; }
+    }
+  }
+  return best;
+}
+
+/** Continuous window state, without extrapolating into another plan's mission. */
+export function visibilityAt(s: ScenarioResult, t: number): string {
+  const times = s.series.t_unix;
+  if (!times.length || t < times[0] || t > times[times.length - 1]) return "outside this mission";
+  const visible = (key: "sun" | "earth") => s.windows[key].some(w => t >= Date.parse(w.start) / 1000 && (t < Date.parse(w.end) / 1000 || (w.end_censored && t === Date.parse(w.end) / 1000)));
+  const sun = visible("sun"), earth = visible("earth");
+  return sun && earth ? "Sun and Earth in view" : sun ? "Sun only; Earth hidden" : earth ? "Earth only; Sun hidden" : "Sun and Earth hidden";
+}
 
 /**
  * Split a (azimuth, value) path into runs of constant visibility, breaking

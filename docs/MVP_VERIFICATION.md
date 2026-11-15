@@ -1,5 +1,11 @@
 # MVP verification ledger — 15 November 2026
 
+## Redesign integration evidence - 15 November 2026
+
+Moksh's theme/navigation/Home source `47d8a58` is prepared in the integration worktree over `28b56e3`; source CI `43707999082` is successful. Details: [THEME_INTEGRATION_2026-11-15.md](THEME_INTEGRATION_2026-11-15.md). The comparator is now `/compare`; `/` is Home. Existing simulator/tour URLs redirect to `/learn/simulator` and `/learn/tour`.
+
+First combined pass: frontend 148 tests, lint/typecheck/build; backend Ruff and 551 tests with six cache-dependent skips; setup checks and all 15 synthetic fixtures passed. Owner-reported simulator, print and device evidence in `frontend/docs/HANDOFF_MONOCHROME.md` retains owner attribution. V4 remains FAIL; no science or MVP gate advances from this redesign. Physical-device and spoken screen-reader checks remain open.
+
 ## P1 takeover evidence scope - 15 November 2026
 
 Final fetch confirms integration `3721130` contains current owner heads `7d6ac55`

@@ -111,7 +111,7 @@ export function MethodsPage() {
       </section>
 
       <p>
-        <Link to="/">Back to Compare</Link>
+        <Link to="/compare">Back to Compare</Link>
       </p>
     </main>
   );

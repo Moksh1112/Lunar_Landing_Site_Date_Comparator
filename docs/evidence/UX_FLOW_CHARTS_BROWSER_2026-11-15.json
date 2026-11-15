@@ -1,0 +1,178 @@
+{
+  "source": "local user-requested flow and chart changes over 47d8a58",
+  "layout": [
+    {
+      "width": 320,
+      "scroll": 305
+    },
+    {
+      "width": 375,
+      "scroll": 360
+    },
+    {
+      "width": 768,
+      "scroll": 753
+    },
+    {
+      "width": 1440,
+      "scroll": 1425
+    }
+  ],
+  "errors": [],
+  "network": [
+    {
+      "requestId": "3E7979B81D1A149433437354F400767C",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "48120.147",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "48120.146",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "48120.148",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    },
+    {
+      "requestId": "48120.208",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "48120.207",
+      "url": "http://127.0.0.1:8000/health",
+      "status": 200
+    },
+    {
+      "requestId": "3072238FF479B6D76F49686E7E720B78",
+      "url": "http://127.0.0.1:8000/api/v1/sweep",
+      "status": 200
+    },
+    {
+      "requestId": "48120.209",
+      "url": "http://127.0.0.1:8000/api/v1/sweep",
+      "status": 200
+    },
+    {
+      "requestId": "48120.243",
+      "url": "http://127.0.0.1:8000/api/v1/sites",
+      "status": 200
+    },
+    {
+      "requestId": "48120.244",
+      "url": "http://127.0.0.1:8000/api/v1/compare",
+      "status": 200
+    }
+  ],
+  "hero": [
+    {
+      "text": "Compare two plans",
+      "href": "/compare"
+    },
+    {
+      "text": "Briefing",
+      "href": "/landing"
+    },
+    {
+      "text": "Find the best date",
+      "href": "/best-date"
+    }
+  ],
+  "form": [
+    {
+      "tag": "SELECT",
+      "type": "select-one",
+      "value": "",
+      "text": "Library siteCustom coordinatesIM-1 Odysseus landing site (near Malapert A)IM-2 Athena landing site (Mons Mouton region)IM-2 intended landing site (Mons Mouton region)Apollo 11 lunar-module landing siteApollo 12 lunar-module landing siteApollo 14 lunar-module landing siteApollo 15 lunar-module landing siteApollo 16 lunar-module landing siteApollo 17 lunar-module landing siteLCROSS Centaur impact site (not a landing site)"
+    },
+    {
+      "tag": "INPUT",
+      "type": "checkbox",
+      "value": "on",
+      "text": "Show unverified (SYNTHETIC) sites"
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "value": "-89.5",
+      "text": "Latitude (deg, south negative)"
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "value": "0",
+      "text": "Longitude (deg east)"
+    },
+    {
+      "tag": "INPUT",
+      "type": "date",
+      "value": "2026-03-01",
+      "text": "First landing day (UTC)"
+    },
+    {
+      "tag": "INPUT",
+      "type": "date",
+      "value": "2026-03-14",
+      "text": "Last landing day (UTC)"
+    },
+    {
+      "tag": "INPUT",
+      "type": "number",
+      "value": "708",
+      "text": "Mission length (hours)708 h is one lunar day."
+    }
+  ],
+  "days": [
+    "2026-03-01: red, rank 2",
+    "2026-03-02: red, rank 1",
+    "2026-03-03: red, rank 3",
+    "2026-03-04: red, rank 4",
+    "2026-03-05: red, rank 5",
+    "2026-03-06: red, rank 6",
+    "2026-03-07: red, rank 7",
+    "2026-03-08: red, rank 8",
+    "2026-03-09: red, rank 9",
+    "2026-03-10: red, rank 10",
+    "2026-03-11: red, rank 11",
+    "2026-03-12: red, rank 12",
+    "2026-03-13: red, rank 13",
+    "2026-03-14: red, rank 14"
+  ],
+  "handoff": {
+    "selected": "2026-03-02",
+    "mode": "terrain_coarse",
+    "requests": [
+      {
+        "requestId": "48120.243",
+        "url": "http://127.0.0.1:8000/api/v1/sites",
+        "status": 200
+      },
+      {
+        "requestId": "48120.244",
+        "url": "http://127.0.0.1:8000/api/v1/compare",
+        "status": 200
+      }
+    ],
+    "planB": {
+      "site_id": null,
+      "name": null,
+      "lat_deg": -89.5,
+      "lon_east_deg": 0
+    }
+  },
+  "hoverTooltip": "PASS",
+  "horizonKeyboard": {
+    "before": "1922",
+    "after": "1923"
+  },
+  "touchInspector": true,
+  "reportSlider": "PASS",
+  "scope": "Actual P1 headless Edge verification of local user-requested UI changes at port 5173; emulated touch/viewports, not physical devices."
+}

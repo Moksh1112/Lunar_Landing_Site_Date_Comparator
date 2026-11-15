@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { ApiError } from "../../api/errors";
 import type { CompareRequest, ScenarioResult } from "../../api/types";
 import { ErrorState } from "../../components/ErrorState";
@@ -83,6 +83,8 @@ function PlansBar({ editorOpen, onEdit, onCompare, pending }: { editorOpen: bool
 }
 
 export function ComparePage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const mode = useStore((s) => s.mode);
   const setMode = useStore((s) => s.setMode);
   const scenarios = useStore((s) => s.scenarios);
@@ -141,13 +143,15 @@ export function ComparePage() {
   const synthetic = data?.scenarios.some((s) => s.meta.data_label !== "REAL") ?? false;
 
   useEffect(() => {
-    if (starterRan || lastCompare) return;
+    const loadedPlanB = location.state?.loadedPlanB === true;
+    if (!loadedPlanB && (starterRan || lastCompare)) return;
     const t = setTimeout(() => {
       starterRan = true;
+      if (loadedPlanB) navigate(location.pathname, { replace: true, state: null });
       submit();
     }, 0);
     return () => clearTimeout(t);
-    // Run once on first mount only.
+    // Run on arrival, including a Best Date handoff after the starter already ran.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

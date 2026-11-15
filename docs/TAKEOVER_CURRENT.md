@@ -5,7 +5,11 @@ preparation. The all-rounder owns backend/terrain and ALL frontend implementatio
 Earlier temporary full-stack instructions and dated service/PID snapshots are historical.
 Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
-## Verified baseline
+## Current redesign integration
+
+Published baseline is `28b56e3`; Moksh's `codex/unified-monochrome-theme` at `47d8a58` is merged locally without a commit pending human review. Source CI run `43707999082` reports success. Current user instruction is commit locally only, with no push. Read [THEME_INTEGRATION_2026-11-15.md](THEME_INTEGRATION_2026-11-15.md) for exact checks and evidence scope.
+
+## Prior verified baseline (historical)
 
 | Ref | SHA | Takeover finding |
 | --- | --- | --- |
@@ -43,8 +47,8 @@ No teammate has been contacted by this takeover task.
 
 ## Startup and data
 
-For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (comparator),
-`/best-date`, `/methods`, `/report`, `/landing` (simulator), `/landing/tour` (scroll tour).
+For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (Home), `/compare` (comparator), `/best-date`, `/methods`, `/report`,
+`/learn/simulator` and `/learn/tour`. Old `/landing`, `/landing/tour` and `/tour` links redirect.
 Health: `http://127.0.0.1:8000/health`; frontend: `http://127.0.0.1:5173`.
 
 A fresh clone was reproduced under ignored `work/takeover-clean-clone`; it has its own

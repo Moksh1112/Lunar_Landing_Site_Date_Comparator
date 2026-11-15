@@ -81,7 +81,7 @@ export function BestDatePage() {
       startUtc: `${day.date}T00:00`,
       missionHours: lastReq ? String(lastReq.mission_hours) : form.missionHours,
     });
-    navigate("/");
+    navigate("/compare", { state: { loadedPlanB: true } });
   };
 
   const err = (k: string) =>

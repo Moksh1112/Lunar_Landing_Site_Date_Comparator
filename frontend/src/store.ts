@@ -49,5 +49,5 @@ export const useStore = create<UiState>((set) => ({
   setAlignBy: (alignBy) => set({ alignBy, scrubT: null }),
   lastCompare: null,
   setLastCompare: (lastCompare) => set({ lastCompare }),
-  loadAsB: (patch) => set((s) => ({ mode: "free", scenarios: { A: s.scenarios.A, B: { ...s.scenarios.B, ...patch } } })),
+  loadAsB: (patch) => set((s) => ({ mode: "free", scenarios: { A: s.scenarios.A, B: { ...s.scenarios.B, ...patch } }, lastCompare: null, scrubT: null })),
 }));

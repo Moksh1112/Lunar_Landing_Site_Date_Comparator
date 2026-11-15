@@ -2,16 +2,9 @@
 
 ## Current project status and pending work — 15 November 2026
 
-**Integration:** `feat/p1-s0-integration` is now `3721130`, containing backend/terrain
-`7d6ac55` and frontend `6310e18`. The final fetch discovered the owner's already-published
-UI milestone and merge; P1 fast-forwarded both local checkouts without a new merge commit
-or losing local work. P2/P3 `7d6ac55`, P4/P5 `6310e18` and preserved `frontend-landing`
-`72de289` are ancestors of P1. Latest push-triggered hosted CI is
-[43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533)
-at exact P1 SHA `37211307b248da9b7c3e679a263afe0bbeb6d4b7`, seven jobs SUCCESS.
-Frontend source run `43701473118` and backend run `43687231193` also passed seven jobs.
-Earlier `38f72b7` / run `43698317379` is the initial takeover checkpoint. This takeover diff
-is uncommitted pending required human review; its CI rerun step has no hosted result yet.
+**Integration:** published baseline `28b56e3` (P1 CI [43703723051](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43703723051), seven jobs PASS). Moksh's `codex/unified-monochrome-theme` head `47d8a58083f5a440d41d20d8a8c5b829cc0300ba` is now merged into the local worktree without a commit, pending human diff review. Exact source CI [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082) reports SUCCESS. Owner history is preserved; no backend, contract, fixture, dependency or lockfile change was imported.
+
+The tour is now the default Home `/`; comparison is `/compare`; learning aliases remain `/learn/tour` and `/learn/simulator`. User-requested follow-up changes fix Best Date recomputation and add chart inspectors; see `docs/UX_FLOW_CHARTS_2026-11-15.md`. Legacy `/landing`, `/landing/tour` and `/tour` redirect with query/hash preserved. Integration details and limits: `docs/THEME_INTEGRATION_2026-11-15.md`. The user explicitly authorized these frontend fixes in the follow-up request; broader frontend ownership stays with the owner. Current user instruction: **commit locally only; no push**. No hosted integration CI for this uncommitted merge is claimed.
 
 **Current assignment:** P1 edits root tooling, CI and integration docs only. Kush
 ([kushpagariya](https://github.com/kushpagariya)) is the likely all-rounder: GitHub maps
@@ -62,15 +55,16 @@ The user relays coordination; no teammate message was sent. Owner editing activi
    must resolve or seek a Coordinator-approved clarification; P1 has not changed source.
    This state reproduced the 240 h RED/GREEN API outcomes with +210.0 h for B, but it
    does not independently verify the owner's +210.1 h near+far browser result.
-2. **Remaining feature acceptance:** finish the outstanding F1–F25 checks in
+2. **Former Home Moon follow-up (dormant):** the reduced-motion texture defect is in the former HomePage/HomeMoon component, which is no longer routed after the user selected the tour as the default landing page. Retain the owner follow-up if that component is reused; do not describe it as a defect in the current default tour.
+3. **Remaining feature acceptance:** finish the outstanding F1–F25 checks in
    `docs/MVP_VERIFICATION.md`: official-site coverage/source audit; coordinate, mission and
    terrain tile/coverage boundaries; broader/slower Best Date ranges; censored windows;
    A−B sign and threshold interactions; panorama/timeline/scrubber alignment; slow-network
    and error states; full keyboard/screen-reader checks; and physical print setup.
-3. **Human/device checks:** physical phone/tablet, another browser, assistive-technology
+4. **Human/device checks:** physical phone/tablet, another browser, assistive-technology
    speech, slow-device 3D behavior/performance, and two independent usability walkthroughs
    remain unverified. Responsive viewport emulation is not device testing.
-4. **Release gate:** user-owned deployed demo/rehearsals, final acceptance, deployment,
+5. **Release gate:** user-owned deployed demo/rehearsals, final acceptance, deployment,
    submission and release tags remain to be done by the user. MVP acceptance is OPEN.
 
 No runtime AI/ML is required in v1. Green CI and a passing training exercise do not resolve

@@ -1,7 +1,9 @@
+import { useState, type PointerEvent } from "react";
 import { scaleLinear } from "d3-scale";
 import type { ScenarioResult } from "../../api/types";
 import type { TimelineLanesProps } from "./contracts";
-import { symmetricDifference, windowToRange } from "./chartMath";
+import { symmetricDifference, visibilityAt, windowToRange } from "./chartMath";
+import { sampleTime } from "./SampleInspector";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -31,6 +33,7 @@ function calendarTicks(d0: number, d1: number): { v: number; label: string }[] {
 }
 
 export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesProps) {
+  const [inspectT, setInspectT] = useState<number | null>(null);
   const [A, B] = data.scenarios;
   const t0 = (s: ScenarioResult) => s.series.t_unix[0] ?? 0;
   const tEnd = (s: ScenarioResult) => s.series.t_unix[s.series.t_unix.length - 1] ?? 0;
@@ -59,9 +62,10 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
   const x = scaleLinear()
     .domain([dMin, dMax || dMin + 1])
     .range([M.left, W - M.right]);
+  const dayStep = Math.max(1, Math.ceil(dMax / DAY / 8));
   const ticks = cal
     ? calendarTicks(dMin, dMax)
-    : Array.from({ length: Math.floor(dMax / DAY) + 1 }, (_, k) => ({ v: k * DAY, label: `day ${k + 1}` }));
+    : Array.from({ length: Math.floor(dMax / DAY / dayStep) + 1 }, (_, k) => ({ v: k * dayStep * DAY, label: `day ${k * dayStep + 1}` }));
 
   const value = scrubT === null ? dMin : Math.min(Math.max(scrubT, dMin), dMax);
   const summary = [A, B]
@@ -73,17 +77,27 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
   const scrubText = cal
     ? `${new Date(value * 1000).toISOString().replace("T", " ").slice(0, 16)} UTC`
     : `day ${Math.floor(value / DAY) + 1}, +${(value / 3600).toFixed(1)} h`;
+  const inspected = Math.min(Math.max(inspectT ?? value, dMin), dMax);
+  const pointTime = (e: PointerEvent<SVGSVGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    return Math.min(Math.max(x.invert((e.clientX - rect.left) / rect.width * W), dMin), dMax);
+  };
+  const describe = (v: number) => cal ? sampleTime(v) : `Mission day ${Math.floor(v / DAY) + 1}, +${(v / 3600).toFixed(1)} h`;
 
   if (!hasData) return <p className={styles.caption}>No timeline data available.</p>;
 
   return (
-    <figure className={styles.figure}>
+    <figure className={styles.figure} onKeyDown={e => { if (e.key === "Escape") setInspectT(null); }}>
       <h3 className={styles.title}>Timeline — {cal ? "calendar (UTC)" : "mission day"}</h3>
+      <div className={styles.chartCanvas}>
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className={styles.svg}
         role="img"
         aria-label={`Sun, Earth and both-visible windows for A and B, with a difference lane. ${summary}.`}
+        onPointerMove={e => setInspectT(pointTime(e))}
+        onPointerLeave={e => { if (e.pointerType === "mouse") setInspectT(null); }}
+        onPointerDown={e => { const time = pointTime(e); setInspectT(time); onScrub(time); }}
       >
         {ticks.map((t) => (
           <g key={t.v}>
@@ -100,15 +114,27 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
               </text>
               <line x1={M.left} x2={W - M.right} y1={y0 + LANE_H} y2={y0 + LANE_H} className={styles.axis} />
               {l.ranges.map(([s, e], j) => (
-                <rect key={j} x={x(s)} y={y0} width={Math.max(1, x(e) - x(s))} height={LANE_H} className={l.cls} />
+                <rect key={j} x={x(s)} y={y0} width={Math.max(1, x(e) - x(s))} height={LANE_H} className={l.cls}>
+                  <title>{l.label}: {describe(s)} to {describe(e)} ({((e - s) / 3600).toFixed(1)} h)</title>
+                </rect>
               ))}
             </g>
           );
         })}
-        {scrubT !== null && (
-          <line x1={x(value)} x2={x(value)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} />
-        )}
+        <line x1={x(inspected)} x2={x(inspected)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} />
       </svg>
+      {inspectT !== null && <div className={styles.chartTooltip} role="tooltip" aria-hidden="true">
+        <div className={styles.inspector}><strong>{describe(inspected)}</strong>{[A, B].map(s => <span key={s.id}><b>{s.label}</b>: {visibilityAt(s, cal ? inspected : t0(s) + inspected)}.</span>)}</div>
+      </div>}
+      </div>
+      <p className={styles.caption}>Filled bars mean visible; gaps mean hidden. Both means Sun and Earth together. Difference marks times when only one plan has both. Hover to inspect, tap to move the shared time, or use the time slider.</p>
+      <div className={styles.inspector} aria-live="polite" aria-atomic="true">
+        <strong>{describe(inspected)}</strong>
+        {[A, B].map(s => {
+          const time = cal ? inspected : t0(s) + inspected;
+          return <span key={s.id}><b>{s.label}</b>: {visibilityAt(s, time)}{!cal ? ` — ${sampleTime(time)}` : ""}.</span>;
+        })}
+      </div>
       <label className={styles.scrubLabel}>
         <span>Time: {scrubText}</span>
         <input
@@ -119,7 +145,7 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
           step={60}
           value={value}
           aria-valuetext={scrubText}
-          onChange={(e) => onScrub(Number(e.target.value))}
+          onChange={(e) => { setInspectT(null); onScrub(Number(e.target.value)); }}
         />
       </label>
       <figcaption className={styles.caption}>{summary}.</figcaption>
