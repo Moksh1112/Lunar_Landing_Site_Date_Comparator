@@ -1,0 +1,369 @@
+{
+  "date": "2026-11-15",
+  "base_commit": "50b14ea",
+  "scope": "terrain height shading, Earth motion visibility and camera continuity; local only",
+  "checks": {
+    "tests": "163 passed / 22 files",
+    "lint": "PASS",
+    "typescript_build": "PASS",
+    "diff_check": "PASS"
+  },
+  "observations": {
+    "chrome": {
+      "version": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/157.0.8103.51",
+        "revision": "@653674df293788cf4932c40d914e9e15b41a2d31",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.23"
+      },
+      "sources": [
+        {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "terrain_coarse",
+          "dem": "far_160m",
+          "step_minutes": 10,
+          "observer_height_m": 2,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+          "computed_at": "2026-11-15T13:45:24Z",
+          "data_label": "REAL"
+        },
+        {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "terrain_coarse",
+          "dem": "far_160m",
+          "step_minutes": 10,
+          "observer_height_m": 2,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+          "computed_at": "2026-11-15T13:45:24Z",
+          "data_label": "REAL"
+        }
+      ],
+      "playback": {
+        "before": [
+          0.09283838479246681,
+          0.0753080857813315,
+          -1.3404624537109975
+        ],
+        "after": [
+          0.09724177817896476,
+          0.06529214153914374,
+          -1.3407599439033486
+        ],
+        "clock": "Mission time 2026-03-01 07:00:00 UTC"
+      },
+      "endpoint": {
+        "end": [
+          0.11976860510766729,
+          -0.00626072200897917,
+          -1.3410937965345249
+        ],
+        "expected": [
+          0.11977397872177149,
+          -0.006277790434904158,
+          -1.341093876172692
+        ]
+      },
+      "earthTexture": [
+        {
+          "type": "Mesh",
+          "mapWidth": 2048
+        },
+        {
+          "type": "Mesh",
+          "mapWidth": null
+        },
+        {
+          "type": "Mesh",
+          "mapWidth": null
+        }
+      ],
+      "surface": {
+        "vertexColors": true,
+        "vertices": 65536,
+        "colours": 65536,
+        "first": [
+          0.09006589651107788,
+          0.09006589651107788,
+          0.09006589651107788
+        ]
+      },
+      "grayscale": {
+        "equalChannels": true,
+        "min": 0.05951123684644699,
+        "max": 0.7681511640548706
+      },
+      "cameraContinuity": {
+        "before": {
+          "position": [
+            -0.39574775956848357,
+            3.4953156392022695,
+            1.2838263846160685
+          ],
+          "rotation": [
+            -0.5599137939616777,
+            -0.12277221816060653,
+            -0.08434042847781181,
+            0.8150522792456589
+          ],
+          "zoom": 1
+        },
+        "after": {
+          "position": [
+            -0.39574775956848357,
+            3.4953156392022695,
+            1.2838263846160685
+          ],
+          "rotation": [
+            -0.5599137939616777,
+            -0.12277221816060653,
+            -0.08434042847781181,
+            0.8150522792456589
+          ],
+          "zoom": 1
+        }
+      },
+      "heightSlider": {
+        "value": "3.4",
+        "scale": 3.4,
+        "geometry": "f394d8a0-dd95-4030-a546-1d15b3c6b90b",
+        "options": false
+      },
+      "reducedMotion": [
+        0.09283838479246681,
+        -0.011427586215738805,
+        -1.3404624537109975
+      ],
+      "replay": {
+        "value": 1772326800,
+        "min": 1772323200,
+        "max": 1774872000
+      },
+      "layout": [
+        {
+          "width": 320,
+          "scroll": 305
+        },
+        {
+          "width": 375,
+          "scroll": 360
+        },
+        {
+          "width": 768,
+          "scroll": 753
+        },
+        {
+          "width": 1440,
+          "scroll": 1425
+        }
+      ],
+      "errors": []
+    },
+    "brave": {
+      "version": {
+        "protocolVersion": "1.3",
+        "product": "Chrome/157.0.8103.79",
+        "revision": "@52886f99c599c22139930531da30c7c8be9f38a",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+        "jsVersion": "15.7.112.43"
+      },
+      "sources": [
+        {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "terrain_coarse",
+          "dem": "far_160m",
+          "step_minutes": 10,
+          "observer_height_m": 2,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+          "computed_at": "2026-11-15T13:46:09Z",
+          "data_label": "REAL"
+        },
+        {
+          "ephemeris": "SPICE DE440 (JPL NAIF)",
+          "kernels": [
+            "naif0012.tls",
+            "de440s.bsp",
+            "pck00011.tpc",
+            "moon_pa_de440_200625.bpc",
+            "moon_de440_250416.tf"
+          ],
+          "horizon_mode": "terrain_coarse",
+          "dem": "far_160m",
+          "step_minutes": 10,
+          "observer_height_m": 2,
+          "app_version": "0.1.0",
+          "contract_version": "1.1",
+          "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+          "computed_at": "2026-11-15T13:46:09Z",
+          "data_label": "REAL"
+        }
+      ],
+      "playback": {
+        "before": [
+          0.09283838479246681,
+          0.0753080857813315,
+          -1.3404624537109975
+        ],
+        "after": [
+          0.09724180854175542,
+          0.06529206970964162,
+          -1.3407599458537534
+        ],
+        "clock": "Mission time 2026-03-01 07:00:00 UTC"
+      },
+      "endpoint": {
+        "end": [
+          0.11976843814085954,
+          -0.006260191659561175,
+          -1.3410937940604084
+        ],
+        "expected": [
+          0.11977397872177149,
+          -0.006277790434904158,
+          -1.341093876172692
+        ]
+      },
+      "earthTexture": [
+        {
+          "type": "Mesh",
+          "mapWidth": 2048
+        },
+        {
+          "type": "Mesh",
+          "mapWidth": null
+        },
+        {
+          "type": "Mesh",
+          "mapWidth": null
+        }
+      ],
+      "surface": {
+        "vertexColors": true,
+        "vertices": 65536,
+        "colours": 65536,
+        "first": [
+          0.09006589651107788,
+          0.09006589651107788,
+          0.09006589651107788
+        ]
+      },
+      "grayscale": {
+        "equalChannels": true,
+        "min": 0.05951123684644699,
+        "max": 0.7681511640548706
+      },
+      "cameraContinuity": {
+        "before": {
+          "position": [
+            -0.5951150170493386,
+            3.4585849220089093,
+            1.3223723323849368
+          ],
+          "rotation": [
+            -0.5599137939616777,
+            -0.1227722181606065,
+            -0.0843404284778118,
+            0.8150522792456589
+          ],
+          "zoom": 1
+        },
+        "after": {
+          "position": [
+            -0.5951150170493386,
+            3.4585849220089093,
+            1.3223723323849368
+          ],
+          "rotation": [
+            -0.5599137939616777,
+            -0.1227722181606065,
+            -0.0843404284778118,
+            0.8150522792456589
+          ],
+          "zoom": 1
+        }
+      },
+      "heightSlider": {
+        "value": "3.4",
+        "scale": 3.4,
+        "geometry": "454690d2-5f19-4a36-b6e5-8c197df80f53",
+        "options": false
+      },
+      "resetCamera": {
+        "position": [
+          2.0577054683102483,
+          2.777902382218835,
+          2.2634760151412734
+        ],
+        "rotation": [
+          -0.3361022462201712,
+          0.33637138031347796,
+          0.12993943900153532,
+          0.8700605247818839
+        ],
+        "zoom": 1
+      },
+      "reducedMotion": [
+        0.09283838479246681,
+        -0.011427586215738805,
+        -1.3404624537109975
+      ],
+      "replay": {
+        "value": 1772326800,
+        "min": 1772323200,
+        "max": 1774872000
+      },
+      "layout": [
+        {
+          "width": 320,
+          "scroll": 305
+        },
+        {
+          "width": 375,
+          "scroll": 360
+        },
+        {
+          "width": 768,
+          "scroll": 753
+        },
+        {
+          "width": 1440,
+          "scroll": 1425
+        }
+      ],
+      "errors": []
+    }
+  },
+  "limits": [
+    "Isolated headless profiles on one Windows host; physical-device GPU and screen-reader checks remain open",
+    "Earth moved before this change; its small real displacement is now easier to see through a track, time control and textured marker",
+    "Grayscale is a DEM-height visualization, not surface photography; source resolution limits crater detail",
+    "No backend, ephemeris, DEM samples, thresholds or validation outcomes changed; V4 remains FAIL"
+  ]
+}

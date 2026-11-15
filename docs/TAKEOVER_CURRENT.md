@@ -9,6 +9,11 @@ Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
 Published baseline is `28b56e3`. Local merge `ad2ac2e` preserves parents `28b56e3` and Moksh's theme source `47d8a58`; source CI [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082) passed seven jobs. The user explicitly requested the subsequent frontend milestone and a local commit: see [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md) for its final route map, checks and repeat steps. **Do not push.** No hosted CI is claimed for the local UI revision. Earlier UI_POLISH/UI_RECOVERY notes describe intermediate snapshots; the dedicated `/terrain` page supersedes Compare's old terrain buttons.
 
+Latest analyser follow-up: [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
+Height shading is gray only; the continuous slider preserves the user's camera. Earth
+motion is traced from real response positions. Latest frontend checks: 163 tests plus
+lint/typecheck/build. Preserve the no-push instruction.
+
 ## Prior verified baseline (historical)
 
 | Ref | SHA | Takeover finding |

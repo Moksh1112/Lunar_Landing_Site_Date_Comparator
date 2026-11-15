@@ -1,20 +1,83 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import type { TerrainTileResponse } from "../../api/types";
-import { bodyDirection, decodeHeights, terrainCameraDistance } from "./math";
+import type { Series, TerrainTileResponse } from "../../api/types";
+import { bodyDirection, decodeHeights, heightFraction, terrainCameraDistance } from "./math";
 import { useTheme } from "../../theme/theme";
+import { disposeScene, realEarthMesh } from "../landing/moonScene";
 
-type Props = { tile: TerrainTileResponse; sunAz: number; sunEl: number; earthAz: number; earthEl: number;
-  exaggeration: number; resetView: number; onReady: () => void };
-function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, onReady, onContextLost }: Props & { onContextLost: () => void }) {
+type Position = [number, number, number];
+type Props = { tile: TerrainTileResponse; series: Series; sunAz: number; sunEl: number; earthAz: number; earthEl: number;
+  exaggeration: number; resetView: number; showPaths: boolean; onReady: () => void };
+
+function TrackedBodies({ sun, earth, observer }: { sun: Position; earth: Position; observer: Position }) {
+  const { gl, invalidate } = useThree();
+  const sunMesh = useRef<THREE.Mesh>(null);
+  const rayMesh = useRef<THREE.LineSegments>(null);
+  const targetSun = useRef(new THREE.Vector3(...sun));
+  const targetEarth = useRef(new THREE.Vector3(...earth));
+  const reduce = useMemo(() => matchMedia("(prefers-reduced-motion: reduce)"), []);
+  const globe = useMemo(() => realEarthMesh(gl, 0.085, invalidate), [gl, invalidate]);
+  const ray = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(12), 3));
+    return g;
+  }, []);
+  useLayoutEffect(() => {
+    globe.position.copy(targetEarth.current);
+    sunMesh.current?.position.copy(targetSun.current);
+  }, [globe]);
+  useEffect(() => {
+    targetSun.current.set(...sun);
+    targetEarth.current.set(...earth);
+    invalidate();
+  }, [sun, earth, invalidate]);
+  useEffect(() => () => { disposeScene(globe); ray.dispose(); }, [globe, ray]);
+  useFrame((_, dt) => {
+    if (!sunMesh.current) return;
+    const alpha = reduce.matches ? 1 : 1 - Math.exp(-Math.min(dt, 0.05) * 18);
+    sunMesh.current.position.lerp(targetSun.current, alpha);
+    globe.position.lerp(targetEarth.current, alpha);
+    const p = rayMesh.current?.geometry.attributes.position;
+    if (p) {
+      p.setXYZ(0, ...observer); p.setXYZ(1, ...sunMesh.current.position.toArray() as Position);
+      p.setXYZ(2, ...observer); p.setXYZ(3, ...globe.position.toArray() as Position);
+      p.needsUpdate = true;
+    }
+    if (sunMesh.current.position.distanceToSquared(targetSun.current) + globe.position.distanceToSquared(targetEarth.current) > 1e-9) invalidate();
+  });
+  return <>
+    <lineSegments ref={rayMesh} geometry={ray} frustumCulled={false}><lineBasicMaterial color="#a7bdcc" transparent opacity={0.4} /></lineSegments>
+    <mesh ref={sunMesh} name="sun-marker"><sphereGeometry args={[0.052, 24, 16]} /><meshBasicMaterial color="#ffcc58" toneMapped={false} /></mesh>
+    <primitive object={globe} name="earth-marker" />
+  </>;
+}
+
+function MotionPaths({ series, observer, bearing }: { series: Series; observer: Position; bearing: number }) {
+  const [x, y, z] = observer;
+  const paths = useMemo(() => (["sun", "earth"] as const).map(body => {
+    const points = series[`${body}_az`].map((az, i) => bodyDirection(az, series[`${body}_el`][i], bearing).map((v, axis) => [x, y, z][axis] + v * 1.35) as Position);
+    const vertices = new Float32Array(Math.max(0, points.length - 1) * 6);
+    for (let i = 1; i < points.length; i++) vertices.set([...points[i - 1], ...points[i]], (i - 1) * 6);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+    return { body, geometry };
+  }), [series, x, y, z, bearing]);
+  useEffect(() => () => paths.forEach(p => p.geometry.dispose()), [paths]);
+  return <>{paths.map(({ body, geometry }) => <lineSegments key={body} name={`${body}-path`} geometry={geometry}><lineBasicMaterial color={body === "earth" ? "#7fbcff" : "#e2aa46"} transparent opacity={body === "earth" ? 0.75 : 0.22} /></lineSegments>)}</>;
+}
+
+function Scene({ tile, series, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, showPaths, onReady, onContextLost }: Props & { onContextLost: () => void }) {
   const ready = useRef(false);
+  const orbit = useRef<OrbitControls | null>(null);
+  const framed = useRef<{ tile: TerrainTileResponse; resetView: number } | null>(null);
   const { camera, gl, invalidate, size } = useThree();
   const theme = useTheme(s => s.theme);
   const relief = (tile.max_m - tile.min_m) / (tile.size_km * 1000) * 2 * exaggeration;
   const middle = (tile.min_m + tile.max_m) / 2;
-  const base = -relief / 2 - 0.025;
+  const baseHeight = -(tile.max_m - tile.min_m) / (tile.size_km * 1000) - 0.025;
+  const base = baseHeight * exaggeration;
   useEffect(() => {
     const lost = (event: Event) => { event.preventDefault(); onContextLost(); };
     gl.domElement.addEventListener("webglcontextlost", lost);
@@ -22,25 +85,41 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, 
   }, [gl, onContextLost]);
   useEffect(() => {
     const controls = new OrbitControls(camera, gl.domElement);
+    orbit.current = controls;
     const changed = () => invalidate();
     controls.addEventListener("change", changed);
-    const distance = terrainCameraDistance(relief, 45, size.width / Math.max(1, size.height));
-    camera.position.copy(new THREE.Vector3(1, 1.35, 1.1).normalize().multiplyScalar(distance));
-    camera.lookAt(0, 0, 0);
-    controls.target.set(0, 0, 0);
     controls.minDistance = 0.7;
-    controls.maxDistance = distance * 3;
     controls.maxPolarAngle = Math.PI / 2;
-    controls.update();
+    return () => { controls.removeEventListener("change", changed); controls.dispose(); orbit.current = null; };
+  }, [camera, gl, invalidate]);
+  useEffect(() => {
+    const controls = orbit.current;
+    if (!controls) return;
+    const distance = terrainCameraDistance(relief, 45, size.width / Math.max(1, size.height));
+    controls.maxDistance = Math.max(distance * 3, camera.position.distanceTo(controls.target));
+    if (!framed.current || framed.current.tile !== tile || framed.current.resetView !== resetView) {
+      camera.position.copy(new THREE.Vector3(1, 1.35, 1.1).normalize().multiplyScalar(distance));
+      camera.lookAt(0, 0, 0);
+      controls.target.set(0, 0, 0);
+      controls.update();
+      framed.current = { tile, resetView };
+    }
     invalidate();
-    return () => { controls.removeEventListener("change", changed); controls.dispose(); };
-  }, [camera, gl, invalidate, relief, tile, resetView, size.width, size.height]);
+  }, [camera, invalidate, relief, tile, resetView, size.width, size.height]);
   useFrame(() => { if (!ready.current) { ready.current = true; requestAnimationFrame(onReady); } });
   const { geometry, skirt } = useMemo(() => {
     const heights = decodeHeights(tile.heights_m_b64, tile.width, tile.height);
     const g = new THREE.PlaneGeometry(2, 2, tile.width - 1, tile.height - 1);
     const p = g.attributes.position;
-    for (let i = 0; i < heights.length; i++) p.setZ(i, (heights[i] - middle) / (tile.size_km * 1000) * 2 * exaggeration);
+    const colours = new Float32Array(heights.length * 3);
+    const low = new THREE.Color("#454545"), mid = new THREE.Color("#9c9c9c"), high = new THREE.Color("#e3e3e3"), colour = new THREE.Color();
+    for (let i = 0; i < heights.length; i++) {
+      p.setZ(i, (heights[i] - middle) / (tile.size_km * 1000) * 2);
+      const h = heightFraction(heights[i], tile.min_m, tile.max_m);
+      colour.copy(h < 0.5 ? low : mid).lerp(h < 0.5 ? mid : high, h < 0.5 ? h * 2 : (h - 0.5) * 2);
+      colour.toArray(colours, i * 3);
+    }
+    g.setAttribute("color", new THREE.BufferAttribute(colours, 3));
     g.computeVertexNormals();
     // Display-only sides frame the finite tile; the measured surface vertices stay unchanged.
     const edge: number[] = [];
@@ -52,14 +131,14 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, 
     for (let i = 0; i < edge.length; i++) {
       const a = edge[i], b = edge[(i + 1) % edge.length];
       const av = [p.getX(a), p.getY(a), p.getZ(a)], bv = [p.getX(b), p.getY(b), p.getZ(b)];
-      const ab = [av[0], av[1], base], bb = [bv[0], bv[1], base];
+      const ab = [av[0], av[1], baseHeight], bb = [bv[0], bv[1], baseHeight];
       vertices.push(...av, ...bv, ...bb, ...av, ...bb, ...ab);
     }
     const sides = new THREE.BufferGeometry();
     sides.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
     sides.computeVertexNormals();
     return { geometry: g, skirt: sides };
-  }, [tile, exaggeration, middle, base]);
+  }, [tile, middle, baseHeight]);
   useEffect(() => () => { geometry.dispose(); skirt.dispose(); }, [geometry, skirt]);
   const observerX = (tile.site_px[0] / (tile.width - 1) - 0.5) * 2;
   const observerY = useMemo(() => {
@@ -72,19 +151,18 @@ function Scene({ tile, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, 
   const marker = (az: number, el: number) => bodyDirection(az, el, tile.grid_bearing_offset_deg ?? tile.site.lon_east_deg).map((v, i) => observer[i] + v * 1.35) as [number, number, number];
   const sun = marker(sunAz, sunEl), earth = marker(earthAz, earthEl);
   return <>
-    <color attach="background" args={[theme === "dark" ? "#12161c" : "#e7ebef"]} />
-    <hemisphereLight args={["#ffffff", "#44484e", 0.85]} />
-    <directionalLight position={[-3, 5, 4]} intensity={2} />
-    <directionalLight position={sun} intensity={sunEl > 0 ? 1 : 0} />
-    <group rotation={[-Math.PI / 2, 0, 0]}>
-      <mesh geometry={geometry}><meshStandardMaterial color="#b8b8b2" roughness={1} side={THREE.DoubleSide} /></mesh>
-      <mesh geometry={skirt}><meshStandardMaterial color="#585e66" roughness={1} side={THREE.DoubleSide} /></mesh>
+    <color attach="background" args={[theme === "dark" ? "#15171b" : "#e9e8e5"]} />
+    <hemisphereLight args={["#ffffff", "#26282c", 0.55]} />
+    <directionalLight position={[-3, 4, 1]} intensity={2.2} color="#ffffff" />
+    <directionalLight position={[4, 2, -3]} intensity={0.35} color="#ffffff" />
+    <group name="terrain-height" rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, exaggeration]}>
+      <mesh name="terrain-surface" geometry={geometry}><meshStandardMaterial vertexColors color="#ffffff" roughness={0.95} side={THREE.DoubleSide} /></mesh>
+      <mesh geometry={skirt}><meshStandardMaterial color="#45464a" roughness={0.95} side={THREE.DoubleSide} /></mesh>
     </group>
-    <mesh position={[0, base - 0.025, 0]}><boxGeometry args={[2.01, 0.05, 2.01]} /><meshStandardMaterial color="#454b53" roughness={1} /></mesh>
-    <lineSegments><bufferGeometry><bufferAttribute attach="attributes-position" args={[new Float32Array([...observer, ...sun, ...observer, ...earth]), 3]} /></bufferGeometry><lineBasicMaterial color="#8793a3" transparent opacity={0.45} /></lineSegments>
-    <mesh position={sun}><sphereGeometry args={[0.045, 24, 16]} /><meshBasicMaterial color="#f4b740" toneMapped={false} /></mesh>
-    <mesh position={earth}><sphereGeometry args={[0.045, 24, 16]} /><meshBasicMaterial color="#6fa8ff" toneMapped={false} /></mesh>
-    <mesh position={observer}><sphereGeometry args={[0.022, 16, 12]} /><meshBasicMaterial color="#ffffff" toneMapped={false} /></mesh>
+    <mesh position={[0, base - 0.025, 0]}><boxGeometry args={[2.01, 0.05, 2.01]} /><meshStandardMaterial color="#303237" roughness={0.95} /></mesh>
+    {showPaths && <MotionPaths series={series} observer={observer} bearing={tile.grid_bearing_offset_deg ?? tile.site.lon_east_deg} />}
+    <TrackedBodies sun={sun} earth={earth} observer={observer} />
+    <mesh name="landing-marker" position={observer}><sphereGeometry args={[0.022, 16, 12]} /><meshBasicMaterial color="#ffffff" toneMapped={false} /></mesh>
   </>;
 }
 export default function TerrainCanvas(props: Props) {

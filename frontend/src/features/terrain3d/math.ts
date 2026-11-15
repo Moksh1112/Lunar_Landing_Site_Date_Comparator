@@ -11,6 +11,15 @@ export function terrainCameraDistance(relief: number, verticalFov: number, aspec
   return Math.hypot(1, 1, relief / 2) / Math.sin(Math.min(halfVertical, halfHorizontal)) * 1.05;
 }
 
+export function heightFraction(height: number, min: number, max: number): number {
+  return max > min ? Math.max(0, Math.min(1, (height - min) / (max - min))) : 0.5;
+}
+
+/** Keep playback inside the selected plan when switching between different landing dates. */
+export function missionTime(time: number | null, start: number, end: number): number {
+  return Math.max(start, Math.min(end, time ?? start));
+}
+
 export function decodeHeights(encoded: string, width: number, height: number): Float32Array {
   const raw = atob(encoded);
   if (raw.length !== width * height * 4) throw new Error("Invalid terrain height payload.");

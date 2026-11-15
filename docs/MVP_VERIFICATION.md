@@ -5,13 +5,19 @@
 Local merge `ad2ac2e` contains source `47d8a58` over `28b56e3`. The subsequent user-directed
 UI milestone adds `/terrain` beside Best Date, shared Simulator chrome, improved terrain
 framing/controls and clearer 2D recovery. Repeated visual credits/caveats moved into Methods.
-**161 frontend tests, lint, TypeScript and production build pass.** Isolated Chrome/Brave
+**163 frontend tests, lint, TypeScript and production build pass.** Isolated Chrome/Brave
 loaded REAL coarse terrain, switched 5x scale, recovered from induced context loss, opened
 2D graphs and completed real Simulator practice/debrief interactions. Its pause timer and
 debrief slider are fixed. Original Chrome-profile hook error was user-reported; a competing
 Vite cache writer and HTTP 504 were independently observed and resolved. No push or hosted
 CI is claimed. Details/repeat steps: [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md).
 This supplements F7/F15/F17/F18/F21 evidence; device, accessibility and science gates stay open.
+
+Latest terrain refinement: gray height encoding only; continuous height slider preserves
+orbit/zoom/pan and reuses the mesh. Chrome/Brave rendered Earth positions match the actual
+SPICE response within the visual easing tolerance; motion paths/time controls make small
+movement inspectable. [Evidence](TERRAIN_MOTION_2026-11-15.md). This is additional F17/F18
+interaction evidence, not a new science, device-performance or MVP acceptance gate.
 
 ## Redesign integration evidence - 15 November 2026
 

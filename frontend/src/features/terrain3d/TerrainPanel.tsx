@@ -5,6 +5,8 @@ import type { CompareResponse } from "../../api/types";
 import { useStore } from "../../store";
 import { absoluteTime, momentAt } from "../compare/moment";
 import { viewerErrorHint } from "./viewerError";
+import { missionTime } from "./math";
+import { sampleTime } from "../compare/SampleInspector";
 import styles from "./terrain.module.css";
 
 const TerrainCanvas = lazy(() => import("./TerrainCanvas"));
@@ -26,11 +28,15 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
   const [playing, setPlaying] = useState(false);
   const [attempt, setAttempt] = useState(1);
   const [resetView, setResetView] = useState(0);
+  const [showPaths, setShowPaths] = useState(true);
   const attemptStarted = useRef(started);
   const scrubT = useStore((s) => s.scrubT);
   const setScrubT = useStore((s) => s.setScrubT);
   const alignBy = useStore((s) => s.alignBy);
   const scenario = data.scenarios[plan];
+  const start = alignBy === "mission_day" ? 0 : scenario.series.t_unix[0];
+  const end = alignBy === "mission_day" ? scenario.series.t_unix.at(-1)! - scenario.series.t_unix[0] : scenario.series.t_unix.at(-1)!;
+  const time = missionTime(scrubT, start, end);
   const tile = useQuery({ queryKey: ["terrain3d", scenario.site.lat_deg, scenario.site.lon_east_deg],
     queryFn: () => getTerrainTile({ lat_deg: scenario.site.lat_deg, lon_east_deg: scenario.site.lon_east_deg, size_km: 20 }), retry: false });
   const readyOnce = useRef(false);
@@ -39,14 +45,13 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
   useEffect(() => {
     if (!playing) return;
     const timer = setInterval(() => {
-      const start = alignBy === "mission_day" ? 0 : scenario.series.t_unix[0];
-      const end = alignBy === "mission_day" ? scenario.series.t_unix.at(-1)! - scenario.series.t_unix[0] : scenario.series.t_unix.at(-1)!;
-      const next = (scrubT ?? start) + 3600;
-      if (next > end) setPlaying(false); else setScrubT(next);
+      const next = time + 3600;
+      setScrubT(Math.min(next, end));
+      if (next >= end) setPlaying(false);
     }, 250);
     return () => clearInterval(timer);
-  }, [playing, scrubT, alignBy, scenario, setScrubT]);
-  const t = absoluteTime(scenario, scrubT, alignBy);
+  }, [playing, time, end, setScrubT]);
+  const t = absoluteTime(scenario, time, alignBy);
   const m = t === null ? null : momentAt(scenario, t);
   return <section className={styles.panel} aria-label="Terrain 3D">
     <h2>{scenario.label} — terrain</h2>
@@ -54,14 +59,20 @@ function LoadedViewer({ data, started, views }: { data: CompareResponse; started
     <p>{tile.data?.data_label ?? scenario.meta.data_label} · {scenario.meta.horizon_mode === "geometric" ? "geometric horizon only" : scenario.meta.horizon_mode}</p>
     <div className={styles.toolbar} role="group" aria-label="Terrain controls">
       <div className={styles.field}><span>Plan</span><div className="segmented" role="group" aria-label="Terrain plan">{[0, 1].map(p => <button key={p} type="button" aria-pressed={plan === p} onClick={() => setPlan(p)}>Plan {p === 0 ? "A" : "B"}</button>)}</div></div>
-      <div className={styles.field}><span>Height scale</span><div className="segmented" role="group" aria-label="Vertical exaggeration">{[1, 2, 5].map(v => <button key={v} type="button" aria-pressed={exaggeration === v} onClick={() => setExaggeration(v)}>{v}×</button>)}</div></div>
+      <label className={`${styles.field} ${styles.scaleField}`}><span>Height scale <output>{exaggeration}×</output></span><input aria-label="Vertical exaggeration" type="range" min={1} max={5} step={0.1} value={exaggeration} onChange={e => setExaggeration(Number(e.target.value))} /></label>
       <div className={styles.viewActions}>
         <button type="button" onClick={() => setResetView(v => v + 1)}>↺ Reset view</button>
-        <button type="button" className="btn-primary" onClick={() => setPlaying(!playing)}><span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span> {playing ? "Pause mission" : "Play mission"}</button>
+        <button type="button" className="btn-primary" onClick={() => { if (!playing && time >= end) setScrubT(start); setPlaying(!playing); }}><span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span> {playing ? "Pause mission" : "Play mission"}</button>
       </div>
     </div>
     {tile.isPending ? <p role="status">Loading terrain…</p> : tile.isError ? <div className={styles.recovery}><p role="status">Terrain unavailable. The comparison's 2D graphs remain available.</p>{views}</div> : renderMs !== null && renderMs > 3000 ? <div className={styles.recovery}><p role="status">3D exceeded the 3-second gate ({Math.round(renderMs)} ms). Continue with the 2D graphs.</p>{views}</div> : m &&
-      <ViewerBoundary key={attempt} onRetry={attempt < 2 ? retry : undefined} views={views}><div className={styles.viewport}><Suspense fallback={<p>Preparing 3D…</p>}><TerrainCanvas tile={tile.data} sunAz={m.sunAz} sunEl={m.sunEl} earthAz={m.earthAz} earthEl={m.earthEl} exaggeration={exaggeration} resetView={resetView} onReady={ready} /></Suspense><div className={styles.viewerHint}>Drag to orbit · Scroll to zoom</div></div></ViewerBoundary>}
+      <ViewerBoundary key={attempt} onRetry={attempt < 2 ? retry : undefined} views={views}><div className={styles.viewport}><Suspense fallback={<p>Preparing 3D…</p>}><TerrainCanvas tile={tile.data} series={scenario.series} sunAz={m.sunAz} sunEl={m.sunEl} earthAz={m.earthAz} earthEl={m.earthEl} exaggeration={exaggeration} resetView={resetView} showPaths={showPaths} onReady={ready} /></Suspense><div className={styles.viewerHint}>Drag to orbit · Scroll to zoom</div></div></ViewerBoundary>}
+    <div className={styles.missionTime}>
+      <label htmlFor="terrain-time">Mission time <strong>{t !== null ? sampleTime(t) : "No time samples"}</strong></label>
+      <input id="terrain-time" aria-label="Terrain mission time" type="range" min={start} max={end} step={600} value={time} onChange={e => { setPlaying(false); setScrubT(Number(e.target.value)); }} />
+      <div className={styles.timeEnds}><span>Start</span><label><input type="checkbox" checked={showPaths} onChange={e => setShowPaths(e.target.checked)} /> Motion paths</label><span>End</span></div>
+    </div>
+    {tile.data && <div className={styles.heightLegend} aria-label={`Elevation grayscale: dark ${Math.round(tile.data.min_m)} to light ${Math.round(tile.data.max_m)} metres`}><span>{Math.round(tile.data.min_m)} m</span><div /><span>{Math.round(tile.data.max_m)} m</span></div>}
     <div className={styles.legend}><span><i className={styles.siteDot} />Landing point</span><span><i className={styles.sunDot} />Sun</span><span><i className={styles.earthDot} />Earth</span><span>{tile.data?.size_km ?? 20} km tile · {exaggeration}× height</span></div>
     {renderMs !== null && <p>First frame: {Math.round(renderMs)} ms (includes request and lazy loading). Vertical exaggeration {exaggeration}×.</p>}
     {m && <p>Sun {m.sunAz.toFixed(1)}° azimuth / {m.sunEl.toFixed(1)}° elevation; Earth {m.earthAz.toFixed(1)}° / {m.earthEl.toFixed(1)}°. Scrubber controls these markers.</p>}

@@ -159,3 +159,13 @@ Simulator uses the shared AppHeader. Pause is a native dialog, excludes paused t
 from the challenge clock, and restores focus. The debrief timeline now controls time.
 Landing illumination is brighter neutral white. Overlay illustration credits and
 repeated caveats are consolidated in Methods, with source-mode labels preserved.
+
+
+## Height and motion refinement
+
+Terrain stays gray: low elevation is dark, high elevation light, with neutral white
+viewing light. A meter legend explains the height encoding. No color-mode switch.
+The height control is a continuous 1x-5x slider in 0.1 steps. It scales the existing
+geometry and preserves orbit, zoom and pan. Only Reset view or another tile reframes.
+Earth is a textured marker on the computed direction; paths, a mission clock/slider
+and eased updates make small movement visible. Do not invent an orbit to magnify it.

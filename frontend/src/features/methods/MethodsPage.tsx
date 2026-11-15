@@ -85,7 +85,7 @@ export function MethodsPage() {
         <ul>
           <li>Moon colour and height preview: <a href="https://svs.gsfc.nasa.gov/4720/">NASA Scientific Visualization Studio CGI Moon Kit</a>, LROC and LOLA instrument teams.</li>
           <li>Earth surface and historical cloud composite: <a href="https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/">NASA Blue Marble</a>, NASA Goddard Space Flight Center, Reto Stöckli; enhancements by Robert Simmon.</li>
-          <li>Terrain Analyser uses server DEM tiles. Sun/Earth marker distances, fill lighting and vertical exaggeration aid viewing; brightness is not a shadow or power calculation. Tile sides and base frame the finite display extent; only the top surface represents the DEM.</li>
+          <li>Terrain Analyser uses server DEM tiles. Its gray shades encode elevation: dark low ground, light high ground. Sun/Earth paths use the returned direction samples. Marker distances, viewing lights and vertical exaggeration aid viewing; brightness is not a shadow or power calculation. Tile sides and base frame the finite display extent; only the top surface represents the DEM.</li>
         </ul>
       </section>
 

@@ -72,7 +72,7 @@ export function realEarthMesh(renderer: THREE.WebGLRenderer, radius: number, onL
 }
 
 /** Release maps as well as materials; route changes must not retain GPU resources. */
-export function disposeScene(scene: THREE.Scene) {
+export function disposeScene(scene: THREE.Object3D) {
   const textures = new Set<THREE.Texture>();
   scene.traverse(o => {
     const m = o as THREE.Mesh;
