@@ -1,4 +1,4 @@
-# Human and device checks: script and results template
+# Human and device checks: test URL, task script, results
 
 Not yet run. This needs two people who did not build Azelux, plus a moderator. Use the
 integrated build with a REAL backend (see README "Real data"). Each session takes about 20
@@ -83,6 +83,15 @@ emulation does not count as a physical-device check.
 | D6 | Lighthouse (Chrome DevTools) on `/` | Production build (`npm --prefix frontend run build && npx vite preview`). Need ≥ 90 Performance and ≥ 90 Accessibility. |
 | D7 | Physical print (optional) | Not required: the TRD defines PDF as browser print-to-PDF. Do it only if wanted. |
 
+**Screen reader (D4) detail**, on `/compare`:
+
+- Landmarks and headings make sense.
+- The result sentence is announced after Compare.
+- Errors are announced.
+- The scrubber announces its time.
+- The Learn menu and Escape work.
+- The Visibility gap explanation and events are read out.
+
 ## Results template (copy one row per check or participant)
 
 Status is exactly one of **passed**, **failed** or **pending**. Never fill a row without
@@ -98,4 +107,8 @@ actually doing the check.
 | D4 |  |  |  |  |  | pending |  |
 | D5 |  |  |  |  |  | pending |  |
 | D6 |  |  |  |  |  | pending | Performance __ / Accessibility __ |
-| D7 (optional) |  |  |  |  |  | pending |  |
+| D7 (optional) |  |  |  |  |  | pending | Not required by the contract; browser print preview is already evidenced |
+| R1 Deployed rehearsal 1 (PRD 13.3) |  |  |  |  |  | pending | Needs deployment authorization |
+| R2 Deployed rehearsal 2 (PRD 13.3) |  |  |  |  |  | pending | Needs deployment authorization |
+
+A failed check links to an issue or fix commit. Never mark a row passed without a real person and device.
