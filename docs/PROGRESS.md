@@ -1,30 +1,68 @@
 # Azelux progress and to-do board
 
+## Current project status and pending work — 15 November 2026
+
+**Integration:** `feat/p1-s0-integration` contains backend/terrain `7d6ac55` and frontend
+`414e7dd`, merged as `acbf22a`. Both owner heads are integrated. Latest verified hosted CI:
+P1 merge run `43696473842`, P2/P3 run `43687231193`, and P4/P5 run `43695763208`; all seven
+jobs passed on each run. The most recent progress-doc checkpoint before this update also
+passed P1 CI run `43697012466`.
+
+**Completed / evidenced**
+
+- Real SPICE comparisons, sourced DEM terrain modes, polar/global map assets, terrain 3D,
+  10 sourced library sites, Best Date, comparison, provenance, CSV/JSON and print/report
+  are integrated. Per-feature evidence and caveats are in `docs/MVP_VERIFICATION.md`.
+- Full V1/V2 live Horizons checks passed; V3/V5 mathematical checks passed. V6 is an
+  explicitly reviewed P2-owner qualitative spot check, not external scientific certification.
+- The simulator's impossible 708 h “find a GREEN day” training goal was changed to 240 h
+  without changing backend verdict science or thresholds. The frontend owner reports a
+  REAL/terrain browser run: B=2027-03-01 RED, B=2027-03-14 GREEN, +210.1 h both-visible
+  time for B. P1 reviewed source and CI but did not repeat that browser run. Details:
+  `frontend/docs/HANDOFF_SIMULATOR.md`.
+- CSV provenance/skyline coverage and native five-page print-preview checks were completed.
+  Responsive viewport and selected keyboard/accessibility checks are in
+  `docs/ACCEPTANCE_2026-11-15.md`.
+
+**Still pending**
+
+1. **Scientific V4:** FAIL, about 6.2989 percentage points against the ≤5 pp target. Source
+   review identifies unresolved reference/runtime convention differences (disc visibility,
+   epoch/averaging window, DEM). Keep FAIL visible; do not loosen tolerances or tune to pass.
+2. **Remaining feature acceptance:** finish the outstanding F1–F25 checks in
+   `docs/MVP_VERIFICATION.md`: official-site coverage/source audit; coordinate, mission and
+   terrain tile/coverage boundaries; broader/slower Best Date ranges; censored windows;
+   A−B sign and threshold interactions; panorama/timeline/scrubber alignment; slow-network
+   and error states; full keyboard/screen-reader checks; and physical print setup.
+3. **Human/device checks:** physical phone/tablet, another browser, assistive-technology
+   speech, slow-device 3D behavior/performance, and two independent usability walkthroughs
+   remain unverified. Responsive viewport emulation is not device testing.
+4. **Release gate:** user-owned deployed demo/rehearsals, final acceptance, deployment,
+   submission and release tags remain to be done by the user. MVP acceptance is OPEN.
+
+No runtime AI/ML is required in v1. Green CI and a passing training exercise do not resolve
+V4 or pass the MVP/release gate. The sections below are dated checkpoints; where they
+conflict with this current list, this section and the linked acceptance ledger take priority.
+
 ## Latest simulator integration — 15 November 2026
 
 Frontend `414e7dd` was integrated into `feat/p1-s0-integration` by merge `acbf22a`.
-Hosted CI passed all seven jobs for the frontend commit (run `43695763208`) and the
-integration merge (run `43696473842`). The local P1 worktree fast-forwarded to `acbf22a`;
-its pre-existing untracked `.claude/launch.json` was preserved.
+Hosted CI passed all seven jobs for frontend `414e7dd` (run `43695763208`), integration
+merge `acbf22a` (run `43696473842`), P2/P3 `7d6ac55` (run `43687231193`), and the prior P1
+progress-doc checkpoint `1f5b5cc` (run `43697012466`).
 
 The frontend handoff diagnoses the earlier 708-hour qualification as unsolvable at IM-2
-Athena under the existing verdict rule: Plan B days 1–30 March 2027 all returned RED, with
-sunlight 35.5–39.7% and long dark/blackout intervals. The simulator challenge now uses a
-240-hour mission and starts Plan B at Plan A's day; no threshold, verdict, API contract or
-backend science was changed. A regression test covers the setup.
+Athena under the existing verdict rule: Plan B dates 1–30 March 2027 returned RED. The
+training scenario now uses 240 h and starts Plan B on Plan A's day; thresholds, verdict,
+contract and backend science are unchanged.
 
-The frontend owner reports a real-backend browser check of the revised challenge: Plan B
-2027-03-01 returned RED, then 2027-03-14 returned GREEN. The debrief marked the responses
-REAL/terrain and reported 210.1 more hours with Sun and Earth both visible for Plan B.
-This browser run is documented in `frontend/docs/HANDOFF_SIMULATOR.md`; P1 verified the
-source diff and hosted CI but did not independently repeat this browser run. It demonstrates
-the training flow, not landing safety or the MVP acceptance gate.
+The frontend owner reports a REAL/terrain browser check of the revised challenge: B on
+2027-03-01 returned RED, then B on 2027-03-14 returned GREEN, with +210.1 h both-visible
+time for B. P1 reviewed the source diff and green CI but did not independently repeat that
+browser run. This verifies reported training-flow behavior, not landing safety or MVP
+acceptance. V4 remains scientifically FAIL; final release and acceptance remain with user.
 
-V4 remains scientifically FAIL (~6.30 percentage points); final release and acceptance
-remain with the user. Earlier 708-hour UI measurements in this file are historical and are
-superseded as the simulator challenge scenario by the 240-hour fix.
-
-## Current simulator routes — 15 November 2026
+## Simulator route checkpoint — 15 November 2026 (dated evidence)
 
 Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;
 comparator: /; features: /best-date, /methods, /report. Dashboard brand links back to
@@ -34,7 +72,7 @@ pass. See LANDING_INTEGRATION.md. Earlier descriptions of /landing as the scroll
 are superseded. Existing V4 and physical-device/usability limitations remain.
 
 
-## Latest landing integration — 15 November 2026
+## Landing integration checkpoint — 15 November 2026 (dated evidence)
 
 Reviewed frontend-landing, corrected its source labels/dependency downgrade and
 animation cleanup, and merged green df60cbc (CI 43688963732) into integration.
@@ -45,7 +83,7 @@ See [LANDING_INTEGRATION.md](LANDING_INTEGRATION.md) for exact evidence and prev
 V4 remains failed; V6 is an owner qualitative spot check. Release stays with user.
 
 
-## Latest acceptance update — 15 November 2026
+## Acceptance checkpoint — 15 November 2026 (dated evidence)
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read
 [ACCEPTANCE_2026-11-15.md](ACCEPTANCE_2026-11-15.md) for exact evidence and limits.
@@ -60,7 +98,7 @@ unverified. Concurrent unpublished landing/package/router work was preserved.
 Earlier pending V6/export/print entries below are historical, superseded here.
 
 
-## Active resumed engineering — 15 November 2026
+## Full-stack checkpoint — 15 November 2026 (historical)
 
 The user resumed full-stack work. Earlier stopped/unmerged descriptions below are
 historical. Backend 79936a5 and frontend fd7bf03 plus 8bd7dd4 are integrated.
@@ -72,9 +110,9 @@ result ambiguity after input edits is fixed and browser-verified. Frontend now h
 frame measured 1000 ms on this host. V4 FAIL / V6 pending remain open. Deployment
 and release remain with the user; no MVP/RC/final gate has been declared passed.
 
-Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
+Current status and pending work at the top of this file is authoritative. Remaining dated entries are historical snapshots unless called out above.
 
-## Stopped for teammate takeover
+## Historical stop point before the latest integration
 
 The user stopped pending implementation on 15 November 2026. Start with
 [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md) for exact branches, checks and next action.
@@ -84,7 +122,7 @@ Integration documentation checkpoint a1628de has green hosted CI (run 4364987660
 jobs. Integration and rendered verification remain for the next owner. Computer Use blocked browser verification; no visual
 pass is claimed. No release/deployment or remaining feature work is being continued.
 
-## Current authoritative status — full-stack engineering milestone
+## Historical full-stack milestone snapshot — superseded by current status above
 
 - [x] Real 20 m near-field + 160 m far-field polar comparisons run successfully.
 - [x] Sourced polar hillshade, projection sign checks and whole-Moon context map.

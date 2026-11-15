@@ -51,11 +51,11 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 | F1 Library | Ten sourced entries; live API and browser picker show all ten after restart | International/commercial breadth; official sources only |
 | F2 Coordinates | Real custom coordinate comparison and sweep exercised | Complete edge-case checklist |
 | F3 Map | Sourced polar and global assets integrated | Final cross-device map interaction pass |
-| F4 Two plans | Browser computed both plans, displayed corresponding results | Final demo journey |
-| F5 Mission length | 708 h starter and 240 h real sweep/Plan B exercised | Full limits checklist |
+| F4 Two plans | Real A/B comparison; owner-reported REAL/terrain simulator challenge: B=2027-03-14 GREEN at 240 h | Independent rerun and user-owned deployed rehearsal |
+| F5 Mission length | 240 h Best Date and 240 h REAL/terrain simulator challenge exercised; 708 h comparison supported | Full mission/input-limit checklist |
 | F6 Presets | Site-vs-site and free-mode handoff exercised; date-shift code/tests present | Fresh browser date-shift regression |
-| F7 Best date | Live three-day polar sweep, March 15–17 2027, 240 h; ranked green/green/amber | Broad/slow-range acceptance |
-| F8 Ephemeris | SPICE runtime; full V1/V2 evidence passes | V6 owner qualitative spot check passed; see latest acceptance report |
+| F7 Best date | Live three-day polar sweep, March 15–17 2027, 240 h; ranked green/green/amber | Broader/slow-range acceptance |
+| F8 Ephemeris | SPICE runtime; full V1/V2 evidence passes; V6 owner qualitative spot check passed | No external scientific certification is claimed |
 | F9 Skyline | Real near-field + far terrain in sweep and Plan B | Scientific V4 discrepancy |
 | F10 Coverage modes | Starter explicitly coarse; Plan B 20 m near + 160 m far | Complete edge/coverage checklist |
 | F11 Visibility | Computed windows; V3/V5 mathematical tests | Scientific V4 discrepancy |
@@ -65,18 +65,18 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 | F15 Panorama | Both real skylines and response paths displayed | Complete scrubber interaction pass |
 | F16 Timeline | Real Sun/Earth/both/difference lanes displayed | Fresh date-alignment regression |
 | F17 Scrubber | Shared store and regression tests; earlier interaction evidence | Full current cross-view sync check |
-| F18 Terrain 3D | Current browser first-frame 1000 ms including request/lazy load | Other hardware, slow-device fallback |
-| F19 Simple/Expert | Implemented; raw tables and method details present | Fresh keyboard/screen-reader review |
-| F20 Provenance | Coarse/terrain source labels visible in real results | Actual downloads opened; complete corrected CSV checked |
+| F18 Terrain 3D | Lazy terrain 3D and 2D fallback implemented; one-host first-frame measurement recorded | Other hardware and slow-device performance/fallback |
+| F19 Simple/Expert | Implemented; raw tables and method details present | Full keyboard and screen-reader review |
+| F20 Provenance | Coarse/terrain source labels visible; actual CSV/JSON downloads and corrected CSV checked | No known open defect; preserve provenance on future changes |
 | F21 UI states | Prior fixtures/tests; stale-plan notice now browser-verified | Full break-it pass, slow network |
 | F22 Horizons | Full V1/V2 artifacts pass | No external scientific certification |
-| F23 PGDA | Full V4 artifact displayed honestly as FAIL (~6.30 pp; <=5 target) | Scientific review; two prior attempts exhausted |
-| F24 Methods | Versioned V1–V6 evidence integrated | V4/V6 resolution; final rendered review |
-| F25 Export/report | Existing CSV/JSON/print implementation; earlier real export opened | Five-page native preview checked; physical print/device setups unverified |
+| F23 PGDA | V4 artifact is displayed honestly as FAIL (~6.30 pp against <=5 target) | Resolve disc/epoch/DEM convention mismatch against authoritative reference; preserve threshold |
+| F24 Methods | Versioned V1–V6 evidence integrated; V6 is owner-reviewed qualitative PASS | V4 resolution and final rendered review |
+| F25 Export/report | Real CSV/JSON reviewed; native five-page print preview checked | Physical print and device/printer setups unverified |
 
-## Current checks actually run
+## Previously recorded checks (per checkpoint)
 
-- Combined fd7bf03 integration: TypeScript/production build, lint, 126 tests passed.
+- Combined fd7bf03 checkpoint: TypeScript/production build, lint, 126 tests passed. The later `414e7dd` frontend commit passed hosted CI run `43695763208`; see the simulator handoff for owner-reported real-backend testing.
 - Stale-result fix: 129 tests passed, lint and TypeScript/production build passed;
   Impeccable mechanical detector returned no findings; owner hosted CI green.
 - Live health: ok, mock=false, contract 1.1. Live sites count ten.
