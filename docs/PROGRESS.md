@@ -5,7 +5,7 @@ Last remote check: 2026-11-15. Current status below supersedes historical snapsh
 
 The user stopped pending implementation on 15 November 2026. Start with
 [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md) for exact branches, checks and next action.
-Integration code baseline 84b4181 has green hosted CI (run 43649120105). Backend
+Integration documentation checkpoint a1628de has green hosted CI (run 43649876609). Backend
 79936a5 is integrated. Frontend fd7bf03 is pushed but NOT merged: local lint,
 126 tests and TypeScript/build passed; hosted CI run 43649641903 passed all seven
 jobs. Integration and rendered verification remain for the next owner. Computer Use blocked browser verification; no visual
@@ -23,7 +23,7 @@ pass is claimed. No release/deployment or remaining feature work is being contin
 - [ ] V4 scientific target: FAIL at one point (~6.30 pp vs <=5), including 20 m rerun.
 - [ ] V6 qualitative sanity acceptance: diagnostics present, human review pending.
 - [ ] User visual acceptance, two-person usability and cross-device performance checks.
-- [x] Integration baseline 84b4181 hosted CI: run 43649120105 SUCCESS.
+- [x] Integration checkpoint a1628de hosted CI: run 43649876609 SUCCESS.
 - [x] Frontend fd7bf03 hosted CI: run 43649641903 SUCCESS (seven jobs).
 - [ ] Frontend fd7bf03 UI checkpoint: integrate and render-verify on resume.
 

@@ -7,11 +7,11 @@ deployment or scientific acceptance was performed after that stop.
 
 | Branch | Published code checkpoint | Status |
 | --- | --- | --- |
-| feat/p1-s0-integration | 84b4181 (followed by this documentation handoff) | Default branch; integrated backend 79936a5 and frontend 2f73a4e |
+| feat/p1-s0-integration | a1628de | Default branch; integrated backend 79936a5 and frontend 2f73a4e |
 | feat/p2-p3-backend-terrain | 79936a5cd3b658ad7b641b7c064c00d62ffddf2e | Fully integrated into P1 |
 | feat/p4-frontend-s0 | fd7bf03ed01360eb82d00b27bb78d7ff726d5e38 | Latest responsive UI checkpoint, NOT yet integrated into P1 |
 
-P1 code baseline 84b4181 hosted CI passed all jobs: run 43649120105.
+P1 current documentation checkpoint a1628de hosted CI passed all jobs: run 43649876609.
 Frontend checkpoint run 43649641903 completed SUCCESS: all seven jobs. The user
 stopped work before integration; the next owner should review and merge when resuming. Local lint, 126 tests and strict TypeScript/production
 build passed for fd7bf03. Browser inspection of that checkpoint was blocked by
