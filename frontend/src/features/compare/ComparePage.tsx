@@ -23,6 +23,7 @@ import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
 import { TerrainPanel } from "../terrain3d/TerrainPanel";
 import { useCompare } from "./useCompare";
+import { createSingleFlight } from "../../lib/singleFlight";
 import styles from "./compare.module.css";
 
 const SiteMap = lazy(() => import("../map/SiteMap"));
@@ -106,13 +107,18 @@ export function ComparePage() {
   const errors = { ...serverErrors, ...clientErrors };
   const editorOpen = editing || Object.keys(errors).length > 0;
 
-  const run = (req: CompareRequest) =>
+  // One request at a time: isPending is stale between two clicks in the same frame (double submit).
+  const [gate] = useState(createSingleFlight);
+  const run = (req: CompareRequest) => {
+    if (!gate.start()) return;
     compare.mutate(req, {
       onSuccess: (response) => {
         setLastCompare({ request: req, response });
         setEditing(false); // results take the workspace once a compare succeeds
       },
+      onSettled: () => gate.end(),
     });
+  };
 
   const submit = () => {
     if (compare.isPending) return;
