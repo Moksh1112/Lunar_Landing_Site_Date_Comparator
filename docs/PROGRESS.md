@@ -308,3 +308,9 @@ provided but qualitative human review remains incomplete.
 Whole-Moon view still uses a coordinate grid; the sourced polar hillshade is active.
 Release/deployment remains the user's phase. See NON_RELEASE_HANDOFF.md for restart,
 reproduction, current limitations and takeover commands (written at final checkpoint).
+
+## Frontend owner resumed — 15 November 2026
+
+Frontend implementation returned to its owner; P1 remains integration only.
+Current beginner-guide/controller work and exact remaining checks are in
+FRONTEND_HANDOFF_CURRENT.md. Source: frontend-landing 72de289, including 0851855.
