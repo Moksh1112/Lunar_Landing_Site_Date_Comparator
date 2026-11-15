@@ -71,7 +71,7 @@ function MotionPaths({ series, observer, bearing }: { series: Series; observer: 
 function Scene({ tile, series, sunAz, sunEl, earthAz, earthEl, exaggeration, resetView, showPaths, onReady, onContextLost }: Props & { onContextLost: () => void }) {
   const ready = useRef(false);
   const orbit = useRef<OrbitControls | null>(null);
-  const framed = useRef<{ tile: TerrainTileResponse; resetView: number; distance: number } | null>(null);
+  const framed = useRef<{ tile: TerrainTileResponse; resetView: number; distance: number; aspect: number } | null>(null);
   const { camera, gl, invalidate, size } = useThree();
   const theme = useTheme(s => s.theme);
   const relief = (tile.max_m - tile.min_m) / (tile.size_km * 1000) * 2 * exaggeration;
@@ -92,21 +92,29 @@ function Scene({ tile, series, sunAz, sunEl, earthAz, earthEl, exaggeration, res
     controls.maxPolarAngle = Math.PI / 2;
     return () => { controls.removeEventListener("change", changed); controls.dispose(); orbit.current = null; };
   }, [camera, gl, invalidate]);
+  // eslint-disable-next-line react-hooks/immutability -- R3F cameras are mutable Three.js objects, updated imperatively.
   useEffect(() => {
     const controls = orbit.current;
     if (!controls || size.width <= 0 || size.height <= 0) return;
-    const distance = terrainCameraDistance(relief, 45, size.width / Math.max(1, size.height));
-    controls.maxDistance = Math.max(distance * 3, camera.position.distanceTo(controls.target));
+    const aspect = size.width / size.height;
+    const distance = terrainCameraDistance(relief, 45, aspect);
     if (!framed.current || framed.current.tile !== tile || framed.current.resetView !== resetView) {
       camera.position.copy(new THREE.Vector3(1, 1.35, 1.1).normalize().multiplyScalar(distance));
       camera.lookAt(0, 0, 0);
       controls.target.set(0, 0, 0);
-    } else {
-      // Resize/refit along the user's view direction, retaining orbit, pan and relative zoom.
+      controls.update();
+      framed.current = { tile, resetView, distance, aspect };
+    } else if (framed.current.aspect !== aspect) {
+      // Resize along the user's view direction; height changes alone leave the camera untouched.
       camera.position.sub(controls.target).multiplyScalar(distance / framed.current.distance).add(controls.target);
+      controls.update();
+      framed.current = { tile, resetView, distance, aspect };
     }
-    controls.update();
-    framed.current = { tile, resetView, distance };
+    controls.maxDistance = Math.max(distance * 3, camera.position.distanceTo(controls.target));
+    // Include the terrain and markers even at maximum zoom-out, including a panned target.
+    // eslint-disable-next-line react-hooks/immutability -- Update the owned Three.js camera, not React state.
+    camera.far = controls.maxDistance + controls.target.length() + Math.hypot(1, 1, relief / 2) * 2 + 3;
+    camera.updateProjectionMatrix();
     invalidate();
   }, [camera, invalidate, relief, tile, resetView, size.width, size.height]);
   useFrame(() => { if (!ready.current) { ready.current = true; requestAnimationFrame(onReady); } });

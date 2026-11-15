@@ -10,6 +10,7 @@
     "check:backend": "node scripts/backend-check.mjs",
     "hooks": "node scripts/hooks.mjs",
     "check:startup": "node scripts/check-startup.mjs",
+    "check:ui": "node --experimental-websocket scripts/check-ui-review.mjs",
     "fixtures": "node scripts/python.mjs scripts/make_fixtures.py",
     "check:fixtures": "node scripts/python.mjs scripts/check-fixtures.py",
     "check:dependencies": "node scripts/check-dependencies.mjs",

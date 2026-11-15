@@ -1,5 +1,15 @@
 # Azelux progress and to-do board
 
+**Latest review milestone:** the commit containing [REVIEW_FOLLOWUP_2026-11-15.md](REVIEW_FOLLOWUP_2026-11-15.md)
+includes the README overview, unchanged height-slider camera transforms, zoom clipping
+and a Node 20-compatible UI-check launcher. 201 frontend tests, lint/typecheck/build
+and eleven scoped Chrome checks pass (REAL `terrain_coarse`). The comparison revision
+guard was already correct and is preserved. The user authorized one combined commit
+and push; check that exact commit's hosted CI before treating it as green. Remaining
+human/device, science and release limitations listed below are unchanged.
+
+## Earlier integration checkpoints (historical)
+
 **Latest local UI fix:** Home's illustrative Moon now stays visible after selecting
 A or B, with no zoom/resize needed. 201 frontend tests, lint/build and ten scoped
 Chrome checks pass, including twelve desktop/mobile/reduced-motion captures.

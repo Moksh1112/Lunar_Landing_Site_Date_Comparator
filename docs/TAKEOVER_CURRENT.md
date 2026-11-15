@@ -7,7 +7,17 @@ this is a scoped exception, not a transfer of general ownership. Earlier tempora
 full-stack instructions and dated service/PID snapshots are historical.
 Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
-## Current local merge recovery
+## Current review milestone
+
+The user authorized publishing the combined local history and README/review fixes
+in one commit on `feat/p1-s0-integration`. Use the commit containing
+[REVIEW_FOLLOWUP_2026-11-15.md](REVIEW_FOLLOWUP_2026-11-15.md), based on `6d334c4`
+with published `b76ab21` already an ancestor. Verify the remote SHA and its hosted
+CI before assuming publication or a green result. Deployment remains stopped.
+The earlier no-push instructions and local-only route restrictions below describe
+older checkpoints, not the current authorization.
+
+## Earlier local merge recovery (historical)
 
 Latest integration is local `c542e0b` plus published `b76ab21`, whose exact incoming
 CI passed seven jobs on [43728281474](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43728281474).
@@ -71,10 +81,10 @@ No teammate has been contacted by this takeover task.
 ## Startup and data
 
 For an immediate explicitly synthetic demo: `npm run dev:s0`. The route list below
-requires the **combined local merge of `194aa94` and `89ce28c`**. A fresh
-clone of published `89ce28c` includes the teammate's gap/briefing and theme work,
-but does **not** contain `/terrain`, the tour-at-Home change or the later local UI fixes;
-do not use that clone to reproduce the local UI evidence.
+requires the current review milestone or a descendant. After its authorized push,
+a fresh clone of that revision includes `/terrain`, the tour-at-Home change and
+the later UI fixes. An older checkout at `89ce28c` or `b76ab21` lacks these local
+additions; do not use it to reproduce the new UI evidence.
 
 To obtain the local revision without pushing, have the holder of this checkout
 create a bundle outside the repository, then transfer that file to the new machine:
@@ -94,8 +104,8 @@ npm run dev:s0
 Inspect status before updating an existing checkout. The fast-forward deliberately
 stops if its history diverges; preserve that work rather than resetting it. The
 bundle must include the completed merge, so the published head is its ancestor. Bundle
-transfer publishes nothing to GitHub. Without the bundle, `/terrain` and those
-local UI revisions remain unavailable in a fresh published-branch clone.
+transfer publishes nothing to GitHub. A clone of the current review milestone
+does not need a bundle; it still needs setup and separately acquired runtime data.
 
 On the local revision, open `/` (Home), `/compare` (comparator), `/best-date`, `/terrain`, `/methods`, `/report`,
 `/learn/simulator` and `/learn/tour`. Old `/landing`, `/landing/tour` and `/tour` links redirect.

@@ -1,5 +1,6 @@
 // Requires the dev app and backend. Uses an isolated Chromium profile, never the user's profile.
 // BROWSER_PATH overrides the Windows Chrome default; AZX_WEB_URL overrides localhost:5173.
+// Run with npm run check:ui: the launcher enables WebSocket on the Node 20 baseline.
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
@@ -7,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const base = process.env.AZX_WEB_URL ?? 'http://127.0.0.1:5173';
+assert.equal(typeof WebSocket, 'function', 'Run npm run check:ui to enable WebSocket on Node 20.');
 const profile = mkdtempSync(join(tmpdir(), 'azelux-review-'));
 const browser = spawn(process.env.BROWSER_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe',
   ['--headless=new', '--remote-debugging-port=0', `--user-data-dir=${profile}`, '--no-first-run', 'about:blank'],
@@ -75,7 +77,7 @@ try {
   await waitFor(`document.querySelector('[aria-label="Terrain 3D"]')?.textContent.includes('First frame:')`);
   await evaluate(`(async()=>{const resources=performance.getEntriesByType('resource').map(r=>r.name);window.store=(await import(resources.find(u=>u.includes('/src/store.ts')))).useStore;const url=resources.find(u=>u.includes('@react-three_fiber.js?v='));const {_roots}=await import(url);window.terrainState=_roots.get(document.querySelector('[aria-label="Terrain 3D"] canvas')).store.getState();})()`);
   report.sourceModes = await evaluate('store.getState().lastCompare.response.scenarios.map(s=>({label:s.meta.data_label,horizon:s.meta.horizon_mode}))');
-  const camera = () => evaluate('({position:terrainState.camera.position.toArray(),rotation:terrainState.camera.quaternion.toArray()})');
+  const camera = () => evaluate('({position:terrainState.camera.position.toArray(),rotation:terrainState.camera.quaternion.toArray(),zoom:terrainState.camera.zoom})');
   await evaluate(`document.querySelector('[aria-label="Terrain 3D"] canvas').scrollIntoView({block:'center'})`);
   const initial = await camera();
   const rect = await evaluate(`document.querySelector('[aria-label="Terrain 3D"] canvas').getBoundingClientRect().toJSON()`);
@@ -90,11 +92,24 @@ try {
   const narrow = await camera();
   assert(narrow.rotation.every((v, i) => Math.abs(v - wide.rotation[i]) < 1e-7));
   await setRange('[aria-label="Vertical exaggeration"]', 5);
-  await waitFor('terrainState.camera.position.length() > ' + Math.hypot(...narrow.position));
+  await waitFor('terrainState.scene.getObjectByName("terrain-height").scale.z === 5');
   const relief = await camera();
-  assert(relief.rotation.every((v, i) => Math.abs(v - narrow.rotation[i]) < 1e-7));
+  assert.deepEqual(relief, narrow, 'Height changes must leave camera transforms unchanged');
   report.framing = { wide, narrow, relief };
-  report.checks.push('viewport resize and relief refit without resetting view angle');
+  report.checks.push('viewport resize reframes; height slider preserves camera transforms');
+  await size(240);
+  await waitFor('terrainState.camera.position.length() > ' + Math.hypot(...narrow.position) * 1.5);
+  await evaluate(`document.querySelector('[aria-label="Terrain 3D"] canvas').scrollIntoView({block:'center'})`);
+  const zoomRect = await evaluate(`document.querySelector('[aria-label="Terrain 3D"] canvas').getBoundingClientRect().toJSON()`);
+  await send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: zoomRect.x + zoomRect.width / 2, y: zoomRect.y + zoomRect.height / 2, deltaX: 0, deltaY: 100000 });
+  await sleep(100);
+  const clipping = await evaluate('({distance:terrainState.camera.position.length(),far:terrainState.camera.far,projection:terrainState.camera.projectionMatrix.elements[10]})');
+  assert(clipping.distance > 30, 'Exercise maximum zoom beyond the old fixed far plane');
+  assert(clipping.far > clipping.distance + 3, 'Maximum zoom must leave scene-size clipping margin');
+  assert(Math.abs(clipping.projection - (clipping.far + 0.01) / (0.01 - clipping.far)) < 1e-10, 'Projection matrix must reflect the new far plane');
+  report.clipping = clipping;
+  report.checks.push('maximum zoom-out stays inside updated camera clipping range');
+  await size(520);
 
   await evaluate('store.getState().setAlignBy("mission_day");store.getState().setScrubT(0)');
   await evaluate('[...document.querySelectorAll("button")].find(b=>b.textContent.endsWith("Play mission")).click()');

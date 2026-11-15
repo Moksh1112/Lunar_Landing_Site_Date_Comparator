@@ -1,0 +1,162 @@
+{
+  "checks": [
+    "viewport resize reframes; height slider preserves camera transforms",
+    "maximum zoom-out stays inside updated camera clipping range",
+    "hourly mission-day seconds and timeline selection survive leaving playback",
+    "recoverable Canvas retry resets boundary, second failure stops",
+    "failed lazy chunk retry reloads document and loads fresh code",
+    "direct-entry Back fallback replaces history",
+    "gap focus/highlight and cursor tooltip coexist; same-frame double Compare sends one POST",
+    "merged real comparison generates offline briefing with provenance and validation",
+    "controlled delayed comparison cannot restore results after Load as B",
+    "Escape ignores AppHeader focus but pauses from simulator header",
+    "landing B/A/B keeps Moon visible without zoom or resize at desktop/mobile widths and reduced motion"
+  ],
+  "errors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.51",
+    "revision": "@653674df293788cf4932c40d914e9e15b41a2d31",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  },
+  "sourceModes": [
+    {
+      "label": "REAL",
+      "horizon": "terrain_coarse"
+    },
+    {
+      "label": "REAL",
+      "horizon": "terrain_coarse"
+    }
+  ],
+  "framing": {
+    "wide": {
+      "position": [
+        -0.17818201582957682,
+        3.3809604968305287,
+        1.9387459496789827
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.03965808654794531,
+        -0.022926440027017207,
+        0.8648344529237406
+      ],
+      "zoom": 1
+    },
+    "narrow": {
+      "position": [
+        -0.22250792438322262,
+        4.222033851558637,
+        2.4210430842922555
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.0396580865479453,
+        -0.022926440027017207,
+        0.8648344529237406
+      ],
+      "zoom": 1
+    },
+    "relief": {
+      "position": [
+        -0.22250792438322262,
+        4.222033851558637,
+        2.4210430842922555
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.0396580865479453,
+        -0.022926440027017207,
+        0.8648344529237406
+      ],
+      "zoom": 1
+    }
+  },
+  "clipping": {
+    "distance": 38.833203598845294,
+    "far": 45.025019692308604,
+    "projection": -1.0004442961513003
+  },
+  "briefing": {
+    "bytes": 419129,
+    "real": true,
+    "schema": true,
+    "v4": true
+  },
+  "landingSwitches": [
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.3124062593740626
+    },
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "A",
+      "grayFraction": 0.27524122587741223
+    },
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.31242709062427093
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.3117750724927507
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "A",
+      "grayFraction": 0.2749787521247875
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.3117750724927507
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.26250743604997023
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "A",
+      "grayFraction": 0.22480666270077335
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.26247769185008923
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.2616745984533016
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "A",
+      "grayFraction": 0.22453896490184413
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.2616745984533016
+    }
+  ]
+}

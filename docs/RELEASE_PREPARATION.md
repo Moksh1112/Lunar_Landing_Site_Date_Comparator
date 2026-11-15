@@ -1,7 +1,8 @@
 # Release preparation draft - 15 November 2026
 
 **Current boundary:** the incoming owner handoff at `b76ab21` records deployment STOPPED.
-This local integration combines it with `c542e0b`; see [current checks](INTEGRATION_B76AB21_2026-11-15.md).
+The current review milestone builds on `6d334c4`, retaining integrated `b76ab21`;
+see [latest checks](REVIEW_FOLLOWUP_2026-11-15.md).
 The deployment files are review examples only. No public host, URL or rehearsal is authorized.
 Owner Home Lighthouse results do not validate the local tour landing at `/`.
 
@@ -29,11 +30,10 @@ lists and every result's REAL/SYNTHETIC, horizon mode, DEM and manifest identity
 An `ok` health response alone does not establish that all datasets are present.
 NASA SVS imagery is visual context only; it never supplies visibility calculations.
 
-The current local integration combines `194aa94` and published `89ce28c`; see
-[merge recovery](MERGE_RECOVERY_2026-11-15.md). Incoming source CI passed seven jobs
-on [43721206324](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43721206324);
-there is no hosted result for the combined local revision. Do not push. No release candidate has been nominated;
-that is Moksh's decision.
+Incoming source `b76ab21` passed seven jobs on
+[43728281474](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43728281474).
+The user authorized the combined review commit and push; verify its exact hosted
+result separately. No release candidate has been nominated; that is Moksh's decision.
 
 Product additions since the original MVP, explicitly authorized:
 
@@ -57,8 +57,9 @@ on the deployed URL only after deployment authorization:
    the returned B starts on that selected UTC date.
 6. Open **3D Terrain** in the navbar (`/terrain`). Scrub/play the mission and inspect
    Earth/Sun paths. Orbit/zoom/pan, then move the 1x-5x height slider: camera transforms
-   should keep their viewing angle and pan, with distance adapting to relief/viewport.
-   Reset view should restore initial framing. Inspect gray height shading
+   must keep camera position, rotation, zoom and pan unchanged while height changes.
+   Check reframing separately through **Reset view** or a tile change; also check viewport resizing.
+   Inspect gray height shading
    and its meter legend; open sky/horizon or timeline views, including 3D fallback.
 7. Toggle Simple/Expert and light/dark theme, visit Methods/visual credits, download
    CSV/JSON and print the report. Inspect the actual files, source provenance and
