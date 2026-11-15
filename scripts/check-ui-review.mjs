@@ -136,8 +136,9 @@ try {
   report.checks.push('direct-entry Back fallback replaces history');
 
   await evaluate(`(async()=>{const resources=performance.getEntriesByType('resource').map(r=>r.name);window.store=(await import(resources.find(u=>u.includes('/src/store.ts')))).useStore;})()`);
+  await waitFor(`document.querySelector('[aria-label="Results"]')?.getAttribute('aria-busy') === 'false' && [...document.querySelectorAll('button')].some(b=>b.textContent.trim()==='Compare')`);
   const postsBefore = comparePosts;
-  await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compare').click();[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compare').click()`);
+  await evaluate(`(()=>{const b=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compare');b.click();b.click()})()`);
   await waitFor('store.getState().gapFocus === "A" && document.querySelector("[aria-label=Results]")?.getAttribute("aria-busy") === "false"');
   assert.equal(comparePosts - postsBefore, 1);
   assert(await evaluate(`!![...document.querySelectorAll('svg title')].find(t=>t.textContent==='Plan A longest visibility gap')`));
@@ -174,6 +175,29 @@ try {
   await escape();
   await waitFor('!!document.querySelector("dialog[open]")');
   report.checks.push('Escape ignores AppHeader focus but pauses from simulator header');
+
+  // Screenshot the canvas itself: stale orbit orientation used to draw only stars until a wheel/resize event.
+  report.landingSwitches = [];
+  const landingCanvas = 'canvas[aria-label^="Synthetic interactive Moon"]';
+  for (const width of [1440, 375]) for (const reduced of [false, true]) {
+    await size(width);
+    await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: reduced ? 'reduce' : 'no-preference' }] });
+    await navigate('/');
+    await evaluate(`document.querySelector('${landingCanvas}').scrollIntoView({block:'center'})`);
+    await waitFor(`document.querySelector('${landingCanvas}')?.dataset.state === 'ok'`);
+    await sleep(500);
+    for (const site of ['B', 'A', 'B']) {
+      await evaluate(`[...document.querySelectorAll('[aria-label="Landing site"] button')].find(b=>b.textContent.trim().startsWith('${site}')).click()`);
+      await sleep(100);
+      assert.equal(await evaluate(`document.querySelector('[aria-label="Landing site"] button[aria-pressed="true"]').textContent.trim()[0]`), site);
+      const clip = await evaluate(`(()=>{const r=document.querySelector('${landingCanvas}').getBoundingClientRect();return {x:r.x+scrollX,y:r.y+scrollY,width:r.width,height:r.height,scale:1}})()`);
+      const shot = await send('Page.captureScreenshot', { format: 'png', clip, captureBeyondViewport: true });
+      const grayFraction = await evaluate(`(async()=>{const image=await createImageBitmap(await(await fetch('data:image/png;base64,${shot.data}')).blob());const canvas=new OffscreenCanvas(image.width,image.height);const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,image.width,image.height).data;let gray=0;for(let i=0;i<pixels.length;i+=4){if(pixels[i]>45&&pixels[i+1]>45&&pixels[i+2]>45&&Math.max(pixels[i],pixels[i+1],pixels[i+2])-Math.min(pixels[i],pixels[i+1],pixels[i+2])<35)gray++;}const fraction=gray/(image.width*image.height);image.close();return fraction;})()`);
+      report.landingSwitches.push({ width, reduced, site, grayFraction });
+      assert(grayFraction > 0.05, `Moon disappeared after ${site}: ${JSON.stringify({ width, reduced, grayFraction })}`);
+    }
+  }
+  report.checks.push('landing B/A/B keeps Moon visible without zoom or resize at desktop/mobile widths and reduced motion');
   // Deliberate chunk/context failures above are caught by the recovery boundary.
   assert.deepEqual(report.errors, []);
   console.log(JSON.stringify(report, null, 2));

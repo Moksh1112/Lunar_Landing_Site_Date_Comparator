@@ -342,11 +342,12 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
       render();
       if (k < 1) landingRaf = requestAnimationFrame(step);
     };
-    step();
     if (controls) {
       controls.target.copy(s);
       camera.position.copy(s.clone().multiplyScalar(2.3).add(new THREE.Vector3(0.5, -0.2, 0.5)));
+      controls.update();
     }
+    step();
     return readout();
   };
 

@@ -1,5 +1,10 @@
 # Azelux progress and to-do board
 
+**Latest local UI fix:** Home's illustrative Moon now stays visible after selecting
+A or B, with no zoom/resize needed. 201 frontend tests, lint/build and ten scoped
+Chrome checks pass, including twelve desktop/mobile/reduced-motion captures.
+[Camera fix evidence](LANDING_CAMERA_2026-11-15.md). No push or acceptance-gate change.
+
 ## Current integration of ten incoming commits
 
 Local `c542e0b` is being combined with published `b76ab21`. Incoming source CI

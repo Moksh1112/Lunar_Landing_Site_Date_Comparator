@@ -1,0 +1,107 @@
+{
+  "parent": "61d6811122654bbbc4c07d3c88b00e1864048590",
+  "mode": "SYNTHETIC landing illustration; no science/terrain result changed",
+  "command": "node scripts/check-ui-review.mjs",
+  "browser": "Chrome/157.0.8103.51",
+  "checks": [
+    "viewport resize and relief refit without resetting view angle",
+    "hourly mission-day seconds and timeline selection survive leaving playback",
+    "recoverable Canvas retry resets boundary, second failure stops",
+    "failed lazy chunk retry reloads document and loads fresh code",
+    "direct-entry Back fallback replaces history",
+    "gap focus/highlight and cursor tooltip coexist; same-frame double Compare sends one POST",
+    "merged real comparison generates offline briefing with provenance and validation",
+    "controlled delayed comparison cannot restore results after Load as B",
+    "Escape ignores AppHeader focus but pauses from simulator header",
+    "landing B/A/B keeps Moon visible without zoom or resize at desktop/mobile widths and reduced motion"
+  ],
+  "before": [
+    {
+      "site": "A",
+      "grayFraction": 0.0034517381595173817,
+      "width": 876,
+      "height": 548
+    },
+    {
+      "site": "B",
+      "grayFraction": 0.004203746292037463,
+      "width": 876,
+      "height": 548
+    }
+  ],
+  "after": [
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.3123875112488751
+    },
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "A",
+      "grayFraction": 0.27524122587741223
+    },
+    {
+      "width": 1440,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.31239792687397927
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.3117750724927507
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "A",
+      "grayFraction": 0.2749787521247875
+    },
+    {
+      "width": 1440,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.3117750724927507
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.26244794765020824
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "A",
+      "grayFraction": 0.22482153480071387
+    },
+    {
+      "width": 375,
+      "reduced": false,
+      "site": "B",
+      "grayFraction": 0.26244794765020824
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.2616745984533016
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "A",
+      "grayFraction": 0.22453896490184413
+    },
+    {
+      "width": 375,
+      "reduced": true,
+      "site": "B",
+      "grayFraction": 0.2616745984533016
+    }
+  ],
+  "uncaughtErrors": []
+}
