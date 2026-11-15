@@ -1,5 +1,20 @@
 # Non-release engineering takeover — 15 November 2026
 
+## Latest acceptance update — 15 November 2026
+
+Backend 7d6ac55 and frontend 016f01d integrated. Read
+[ACCEPTANCE_2026-11-15.md](ACCEPTANCE_2026-11-15.md) for exact evidence and limits.
+V6 is an explicitly reviewed P2-owner qualitative spot-check PASS; V4 remains FAIL,
+with the confirmed reference disc-rule mismatch documented separately. Actual real
+CSV/JSON downloads and five-page native print preview were checked. CSV now includes
+all skyline rows and the complete request. All four routes passed responsive bounds
+and sampled accessible-name checks; keyboard skip/glossary/scrubber checks passed.
+Backend 551 passed / 6 skipped; combined frontend 131 tests, lint/typecheck/build pass.
+Physical-device, other-browser, screen-reader and two-person usability checks remain
+unverified. Concurrent unpublished landing/package/router work was preserved.
+Earlier pending V6/export/print entries below are historical, superseded here.
+
+
 ## Active resumed engineering — 15 November 2026
 
 The user resumed full-stack work. Earlier stopped/unmerged descriptions below are
