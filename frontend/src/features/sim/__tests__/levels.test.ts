@@ -7,6 +7,8 @@ import {
   hintFor,
   operate,
   qualification,
+  qualifyStart,
+  QUALIFY_HOURS,
   requestFor,
   score,
   type Console,
@@ -69,5 +71,18 @@ describe("qualification and score", () => {
     const r = { ...g, verdictB: "red" as const };
     expect(score([g], 10)).toBeGreaterThan(score([r, g], 10));
     expect(score([r, r, r], 10)).toBe(0);
+  });
+});
+
+describe("qualification scenario (real-data regression)", () => {
+  it("uses a solvable 240 h mission and starts Plan B at Plan A's day", () => {
+    const practiced = { ...START_CONSOLE, site: 1, dayA: 0, dayB: 14, hours: 708, plan: "B" as const };
+    const q = qualifyStart(practiced);
+    expect(q).toEqual({ ...practiced, hours: QUALIFY_HOURS, dayB: 0, plan: "B" });
+    const r = requestFor({ ...q, dayB: 13 }, T);
+    expect(r.scenarios.map((s) => [s.start_utc, s.mission_hours])).toEqual([
+      ["2027-03-01T00:00:00Z", 240],
+      ["2027-03-14T00:00:00Z", 240],
+    ]);
   });
 });

@@ -90,6 +90,18 @@ export function requestFor(c: Console, thresholds: Thresholds): CompareRequest {
   return buildRequest({ mode, scenarios: [plan("Plan A", c.dayA), plan("Plan B", c.dayB)], thresholds });
 }
 
+/**
+ * Qualification mission length. Real-backend evidence (IM-2 Athena, terrain mode, Plan B days
+ * 2027-03-01..30): with 708 h (one lunar day) every start date is RED (sunlight 35.5-39.7 %,
+ * longest dark gap 209-413 h), so "find a GREEN day" had no answer. With a 240 h (10-day)
+ * mission the landing day decides the verdict (days 13-16 Mar GREEN). The science, thresholds
+ * and the GREEN rule are unchanged; only the challenge scenario is set to a solvable length.
+ */
+export const QUALIFY_HOURS = 240;
+
+/** Challenge start: edit Plan B, 240 h mission, Plan B begins at Plan A's day so the user must search. */
+export const qualifyStart = (c: Console): Console => ({ ...c, plan: "B", hours: QUALIFY_HOURS, dayB: c.dayA });
+
 export type Attempt = { dayB: number; verdictB: "green" | "amber" | "red" | null; synthetic: boolean; error?: string };
 
 /** Qualification: a GREEN Plan B within 3 attempts. Synthetic results never count as a pass. */
