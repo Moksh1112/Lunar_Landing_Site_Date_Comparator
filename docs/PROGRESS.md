@@ -1,27 +1,35 @@
 # Azelux progress and to-do board
 Last remote check: 2026-11-15. Current status below supersedes historical snapshots.
 
-## Current authoritative status — light layout and real geometric journey
+## Stopped for teammate takeover
 
-- Frontend d0a3d85 and backend 0d6f382 integrated after green owner CI:
-  runs 43642818525 and 43641136341. User visual acceptance is still separate.
-- Light lunar-atlas system, compact A/B summaries/editor and single Export menu
-  replace the dark/serif theme. Local frontend lint, 122 tests and TypeScript/build PASS.
-- Backend now errors for covered polar sites when this server lacks usable terrain;
-  it does not silently relabel that case as geometric. Outside coverage, SPICE plus
-  explicitly geometric horizon remains available even without raster libraries.
-  P1 local focused tests: 7 passed; changed backend Ruff check PASS.
-- Saved real journey inspected by P1: IM-1 Odysseus, starts 1/15 March 2027, 240 h,
-  REAL/geometric, sunlight 0/224.6 h, 1441 samples per plan. Export request timestamps
-  and all 2882 CSV rows match. Initial review validated saved evidence; the subsequent P1 live check below adds independent live
-  scientific reproduction. Agent's combined suite: 491 passed / 50 skipped (owner-reported).
-- Terrain-covered polar pair remains BLOCKED: NASA PGDA download failed after two
-  attempts, partial 80 m DEM at 167/189 MB, 20 m DEM unfinished. Do not count partial
-  rasters as usable or claim a terrain/coarse comparison. Preserve resumable files.
-- Remaining: recover verified terrain datasets, run covered polar pair, sourced lunar
-  basemap/georeferencing, full V1/V2/V4, gated terrain 3D, deployment and demo checks.
-- Shared preview now runs REAL SPICE with both mock flags false and C:/azx/data. P1 independently reproduced the geometric API and browser journey (0/224.6 h); covered polar requests still fail without DEMs. No Sync/scientific gate accepted here.
-- Evidence references, reproduction limits and latest checks: INTEGRATION_S0.md.
+The user stopped pending implementation on 15 November 2026. Start with
+[TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md) for exact branches, checks and next action.
+Integration documentation checkpoint a1628de has green hosted CI (run 43649876609). Backend
+79936a5 is integrated. Frontend fd7bf03 is pushed but NOT merged: local lint,
+126 tests and TypeScript/build passed; hosted CI run 43649641903 passed all seven
+jobs. Integration and rendered verification remain for the next owner. Computer Use blocked browser verification; no visual
+pass is claimed. No release/deployment or remaining feature work is being continued.
+
+## Current authoritative status — full-stack engineering milestone
+
+- [x] Real 20 m near-field + 160 m far-field polar comparisons run successfully.
+- [x] Sourced polar hillshade, projection sign checks and whole-Moon context map.
+- [x] Gated terrain 3D and synchronized playback implemented; initial 569 ms host measurement.
+  Latest readiness-timing correction still needs a fresh measurement.
+- [x] Live full V1/V2 ephemeris checks passed; executed V3/V5 mathematical checks passed.
+- [x] v1.1 backend/frontend compatibility implemented, v1.0 fixtures retained.
+- [x] Local backend 547 passed / 6 skipped; frontend 126 tests, lint/typecheck/build passed.
+- [ ] V4 scientific target: FAIL at one point (~6.30 pp vs <=5), including 20 m rerun.
+- [ ] V6 qualitative sanity acceptance: diagnostics present, human review pending.
+- [ ] User visual acceptance, two-person usability and cross-device performance checks.
+- [x] Integration checkpoint a1628de hosted CI: run 43649876609 SUCCESS.
+- [x] Frontend fd7bf03 hosted CI: run 43649641903 SUCCESS (seven jobs).
+- [ ] Frontend fd7bf03 UI checkpoint: integrate and render-verify on resume.
+
+Detailed source provenance, reproduction commands, tests and takeover instructions:
+NON_RELEASE_HANDOFF.md. Release/deployment is reserved for the user. No scientific,
+MVP, RC or final gate is silently passed. History below is revision-specific.
 ## Historical snapshots (revision-specific; current status above takes precedence)
 
 ## Update procedure
@@ -182,3 +190,72 @@ and target). Backend verdict tests: 9 passed; schema sensitivity check passed af
 adding explicit UTC timestamp pattern. Impeccable detector on verdict change: [].
 Preview remains frontend HTTP 200 and backend /health status ok, mock true. This
 CI evidence belongs to 6ab81e3; subsequent documentation-only commit has its own run.
+
+## Temporary full-stack milestone — 15 November 2026
+
+User granted temporary P1-P6 engineering ownership; release/deployment is reserved
+for the user. Existing clean owner worktrees are reused. Push every verified coherent
+milestone and leave handoff evidence as work progresses.
+
+80 m NASA PGDA DEM resumed successfully: 189158392 bytes, SHA256
+82030dcbdd7c4bb0c7d858e9b4b293b9f2cda5a543ba31ec0f42784bd6beee5a,
+matching the earlier owner's complete-file evidence. Derived far_160m.tif and the
+georeferenced south-pole hillshade in C:/azx/data. Local covered-polar compare now
+returns REAL/terrain_coarse for both curated IM-2 scenarios. This does not claim
+20 m near-field coverage. Remote NASA COG tile extraction is still running.
+
+Backend f55f8d0 is green on hosted CI. New V1/V2 runner performed live Horizons
+checks: V1 576 angle rows (3 positions x 48 hourly times x Sun/Earth x az/el), max
+error about 0.00000236 deg; V2 exact latitude/east-longitude header agreement.
+Evidence is team-produced/owner-reported, not external certification. Initial
+V2 height comparison exposed ~2e-13 km Horizons numerical noise; the final V2 rows
+check exactly the latitude/longitude scope specified in PRD, while raw headers retain
+height. Full artifacts are published on the backend branch; pending green evidence CI
+before integration. V4 long-run illumination and terrain 3D remain outstanding.
+
+## Terrain and basemap milestone (15 November 2026)
+
+Completed NASA 80 m raster, derived 160 m far field and two 50 km 20 m near-field
+crops. Remote crops use NASA's COG byte ranges, so their own SHA256 values are
+recorded but upstream full-file checksum verification is explicitly false. No raw
+rasters/kernels/images are added to git. Reproduce with:
+
+    node scripts/python.mjs scripts/download_dems.py --data-dir C:/azx/data --skip-20m
+    node scripts/python.mjs scripts/prepare_dems.py --data-dir C:/azx/data --far --hillshade
+    node scripts/python.mjs scripts/prepare_remote_tiles.py --data-dir C:/azx/data
+
+Use an absolute non-cloud data path. Remote tile reads validate expected CRS,
+dimensions and pixel scale, then record crop windows and derived checksums. Downloader
+retry default is now two attempts per boundary, preserving partial files.
+
+Live comparison: IM-2 Athena vs intended site, 15 March 2027, 240 h: both REAL/terrain
+(20 m near field plus 160 m far), Sun 240 h both; Earth 203.7/203.6 h. Requests and
+responses are in ignored work/p1-polar-terrain-*.json. Exact map CRS formula checked
+against the raster projection at four cardinal longitudes (0 E up, 90 E right).
+
+Basemap code pushed: backend f470a87 serves only the allowlisted hillshade PNG and
+metadata under /assets/lunar/; frontend 6c65375 overlays it with source citation and
+explicit absent-image state. Raw DEM paths are never served. Both owner CI runs
+passed before integration. Local full backend suite: 539 passed, 12 skipped; frontend
+122 tests/lint/typecheck/build passed. New V1/V2 evidence is live, full-scope,
+owner-reported; V3/V5 executed mathematical evidence is published on backend branch.
+V4 reference maps are downloading; 3D and final non-release acceptance remain next.
+
+## Full-stack checkpoint — terrain, map and validation
+
+Completed and pushed owner milestones: live V1/V2 checks; V3/V5 regression evidence;
+real 20 m near-field/160 m far terrain; georeferenced polar hillshade; gated 3D and
+shared playback. Local full backend suite after v1.1: 546 passed / 6 skipped. Local
+frontend: 126 tests, lint, TypeScript/build passed. Initial browser 3D first frame:
+569 ms; playback and the real 2048 px hillshade verified. Repeat after final integration.
+
+Scientific blocker: V4 tested all five prescribed sample positions over 18.6 years,
+daily step. One Sun result differs by ~6.30 percentage points, exceeding the 5 pp
+target. Replacing its coarse near-field with a real 20 m crop did not resolve it.
+Both attempts are saved; investigation stopped at this boundary under the two-attempt
+rule. Never change points or weaken the target to obtain a pass. V6 diagnostics are
+provided but qualitative human review remains incomplete.
+
+Whole-Moon view still uses a coordinate grid; the sourced polar hillshade is active.
+Release/deployment remains the user's phase. See NON_RELEASE_HANDOFF.md for restart,
+reproduction, current limitations and takeover commands (written at final checkpoint).

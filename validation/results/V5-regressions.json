@@ -1,0 +1,273 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V5",
+  "title": "Hand-built windows, metrics and verdict regression evidence",
+  "data_label": "SYNTHETIC",
+  "scope": "full_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-14T21:56:15Z",
+  "producer_commit": "8b75e081af895ac93d07fc937a7299caada8b667",
+  "command": "node scripts/python.mjs -m pytest backend/tests/test_windows.py backend/tests/test_metrics.py backend/tests/test_verdict.py -q -p no:cacheprovider --junitxml=C:/azx/validation/V5.xml",
+  "sources": [
+    {
+      "label": "Executable checks",
+      "reference": "backend/tests/test_windows.py backend/tests/test_metrics.py backend/tests/test_verdict.py"
+    }
+  ],
+  "coverage": "31 executed test cases; no skips accepted as passes.",
+  "status": "pass",
+  "rows": [
+    {
+      "case": "test_two_windows_interpolated_edges_and_censor",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_single_sample_run_interpolates_both_sides",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_all_visible_is_one_censored_window",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_never_visible_and_zero_margin_is_not_visible",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_zero_margin_boundary_sample_not_visible",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_non_uniform_last_step_uses_actual_times",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t0-m0]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t1-m1]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t2-m2]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t3-m3]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t4-m4]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_invalid_input_raises[t5-m5]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_to_contract",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_intersect_basic_and_censor_flags",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_longest_gap_includes_censored_edges",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_scenario_metrics_known_series",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_never_visible_metrics",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_all_visible_metrics",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_rounding_degrees_three_hours_one",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_deltas_sign_and_none",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_matches_compare_ok_fixture[0]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_matches_compare_ok_fixture[1]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_file_shape",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[all pass]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[exactly at thresholds (inclusive)]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[one metric just inside the 20 percent band]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[one metric just outside the band]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[two failing but both near]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[dark gap exactly 1.2x max (inclusive)]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[zero percentages with non-zero thresholds]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_verdict_cases[custom thresholds with 0 percent minimums]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Synthetic mathematical inputs validate implementation invariants, not NASA dataset accuracy.",
+    "Same implementation team ran the tests; no external acceptance claimed."
+  ]
+}

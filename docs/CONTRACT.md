@@ -1,4 +1,4 @@
-# Azelux CONTRACT v1.0
+# Azelux CONTRACT v1.1 (v1.0 fixtures supported)
 
 Status: adopted as the sole new-work baseline at the user's request. This is the
 new kit contract, not either earlier repository v1.0. Team freeze and implementation
@@ -150,7 +150,7 @@ Purpose: F18 3D view. Retry: safe.
 Response 200:
 ```text
 { site: Site, size_km: number, width: 256, height: 256,
-  heights_m_b64: string (little-endian float32, row-major, north-up),
+  heights_m_b64: string (little-endian float32, row-major, grid-up (see v1.1 orientation below)),
   min_m: number, max_m: number, site_px: [x, y], data_label }
 ```
 Errors: `INVALID_INPUT`, `NOT_IN_COVERAGE`.
@@ -180,3 +180,27 @@ land together. Current terrain implementation is grid-up; do not interpret it as
 north-up text above before the v1.1 orientation correction lands. Exactly two scenarios
 remain required; future multi-scenario work requires its own approved interface.
 The build-time validation-file schema is defined separately in validation/README.md.
+
+## v1.1 activation — user-authorized 15 November 2026
+
+The user explicitly delegated the coordinated update after the v1.1 approval query.
+Real runtime responses now report 1.1; frontend and models also accept 1.0 fixtures.
+These additions are optional for backward compatibility:
+
+- Meta and /health: manifest_sha256 (SHA-256 of the actual local MANIFEST.json;
+  null/absent when unavailable). Compare exports retain it.
+- /sites: data_label; site group enum accepts reference. This does not verify any
+  new site or add unsourced coordinates.
+- Sweep days: step_minutes (10 for refined results, 30 otherwise).
+- RATE_LIMITED: HTTP 429 with the existing error shape and Retry-After; frontend
+  parses it as an API error instead of BAD_RESPONSE.
+- Terrain tile: grid_bearing_offset_deg, source_dem and resolution_m identify actual
+  raster orientation/source. Row 0 is +y, col 0 -x; local azimuth A maps to grid
+  bearing (A + grid_bearing_offset_deg) modulo 360. Original north-up wording was
+  inaccurate for this implemented polar grid. Both producer and 3D consumer use the
+  clarified grid-up semantics. Tile geometry remains float32 metres.
+
+Derived imagery is available separately at /assets/lunar/south-pole-hillshade.png
+and .json when installed, never in mock mode. Only those explicit paths are served;
+raw DEMs, kernels and arbitrary files are not exposed. Imagery is a derived hillshade,
+not a photograph or prediction of illumination at the selected mission time.

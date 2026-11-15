@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V3",
+  "title": "Skyline geometry regression evidence",
+  "data_label": "SYNTHETIC",
+  "scope": "full_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-14T21:56:15Z",
+  "producer_commit": "8b75e081af895ac93d07fc937a7299caada8b667",
+  "command": "node scripts/python.mjs -m pytest backend/tests/test_skyline_v3.py -q -p no:cacheprovider --junitxml=C:/azx/validation/V3.xml",
+  "sources": [
+    {
+      "label": "Executable checks",
+      "reference": "backend/tests/test_skyline_v3.py"
+    }
+  ],
+  "coverage": "11 executed test cases; no skips accepted as passes.",
+  "status": "pass",
+  "rows": [
+    {
+      "case": "test_flat_terrain_equals_minus_dip[equator]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_flat_terrain_equals_minus_dip[south-pole]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_ridge_10km_east[equator]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_ridge_10km_east[south-pole]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_far_field_wall_50km[equator]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_far_field_wall_50km[south-pole]",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_nodata_patch_counted_and_outside_not",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_site_nan_raises",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_ray_distances",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_destination",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    },
+    {
+      "case": "test_performance_flat_400km",
+      "metric": "test_passed",
+      "actual": 1,
+      "reference": 1,
+      "unit": "boolean",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Synthetic mathematical inputs validate implementation invariants, not NASA dataset accuracy.",
+    "Same implementation team ran the tests; no external acceptance claimed."
+  ]
+}

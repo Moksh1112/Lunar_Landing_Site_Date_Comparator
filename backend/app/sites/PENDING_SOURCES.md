@@ -52,3 +52,11 @@ Notes:
 - Later south-pole landers (2025-2026) with LROC-published coordinates.
 
 Target from the P3 prompt: at least 4 verified pole sites by Sync 1 (3 verified so far).
+
+## Activated reference and global library entries (15 November 2026)
+The reference enum is now approved in v1.1. LCROSS Centaur was rechecked against
+NASA NTRS 20140005563 and added as an impact location, explicitly not a landing site.
+Six Apollo LM locations were verified directly against NASA NSSDCA's landing-site
+coordinate table. All use east-positive normalized longitude and retain that source.
+Shackleton remains pending because the LROC page could not be retrieved in this pass;
+no coordinate was inferred from a picture or promoted from a stale review.

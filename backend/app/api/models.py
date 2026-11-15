@@ -66,7 +66,8 @@ class Meta(Strict):
     step_minutes: float
     observer_height_m: float
     app_version: str
-    contract_version: Literal["1.0"]
+    contract_version: Literal["1.0", "1.1"]
+    manifest_sha256: str | None = None
     computed_at: str
     data_label: Literal["REAL", "SYNTHETIC"]
 
@@ -174,7 +175,7 @@ class CompareRequest(Strict):
 
 
 class CompareResponse(Strict):
-    contract_version: Literal["1.0"]
+    contract_version: Literal["1.0", "1.1"]
     scenarios: Annotated[list[ScenarioResult], Field(min_length=2, max_length=2)]
     deltas: dict[str, float | None]
     limitations: list[str]
@@ -208,6 +209,7 @@ class SweepRequest(Strict):
 
 
 class SweepDay(Strict):
+    step_minutes: float | None = None
     date: str
     rank: int
     refined: bool
@@ -216,7 +218,7 @@ class SweepDay(Strict):
 
 
 class SweepResponse(Strict):
-    contract_version: Literal["1.0"]
+    contract_version: Literal["1.0", "1.1"]
     site: Site
     meta: Meta
     days: list[SweepDay]
@@ -226,7 +228,7 @@ class SweepResponse(Strict):
 class SiteEntry(Strict):
     site_id: str
     name: str
-    group: Literal["apollo", "clps", "commercial", "international", "artemis_candidate"]
+    group: Literal["apollo", "clps", "commercial", "international", "artemis_candidate", "reference"]
     lat_deg: float
     lon_east_deg: float
     terrain_coverage: bool
@@ -236,6 +238,7 @@ class SiteEntry(Strict):
 
 
 class SitesResponse(Strict):
+    data_label: Literal["REAL", "SYNTHETIC"] | None = None
     sites: list[SiteEntry]
 
 
@@ -258,6 +261,9 @@ class SkylineResponse(Strict):
 
 
 class TerrainTileResponse(Strict):
+    grid_bearing_offset_deg: float | None = None
+    source_dem: str | None = None
+    resolution_m: float | None = None
     site: Site
     size_km: float
     width: Literal[256]
@@ -270,9 +276,10 @@ class TerrainTileResponse(Strict):
 
 
 class HealthResponse(Strict):
+    manifest_sha256: str | None = None
     status: Literal["ok"]
     app_version: str
-    contract_version: Literal["1.0"]
+    contract_version: Literal["1.0", "1.1"]
     kernels_loaded: list[str]
     dems_loaded: list[str]
     mock: bool

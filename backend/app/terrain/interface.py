@@ -58,6 +58,8 @@ class TileResult:
     site_px: tuple[int, int]
     size_km: float
     data_label: DataLabel
+    source_dem: str | None = None
+    resolution_m: float | None = None
 
 
 class TerrainProvider(Protocol):

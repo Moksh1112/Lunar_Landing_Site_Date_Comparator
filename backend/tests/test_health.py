@@ -32,10 +32,11 @@ def test_health_real_claims_nothing_loaded(tmp_path):
     assert body == {
         "status": "ok",
         "app_version": "0.1.0",
-        "contract_version": "1.0",
+        "contract_version": "1.1",
         "kernels_loaded": [],
         "dems_loaded": [],
         "mock": False,
+        "manifest_sha256": None,
     }
 
 
