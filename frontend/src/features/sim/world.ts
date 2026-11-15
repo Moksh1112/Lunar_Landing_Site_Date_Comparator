@@ -107,16 +107,9 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   box(6.7, 0.06, 0.16, frameMat, 0, 2.9, -3.95);
   box(0.06, 2.46, 0.16, frameMat, -3.32, 1.7, -3.95);
   box(0.06, 2.46, 0.16, frameMat, 3.32, 1.7, -3.95);
-  // Thin metal perimeter and a clear, lightly tinted pane keep the stars visible.
+  // Match the front viewport: metal perimeter with a clear view of the dark starfield.
   for (const y of [0.175, 2.825]) box(0.16, 0.055, 7.25, frameMat, 3.95, y, 0);
   for (const z of [-3.6, 3.6]) box(0.16, 2.7, 0.055, frameMat, 3.95, 1.5, z);
-  const glass = new THREE.Mesh(
-    new THREE.PlaneGeometry(7.2, 2.65),
-    new THREE.MeshBasicMaterial({ color: 0xabc5d1, transparent: true, opacity: 0.055, side: THREE.DoubleSide, depthWrite: false }),
-  );
-  glass.rotation.y = -Math.PI / 2;
-  glass.position.set(3.98, 1.5, 0);
-  room.add(glass);
   // ceiling light strips (emissive geometry; the actual light comes from point lights)
   const stripMat = new THREE.MeshStandardMaterial({ color: 0xfff1d6, emissive: 0xfff1d6, emissiveIntensity: 1.2 });
   for (const x of [-1.5, 1.5]) box(0.12, 0.03, 5, stripMat, x, 2.98, 0.5);
@@ -165,33 +158,6 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   const earth = realEarthMesh(renderer, 1.6);
   earth.position.set(-22, 3, -58);
   scene.add(earth);
-
-  // Spacecraft hardware outside the side viewport establishes an onboard POV.
-  // Illustrative geometry only, independent of the scientific comparator.
-  const exterior = new THREE.Group();
-  const railMat = new THREE.MeshStandardMaterial({ color: 0xa4adb7, metalness: 0.65, roughness: 0.4 });
-  const cellMat = new THREE.MeshStandardMaterial({ color: 0x25364d, metalness: 0.45, roughness: 0.5 });
-  const hardware = (w: number, h: number, d: number, material: THREE.Material, x: number, y: number, z: number) => {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
-    mesh.position.set(x, y, z);
-    exterior.add(mesh);
-  };
-  // Segmented solar wing and its support boom, visible through the clear pane.
-  hardware(5, 0.12, 0.12, railMat, 7.1, 0.3, -1);
-  hardware(0.12, 0.1, 5.6, railMat, 9.5, 0.3, -1);
-  for (let row = 0; row < 2; row++) {
-    for (let column = 0; column < 6; column++) {
-      hardware(1.25, 0.06, 0.78, cellMat, 8.85 + row * 1.35, 0.38, -3.25 + column * 0.9);
-    }
-  }
-  // Antenna mast and a small outward-facing dish alongside the array.
-  hardware(0.09, 2.1, 0.09, railMat, 6.2, 0.35, 1.5);
-  const dish = new THREE.Mesh(new THREE.SphereGeometry(0.65, 24, 12, 0, Math.PI * 2, 0, Math.PI / 3),
-    new THREE.MeshStandardMaterial({ color: 0xc3c7cc, metalness: 0.5, roughness: 0.55, side: THREE.DoubleSide }));
-  dish.position.set(6.2, 1.45, 1.5);
-  dish.rotation.z = -Math.PI / 4;
-  exterior.add(dish);
-  scene.add(exterior);
 
   // south-pole site with schematic skyline ring + sun path (demonstration)
   const site = SIM_SITES[1];
