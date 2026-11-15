@@ -12,6 +12,7 @@ const NAV = [
   { href: "/best-date", label: "Best date" },
   { href: "/methods", label: "Methods" },
   { href: "/report", label: "Report" },
+  { href: "/tour", label: "Tour" },
 ];
 
 /** PillNav renders `href`; route it through the client-side router. */
