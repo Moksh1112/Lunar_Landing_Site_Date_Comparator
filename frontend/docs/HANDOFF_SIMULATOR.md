@@ -89,3 +89,57 @@ the HTML controls.
 - Qualification uses a single date-shift site; synthetic attempts can never pass, by design.
 - V4 still fails its scientific target; V6 is an owner qualitative spot check. Methods copy
   is unchanged.
+
+## Real-backend qualification RED (investigated 15 Nov 2026)
+
+**Inputs** (REAL backend at 127.0.0.1:8000, never fixtures):
+
+- IM-2 Athena (−84.7906, 29.1957); `date_shift`; step 10 min; observer 2 m.
+- Thresholds: sun ≥50 %, earth ≥50 %, dark gap ≤48 h, blackout ≤72 h.
+- Plan A 2027-03-01; Plan B days 2027-03-01..31.
+- Probe script: `C:/azx/qual_probe.py`, local, not committed. Saved responses are in
+  `C:/azx/qual/compare_{708,240}h_B{14,19,20}.json`.
+
+**Response provenance:** `data_label` REAL, `horizon_mode` terrain, DEM
+`LDEM_80S_20MPP_ADJ tile im2-athena + far_160m`, SPICE DE440, contract 1.1, manifest
+`1dcb16ff…5175`.
+
+**Results:**
+
+- **708 h:** every Plan B day 2027-03-01..30 is red, failing `sun_pct_min`, `dark_gap_h_max`
+  and `blackout_h_max`.
+  - Sun 35.5–39.7 %. That is below the near band (40 % = 0.8 × 50), so these days are red
+    rather than amber.
+  - Longest dark 209.6–413.2 h; blackout 87.3–122.3 h.
+  - Example, 2027-03-15: sun 38.8 %, dark 411.6 h, blackout 122.3 h.
+  - Day 31 returned 429: the probe exceeded the 30/min rate limit.
+- **240 h:**
+  - 2027-03-13..16: green. Example, 2027-03-15: sun 100 %, earth 84.9 %, dark 0 h,
+    blackout 36.3 h.
+  - 2027-03-17: amber. All other days: red.
+
+**Cause:** the backend verdicts follow TRD 5.3 and are expected. The defect was in the
+challenge design. A 708 h mission is one full lunar day, and at this polar site the Sun is up
+less than half of it whatever the start date, so "find a GREEN Plan B" had no answer.
+
+**Fix:**
+
+- The qualification uses a fixed 240 h mission (`QUALIFY_HOURS`).
+- Plan B starts at Plan A's day, so the user has to search.
+- The challenge copy explains why 240 h.
+- The debrief now shows each plan's mode, data label and DEM.
+- Unchanged: thresholds, verdict rule, contract and backend. No date is hard-coded.
+- Regression test: `levels.test.ts`, "uses a solvable 240 h mission…".
+
+**Browser check:** in-app browser, dev build of this branch with a same-origin Vite proxy to
+:8000 (local config, not committed).
+
+- Practice compare succeeded.
+- Qualification attempt 1, B 2027-03-01: red. Attempt 2, B 2027-03-14: green.
+- Debrief: "Training challenge passed".
+  - Plan A: red (terrain, REAL, DEM …).
+  - Plan B: green (terrain, REAL, DEM …).
+  - Plan B has 210.1 h more with both Sun and Earth in view.
+
+**Moon window:** the front-wall opening is now x ±3.3, y 0.5–2.9, about 70 % of the wall.
+Checked visually at 799×595 and 1440×900.

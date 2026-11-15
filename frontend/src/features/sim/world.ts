@@ -91,16 +91,16 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   box(0.1, 3, 8, wallMat, -4, 1.5, 0); // left
   box(0.1, 3, 8, wallMat, 4, 1.5, 0); // right
   box(8, 3, 0.1, wallMat, 0, 1.5, 4); // back
-  // front wall with a window opening (x -1.6..1.6, y 1.0..2.6)
-  box(2.4, 3, 0.1, wallMat, -2.8, 1.5, -4);
-  box(2.4, 3, 0.1, wallMat, 2.8, 1.5, -4);
-  box(3.2, 1.0, 0.1, wallMat, 0, 0.5, -4);
-  box(3.2, 0.4, 0.1, wallMat, 0, 2.8, -4);
+  // front wall with a large window opening (x -3.3..3.3, y 0.5..2.9): the Moon fills most of the wall
+  box(0.7, 3, 0.1, wallMat, -3.65, 1.5, -4);
+  box(0.7, 3, 0.1, wallMat, 3.65, 1.5, -4);
+  box(6.6, 0.5, 0.1, wallMat, 0, 0.25, -4);
+  box(6.6, 0.1, 0.1, wallMat, 0, 2.95, -4);
   const frameMat = new THREE.MeshStandardMaterial({ color: 0x3a414d, roughness: 0.6, metalness: 0.5 });
-  box(3.3, 0.06, 0.16, frameMat, 0, 1.0, -3.95);
-  box(3.3, 0.06, 0.16, frameMat, 0, 2.6, -3.95);
-  box(0.06, 1.66, 0.16, frameMat, -1.62, 1.8, -3.95);
-  box(0.06, 1.66, 0.16, frameMat, 1.62, 1.8, -3.95);
+  box(6.7, 0.06, 0.16, frameMat, 0, 0.5, -3.95);
+  box(6.7, 0.06, 0.16, frameMat, 0, 2.9, -3.95);
+  box(0.06, 2.46, 0.16, frameMat, -3.32, 1.7, -3.95);
+  box(0.06, 2.46, 0.16, frameMat, 3.32, 1.7, -3.95);
   // ceiling light strips (emissive geometry; the actual light comes from point lights)
   const stripMat = new THREE.MeshStandardMaterial({ color: 0xfff1d6, emissive: 0xfff1d6, emissiveIntensity: 1.2 });
   for (const x of [-1.5, 1.5]) box(0.12, 0.03, 5, stripMat, x, 2.98, 0.5);

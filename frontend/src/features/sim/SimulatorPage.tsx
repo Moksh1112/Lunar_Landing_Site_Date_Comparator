@@ -15,6 +15,8 @@ import {
   hintFor,
   operate,
   qualification,
+  qualifyStart,
+  QUALIFY_HOURS,
   requestFor,
   score,
   type Attempt,
@@ -96,7 +98,7 @@ export function SimulatorPage() {
     setLevel(l);
     if (l === "demo") setDemoIndex(0);
     if (l === "practice") setCon(START_CONSOLE);
-    if (l === "qualify") setCon((previous) => ({ ...previous, plan: "B" }));
+    if (l === "qualify") setCon((previous) => qualifyStart(previous));
     setHint(null);
     const w = worldRef.current;
     if (l === "briefing") w?.setView("briefing");
@@ -319,7 +321,12 @@ export function SimulatorPage() {
             </ol>
           ) : (
             <div>
-              <p className={styles.goal}>Find a Plan B landing day at {SIM_SITES[con.site].name} that is GREEN.</p>
+              <p className={styles.goal}>Find a Plan B landing day at {SIM_SITES[con.site].name} that is GREEN for a {QUALIFY_HOURS} h (10-day) mission.</p>
+              <p className={styles.note}>
+                Why {QUALIFY_HOURS} h: over a full 708 h lunar day the Sun is up less than half the time at this site whatever
+                the start date, so no 708 h plan can be GREEN. For a 10-day stay, the landing day decides how much of it is in
+                sunlight.
+              </p>
               <p>Attempts left: {q.left}. Time: {Math.round(seconds)} s</p>
               <p className={styles.note}>No glow, no hints. Turn DATE (Plan B), then press COMPARE.</p>
               {USE_MOCK && (
@@ -386,7 +393,8 @@ export function SimulatorPage() {
                 {last.response.scenarios.map((s) => (
                   <li key={s.id}>
                     Plan {s.id}, landing {new Date(s.series.t_unix[0] * 1000).toISOString().slice(0, 10)}:{" "}
-                    <strong data-level={s.verdict.level}>{s.verdict.level}</strong> ({s.meta.horizon_mode === "geometric" ? "geometric horizon only" : s.meta.horizon_mode})
+                    <strong data-level={s.verdict.level}>{s.verdict.level}</strong> ({s.meta.horizon_mode === "geometric" ? "geometric horizon only" : s.meta.horizon_mode}, {s.meta.data_label}
+                    {s.meta.dem ? `, DEM ${s.meta.dem}` : ""})
                   </li>
                 ))}
               </ul>
