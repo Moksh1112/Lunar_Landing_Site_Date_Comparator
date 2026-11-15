@@ -1,0 +1,72 @@
+/* Simulator: full-screen 3D room with a flat, matte HUD. No gradients, glow or glass. */
+.sim {
+  --ink: #07090d; --panel: #11151c; --panel-2: #181d26; --line: #2b323e; --text: #e9edf2; --muted: #a4aebd;
+  --action: #5b84ff; --a: #2fd0b9; --b: #ff8a5c; --sun: #f2b544; --green: #4fd88a; --amber: #f6c445; --red: #ff7a7a;
+  position: fixed; inset: 0; background: var(--ink); color: var(--text); overflow: hidden; color-scheme: dark;
+}
+.sim :focus-visible { outline: 2px solid #9db8ff; outline-offset: 2px; }
+.sim :global(.btn), .sim button { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; }
+.sim :global(.btn-primary), .sim button:global(.btn-primary) { background: var(--action); border-color: var(--action); color: #05070d; font-weight: 700; }
+.sim a { color: #9db8ff; }
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.canvas[data-state="off"] { display: none; }
+.canvas:active { cursor: grabbing; }
+.truth { position: absolute; left: 1rem; bottom: 0.5rem; margin: 0; font-size: 0.75rem; color: var(--muted); max-width: 60ch; pointer-events: none; }
+
+.hudTop { position: absolute; top: 1rem; left: 1rem; right: 1rem; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.hudTop > * { pointer-events: auto; }
+.levelTag { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; }
+.exit { font-size: 0.875rem; }
+
+.boot, .card { position: absolute; left: clamp(1rem, 6vw, 5rem); top: 50%; transform: translateY(-50%); max-width: 34rem; padding: 2rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.boot h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem); line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+.boot p, .card p, .card li { color: var(--muted); }
+.card h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+.card ul { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin: 0 0 1rem; }
+.goal { color: var(--sun) !important; font-weight: 650; }
+.row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.row > * { min-height: 2.75rem; padding: 0 1.1rem; }
+.keys { display: grid; gap: 0.35rem; margin: 1.5rem 0 0; font-size: 0.875rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.keys div { display: grid; grid-template-columns: 8rem 1fr; gap: 0.75rem; }
+.keys dt { color: var(--text); font-weight: 650; }
+.keys dd { margin: 0; color: var(--muted); }
+.note { font-size: 0.8125rem; color: var(--muted); }
+
+.checklist { position: absolute; top: 4rem; right: 1rem; width: min(22rem, calc(100% - 2rem)); padding: 1rem 1.1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; font-size: 0.875rem; }
+.checklist ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+.checklist li[data-state="done"] { color: var(--green); text-decoration: line-through; text-decoration-color: rgb(79 216 138 / 0.5); }
+.checklist li[data-state="now"] { color: var(--text); font-weight: 700; }
+.checklist li[data-state="todo"] { color: var(--muted); }
+.checklist p { margin: 0 0 0.4rem; color: var(--muted); }
+.attempt { font-variant-numeric: tabular-nums; }
+
+.dock { position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%); width: min(46rem, calc(100% - 2rem)); display: grid; gap: 0.5rem; }
+.state { margin: 0; text-align: center; font-size: 0.875rem; color: var(--muted); }
+.hint { margin: 0; padding: 0.5rem 0.75rem; background: var(--panel); border: 1px solid var(--amber); border-radius: 6px; font-size: 0.875rem; }
+.twin { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; padding: 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.twin button { min-height: 2.75rem; padding: 0 1rem; font-weight: 650; }
+.twin [data-glow="true"] { box-shadow: 0 0 0 2px #fff1d6; }
+.dateGroup { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0 0.25rem; border-radius: 6px; font-weight: 650; }
+.dateGroup button { min-width: 2.75rem; padding: 0; }
+
+.debrief { max-width: 44rem; max-height: calc(100% - 6rem); overflow: auto; top: 4rem; transform: none; }
+.result { font-size: 1.375rem; font-weight: 700; color: var(--text) !important; }
+.synthetic { padding: 0.5rem 0.75rem; border: 1px solid var(--amber); border-radius: 6px; color: var(--text) !important; }
+.synthetic strong { color: var(--amber); margin-right: 0.4rem; }
+.verdicts { padding-left: 1.2rem; }
+.verdicts strong { text-transform: capitalize; }
+.verdicts strong[data-level="green"] { color: var(--green); }
+.verdicts strong[data-level="amber"] { color: var(--amber); }
+.verdicts strong[data-level="red"] { color: var(--red); }
+.timeline { --color-bg: var(--ink); --color-surface: var(--panel); --color-surface-2: var(--panel-2); --color-border: var(--line); --color-text: var(--text); --color-text-muted: var(--muted); --color-a: var(--a); --color-b: var(--b); --color-amber: var(--amber); margin: 0.75rem 0; }
+
+.pause { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; background: rgb(7 9 13 / 0.85); }
+
+@media (max-width: 48rem) {
+  .boot, .card { left: 1rem; right: 1rem; top: auto; bottom: 1rem; transform: none; max-width: none; padding: 1.25rem; }
+  .debrief { top: 3.75rem; bottom: 1rem; max-height: none; }
+  .checklist { top: 3.5rem; font-size: 0.8125rem; }
+  .checklist li:not([data-state="now"]) { display: none; }
+  .dock { bottom: 1.75rem; }
+  .truth { right: 1rem; font-size: 0.6875rem; }
+}

@@ -2,6 +2,7 @@
 // the Moon surface is procedural, the skyline ring is schematic, and nothing here is computed
 // from DEMs or ephemerides. Site markers sit at the library coordinates of two verified sites.
 import * as THREE from "three";
+import moonTextureUrl from "./assets/moon_lroc_color_4k.jpg";
 
 export type Readout = { site: "A" | "B"; sunElDeg: number; earthElDeg: number; sunUp: boolean; earthUp: boolean };
 export type MoonScene = {
@@ -35,7 +36,20 @@ export function chapterBlend(p: number, n: number): { i: number; t: number } {
   return { i, t: smooth(x - i) };
 }
 
-function moonGeometry(): THREE.SphereGeometry {
+/**
+ * Moon mesh textured with NASA's CGI Moon Kit LROC colour mosaic (public domain, visualization only).
+ * Equirectangular map: texture centre = 0 deg E, which three's sphere UVs place at +x, matching toXYZ().
+ * The same image drives a subtle bump map for relief shading; no elevation data is used.
+ */
+export function realMoonMesh(renderer: THREE.WebGLRenderer, radius = 1, onLoad?: () => void): THREE.Mesh {
+  const tex = new THREE.TextureLoader().load(moonTextureUrl, () => onLoad?.());
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  const mat = new THREE.MeshStandardMaterial({ map: tex, bumpMap: tex, bumpScale: 1.2, roughness: 1, metalness: 0 });
+  return new THREE.Mesh(new THREE.SphereGeometry(radius, 192, 128), mat);
+}
+
+export function moonGeometry(): THREE.SphereGeometry {
   const g = new THREE.SphereGeometry(1, 160, 120);
   const pos = g.attributes.position as THREE.BufferAttribute;
   const v = new THREE.Vector3();
@@ -61,7 +75,7 @@ function moonGeometry(): THREE.SphereGeometry {
 }
 
 /** Schematic skyline ring + Sun path around a site, in the site's local tangent frame. */
-function siteDiagram(site: THREE.Vector3): { group: THREE.Group; mats: THREE.Material[] } {
+export function siteDiagram(site: THREE.Vector3): { group: THREE.Group; mats: THREE.Material[] } {
   const group = new THREE.Group();
   const up = site.clone().normalize();
   const east = new THREE.Vector3(0, 1, 0).cross(up).normalize();
@@ -99,7 +113,7 @@ function marker(site: THREE.Vector3, color: number): THREE.Mesh {
 }
 
 /** Procedural lander (illustration): octagonal body, foil top, four legs with pads, solar panel, antenna. */
-function lander(): THREE.Group {
+export function lander(): THREE.Group {
   const g = new THREE.Group();
   const metal = new THREE.MeshStandardMaterial({ color: 0xe9e6dc, roughness: 0.45, metalness: 0.35 });
   const foil = new THREE.MeshStandardMaterial({ color: 0xc9a227, roughness: 0.35, metalness: 0.7 });
@@ -162,7 +176,7 @@ export function createMoonScene(canvas: HTMLCanvasElement, opts: { interactive?:
   sunLight.position.copy(sunDir.clone().multiplyScalar(10));
   scene.add(sunLight);
 
-  const moon = new THREE.Mesh(moonGeometry(), new THREE.MeshStandardMaterial({ color: COLORS.moon, roughness: 0.96, metalness: 0 }));
+  const moon = realMoonMesh(renderer, 1, () => render());
   scene.add(moon);
   const sun = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 16), new THREE.MeshBasicMaterial({ color: 0xf2b544 }));
   sun.position.copy(sunDir.clone().multiplyScalar(7));
