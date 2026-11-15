@@ -1,5 +1,14 @@
 # MVP verification ledger — 15 November 2026
 
+## Simulator qualification evidence — 15 November 2026
+
+After integrating frontend `9c644a6`, the guided six-lesson demo was completed and the
+qualification UI submitted real requests to the non-mock backend (`/health` reported
+`mock:false`). IM-2 Athena, 708 h: Plan A 2027-03-01 vs Plan B 2027-03-15 returned RED;
+Plan B 2027-03-16 also returned RED. The debrief marked both results `terrain`; A Sun/Earth/
+both = 280.7/574.4/210.1 h and B = 272.8/585.7/202.1 h (A−B both = +8.0 h). This is
+live-path evidence only: the training challenge did not pass and this says nothing about
+landing safety. A green challenge outcome and manual usability review remain open.
 ## Latest acceptance update — 15 November 2026
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read

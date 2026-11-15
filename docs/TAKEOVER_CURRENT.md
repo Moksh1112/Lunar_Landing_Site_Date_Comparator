@@ -1,5 +1,16 @@
 # Start here — engineering takeover, 15 November 2026
 
+## Latest integration checkpoint — 15 November 2026
+
+The frontend owner commit `9c644a6` is merged into `feat/p1-s0-integration` (local merge
+`d232f34`). The source branch hosted CI is green, run `43693356786`. The six-step simulator
+demo and a real-backend qualification journey were exercised. Backend health showed
+`mock:false`, 5 kernels and 4 DEMs; the real terrain-backed results for Athena at 708 h were
+RED for both tested Plan B dates (15 and 16 March 2027). See the latest section in
+[PROGRESS.md](PROGRESS.md) for the exact measurements and local check limitations.
+Local TypeScript and lint passed. Build and Vitest were blocked by Vite temp-file `EPERM`
+while the local preview occupied the OneDrive workspace; integration hosted CI is pending.
+V4 remains FAIL; no release/MVP gate is declared passed.
 ## Current simulator routes — 15 November 2026
 
 Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;

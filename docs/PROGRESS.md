@@ -1,5 +1,26 @@
 # Azelux progress and to-do board
 
+## Latest simulator integration — 15 November 2026
+
+Integrated frontend commit `9c644a6` (simulator journey fixes, evidence, screenshots) into
+`feat/p1-s0-integration`; merge commit currently `d232f34`. The frontend source commit's
+hosted CI run `43693356786` is SUCCESS (frontend, fixtures, secrets, attribution, backend,
+and both integration-startup jobs).
+
+Verified the guided demo through all six lessons and used the qualification flow against the
+running local real backend. `/health` reported `mock:false`, contract 1.1, five kernels and
+four DEMs loaded; `/api/v1/sites` returned 10 sites. The live qualification requests used
+IM-2 Athena, 708 h: A 2027-03-01 versus B 2027-03-15 (RED), then B 2027-03-16 (RED).
+The debrief identified both responses as `terrain`: A Sun/Earth/both 280.7/574.4/210.1 h;
+B 272.8/585.7/202.1 h, A−B both +8.0 h. This proves a live terrain-backed UI journey,
+not a successful training challenge or safety finding. Real-data challenge did not pass.
+
+Local checks on the merged tree: `npm run check` (strict TypeScript) and frontend lint passed.
+The frontend owner's CI is green. Local Vite build and Vitest could not create temporary
+config files under `frontend/node_modules/.vite-temp` (`EPERM`) while the OneDrive preview
+server was running. Do not report these local checks as passed; merged-branch hosted CI is
+pending after this push. V4 remains scientifically FAIL (~6.30 pp); release remains the
+user's responsibility.
 ## Current simulator routes — 15 November 2026
 
 Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;
