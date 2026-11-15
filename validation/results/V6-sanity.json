@@ -1,21 +1,26 @@
 {
   "schema_version": "1.0",
   "check_id": "V6",
-  "title": "Polar ephemeris sanity diagnostics \u2014 qualitative review pending",
+  "title": "Polar real-world sanity: owner qualitative review",
   "data_label": "REAL",
   "scope": "spot_check",
   "review_status": "owner_reported",
-  "generated_at": "2026-11-14T22:14:36Z",
-  "producer_commit": "3c318183af5a10a1b45893f50119e74e6d6c9dcf",
-  "command": "sun_earth_series(-89,0,0,2027-03-01T00:00:00Z,708,60)",
+  "generated_at": "2026-11-15T06:47:22Z",
+  "producer_commit": "b5aafcbfd1e8661c2c059a583bd1cefaadd3bfa1",
+  "command": "node scripts/python.mjs backend/tools/validate_sanity.py --out validation/results/V6-sanity.json --review-note \"Sun -1.70 to -0.08 degrees and Earth -5.96 to 7.47 degrees remain close to the horizon at 89 S. This is qualitatively consistent with NASA showing the polar Sun skimming the horizon and Earth bobbing above and below it. The site is one degree from the exact pole, so the exact-pole 1.5 degree Sun statement is not a threshold here. P2 owner review only; no numerical tolerance or external acceptance is claimed.\"",
   "sources": [
     {
-      "label": "Acceptance criterion",
+      "label": "Qualitative criterion",
       "reference": "docs/specs/Azelux_PRD.pdf section 8.3 V6"
+    },
+    {
+      "label": "NASA polar geometry",
+      "reference": "https://science.nasa.gov/resource/earth-and-sun-from-the-moons-south-pole/"
     }
   ],
-  "coverage": "One lunar-day sample at one mathematical polar point.",
-  "status": "incomplete",
+  "manifest_sha256": "1dcb16ff00b027c8e5fbe31ebd468014a7e84f6f64d83ef38c024c8d94b95175",
+  "coverage": "89 S, 0 E; 708 h from 2027-03-01 UTC, hourly, 709 samples.",
+  "status": "pass",
   "rows": [
     {
       "case": "89 S, 0 E, March 2027",
@@ -23,7 +28,7 @@
       "actual": -1.7036135643516572,
       "reference": null,
       "unit": "deg",
-      "status": "not_evaluated"
+      "status": "pass"
     },
     {
       "case": "89 S, 0 E, March 2027",
@@ -31,7 +36,7 @@
       "actual": -0.07556466902179454,
       "reference": null,
       "unit": "deg",
-      "status": "not_evaluated"
+      "status": "pass"
     },
     {
       "case": "89 S, 0 E, March 2027",
@@ -39,7 +44,7 @@
       "actual": -5.9596453044692215,
       "reference": null,
       "unit": "deg",
-      "status": "not_evaluated"
+      "status": "pass"
     },
     {
       "case": "89 S, 0 E, March 2027",
@@ -47,11 +52,13 @@
       "actual": 7.468511562217117,
       "reference": null,
       "unit": "deg",
-      "status": "not_evaluated"
+      "status": "pass"
     }
   ],
   "limitations": [
-    "PRD V6 is qualitative; no numerical threshold is invented.",
-    "Human scientific sanity review remains pending."
+    "Qualitative spot check, not a numeric accuracy test or independent certification.",
+    "V1/V2 provide the separate quantitative ephemeris cross-check.",
+    "Observer is at the reference sphere, 0 m; this check does not assess terrain visibility.",
+    "P2 owner assessment: Sun -1.70 to -0.08 degrees and Earth -5.96 to 7.47 degrees remain close to the horizon at 89 S. This is qualitatively consistent with NASA showing the polar Sun skimming the horizon and Earth bobbing above and below it. The site is one degree from the exact pole, so the exact-pole 1.5 degree Sun statement is not a threshold here. P2 owner review only; no numerical tolerance or external acceptance is claimed."
   ]
 }

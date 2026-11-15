@@ -16,6 +16,10 @@
     {
       "label": "Terrain",
       "reference": "https://pgda.gsfc.nasa.gov/products/90"
+    },
+    {
+      "label": "Solar reference semantics (PDS label)",
+      "reference": "https://imbrium.mit.edu/EXTRAS/ILLUMINATION/IMG/AVGVISIB_85S_060M_201608.LBL"
     }
   ],
   "manifest_sha256": "faebe821d020dc8ee9fed7b410f7d71eafca65181ae49996cb5b2a4c9bc3b708",
@@ -127,6 +131,7 @@
     "PGDA counts any visible disc portion; runtime uses body centres.",
     "Daily sampling differs from the reference hourly sampling.",
     "Reference map averaging start epoch is not established here.",
-    "Coarse terrain may miss local obstacles; no external scientific acceptance."
+    "Coarse terrain may miss local obstacles; no external scientific acceptance.",
+    "PDS label confirms any fraction of the solar disc counts. Separate fixed-radius sensitivity gives 10.066% versus 14.084%; it is not the centre-rule acceptance result."
   ]
 }
