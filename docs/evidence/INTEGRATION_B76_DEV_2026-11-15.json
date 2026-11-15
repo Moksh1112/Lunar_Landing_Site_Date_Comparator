@@ -1,0 +1,83 @@
+{
+  "revision_basis": {
+    "local": "c542e0b36c9a29780eab2a85e62173e817a43d76",
+    "incoming": "b76ab2193af36334cf9b4e7daab4d46f662e497e"
+  },
+  "scope": "Fresh loopback dev stack :5183/backend :8015; controlled graphics/chunk/delayed-response tests.",
+  "checks": [
+    "viewport resize and relief refit without resetting view angle",
+    "hourly mission-day seconds and timeline selection survive leaving playback",
+    "recoverable Canvas retry resets boundary, second failure stops",
+    "failed lazy chunk retry reloads document and loads fresh code",
+    "direct-entry Back fallback replaces history",
+    "gap focus/highlight and cursor tooltip coexist; same-frame double Compare sends one POST",
+    "merged real comparison generates offline briefing with provenance and validation",
+    "controlled delayed comparison cannot restore results after Load as B",
+    "Escape ignores AppHeader focus but pauses from simulator header"
+  ],
+  "errors": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.51",
+    "revision": "@653674df293788cf4932c40d914e9e15b41a2d31",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  },
+  "sourceModes": [
+    {
+      "label": "REAL",
+      "horizon": "terrain_coarse"
+    },
+    {
+      "label": "REAL",
+      "horizon": "terrain_coarse"
+    }
+  ],
+  "framing": {
+    "wide": {
+      "position": [
+        -0.17818201582957682,
+        3.3809604968305287,
+        1.9387459496789827
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.03965808654794531,
+        -0.022926440027017207,
+        0.8648344529237406
+      ]
+    },
+    "narrow": {
+      "position": [
+        -0.22250792438322262,
+        4.222033851558637,
+        2.4210430842922555
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.0396580865479453,
+        -0.022926440027017207,
+        0.8648344529237406
+      ]
+    },
+    "relief": {
+      "position": [
+        -0.24973303306979475,
+        4.738623680013922,
+        2.717271460371163
+      ],
+      "rotation": [
+        -0.49996298218481877,
+        -0.0396580865479453,
+        -0.022926440027017207,
+        0.8648344529237406
+      ]
+    }
+  },
+  "briefing": {
+    "bytes": 419129,
+    "real": true,
+    "schema": true,
+    "v4": true
+  }
+}

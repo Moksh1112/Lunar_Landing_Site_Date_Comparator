@@ -7,6 +7,9 @@ export default defineConfig({
   resolve: { dedupe: ["react", "react-dom", "three"] },
   // Prebundle the lazy terrain renderer with the same React runtime as the app.
   optimizeDeps: { include: ["react", "react-dom/client", "@react-three/fiber"] },
+  // Keep third-party licence banners (/*! ... */, @license) in the minified bundle: GSAP's terms forbid
+  // removing its proprietary notice, and MIT packages such as three.js ship their notice this way.
+  esbuild: { legalComments: "inline" },
   server: {
     host: "127.0.0.1",
     port: 5173,

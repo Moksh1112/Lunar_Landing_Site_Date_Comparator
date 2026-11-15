@@ -1,0 +1,566 @@
+{
+  "revision_basis": {
+    "local": "c542e0b36c9a29780eab2a85e62173e817a43d76",
+    "incoming": "b76ab2193af36334cf9b4e7daab4d46f662e497e"
+  },
+  "scope": "Fresh same-origin loopback production proxy :5184/backend :8015; no public deployment.",
+  "checks": [
+    "production root remains the user-selected tour",
+    "same-origin real health, compare, map metadata and loaded basemap image",
+    "notices link and generated notice file served from production",
+    "fresh downloaded real briefing replays and scrubs offline; reload sends zero HTTP requests",
+    "offline briefing print uses white paper",
+    "replacement magnetic hover/click burst respond to real mouse input and Start mission works",
+    "reduced motion disables decorative hover and keyboard activation still works",
+    "production terrain analyser deep link loads real 3D"
+  ],
+  "errors": [],
+  "network": [
+    {
+      "url": "http://127.0.0.1:5184/",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP2-yGew.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP3F3jcn.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/LandingPage-hWCx7Zvr.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/LandingPage-DQZufIPB.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/favicon.ico",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/gsap-D5_jqlS3.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/ScrollTrigger-Def0Udrz.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moonScene-D6qmDvuL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SchibstedGrotesk-Bb8VGrTG.woff2",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5184/compare",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP2-yGew.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP3F3jcn.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/ComparePage-B1RBVDM_.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/states-BwsW7FW5.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/Skeleton-CDvmkVet.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/states.module-BkpD2hOQ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/singleFlight-DZ19YdmZ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-UHBvmLqy.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moment-Bqed_EhD.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SyntheticBadge-D15VAV4_.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/GapPanel-DJxONE2y.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SkyRing-LCV_7_GZ.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moment-CKRHj-bQ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/glossary-BKRKdSdR.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-Dyhpa4Jg.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/GapPanel-D7twnBzJ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/conclusion-BSr9mSQF.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/HorizonModeLabel-Cqvmyjx7.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SyntheticBadge-Bceq822t.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/validationEvidence-D_-f-GoD.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SkyRing-i1XdJshp.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/favicon.ico",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5184/api/v1/sites",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/health",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SchibstedGrotesk-Bb8VGrTG.woff2",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5184/api/v1/compare",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNSIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjAgM2gtMVYxaC0ydjJIN1YxSDV2Mkg0Yy0xLjEgMC0yIC45LTIgMnYxNmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6bTAgMThINFY4aDE2djEzeiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0wIDBoMjR2MjRIMHoiLz48L3N2Zz4=",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SiteMap-CHGpBUsq.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SiteMap-B14vcSX8.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/api/v1/sites",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/lunar/south-pole-hillshade.json",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/lunar/south-pole-hillshade.png",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "file:///C:/Users/REEDHAM/AppData/Local/Temp/azelux-review-yQOSxQ/downloads/azelux-briefing-real-2026-11-151521.html",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "file:///C:/Users/REEDHAM/AppData/Local/Temp/azelux-review-yQOSxQ/downloads/azelux-briefing-real-2026-11-151521.html",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/learn/simulator",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP2-yGew.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP3F3jcn.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SimulatorPage-DflZlDcj.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-UHBvmLqy.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SimulatorPage-B2aISh-_.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-Dyhpa4Jg.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/conclusion-BSr9mSQF.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/favicon.ico",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/world-UL0zz0nL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SchibstedGrotesk-Bb8VGrTG.woff2",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/gsap-D5_jqlS3.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moonScene-D6qmDvuL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moon_lroc_color_4k-CmcdRgyU.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moon_lola_height_1k-DqQt4CTQ.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_blue_marble_2k-BIjNooeF.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_clouds_2k-Daoe7Ck3.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/learn/simulator",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP2-yGew.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP3F3jcn.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-UHBvmLqy.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SimulatorPage-DflZlDcj.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-Dyhpa4Jg.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/conclusion-BSr9mSQF.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SimulatorPage-B2aISh-_.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/world-UL0zz0nL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SchibstedGrotesk-Bb8VGrTG.woff2",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5184/favicon.ico",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/gsap-D5_jqlS3.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moonScene-D6qmDvuL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moon_lroc_color_4k-CmcdRgyU.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moon_lola_height_1k-DqQt4CTQ.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_blue_marble_2k-BIjNooeF.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_clouds_2k-Daoe7Ck3.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/terrain",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP2-yGew.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/index-DP3F3jcn.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TerrainAnalyserPage-DlZbup2e.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/Skeleton-CDvmkVet.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/states.module-BkpD2hOQ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/states-BwsW7FW5.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moment-CKRHj-bQ.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/glossary-BKRKdSdR.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-UHBvmLqy.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moment-Bqed_EhD.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TerrainAnalyserPage-Dec8pCOv.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SkyRing-LCV_7_GZ.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TimelineLanes-Dyhpa4Jg.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SkyRing-i1XdJshp.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/favicon.ico",
+      "status": 200,
+      "type": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:5184/health",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/SchibstedGrotesk-Bb8VGrTG.woff2",
+      "status": 200,
+      "type": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:5184/api/v1/compare",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/api/v1/terrain-tile?lat_deg=-89.5&lon_east_deg=0&size_km=20",
+      "status": 200,
+      "type": "Fetch"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/OrbitControls-BcmtJVtz.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/TerrainCanvas-BJv0T0HH.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/moonScene-D6qmDvuL.js",
+      "status": 200,
+      "type": "Script"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_blue_marble_2k-BIjNooeF.jpg",
+      "status": 200,
+      "type": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:5184/assets/earth_clouds_2k-Daoe7Ck3.jpg",
+      "status": 200,
+      "type": "Image"
+    }
+  ],
+  "offlineRequests": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.51",
+    "revision": "@653674df293788cf4932c40d914e9e15b41a2d31",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.23"
+  },
+  "maps": [
+    {
+      "url": "http://127.0.0.1:5184/assets/lunar/south-pole-hillshade.png",
+      "width": 2048,
+      "height": 2048
+    }
+  ],
+  "briefing": {
+    "bytes": 419152,
+    "filename": "azelux-briefing-real-2026-11-151521.html"
+  },
+  "burstRays": 8,
+  "keyboardFocus": {
+    "tag": "BUTTON",
+    "text": "Start mission",
+    "focused": true
+  },
+  "terrain": "Plan A \u2014 terrain-89.5\u00b0, 0\u00b0 E \u00b7 2026-03-01 00:00 UTCREAL \u00b7 terrain_coarsePlanPlan APlan BHeight scale 1\u00d7\u21ba Reset view\u25b6 Play missionDrag to orbit \u00b7 Scroll to zoomMission time 2026-03-01 00:00:00 UTCStart Motion pathsEnd-1849 m1109 mLanding pointSunEarth20 km tile \u00b7 1\u00d7 heightFirst frame: 798 ms (includes request and lazy loading). Vertical exaggeration 1\u00d7.Sun 34.9\u00b0 azimuth / 0.4\u00b0 elevation; Earth 3.8\u00b0 / 3.6\u00b0. Scrubber controls these markers."
+}

@@ -25,8 +25,8 @@ import {
   type Level,
 } from "./levels";
 import type { World } from "./world";
-import ClickSpark from "../../components/reactbits/ClickSpark";
-import Magnet from "../../components/reactbits/Magnet";
+import { ClickBurst } from "../../components/motion/ClickBurst";
+import { MagneticHover } from "../../components/motion/MagneticHover";
 import styles from "./sim.module.css";
 import { AppHeader } from "../../app/AppHeader";
 
@@ -290,11 +290,11 @@ export function SimulatorPage() {
           <h1 id="sim-title">Pick the landing day at the lunar south pole</h1>
           <p>Two weeks can turn a sunlit site dark. Learn the console, then find a day that keeps the Sun and Earth in view.</p>
           <div className={styles.row}>
-            <Magnet padding={40} magnetStrength={6} maxOffset={6}>
-              <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+            <MagneticHover reach={40} damping={6} maxShift={6}>
+              <ClickBurst color="#ffffff" radius={22} rays={8}>
                 <button type="button" className="btn-primary" onClick={() => go("briefing")} autoFocus>Start mission</button>
-              </ClickSpark>
-            </Magnet>
+              </ClickBurst>
+            </MagneticHover>
             <Link to="/compare" className="btn">Open the comparator</Link>
             <Link to="/" className="btn">Back to home</Link>
           </div>
@@ -419,9 +419,9 @@ export function SimulatorPage() {
             </>
           )}
           <div className={styles.row}>
-            <ClickSpark sparkColor="#ffffff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+            <ClickBurst color="#ffffff" radius={22} rays={8}>
               <button type="button" className="btn-primary" onClick={openInComparator}>Open in the comparator</button>
-            </ClickSpark>
+            </ClickBurst>
             <button type="button" onClick={replay}>Replay</button>
           </div>
         </section>

@@ -1,0 +1,38 @@
+# Azelux reverse proxy (example for review; replace azelux.example.org and paths). Single origin:
+# the frontend build is served as static files and /api, /health and /assets/lunar go to the backend,
+# so the frontend is built with VITE_API_URL= (empty) and no cross-origin requests are made.
+server {
+    listen 80;
+    server_name azelux.example.org;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name azelux.example.org;
+    # TLS: e.g. certbot --nginx; certificate paths are host-specific and not stored in Git.
+    ssl_certificate     /etc/letsencrypt/live/azelux.example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/azelux.example.org/privkey.pem;
+
+    root /srv/azelux/current/frontend/dist;   # symlink "current" -> releases/<sha>; rollback = repoint it
+    index index.html;
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain;
+
+    # Backend routes. More specific than /assets/ so lunar basemaps are not served from the static build.
+    location /assets/lunar/ { proxy_pass http://127.0.0.1:8000; include /etc/nginx/azelux-proxy.conf; }
+    location /api/          { proxy_pass http://127.0.0.1:8000; include /etc/nginx/azelux-proxy.conf; client_max_body_size 64k; proxy_read_timeout 120s; }
+    location = /health      { proxy_pass http://127.0.0.1:8000; include /etc/nginx/azelux-proxy.conf; }
+
+    # Hashed Vite assets never change for a given file name.
+    location /assets/ { try_files $uri =404; add_header Cache-Control "public, max-age=31536000, immutable"; }
+
+    # SPA: direct links and refreshes (/compare, /best-date, /learn/tour, ...) return index.html.
+    location / { try_files $uri /index.html; add_header Cache-Control "no-cache"; }
+}
+
+# /etc/nginx/azelux-proxy.conf
+#   proxy_set_header Host $host;
+#   proxy_set_header X-Forwarded-For $remote_addr;   # overwrite, so clients cannot spoof it
+#   proxy_set_header X-Forwarded-Proto $scheme;
+#   proxy_http_version 1.1;

@@ -1,5 +1,11 @@
 # Azelux - current integration assignment
 
+Latest local integration: `c542e0b` + published `b76ab21` (frontend `101e801`, backend
+`c116ceb`). [Current checks and scope](INTEGRATION_B76AB21_2026-11-15.md).
+Same-origin basemaps, replacement motion effects and generated notices are integrated;
+the local tour at `/`, terrain analyser and watcher remain. Deployment is stopped.
+The following checkpoints retain their original evidence scope; use PROGRESS.md for current work.
+
 Current local merge: `194aa94` + published `89ce28c`, preserving both histories.
 [Recovery/checks](MERGE_RECOVERY_2026-11-15.md); [single current work list](PROGRESS.md).
 This includes the local `/terrain`/tour UI plus incoming gap/explanation/offline

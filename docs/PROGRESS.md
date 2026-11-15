@@ -1,5 +1,129 @@
 # Azelux progress and to-do board
 
+## Current integration of ten incoming commits
+
+Local `c542e0b` is being combined with published `b76ab21`. Incoming source CI
+[43728281474](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43728281474)
+passed all seven jobs. No push or combined hosted CI is claimed. Deployment remains
+STOPPED. Current checks and remaining work: [INTEGRATION_B76AB21_2026-11-15.md](INTEGRATION_B76AB21_2026-11-15.md).
+
+- **Done:** integrate all ten incoming commits, resolve six overlaps and preserve both
+  histories. Keep the tour at `/`, `/terrain`, theme/hover/Plan B fixes and the watcher;
+  add same-origin basemaps, deferred Home scene module, original motion effects and notices.
+- **Checked:** 201 frontend tests, lint/typecheck/build; backend Ruff and 556 tests with
+  six cache-dependent skips; setup, 15 SYNTHETIC fixtures, baseline backend and watcher
+  checks; nine dev plus eight production Chrome checks; real near+far Athena RED/GREEN
+  and -210.1 h A-minus-B; fresh briefing offline replay with zero HTTP requests.
+- **Pending:** two independent human usability sessions, physical phone/tablet,
+  alternate-engine browser, spoken screen reader and slow-device 3D/fallback. Owner Home
+  Lighthouse scores do not certify the local tour landing; its measurement remains open.
+  Project license is deferred; GSAP older-terms uncertainty remains owner-recorded.
+  Deployment is stopped, and release/main/tag/submission/MVP acceptance need authorization.
+- **Science:** original V4 remains FAIL; V4b is adopted separately without changing runtime
+  body-centre visibility. V6 remains qualitative owner-reviewed evidence.
+- **Coordination:** the teammate may push to the shared P1 branch; the watcher resumes after
+  the local commit. New divergent commits wait for the user's next integration request.
+
+The source handoff below records owner evidence; its Home Lighthouse scores do not
+validate the local tour at `/`. Earlier local checkpoints follow it as history.
+
+## Incoming non-deployment snapshot — 15 November 2026 (authoritative)
+
+**Deployment is STOPPED by Moksh.** No host, paid resource, domain, public URL or deployed
+rehearsal exists or is being prepared. The configuration in `DEPLOYMENT.md` and `deploy/` is
+kept for later review only. Main merge, tags, submission and MVP acceptance have not happened.
+
+**Candidate:** the `feat/p1-s0-integration` SHA in the commit that publishes this section, with
+its CI link. Its code equals `fcbacad`: frontend `101e801` on top of `95892d3`.
+
+### Incoming owner checks
+
+- **Fresh real smoke** on the candidate code. See the latest section of
+  `evidence/FINAL_SMOKE_2026-11-15.md`:
+  - Athena date shift, both plans 240 h: REAL terrain, +210.1 h.
+  - Gap explanation and event jump; Best Date → Plan B → recompute.
+  - Report print; CSV and JSON; offline briefing reloaded with 0 requests.
+  - Methods V4/V4b wording; Tour; Simulator handoff.
+  - Same-origin imagery, deep links and the notices link.
+- **React Bits replaced (`101e801`).** Its MIT + Commons Clause terms forbid redistributing "the
+  components themselves … in a bundle", which this public repository and the production bundle
+  did.
+  - `Magnet` and `ClickSpark` are replaced by original `MagneticHover` and `ClickBurst` with the
+    same effect.
+  - Checked with real mouse and keyboard events in a production build; both are off under
+    reduced motion.
+- **Licence banners kept.** The minifier had stripped licence comments, including GSAP's notice,
+  which its terms say must not be removed. Vite now keeps legal comments inline.
+- **GSAP 3.12.5 (kept).** The official Standard licence page (effective 30 Apr 2025) permits use
+  "on any website, web application, or digital interface". Azelux's use (three simulator and
+  tour animations) is not a prohibited no-code animation builder, and the notice is now kept.
+  - **Uncertain:** 3.12.5 predates that date. The page says earlier versions stay under the terms
+    licensed before it, and that older text was not retrieved.
+  - **Option, only if Moksh wants the current terms to apply unambiguously:** upgrade to a
+    ≥ 3.13 release. That is a dependency and lockfile change; it is not done.
+- **`THIRD_PARTY_NOTICES.txt` regenerated.** All 24 bundled packages carry licence or notice
+  text (vendored react-three-fiber licence and GSAP notice). It is served with the build,
+  linked from the footer, and the generator reproduces it byte for byte.
+- **Tests and Lighthouse:** 181 tests, typecheck, lint and build pass. Mobile Lighthouse is
+  93 / 93 / 94 Performance and 100 Accessibility.
+
+### Human and device checks (`USABILITY_TASKS.md`)
+
+All are **pending**. None has been run with real people or devices, and nothing is inferred from
+emulation. Moksh has said he will arrange them. Local-network instructions are in
+`USABILITY_TASKS.md`; the app must not be exposed publicly.
+
+| Check | Status |
+| --- | --- |
+| P-A, P-B usability participants | pending |
+| Physical phone, physical tablet | pending |
+| Firefox or Safari | pending |
+| Spoken screen-reader journey | pending |
+| Slow-device Moon/terrain 3D and fallback | pending |
+| Physical print | optional |
+
+### Decisions on record
+
+- Ten-site library retained.
+- Project licence deferred (no LICENSE).
+- V4b adopted with its limits; original V4 stays FAIL; runtime body-centre science unchanged.
+- Physical print optional.
+- Deployment stopped.
+
+### Moksh to supply
+
+1. Results for the human and device checks, or explicit waivers.
+2. Optionally, a decision on upgrading GSAP to ≥ 3.13.
+3. Completion and confirmation of the AI-use statement draft (kept outside the repository).
+
+## Superseded readiness checkpoint at `01f99c2` (history)
+
+
+Verified source: integration `01f99c2`, hosted CI [43724450530](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43724450530) SUCCESS. No newer remote integration was found during this check. Lighthouse evidence records cold mobile Performance 91/93/94 and Accessibility 100; desktop 100/100. These close the local emulated Lighthouse check, not physical-device or deployed performance.
+
+### Remaining before deployment authorization
+
+- **Human/device evidence:** P-A and P-B independent usability sessions; physical phone and tablet; Firefox or Safari; spoken screen-reader journey; slow-device Moon/terrain-3D usability and fallback. See `USABILITY_TASKS.md`. Each needs actual evidence or an explicit Moksh waiver; none is inferred from viewport emulation.
+- **Final candidate smoke:** exercise the real-backend comparison and new briefing on the nominated post-performance build. The performance owner did not repeat a real-backend comparison after its Home/router change. Verify REAL/full-terrain provenance, navigation, retained state and actual export/offline replay; record the exact SHA.
+- **Deployment configuration:** record the selected host, build/start commands, runtime data provisioning and persistent data path, exact frontend origin/CORS and API URL, health check and rollback revision. Keep secrets out of Git. Confirm resources on the eventual host rather than assuming a clone contains kernels or terrain.
+- **Redistribution notice review:** the dependency inventory exists for 298 npm entries and 41 Python packages; finish required notice/licence-text review for distributed dependencies, vendored components, fonts and assets. Map source code has a linked NASA citation; rendered attribution confirmation remains to be recorded.
+- **Moksh:** nominate the final candidate and explicitly authorize deployment after reviewing remaining failures, evidence or waivers.
+
+### Decisions already made — not engineering blockers
+
+- Keep the ten-site library. No extra public warning is requested; accurate source labels and release documentation remain.
+- Project licence deferred by Moksh. Do not add a LICENSE file or treat choosing one as this release's engineering blocker; third-party obligations still apply.
+- V4b adopted with its recorded limits; original V4 stays FAIL and runtime body-centre science is unchanged.
+- A physical print is optional. Existing browser print/PDF evidence satisfies the documented output mechanism.
+
+### After authorized deployment, before final release/submission
+
+Run PRD 13.3 twice on the deployed URL, using the final datasets and exact release SHA. Recheck real mode, CORS/API connectivity, all direct-route refreshes and mobile layout; measure deployed performance/layout shift with the backend reachable. The prior API-unreachable-notice explanation does not prove CLS disappears in deployment. Then complete final media, credits/AI disclosure and portal requirements. Main merge, tags, submission and MVP acceptance still require Moksh's authorization.
+
+All older pending lists below are checkpoint history where they conflict with this section.
+
+## Prior local merge/watcher checkpoint (historical)
+
 ## Current local integration - merge recovery, 15 November 2026
 
 **Latest tooling follow-up:** [shared-branch watcher](INTEGRATION_WATCHER.md)
@@ -44,7 +168,7 @@ remains with Moksh.
 
 ## Resumed release checks — 15 November 2026
 
-See [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Production Home Lighthouse is now measured: **Performance 80, Accessibility 100**; the ≥90 performance gate remains open. Dependency licence inventory is generated (298 npm entries, 41 locked Python packages); full notice review remains. Map source code contains a visible linked NASA credit above loaded imagery. Moksh retained the ten-site library; no additional public warning was introduced. Project licence remains undecided. Real backend :8012 health and production build rechecked successfully. Human/device and final release checks remain pending.
+Home performance gate (Lighthouse ≥ 90): **met in browser emulation** after fix `62ffd0c`. Three consecutive cold mobile runs scored 91 / 93 / 94 Performance with Accessibility 100 (baseline 80). See [the performance investigation](PERFORMANCE_HOME_2026-11-15.md); earlier measurements are in [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Physical-device performance is still a human check.
 
 ## Current status — 15 November 2026, release preparation (authoritative)
 
@@ -117,7 +241,7 @@ passed, failed or pending.
 3. A second browser (Firefox or Safari).
 4. A spoken screen-reader session (NVDA, VoiceOver or Narrator).
 5. Slow-device 3D and its fallback.
-6. Lighthouse measured on production Home: Performance 80 / Accessibility 100; ≥90 performance target remains unmet. See RELEASE_CHECKS_RESUMED_2026-11-15.md.
+6. Lighthouse on production Home (emulated mobile): 91 / 93 / 94 Performance, Accessibility 100 after `62ffd0c` (`PERFORMANCE_HOME_2026-11-15.md`). Physical-device performance remains pending.
 
 **Physical print:** not required by the canonical documents. TRD: "PDF is the browser's
 print-to-PDF of a report page"; PRD 13.3 step 6: "export CSV and PDF". Print preview and
@@ -125,9 +249,8 @@ PDF evidence exist. A physical print is an optional extra check, not a release b
 
 ### Pending: decisions and actions for Moksh
 
-1. **Library scope (F1):** ten sourced entries; international and commercial breadth is
-   partial. Accept as a known limitation or add sourced sites.
-2. **Project licence:** the repository has no LICENSE file. Choose one or confirm none.
+1. **Library scope (F1):** Moksh retained the ten sourced entries; no expansion requested.
+2. **Project licence:** deferred by Moksh; do not add one in this task.
 3. **Release:** nominate the release candidate, authorize deployment, then run PRD 13.3 twice
    on the deployed URL. Then merge to main, tag, record the 30-second video and submit. See
    `RELEASE_PREPARATION.md`.

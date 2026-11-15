@@ -1,9 +1,18 @@
 # Release preparation draft - 15 November 2026
 
+**Current boundary:** the incoming owner handoff at `b76ab21` records deployment STOPPED.
+This local integration combines it with `c542e0b`; see [current checks](INTEGRATION_B76AB21_2026-11-15.md).
+The deployment files are review examples only. No public host, URL or rehearsal is authorized.
+Owner Home Lighthouse results do not validate the local tour landing at `/`.
+
 This is review material, not authorization to deploy, merge main, tag, submit or
 accept the MVP. Moksh retains those decisions. Current blockers and owners are
 maintained only in the top of [PROGRESS.md](PROGRESS.md); feature evidence is in
 [MVP_VERIFICATION.md](MVP_VERIFICATION.md).
+
+## Current deployment readiness
+
+Use the deployment-readiness checkpoint at the top of [PROGRESS.md](PROGRESS.md). Local Lighthouse passes at source 01f99c2. Human/device evidence, final real-data smoke on the nominated build, host/data/CORS configuration and redistribution-notice review remain before authorization. Deployed rehearsals and deployed performance checks follow authorization. Project licence is deferred; ten-site library retained.
 
 ## Architecture and reproducibility
 
@@ -89,9 +98,10 @@ The training result is not landing-safety qualification.
 - **Windows setup:** managed Windows may block the default venv launcher (Application
   Control). Use the documented `AZX_PYTHON_MODE=target` setup.
 - **Bundle size:** Vite warns about large chunks (main and the lazy 3D chunks).
-- **Performance:** incoming production Home scored Lighthouse Performance 80 / Accessibility 100
-  (`RELEASE_CHECKS_RESUMED_2026-11-15.md`); the performance gate remains unmet. The combined
-  local tour landing differs and has not been remeasured; that score does not validate it.
+- **Performance:** the owner's old Home measured emulated mobile Performance 93 / 93 / 94
+  and Accessibility 100 after the deferred-scene change (`PERFORMANCE_HOME_2026-11-15.md`).
+  The local tour at `/` differs; these scores do not validate it. Physical/slow-device
+  performance and a measurement of the combined tour landing remain open.
 - **Pending human checks:** physical devices, a second browser, spoken screen-reader use,
   slow-device 3D and two independent usability walkthroughs (`USABILITY_TASKS.md`).
 - **Not done:** no deployment, MVP/RC/final gate, release tag or submission.
@@ -144,11 +154,12 @@ the offline briefing; Methods validation; the simulator debrief; a 375 px phone 
 | --- | --- | --- |
 | Schibsted Grotesk font | SIL OFL 1.1 (`frontend/src/theme/fonts/README.md`, OFL text bundled) | Recorded |
 | Moon texture | NASA SVS CGI Moon Kit (SVS 4720), public domain; credited in Home, tour and simulator | Recorded |
-| React Bits (Magnet, ClickSpark) | MIT + Commons Clause (`frontend/src/components/reactbits/LICENSE-NOTE.md`) | Recorded; not resold |
+| React Bits (Magnet, ClickSpark) | Removed in `101e801`: its Commons Clause forbids redistributing the components. Replaced by original MagneticHover and ClickBurst | Done |
 | SPICE kernels, LOLA/PGDA DEMs and maps, Horizons | NASA/JPL/GSFC public data; cited in Methods and the data manifest; not in Git | Recorded |
-| Polar and global map assets | NASA sources (`NON_RELEASE_HANDOFF.md`). Source inspection confirms linked NASA citation above loaded imagery; rendered check pending | Source checked; rendered confirmation pending |
-| npm and Python dependencies | Per `frontend/package-lock.json` and `backend/uv.lock` | Inventory generated: docs/evidence/DEPENDENCY_LICENSES_2026-11-15.json (42148f6); refresh on frozen SHA and review notices |
-| Project licence | The repository has no LICENSE file | **Moksh decision** |
+| Polar and global map assets | NASA LOLA/PGDA 90 hillshade and SVS 4720 context; the citation is visible and linked on the map when imagery loads (checked 15 Nov) | Done |
+| npm and Python dependencies | `THIRD_PARTY_NOTICES.txt` is generated from the 24 bundled frontend packages with their licence texts (`scripts/third_party_notices.mjs`). The full inventory is in `evidence/DEPENDENCY_LICENSES_2026-11-15.json`. Python packages run server-side and are not shipped to browsers | Done; regenerate when dependencies change |
+| GSAP 3.12.5 | GreenSock notice kept in the bundle (legal comments) and vendored in the notices. The Standard licence permits web-application use; the pre-2025 terms for 3.12.5 were not retrieved | Kept; optional upgrade to ≥ 3.13 for the current terms (Moksh) |
+| Project licence | Deferred by Moksh; no LICENSE added | Not a current engineering blocker; third-party terms remain |
 
 ## Review and publication sequence
 

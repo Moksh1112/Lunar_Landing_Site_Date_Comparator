@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { USE_MOCK } from "./client";
+import { API_BASE } from "./apiBase";
 
 const metadata = z.object({
   data_label: z.literal("REAL"),
@@ -10,7 +11,7 @@ const metadata = z.object({
   method: z.string(),
 });
 export type Basemap = z.infer<typeof metadata>;
-const base = (import.meta.env.VITE_API_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+const base = API_BASE;
 export const globalMapUrl = `${base}/assets/lunar/whole-moon-context.png`;
 export const hillshadeUrl = `${base}/assets/lunar/south-pole-hillshade.png`;
 

@@ -1,4 +1,5 @@
 import { Link, Navigate, useLocation, type RouteObject } from "react-router";
+import { AppShell } from "./AppShell";
 import { LEGACY_REDIRECTS, PATHS, legacyTarget } from "./routes";
 
 /** Old link → new route, with replace semantics so Back does not bounce through the redirect. */
@@ -29,7 +30,8 @@ export const routeObjects: RouteObject[] = [
   { path: PATHS.simulator, ...page(async () => ({ Component: (await import("../features/sim/SimulatorPage")).SimulatorPage })) },
   ...Object.keys(LEGACY_REDIRECTS).map((path) => ({ path, element: <LegacyRedirect /> })),
   {
-    ...page(async () => ({ Component: (await import("./AppShell")).AppShell })),
+    // Load the shared shell eagerly; the user-selected tour remains the Home route.
+    Component: AppShell,
     children: [
       { path: PATHS.compare, ...page(async () => ({ Component: (await import("../features/compare/ComparePage")).ComparePage })) },
       { path: PATHS.bestDate, ...page(async () => ({ Component: (await import("../features/bestdate/BestDatePage")).BestDatePage })) },

@@ -12,7 +12,7 @@ Source checkpoint: `42148f6`. This check does not authorize release.
 
 Reproduce the inventory with `node scripts/python.mjs scripts/inventory_licenses.py` after setup; network access is required for missing locked metadata. Output: `docs/evidence/DEPENDENCY_LICENSES_2026-11-15.json`.
 
-## Lighthouse: performance gate still open
+## Lighthouse: performance gate still open (superseded: met in emulation after `62ffd0c`; see PERFORMANCE_HOME_2026-11-15.md)
 
 Lighthouse 12.8.2, local production preview `http://127.0.0.1:5193/`, mobile simulated throttling, Edge headless:
 

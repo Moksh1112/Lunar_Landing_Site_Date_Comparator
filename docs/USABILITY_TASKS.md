@@ -17,8 +17,17 @@ not what they "should" do.
 - **Test URL:** `http://localhost:5173/`.
   - Confirm `http://127.0.0.1:8000/health` shows `"mock":false`.
   - Confirm no "SYNTHETIC DATA" banner is visible.
-  - A phone on the same network needs the LAN address and a matching `AZX_CORS_ORIGINS`.
-- **After deployment authorization:** use the deployed URL and record it.
+  - **Phones and tablets on the same Wi-Fi (local network only; never port-forward or publish):**
+    bind to the PC's LAN address. On the prep PC that is `192.168.0.202`; confirm it with
+    `ipconfig`.
+    1. Backend: `AZX_CORS_ORIGINS=http://192.168.0.202:5173`, then run uvicorn with
+       `--host 192.168.0.202 --port 8000`.
+    2. Frontend: build with `VITE_USE_MOCK=false VITE_API_URL=http://192.168.0.202:8000`, then
+       serve with `npx vite preview --host 192.168.0.202 --port 5173`.
+    3. Open `http://192.168.0.202:5173/` on the device.
+    - If Windows asks, allow access on **Private** networks only.
+    - Record the exact URL and SHA.
+- **After deployment authorization:** use the deployed URL and record it (setup: `docs/DEPLOYMENT.md`).
 
 ## Before you start
 

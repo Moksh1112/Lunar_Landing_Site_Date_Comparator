@@ -1,17 +1,10 @@
-import { afterEach, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import * as THREE from "three";
-import { HomeMoon } from "../HomeMoon";
+import { mountMoonScene } from "../moonScene3d";
 
 const lifecycle = vi.hoisted(() => ({
-  effect: null as (() => (() => void) | undefined) | null,
   host: { clientWidth: 400, appendChild: vi.fn() },
   render: vi.fn(),
-}));
-vi.mock("react", async importOriginal => ({
-  ...await importOriginal<typeof import("react")>(),
-  useRef: () => ({ current: lifecycle.host }),
-  useState: () => [true],
-  useEffect: (effect: () => (() => void) | undefined) => { lifecycle.effect = effect; },
 }));
 vi.mock("three", async importOriginal => ({
   ...await importOriginal<typeof import("three")>(),
@@ -21,29 +14,48 @@ vi.mock("three", async importOriginal => ({
     render = lifecycle.render;
     setPixelRatio() {}
     setSize() {}
+    compileAsync() { return Promise.resolve(); }
     dispose() {}
+    forceContextLoss() {}
   },
 }));
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); lifecycle.render.mockClear(); });
 
-it("renders the completed texture with reduced motion, and ignores completion after cleanup", () => {
+beforeEach(() => {
   vi.stubGlobal("document", {});
   vi.stubGlobal("window", { devicePixelRatio: 1, matchMedia: () => ({ matches: true }) });
   vi.stubGlobal("ResizeObserver", class { observe() {} disconnect() {} });
   vi.stubGlobal("IntersectionObserver", class { observe() {} disconnect() {} });
   vi.stubGlobal("cancelAnimationFrame", vi.fn());
+  vi.stubGlobal("createImageBitmap", vi.fn());
+});
+
+it("renders the completed bitmap with reduced motion after shader compilation", async () => {
   let complete!: () => void;
-  vi.spyOn(THREE.TextureLoader.prototype, "load").mockImplementation((_url, onLoad) => {
-    const texture = new THREE.Texture<HTMLImageElement>();
-    complete = () => onLoad?.(texture);
-    return texture;
+  const bitmap = { close: vi.fn() } as unknown as ImageBitmap;
+  vi.spyOn(THREE.ImageBitmapLoader.prototype, "load").mockImplementation((_url, onLoad) => {
+    complete = () => onLoad?.(bitmap);
   });
-  HomeMoon();
-  const cleanup = lifecycle.effect!();
+  const cleanup = mountMoonScene(lifecycle.host as unknown as HTMLElement)!;
+  await Promise.resolve();
   expect(lifecycle.render).toHaveBeenCalledTimes(1);
   complete();
   expect(lifecycle.render).toHaveBeenCalledTimes(2);
-  cleanup!();
+  cleanup();
+  await vi.waitFor(() => expect(bitmap.close).toHaveBeenCalledOnce());
+});
+
+it("ignores late bitmap completion after cleanup and closes its image", async () => {
+  let complete!: () => void;
+  const bitmap = { close: vi.fn() } as unknown as ImageBitmap;
+  vi.spyOn(THREE.ImageBitmapLoader.prototype, "load").mockImplementation((_url, onLoad) => {
+    complete = () => onLoad?.(bitmap);
+  });
+  const cleanup = mountMoonScene(lifecycle.host as unknown as HTMLElement)!;
+  cleanup();
   complete();
-  expect(lifecycle.render).toHaveBeenCalledTimes(2);
+  await Promise.resolve();
+  await Promise.resolve();
+  expect(lifecycle.render).not.toHaveBeenCalled();
+  expect(bitmap.close).toHaveBeenCalledOnce();
 });

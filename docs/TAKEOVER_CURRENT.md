@@ -9,6 +9,14 @@ Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
 ## Current local merge recovery
 
+Latest integration is local `c542e0b` plus published `b76ab21`, whose exact incoming
+CI passed seven jobs on [43728281474](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43728281474).
+[Current integration checks](INTEGRATION_B76AB21_2026-11-15.md): 201 frontend tests,
+556 backend tests (six skips), lint/typecheck/build and seventeen scoped Chrome checks.
+The watcher is resumed after the local commit. **Do not push; deployment is stopped.**
+Earlier parent references below describe the prior merge. When transferring a bundle,
+include this completed latest merge, so published `b76ab21` is its ancestor.
+
 The incoming published P1 head is `89ce28c3905effa7c52abef06f7e5d9dd9f74923`,
 verified green on [CI 43721206324](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43721206324)
 (all seven jobs). The local side is `194aa94a77360743a940bebf60edc6da94106aef`.

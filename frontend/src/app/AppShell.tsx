@@ -29,7 +29,10 @@ export function AppShell() {
       </div>
       <footer className={styles.footer}>
         <Link to="/methods#limits">Methods, sources and limits</Link>
-        <span className={styles.version}>App {health.data?.app_version ?? "n/a"}, contract {health.data?.contract_version ?? "n/a"}</span>
+        <span className={styles.version}>
+          App {health.data?.app_version ?? "n/a"}, contract {health.data?.contract_version ?? "n/a"} ·{" "}
+          <a href="/THIRD_PARTY_NOTICES.txt">Third-party notices</a>
+        </span>
       </footer>
     </div>
   );
