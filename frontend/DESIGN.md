@@ -71,3 +71,11 @@ colour.
   georeferenced, not 3D. Terrain 3D stays gated.
 - SYNTHETIC results are always labelled; REAL results show their ephemeris, horizon mode
   (terrain / terrain coarse / "geometric horizon only") and DEM.
+
+## Optional presentation route: /landing
+
+Reviewed for the user's requested landing integration on 15 November 2026.
+This standalone dark page introduces the comparator; it does not change the app's
+light default. All procedural/schematic numerical illustrations are SYNTHETIC and
+link to the actual comparator for sourced computation. Its historic example is
+labelled as recorded, and scientific status points to Methods including V4's failure.

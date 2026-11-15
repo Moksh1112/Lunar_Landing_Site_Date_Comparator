@@ -1,0 +1,137 @@
+/* Standalone landing: deep-space dark theme, scoped to this page only (the app keeps its light theme). */
+.landing {
+  --color-bg: #05070d;
+  --color-surface: #0b1020;
+  --color-surface-2: #121a2e;
+  --color-surface-3: #1a2440;
+  --color-border: #222c45;
+  --color-border-strong: #3a4766;
+  --color-text: #eef1f8;
+  --color-text-muted: #a8b2c8;
+  --color-action: #5b84ff;
+  --color-action-hover: #7a9bff;
+  --color-action-text: #05070d;
+  --color-a: #2fd0b9;
+  --color-b: #ff8a5c;
+  --color-sun: #f4b740;
+  --color-earth: #6ea8ff;
+  --color-focus: #9db8ff;
+  --color-link: #9db8ff;
+  color-scheme: dark;
+  min-height: 100vh;
+  color: var(--color-text);
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgb(91 132 255 / 0.18), transparent 60%),
+    radial-gradient(900px 600px at -10% 40%, rgb(36 91 181 / 0.12), transparent 60%),
+    var(--color-bg);
+}
+.landing :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.landing a { color: var(--color-link); }
+.landing :global(.btn), .landing button { background: var(--color-surface-2); border-color: var(--color-border-strong); color: var(--color-text); }
+.landing :global(.btn-primary) { background: var(--color-action); border-color: var(--color-action); color: var(--color-action-text); }
+.landing :global(.btn-primary):hover { background: var(--color-action-hover); border-color: var(--color-action-hover); }
+.skip { position: absolute; left: 1rem; top: -3rem; z-index: 50; padding: 0.5rem 1rem; background: var(--color-action); color: var(--color-action-text) !important; border-radius: 6px; font-weight: 650; }
+.skip:focus { top: 0.5rem; }
+
+/* Header */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 40; display: flex; align-items: center; gap: var(--space-4); height: 4rem; padding: 0 clamp(1rem, 4vw, 3rem); background: linear-gradient(rgb(5 7 13 / 0.85), rgb(5 7 13 / 0)); }
+.brand { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 750; font-size: 1.15rem; color: var(--color-text) !important; text-decoration: none; letter-spacing: -0.01em; }
+.brand svg { width: 1.4rem; height: 1.4rem; }
+.topNav { display: flex; gap: var(--space-1); margin-left: auto; }
+.topNav a { color: var(--color-text-muted); text-decoration: none; font-size: var(--text-sm); font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 6px; }
+.topNav a:hover { color: var(--color-text); background: rgb(255 255 255 / 0.06); }
+.launch { min-height: 2.75rem; }
+
+/* Story: chapters scroll over a sticky 3D stage. */
+.story { position: relative; }
+.stage { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; z-index: 0; }
+.canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 900ms var(--ease-out); }
+.canvas[data-state="ok"] { opacity: 1; }
+.illus { position: absolute; right: var(--space-4); bottom: var(--space-3); margin: 0; font-size: var(--text-xs); color: var(--color-text-muted); }
+.chapter { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; padding: 6rem clamp(var(--space-3), 6vw, 6rem) var(--space-6); pointer-events: none; }
+.chapter:first-of-type { margin-top: -100vh; }
+.panel { pointer-events: auto; max-width: 34rem; padding: var(--space-5); background: rgb(11 16 32 / 0.72); border: 1px solid rgb(255 255 255 / 0.08); border-radius: 12px; backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgb(0 0 0 / 0.35); }
+.hero .panel { background: transparent; border-color: transparent; box-shadow: none; backdrop-filter: none; padding-left: 0; max-width: 40rem; }
+.panel h2 { font-size: clamp(1.7rem, 1.3rem + 1.2vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: var(--space-3); }
+.panel p { color: var(--color-text-muted); max-width: 60ch; }
+
+.display { font-size: clamp(2.75rem, 1.5rem + 4.6vw, 5.25rem); line-height: 0.98; letter-spacing: -0.035em; font-weight: 750; margin-bottom: var(--space-4); text-wrap: balance;
+  color: var(--color-text); }
+.lead { font-size: var(--text-lg); color: var(--color-text) !important; }
+.ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.cta { min-height: 3rem; padding: 0 var(--space-4); font-size: var(--text-md); font-weight: 650; }
+.ghost { background: rgb(255 255 255 / 0.06) !important; }
+.scrollHint { margin-top: var(--space-5); font-size: var(--text-sm); color: var(--color-text-muted); }
+.scrollHint::after { content: ""; display: block; width: 1px; height: 2.5rem; margin-top: var(--space-2); background: linear-gradient(var(--color-text-muted), transparent); }
+
+.facts { list-style: none; margin: var(--space-4) 0 0; padding: var(--space-3) 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); border-top: 1px solid var(--color-border); }
+.facts li { display: flex; flex-direction: column; gap: 2px; }
+.facts strong { font-size: var(--text-xl); font-variant-numeric: tabular-nums; }
+.facts span { font-size: var(--text-xs); color: var(--color-text-muted); }
+.steps { margin: var(--space-3) 0; padding-left: var(--space-4); display: grid; gap: var(--space-2); color: var(--color-text-muted); }
+.steps strong { color: var(--color-text); }
+.ticks { margin: var(--space-3) 0 0; padding-left: var(--space-4); display: grid; gap: var(--space-1); color: var(--color-text-muted); font-size: var(--text-sm); }
+
+.diagram { width: 100%; height: auto; margin-top: var(--space-2); }
+.node { fill: var(--color-surface-2); stroke: var(--color-border-strong); }
+.nodeStrong { fill: var(--color-action); stroke: var(--color-action); }
+.nodeText { fill: var(--color-text); font-size: 13px; font-weight: 600; }
+.nodeTextStrong { fill: var(--color-action-text); font-size: 13px; font-weight: 700; }
+.arrow { fill: none; stroke: var(--color-text-muted); stroke-width: 1.5; }
+.timeline { margin: var(--space-3) 0 0; }
+.timeline svg { width: 100%; height: auto; }
+.timeline figcaption { font-size: var(--text-xs); color: var(--color-text-muted); }
+.laneLabel { fill: var(--color-text-muted); font-size: 12px; font-weight: 600; }
+.laneRule { stroke: var(--color-border); }
+.laneA { fill: var(--color-a); }
+.laneB { fill: var(--color-b); }
+.scrub { stroke: var(--color-text); stroke-width: 1.5; stroke-dasharray: 3 3; }
+
+.example { margin: 0 0 var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 8px; background: rgb(255 255 255 / 0.03); }
+.example figcaption { font-size: var(--text-xs); font-weight: 650; color: var(--color-link); margin-bottom: var(--space-1); }
+.exampleLine { margin: 0 0 var(--space-2); color: var(--color-text) !important; }
+.exampleNums { display: grid; gap: var(--space-1); font-variant-numeric: tabular-nums; }
+.exampleNums strong { font-size: var(--text-lg); }
+.exampleNums b, .siteSwitch b { display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 4px; color: #05070d; font-size: var(--text-xs); margin-right: var(--space-1); }
+.a { background: var(--color-a); }
+.b { background: var(--color-b); }
+.note { font-size: var(--text-xs); margin: var(--space-2) 0 0; }
+
+/* Interactive simulation */
+.sim { position: relative; z-index: 1; padding: 6rem clamp(var(--space-3), 6vw, 6rem); border-top: 1px solid var(--color-border); }
+.simHead { max-width: 46rem; margin-bottom: var(--space-4); }
+.simHead h2, .close h2 { font-size: clamp(1.7rem, 1.3rem + 1.2vw, 2.5rem); letter-spacing: -0.02em; }
+.simHead p, .close p { color: var(--color-text-muted); }
+.simGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: var(--space-4); align-items: start; }
+.simStage { min-width: 0; }
+.simCanvas { display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; border: 1px solid var(--color-border); background: radial-gradient(70% 70% at 50% 40%, #0e1530, #05070d); cursor: grab; touch-action: none; }
+.simCanvas:active { cursor: grabbing; }
+.simNote { font-size: var(--text-xs); color: var(--color-text-muted); margin: var(--space-2) 0 0; }
+.simPanel { display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: 12px; background: rgb(11 16 32 / 0.7); }
+.siteSwitch { display: grid; gap: var(--space-2); }
+.siteSwitch button { justify-content: flex-start; min-height: 2.75rem; }
+.siteSwitch button[aria-pressed="true"] { border-color: var(--color-action); box-shadow: inset 0 0 0 1px var(--color-action); }
+.slider { display: flex; flex-direction: column; gap: var(--space-2); font-size: var(--text-sm); font-weight: 600; }
+.slider span { display: flex; justify-content: space-between; }
+.slider output { font-variant-numeric: tabular-nums; color: var(--color-text-muted); }
+.slider input { width: 100%; accent-color: var(--color-action); min-height: 1.75rem; }
+.readout { margin: 0; display: grid; gap: var(--space-2); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: 8px; background: rgb(0 0 0 / 0.25); }
+.readout dt { font-size: var(--text-xs); font-weight: 650; }
+.readout dd { margin: 0; }
+.sunText { color: var(--color-sun); }
+.earthText { color: var(--color-earth); }
+
+.close { position: relative; z-index: 1; padding: 6rem clamp(var(--space-3), 6vw, 6rem); border-top: 1px solid var(--color-border); text-align: left; }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2) var(--space-4); padding: var(--space-4) clamp(var(--space-3), 6vw, 6rem); border-top: 1px solid var(--color-border); font-size: var(--text-xs); color: var(--color-text-muted); }
+.footer nav { display: flex; gap: var(--space-3); }
+
+@media (max-width: 56rem) { .simGrid { grid-template-columns: minmax(0, 1fr); } .topNav { display: none; } }
+@media (max-width: 48rem) {
+  .chapter { align-items: flex-end; padding: 5rem var(--space-3) var(--space-4); }
+  .panel { padding: var(--space-4); max-width: none; background: rgb(11 16 32 / 0.86); }
+  .hero .panel { background: rgb(5 7 13 / 0.55); padding: var(--space-4); border-radius: 12px; backdrop-filter: blur(6px); }
+  .facts { grid-template-columns: 1fr; }
+  .illus { display: none; }
+  .sim, .close { padding: 4rem var(--space-3); }
+}
+@media (prefers-reduced-motion: reduce) { .canvas { transition: none; } }
