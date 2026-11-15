@@ -26,7 +26,14 @@ import type { World } from "./world";
 import styles from "./sim.module.css";
 
 const CONTROL_LABEL: Record<Control, string> = { site: "Site", date: "Date", mission: "Mission", plan: "Plan A/B", compare: "Compare" };
-const DEMO_ORDER: Control[] = ["site", "date", "mission", "plan", "compare"];
+const DEMO_STEPS = [
+  { title: "Read the sky", text: "The gold dotted curve represents the Sun's path. Grey is an illustrative ridge. A body below the ridge is hidden. This scene explains the idea; the comparator calculates real visibility.", control: null, view: "moon" },
+  { title: "Choose a site", text: "SITE chooses where both plans land. Each click moves to the next location. Watch the site name on the display. Try the highlighted dial or Site button below.", control: "site", view: "console" },
+  { title: "Choose a landing day", text: "DATE changes the landing day of the plan you are editing. Click for the next day; Shift-click or use the minus button for the previous day. Dates are UTC.", control: "date", view: "console" },
+  { title: "Choose mission length", text: "MISSION cycles between 240, 480 and 708 hours. This is how long we measure sunlight and Earth visibility after landing.", control: "mission", view: "console" },
+  { title: "Switch between plans", text: "PLAN A/B changes which landing date you edit. Both plans use the same site and mission length here. Keep A as your baseline, then change B's date.", control: "plan", view: "console" },
+  { title: "Compare the plans", text: "COMPARE sends both plans to the backend. Green means your thresholds are met, not that a landing is safe. In this walkthrough the button only explains its purpose; practice makes the real request.", control: "compare", view: "console" },
+] as const;
 
 export function SimulatorPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,7 +49,8 @@ export function SimulatorPage() {
   const [level, setLevel] = useState<Level>("boot");
   const [con, setCon] = useState<Console>(START_CONSOLE);
   const [hint, setHint] = useState<string | null>(null);
-  const [demoGlow, setDemoGlow] = useState<Control | null>(null);
+  const [demoIndex, setDemoIndex] = useState(0);
+  const demo = DEMO_STEPS[demoIndex];
   const [busy, setBusy] = useState(false);
   const [last, setLast] = useState<{ request: CompareRequest; response: CompareResponse } | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
@@ -75,7 +83,7 @@ export function SimulatorPage() {
   }, []);
 
   const step = currentStep(con);
-  const glow: Control | null = level === "practice" ? PRACTICE_STEPS[step].control : level === "demo" ? demoGlow : null;
+  const glow: Control | null = level === "practice" ? PRACTICE_STEPS[step].control : level === "demo" ? demo.control : null;
   const done: Partial<Record<Control, boolean>> = {};
   if (level === "practice") PRACTICE_STEPS.slice(0, step).forEach((s) => (done[s.control] = true));
   useEffect(() => worldRef.current?.setConsole(con, glow, done), [con, glow, gl, level, step]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -84,6 +92,9 @@ export function SimulatorPage() {
   // ---------- level transitions ----------
   const go = useCallback((l: Level) => {
     setLevel(l);
+    if (l === "demo") setDemoIndex(0);
+    if (l === "practice") setCon(START_CONSOLE);
+    if (l === "qualify") setCon((previous) => ({ ...previous, plan: "B" }));
     setHint(null);
     const w = worldRef.current;
     if (l === "briefing") w?.setView("briefing");
@@ -95,20 +106,12 @@ export function SimulatorPage() {
     }
   }, []);
 
-  // Demonstration: window -> Moon, then back to the console with controls lit in order.
+  // User-paced demonstration: no disappearing explanations or timed camera jumps.
   useEffect(() => {
-    if (level !== "demo") return;
-    const w = worldRef.current;
-    const timers: number[] = [];
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const at = (ms: number, f: () => void) => timers.push(window.setTimeout(f, reduce ? 0 : ms));
-    w?.setView("window");
-    at(1900, () => w?.setView("moon"));
-    at(6500, () => w?.setView("console"));
-    DEMO_ORDER.forEach((c, i) => at(7600 + i * 700, () => setDemoGlow(c)));
-    at(7600 + DEMO_ORDER.length * 700, () => setDemoGlow(null));
-    return () => timers.forEach(clearTimeout);
-  }, [level]);
+    if (level === "demo") worldRef.current?.setView(demo.view);
+    const frame = requestAnimationFrame(() => worldRef.current?.resize());
+    return () => cancelAnimationFrame(frame);
+  }, [level, demoIndex, demo.view, gl]);
 
   useEffect(() => {
     if (level !== "qualify") return;
@@ -135,6 +138,13 @@ export function SimulatorPage() {
 
   const use = async (control: Control, delta = 1) => {
     if (busy || paused) return;
+    if (level === "demo") {
+      if (control !== demo.control) return setHint(`This step explains ${demo.title.toLowerCase()}. Use Next to explore another control.`);
+      if (control === "compare") return setHint("Compare will calculate real Sun/Earth windows in practice. Select Start practice when ready.");
+      setCon((previous) => operate(previous, control, delta));
+      setHint(`${CONTROL_LABEL[control]} updated. Watch the display above the dials.`);
+      return;
+    }
     if (level === "practice") {
       const h = hintFor(con, control);
       if (h) return setHint(h);
@@ -144,18 +154,12 @@ export function SimulatorPage() {
         if (r) go("qualify");
         return;
       }
-      // the dial turns toward the step's target in practice
-      if (control === "date") {
-        const target = PRACTICE_STEPS[step].id === "dateA" ? 0 : 14;
-        const now = con.plan === "A" ? con.dayA : con.dayB;
-        delta = target < now ? -1 : 1;
-      }
       setCon(operate(con, control, delta));
       return;
     }
     if (level === "qualify") {
       if (control === "site" || control === "mission") return setHint("Qualification keeps the site and mission fixed. Change Plan B's date.");
-      if (control === "plan") return;
+      if (control === "plan") return setHint("This challenge edits Plan B only. Plan A remains your baseline.");
       if (control === "date") return setCon(operate({ ...con, plan: "B" }, "date", delta));
       const r = await runCompare(con);
       if (!r) return;
@@ -165,7 +169,7 @@ export function SimulatorPage() {
     }
   };
 
-  useEffect(() => worldRef.current?.onPick((c, shift) => void use(c, shift ? -1 : 1)));
+  useEffect(() => { worldRef.current?.onPick((c, shift) => void use(c, shift ? -1 : 1)); });
 
   // ---------- look + pause input ----------
   useEffect(() => {
@@ -229,10 +233,10 @@ export function SimulatorPage() {
 
   const q = qualification(attempts);
   const synthetic = last?.response.scenarios.some((s) => s.meta.data_label !== "REAL") ?? USE_MOCK;
-  const twinDisabled = busy || paused || !(level === "practice" || level === "qualify");
+  const twinDisabled = busy || paused || !(level === "demo" || level === "practice" || level === "qualify");
 
   return (
-    <main className={styles.sim}>
+    <main className={styles.sim} data-guided={level === "demo" || level === "practice" || level === "qualify"}>
       <canvas ref={canvasRef} className={styles.canvas} data-state={gl} tabIndex={0} aria-label="3D mission control room (illustration). Drag or use the arrow keys or WASD to look around; use the console controls below." />
       <p className={styles.truth}>Illustration: room, console, skyline ring and lander are not data. Moon texture: NASA LROC visualization mosaic (SVS CGI Moon Kit).</p>
 
@@ -276,14 +280,19 @@ export function SimulatorPage() {
       )}
 
       {level === "demo" && (
-        <section className={styles.card} aria-labelledby="demo-h">
-          <h2 id="demo-h">Demonstration</h2>
-          <p>
-            At the site, the dotted ochre line is the Sun's path: it dips below the schematic skyline (grey) for part of
-            each lunar day. Then the console lights up the controls in the order you will use them.
-          </p>
-          <button type="button" className="btn-primary" onClick={() => go("practice")}>Start practice</button>
-        </section>
+        <aside className={styles.guide} aria-labelledby="demo-h">
+          <p className={styles.note}>Demonstration · {demoIndex + 1} of {DEMO_STEPS.length}</p>
+          <h2 id="demo-h">{demo.title}</h2>
+          <p>{demo.text}</p>
+          <p className={styles.note}>You control the pace. The lit control in the console matches this step. The buttons below do the same job.</p>
+          <div className={styles.row}>
+            <button type="button" disabled={demoIndex === 0} onClick={() => { setHint(null); setDemoIndex((i) => i - 1); }}>Previous</button>
+            {demoIndex < DEMO_STEPS.length - 1
+              ? <button type="button" className="btn-primary" onClick={() => { setHint(null); setDemoIndex((i) => i + 1); }}>Next: {DEMO_STEPS[demoIndex + 1].title}</button>
+              : <button type="button" className="btn-primary" onClick={() => go("practice")}>Start practice</button>}
+          </div>
+          <button type="button" onClick={() => worldRef.current?.setView(demo.view)}>Reset camera</button>
+        </aside>
       )}
 
       {(level === "practice" || level === "qualify") && (
@@ -312,25 +321,26 @@ export function SimulatorPage() {
         </aside>
       )}
 
-      {(level === "practice" || level === "qualify") && (
+      {(level === "demo" || level === "practice" || level === "qualify") && (
         <div className={styles.dock}>
           <p className={styles.state} aria-live="polite">
             {SIM_SITES[con.site].name}, editing Plan {con.plan}. A {dayToDate(con.dayA)}, B {dayToDate(con.dayB)}, {con.hours} h
           </p>
+          <p className={styles.note}>{level === "demo" ? (glow ? "Explore the highlighted control, or select Next." : "Select Next to learn the first console control.") : level === "practice" ? "Follow the highlighted step. Other 3D controls explain why they are not needed yet." : "Site, mission and Plan A are fixed. Edit Plan B using Date − / +."}</p>
           {hint && <p className={styles.hint} role="status">HINT {hint}</p>}
           {busy && <p className={styles.hint} role="status">Computing…</p>}
           <div className={styles.twin} role="group" aria-label="Console controls">
             {(["site", "mission", "plan"] as const).map((c) => (
-              <button key={c} type="button" disabled={twinDisabled} data-glow={glow === c} onClick={() => void use(c)}>
+              <button key={c} type="button" disabled={twinDisabled || (level === "demo" && glow !== c) || (level === "qualify" && (c === "site" || c === "mission" || c === "plan"))} data-glow={glow === c} onClick={() => void use(c)}>
                 {CONTROL_LABEL[c]}
               </button>
             ))}
             <span className={styles.dateGroup} data-glow={glow === "date"}>
-              <button type="button" disabled={twinDisabled} onClick={() => void use("date", -1)} aria-label="Date back one day">−</button>
+              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", -1)} aria-label="Date back one day">−</button>
               Date
-              <button type="button" disabled={twinDisabled} onClick={() => void use("date", 1)} aria-label="Date forward one day">+</button>
+              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", 1)} aria-label="Date forward one day">+</button>
             </span>
-            <button type="button" className="btn-primary" disabled={twinDisabled} data-glow={glow === "compare"} onClick={() => void use("compare")}>
+            <button type="button" className="btn-primary" disabled={twinDisabled || (level === "demo" && glow !== "compare")} data-glow={glow === "compare"} onClick={() => void use("compare")}>
               Compare
             </button>
           </div>

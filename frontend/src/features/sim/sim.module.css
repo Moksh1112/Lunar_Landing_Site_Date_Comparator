@@ -70,3 +70,22 @@
   .dock { bottom: 1.75rem; }
   .truth { right: 1rem; font-size: 0.6875rem; }
 }
+
+/* Reserve separate space for teaching; never place instructions over the console. */
+.guide { position: absolute; right: 1rem; top: 4rem; bottom: 2rem; width: 21rem; overflow: auto; padding: 1.25rem; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.guide h2 { font-size: 1.5rem; }
+.guide p { color: var(--muted); }
+.guide > button { margin-top: 1rem; min-height: 2.75rem; }
+.sim[data-guided="true"] .canvas { width: calc(100% - 23rem); }
+.sim[data-guided="true"] .dock { left: calc((100% - 23rem) / 2); width: min(46rem, calc(100% - 25rem)); }
+.sim[data-guided="true"] .checklist { width: 21rem; max-height: calc(100% - 6rem); overflow: auto; }
+.dock > .note { margin: 0; padding: .4rem .65rem; background: var(--panel); }
+@media (max-width: 64rem) {
+  .sim[data-guided="true"] .canvas { width: 100%; height: 40%; }
+  .guide, .sim[data-guided="true"] .checklist { top: calc(40% + .5rem); left: 1rem; right: 1rem; width: auto; bottom: 14rem; max-height: none; padding: .75rem; overflow: auto; }
+  .sim[data-guided="true"] .dock { left: 1rem; right: 1rem; bottom: 1.5rem; width: auto; transform: none; }
+  .guide h2 { font-size: 1.2rem; }
+  .guide p { font-size: .8125rem; }
+  .guide .row { margin-top: .5rem; }
+  .guide .row > * { padding: 0 .6rem; }
+}
