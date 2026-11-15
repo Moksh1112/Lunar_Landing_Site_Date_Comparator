@@ -164,3 +164,4 @@
   }
 }
 .header > [role="group"] { align-self: center; }
+.brand { text-decoration: none; color: inherit; }

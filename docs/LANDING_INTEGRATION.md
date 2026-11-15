@@ -50,3 +50,18 @@ published integration branch as the current combined source.
 
 Combined integration hosted CI is checked after this documentation checkpoint.
 Final release/deployment and existing scientific/usability gates remain unchanged.
+
+## Simulator and dashboard routing update — 15 November 2026
+
+Integrated green frontend-landing 2b1df93 (CI 43690659123). /landing now presents the
+mission-planning simulator; the previous tour is /landing/tour. Its typed postCompare
+client and openInComparator transfer date-shift inputs and stored results into the
+existing dashboard. Added scrubber reset for handoff and linked the dashboard brand
+back to /landing. Added the simulator's missing main landmark.
+
+Browser verified headings at /landing, /landing/tour, /, /best-date, /methods,
+/report and an unknown route (Page not found). This proves route rendering, not a
+complete manual qualification playthrough. Simulator level/request tests are included
+in the 141 passing tests. Strict TypeScript, build and lint pass. Existing size advisory
+retained. Real backend remains available on 8000; current preview is on 5173.
+No release, scientific gate or training qualification is mission certification.

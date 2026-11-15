@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ExpertToggle } from "./ExpertToggle";
 import { SyntheticBanner, useHealthQuery } from "./SyntheticBanner";
@@ -22,14 +22,14 @@ export function AppShell() {
       </a>
       <SyntheticBanner />
       <header className={`${styles.header} no-print`}>
-        <div className={styles.brand}>
+        <Link to="/landing" className={styles.brand} aria-label="Azelux simulator home">
           <svg className={styles.mark} viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
             <path d="M3 13.5 L8 11 L11 12.5 L15 9.5 L21 12" fill="none" stroke="currentColor" strokeWidth="1.5" />
           </svg>
           <span className={styles.name}>Azelux</span>
           <span className={styles.tagline}>Lunar site and date comparator</span>
-        </div>
+        </Link>
         <nav aria-label="Main" className={styles.nav}>
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} end={n.end} className={styles.link}>

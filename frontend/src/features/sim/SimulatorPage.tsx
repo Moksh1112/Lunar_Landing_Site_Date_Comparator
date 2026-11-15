@@ -36,6 +36,7 @@ export function SimulatorPage() {
   const setMode = useStore((s) => s.setMode);
   const setScenario = useStore((s) => s.setScenario);
   const setLastCompare = useStore((s) => s.setLastCompare);
+  const setScrubT = useStore((s) => s.setScrubT);
 
   const [gl, setGl] = useState<"loading" | "ok" | "off">("loading");
   const [level, setLevel] = useState<Level>("boot");
@@ -214,6 +215,7 @@ export function SimulatorPage() {
         startUtc: s.start_utc.slice(0, 16),
         missionHours: String(s.mission_hours),
       });
+    setScrubT(null);
     setLastCompare(last);
     navigate("/");
   };
@@ -230,7 +232,7 @@ export function SimulatorPage() {
   const twinDisabled = busy || paused || !(level === "practice" || level === "qualify");
 
   return (
-    <div className={styles.sim}>
+    <main className={styles.sim}>
       <canvas ref={canvasRef} className={styles.canvas} data-state={gl} tabIndex={0} aria-label="3D mission control room (illustration). Drag or use the arrow keys or WASD to look around; use the console controls below." />
       <p className={styles.truth}>Illustration: room, console, skyline ring and lander are not data. Moon texture: NASA LROC visualization mosaic (SVS CGI Moon Kit).</p>
 
@@ -378,6 +380,6 @@ export function SimulatorPage() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

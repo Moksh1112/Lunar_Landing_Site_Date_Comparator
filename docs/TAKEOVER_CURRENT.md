@@ -1,5 +1,15 @@
 # Start here — engineering takeover, 15 November 2026
 
+## Current simulator routes — 15 November 2026
+
+Integrated frontend-landing 2b1df93. Simulator: /landing; scroll tour: /landing/tour;
+comparator: /; features: /best-date, /methods, /report. Dashboard brand links back to
+the simulator. Result handoff resets the scrubber and preserves computed inputs and
+response. Browser checked all routes and not-found behavior; 141 tests, lint and build
+pass. See LANDING_INTEGRATION.md. Earlier descriptions of /landing as the scroll tour
+are superseded. Existing V4 and physical-device/usability limitations remain.
+
+
 ## Latest landing integration — 15 November 2026
 
 Reviewed frontend-landing, corrected its source labels/dependency downgrade and
