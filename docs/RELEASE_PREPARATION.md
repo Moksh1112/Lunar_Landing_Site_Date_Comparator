@@ -129,8 +129,9 @@ Do these in order. Items marked **Moksh** need the user's explicit decision or a
    - **Go** needs all of these:
      - green integration CI;
      - clean-clone real `/health` and the demo result reproduced;
-     - V4 decision recorded (**Moksh**);
-     - usability and device checks done or explicitly waived (**Moksh**).
+     - V4 decision recorded (done: V4b adopted, V4 FAIL disclosed);
+     - every row in `USABILITY_TASKS.md` marked passed, or explicitly waived by **Moksh**
+       (a physical print is optional).
    - **No-go** if any of these happen:
      - a REAL/SYNTHETIC label or horizon mode does not match the data actually used;
      - V4 is presented as passing;

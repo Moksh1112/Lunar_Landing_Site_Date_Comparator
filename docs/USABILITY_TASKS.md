@@ -1,4 +1,4 @@
-# Usability task script (two independent participants)
+# Human and device checks: test URL, task script, results
 
 Not yet run. This needs two people who did not build Azelux, plus a moderator. Use the
 integrated build with a REAL backend (see README "Real data"). Each session takes about 20
@@ -48,3 +48,47 @@ Afterwards ask:
 Add one row per participant to `docs/MVP_VERIFICATION.md` (Usability), anonymised (P-A, P-B),
 with the device, browser, completion per task and the top three issues. Fix issues through the
 normal owner branches. Never fill this section without real participants.
+
+## Test URL
+
+- **No deployed URL exists yet.** Deployment needs Moksh's authorization.
+- **Until then, local:** follow README "Real data". Run `npm run setup` (on managed Windows,
+  `AZX_PYTHON_MODE=target`), set an absolute `AZX_DATA_DIR`, run `npm run dev:all`, then open
+  **http://127.0.0.1:5173/**. Check http://127.0.0.1:8000/health first: it should show
+  `mock:false`, 5 kernels, `far_160m.tif` and the tiles.
+- **Phones and tablets on the same network:** use the host's LAN address and add that origin to
+  `AZX_CORS_ORIGINS`. Record the exact URL you used.
+- Record the integration SHA you tested (`git rev-parse HEAD`).
+
+## Device and accessibility checks (each recorded separately)
+
+For each device or browser, run tasks 1–6 above and check that the layout stays usable:
+
+- no sideways scrolling and controls reachable;
+- the menu opens and closes;
+- the timeline scrubber works by touch or keyboard.
+
+**Screen reader** (NVDA or Narrator on Windows, VoiceOver on macOS/iOS), on `/compare`:
+
+- Landmarks and headings make sense.
+- The result sentence is announced after Compare.
+- Errors are announced.
+- The scrubber announces its time.
+- The Learn menu and Escape work.
+
+## Results (status: passed / failed / pending)
+
+| Check | Tester (anonymised) | Device / OS / browser | URL + SHA | Status | Notes / issues |
+| --- | --- | --- | --- | --- | --- |
+| Usability participant P-A | | | | pending | |
+| Usability participant P-B | | | | pending | |
+| Physical phone | | | | pending | |
+| Physical tablet | | | | pending | |
+| Second browser (Firefox or Safari) | | | | pending | |
+| Screen reader | | | | pending | |
+| Deployed rehearsal 1 (PRD 13.3) | | | | pending | Needs deployment authorization |
+| Deployed rehearsal 2 (PRD 13.3) | | | | pending | Needs deployment authorization |
+| Physical paper print (optional) | | | | pending | Not required by contract; browser print preview is already evidenced |
+
+Fill in one row per check. A failed check links to an issue or fix commit. Never mark a row
+passed without a real person and device.
