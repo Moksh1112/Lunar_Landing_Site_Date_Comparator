@@ -8,7 +8,7 @@
   color-scheme: light;
 
   /* neutrals */
-  --color-bg: #f5f3ed; /* page canvas */
+  --color-bg: #f1f3f4; /* page canvas: cool regolith grey */
   --color-surface: #ffffff; /* main working surfaces */
   --color-surface-2: #eceff0; /* secondary surfaces */
   --color-surface-3: #e1e6e6; /* pressed / chart terrain fill */
