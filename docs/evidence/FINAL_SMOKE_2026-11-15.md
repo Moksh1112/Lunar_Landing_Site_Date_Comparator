@@ -1,5 +1,40 @@
 # Final-build real smoke — 15 Nov 2026
 
+## Fresh run on the candidate code `fcbacad` (latest)
+
+The same journey and checks as the sections below were run again on a production build of
+integration `fcbacad`. That code includes React Bits replaced, licence banners kept and notices
+regenerated. Everything ran against the same real backend: `/health` reported `mock:false`, the
+5 kernels, far DEM + tiles and manifest `1dcb16ff…`. Backend code is unchanged since `c116ceb`.
+
+Results:
+
+- **Athena date shift** (A 2027-03-01, B 2027-03-14, both 240 h): "Plan B gets 210.1 h more…",
+  REAL terrain, "tile im2-athena + far_160m".
+- **Gap and event jump:** gap of 2 parts (Sun only 228.7 h, both 11.3 h); event jump to
+  2027-03-01 11:18 UTC.
+- **Best Date:** 2 green of 14, best day 2027-03-14; Load as Plan B, recomputed +210.1 h.
+- **Report print:** white, 8 charts, REAL, gap section.
+- **Downloads:**
+  - CSV: 4,352 lines with REAL, terrain, DEM, manifest and gap lines.
+  - JSON: REAL terrain for both plans, A − B both −210.1 h.
+  - Briefing: 168 KB, SHA-256
+    `0766af03875379307e386bdbfca529caa5069d29f4444eb9a4ab3e831ce5fa66`. Offline reload, keyboard
+    scrubbing and jumps work with **0 requests**.
+- **Methods:** V4 fail, V4b pass, decision and limit text, 0 invalid files.
+- **Tour and Simulator:** Tour links work. The simulator debrief shows terrain REAL, A red,
+  B green, "Challenge passed", and hands off to `/compare` with +210.1 h.
+- **Same-origin build of the same code** (proxy emulating the documented nginx routing):
+  - A direct load of `/report` renders.
+  - Polar and whole-Moon imagery load from the page's own origin, with linked NASA citations.
+  - The footer notices link works; the file is 48 KB, includes GSAP's banner and the OFL, and
+    has no React Bits.
+- **Lighthouse,** comparable mobile production runs on the same code: 93 / 93 / 94 Performance,
+  100 Accessibility. CLS 0.063 comes from the unreachable-API notice of that setup, as before.
+
+The sections below are the earlier run on `729f228` (history).
+
+
 Performed by the main session (frontend and release owner) with headless Edge over CDP, viewport
 emulation only. No physical devices were used. Script: `C:/azx/smoke_final.mjs`, kept outside
 Git. Downloaded files and screenshots are kept outside Git (`C:/azx/smoke/`).

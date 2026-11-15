@@ -33,10 +33,10 @@ const collector = {
 await build({ root: fe, configFile: join(fe, "vite.config.ts"), logLevel: "error", plugins: [collector], build: { write: false } });
 
 // Upstream licence texts for bundled packages that do not ship one (kept in frontend/licenses/).
-const OVERRIDES = { "@react-three/fiber": "react-three-fiber.LICENSE" };
+const OVERRIDES = { "@react-three/fiber": "react-three-fiber.LICENSE", gsap: "gsap.NOTICE" };
 const licenceFile = (dir, name) => {
   if (OVERRIDES[name]) return `${readFileSync(join(fe, "licenses", OVERRIDES[name]), "utf8").trim()}
-(Upstream LICENSE from the project repository; the npm package ships none.)`;
+(Vendored copy in frontend/licenses/; the npm package ships no licence file.)`;
   const f = readdirSync(dir).find((n) => /^(licen[cs]e|copying|notice)(\.(md|txt))?$/i.test(n));
   return f ? readFileSync(join(dir, f), "utf8").trim() : null;
 };
@@ -58,7 +58,6 @@ for (const name of [...pkgs.keys()].sort()) {
   out.push(rule, `${name} ${pj.version} - ${lic}`, String(home), "", text || `No licence file is shipped in the package. Licence declared in package.json: ${lic}.`, "");
 }
 const vendored = [
-  ["React Bits components (Magnet, ClickSpark), vendored in frontend/src/components/reactbits", join(fe, "src/components/reactbits/LICENSE-react-bits.md")],
   ["Schibsted Grotesk font (frontend/src/theme/fonts/SchibstedGrotesk.woff2)", join(fe, "src/theme/fonts/SchibstedGrotesk-OFL.txt")],
 ];
 for (const [label, file] of vendored) out.push(rule, label, "", existsSync(file) ? readFileSync(file, "utf8").trim() : "LICENCE FILE MISSING", "");

@@ -1,77 +1,73 @@
 # Azelux progress and to-do board
 
-## Deployment-readiness status — 15 November 2026 (authoritative)
+## Non-deployment status — 15 November 2026 (authoritative)
+
+**Deployment is STOPPED by Moksh.** No host, paid resource, domain, public URL or deployed
+rehearsal exists or is being prepared. The configuration in `DEPLOYMENT.md` and `deploy/` is
+kept for later review only. Main merge, tags, submission and MVP acceptance have not happened.
 
 **Candidate:** the `feat/p1-s0-integration` SHA in the commit that publishes this section, with
-its hosted CI link. That commit merges frontend `47642ae` on top of `729f228`. Nothing has been
-deployed, merged to main, tagged or submitted, and MVP acceptance is not claimed.
+its CI link. Its code equals `fcbacad`: frontend `101e801` on top of `95892d3`.
 
-### Passed (own checks, browser emulation; evidence linked)
+### Done in this pass (own checks)
 
-- **Final-build real smoke** on `729f228`, against a real backend (`mock:false`, 5 kernels, far
-  DEM + tiles, manifest `1dcb16ff…`). See `evidence/FINAL_SMOKE_2026-11-15.md`.
-  - **Journey:** Home → Compare → Athena date shift (A 2027-03-01, B 2027-03-14, 240 h: REAL
-    terrain, +210.1 h) → gap explanation and event jump → Best Date → Load as Plan B →
-    Compare → Report print preview → CSV, JSON and briefing.
-  - **Offline briefing:** keyboard scrubbing and jumps work with 0 requests.
-  - **Also checked:** Methods V4/V4b wording; Tour navigation; Simulator qualification and
-    handoff.
-- **Defect fixed (`47642ae`):** a same-origin build pointed basemap imagery at the visitor's
-  localhost. Now verified behind a proxy emulating the documented nginx routing: all requests
-  same-origin, the hillshade loads, deep links work.
-- **Third-party notices:** `THIRD_PARTY_NOTICES.txt` is generated from the 24 bundled packages
-  (`scripts/third_party_notices.mjs`).
-  - It adds the vendored React Bits terms, the font's OFL, an upstream react-three-fiber
-    licence (its npm package ships none) and the NASA credits.
-  - It is served with the build and linked from the footer.
-- **Map citation:** visible and linked in both map views when imagery loads.
-- **Layout shift:** CLS 0 with a reachable API (same-origin build, mobile Lighthouse 95/100). The
-  earlier 0.063 came from the "API unreachable" notice.
-- **Lighthouse:** cold mobile 91/93/94 Performance, 100 Accessibility (`PERFORMANCE_HOME_2026-11-15.md`).
-- **Deployment configuration prepared for review:** `DEPLOYMENT.md` and `deploy/`.
+- **Fresh real smoke** on the candidate code. See the latest section of
+  `evidence/FINAL_SMOKE_2026-11-15.md`:
+  - Athena date shift, both plans 240 h: REAL terrain, +210.1 h.
+  - Gap explanation and event jump; Best Date → Plan B → recompute.
+  - Report print; CSV and JSON; offline briefing reloaded with 0 requests.
+  - Methods V4/V4b wording; Tour; Simulator handoff.
+  - Same-origin imagery, deep links and the notices link.
+- **React Bits replaced (`101e801`).** Its MIT + Commons Clause terms forbid redistributing "the
+  components themselves … in a bundle", which this public repository and the production bundle
+  did.
+  - `Magnet` and `ClickSpark` are replaced by original `MagneticHover` and `ClickBurst` with the
+    same effect.
+  - Checked with real mouse and keyboard events in a production build; both are off under
+    reduced motion.
+- **Licence banners kept.** The minifier had stripped licence comments, including GSAP's notice,
+  which its terms say must not be removed. Vite now keeps legal comments inline.
+- **GSAP 3.12.5 (kept).** The official Standard licence page (effective 30 Apr 2025) permits use
+  "on any website, web application, or digital interface". Azelux's use (three simulator and
+  tour animations) is not a prohibited no-code animation builder, and the notice is now kept.
+  - **Uncertain:** 3.12.5 predates that date. The page says earlier versions stay under the terms
+    licensed before it, and that older text was not retrieved.
+  - **Option, only if Moksh wants the current terms to apply unambiguously:** upgrade to a
+    ≥ 3.13 release. That is a dependency and lockfile change; it is not done.
+- **`THIRD_PARTY_NOTICES.txt` regenerated.** All 24 bundled packages carry licence or notice
+  text (vendored react-three-fiber licence and GSAP notice). It is served with the build,
+  linked from the footer, and the generator reproduces it byte for byte.
+- **Tests and Lighthouse:** 181 tests, typecheck, lint and build pass. Mobile Lighthouse is
+  93 / 93 / 94 Performance and 100 Accessibility.
 
-### Pending: human and device checks (each needs real evidence or an explicit Moksh waiver)
+### Human and device checks (`USABILITY_TASKS.md`)
 
-| Check (`USABILITY_TASKS.md`) | Status |
+All are **pending**. None has been run with real people or devices, and nothing is inferred from
+emulation. Moksh has said he will arrange them. Local-network instructions are in
+`USABILITY_TASKS.md`; the app must not be exposed publicly.
+
+| Check | Status |
 | --- | --- |
-| Usability participant P-A | pending |
-| Usability participant P-B | pending |
-| Physical phone | pending |
-| Physical tablet | pending |
+| P-A, P-B usability participants | pending |
+| Physical phone, physical tablet | pending |
 | Firefox or Safari | pending |
-| Spoken screen reader (NVDA, VoiceOver or Narrator) | pending |
-| Slow-device Moon / terrain 3D and fallback | pending |
-| Physical print | optional (not required) |
+| Spoken screen-reader journey | pending |
+| Slow-device Moon/terrain 3D and fallback | pending |
+| Physical print | optional |
 
-### Decisions for Moksh
+### Decisions on record
 
-1. **Hosting choice and deployment authorization.** See the options in `DEPLOYMENT.md`; no host
-   or URL has been invented.
-2. **React Bits Commons Clause.** The licence allows use "as part of an application, website, or
-   product" but forbids redistributing "the components themselves … whether alone, in a
-   bundle". This public repository contains their source (`Magnet`, `ClickSpark`). Either accept
-   that reading or replace the two decorative components. This is a licence interpretation and
-   is not decided here.
-3. **GSAP 3.12.5** is under GreenSock's "Standard no-charge" licence, not MIT. It is listed in
-   the notices; confirm the use is compatible (Azelux is not sold).
+- Ten-site library retained.
+- Project licence deferred (no LICENSE).
+- V4b adopted with its limits; original V4 stays FAIL; runtime body-centre science unchanged.
+- Physical print optional.
+- Deployment stopped.
 
-### Decisions already made, not engineering blockers
+### Moksh to supply
 
-- Keep the ten-site library.
-- The project licence is deferred (no LICENSE file).
-- V4b is adopted with its limits; V4 stays FAIL; runtime is unchanged.
-- A physical print is optional.
-
-### After authorized deployment
-
-Run PRD 13.3 twice on the deployed URL with the final datasets and record the following:
-
-- URL, SHA, health, source modes, manifest, browser and device;
-- direct routes and CORS;
-- a deployed Lighthouse run and CLS with the API reachable.
-
-Then complete the media, credits, AI-use statement and portal steps. Main merge, tags,
-submission and MVP acceptance need Moksh's authorization.
+1. Results for the human and device checks, or explicit waivers.
+2. Optionally, a decision on upgrading GSAP to ≥ 3.13.
+3. Completion and confirmation of the AI-use statement draft (kept outside the repository).
 
 ## Superseded readiness checkpoint at `01f99c2` (history)
 

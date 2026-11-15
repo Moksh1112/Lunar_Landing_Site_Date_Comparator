@@ -136,11 +136,11 @@ the offline briefing; Methods validation; the simulator debrief; a 375 px phone 
 | --- | --- | --- |
 | Schibsted Grotesk font | SIL OFL 1.1 (`frontend/src/theme/fonts/README.md`, OFL text bundled) | Recorded |
 | Moon texture | NASA SVS CGI Moon Kit (SVS 4720), public domain; credited in Home, tour and simulator | Recorded |
-| React Bits (Magnet, ClickSpark) | MIT + Commons Clause; full text in `frontend/src/components/reactbits/LICENSE-react-bits.md` and the notices | **Moksh:** confirm that vendoring the source in a public repository is acceptable, or replace the two components |
+| React Bits (Magnet, ClickSpark) | Removed in `101e801`: its Commons Clause forbids redistributing the components. Replaced by original MagneticHover and ClickBurst | Done |
 | SPICE kernels, LOLA/PGDA DEMs and maps, Horizons | NASA/JPL/GSFC public data; cited in Methods and the data manifest; not in Git | Recorded |
 | Polar and global map assets | NASA LOLA/PGDA 90 hillshade and SVS 4720 context; the citation is visible and linked on the map when imagery loads (checked 15 Nov) | Done |
 | npm and Python dependencies | `THIRD_PARTY_NOTICES.txt` is generated from the 24 bundled frontend packages with their licence texts (`scripts/third_party_notices.mjs`). The full inventory is in `evidence/DEPENDENCY_LICENSES_2026-11-15.json`. Python packages run server-side and are not shipped to browsers | Done; regenerate when dependencies change |
-| GSAP 3.12.5 | GreenSock Standard no-charge licence (not MIT), referenced in the notices | **Moksh:** confirm compatibility (not sold) |
+| GSAP 3.12.5 | GreenSock notice kept in the bundle (legal comments) and vendored in the notices. The Standard licence permits web-application use; the pre-2025 terms for 3.12.5 were not retrieved | Kept; optional upgrade to ≥ 3.13 for the current terms (Moksh) |
 | Project licence | Deferred by Moksh; no LICENSE added | Not a current engineering blocker; third-party terms remain |
 
 ## Review and publication sequence

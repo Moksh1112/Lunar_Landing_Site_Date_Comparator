@@ -39,7 +39,8 @@ stated otherwise. No physical device was used. Owner-reported items stay owner-r
 | F24 Methods | Verified (`b2b7cc9`) | Rendered: V4 fail, V4b pass, decision note with limits, no invalid evidence files. |
 | F25 Export / report | Verified | Real CSV/JSON; print preview white, 8 charts, REAL. Physical print is not required (TRD: PDF via browser print). |
 | Final-build real smoke | Verified | `evidence/FINAL_SMOKE_2026-11-15.md`: full journey, exports, offline briefing (0 requests), Methods, Tour and Simulator on a real backend (`729f228`); same-origin basemap defect fixed in `47642ae` and re-verified. |
-| Third-party notices | Verified | `THIRD_PARTY_NOTICES.txt` is generated from the bundle and served with the build. React Bits (Commons Clause) and GSAP terms are flagged for Moksh. |
+| Third-party notices | Verified (`101e801`) | React Bits replaced by original components. GSAP and other licence banners kept in the bundle. `THIRD_PARTY_NOTICES.txt`: 24 bundled packages, all with licence or notice text; served and linked. GSAP pre-2025 terms not retrieved (recorded). |
+| Fresh real smoke on candidate | Verified (`fcbacad`) | `evidence/FINAL_SMOKE_2026-11-15.md`, latest section. |
 | Gap / explain / briefing (authorized Iteration-1 extensions) | Verified | `frontend/docs/HANDOFF_GAP_BRIEFING.md`: real data; the downloaded file replayed offline with 0 requests; no-JS view, print and safety tests. |
 | Quality bar: Lighthouse ≥ 90 Perf / A11y on `/` | **Fixed** (`62ffd0c`) + Verified (emulation) | Production build, Lighthouse 12.8.2 mobile: 91 / 93 / 94 Performance and 100 Accessibility in three consecutive cold runs (baseline 80). `PERFORMANCE_HOME_2026-11-15.md`. Physical-device performance remains a human check. |
 | Usability (2 people), physical devices, second browser | **Human** | `USABILITY_TASKS.md` script and template. |
