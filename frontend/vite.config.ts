@@ -4,6 +4,9 @@ import { defineConfig } from "vitest/config";
 // fixtures/ lives one level above frontend/; dev must be allowed to read it in mock mode.
 export default defineConfig({
   plugins: [react()],
+  // Keep third-party licence banners (/*! ... */, @license) in the minified bundle: GSAP's terms forbid
+  // removing its proprietary notice, and MIT packages such as three.js ship their notice this way.
+  esbuild: { legalComments: "inline" },
   server: {
     host: "127.0.0.1",
     port: 5173,
