@@ -1,0 +1,123 @@
+{
+ "schema": "azelux.lighthouse-summary",
+ "lighthouse": "12.8.2",
+ "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+ "url": "http://127.0.0.1:5194/ (vite preview of a production build)",
+ "build_env": {
+  "VITE_USE_MOCK": "false",
+  "VITE_API_URL": "http://127.0.0.1:8012"
+ },
+ "mobile_settings": {
+  "throttling": {
+   "rttMs": 150,
+   "throughputKbps": 1638.4,
+   "requestLatencyMs": 562.5,
+   "downloadThroughputKbps": 1474.5600000000002,
+   "uploadThroughputKbps": 675,
+   "cpuSlowdownMultiplier": 4
+  },
+  "screen": {
+   "mobile": true,
+   "width": 412,
+   "height": 823,
+   "deviceScaleFactor": 1.75,
+   "disabled": false
+  },
+  "method": "simulate"
+ },
+ "sources": {
+  "baseline": "89ce28c (integration)",
+  "final": "62ffd0c (feat/p4-frontend-s0)"
+ },
+ "note": "Each run is a fresh Lighthouse cold load in a new headless Edge profile. Raw reports and traces are kept outside Git (C:/azx/lh).",
+ "runs": {
+  "base1": {
+   "performance": 79,
+   "accessibility": 100,
+   "fcp_ms": 2497,
+   "lcp_ms": 3506,
+   "tbt_ms": 335,
+   "cls": 0.063,
+   "speed_index_ms": 2497,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:07:44.314Z"
+  },
+  "step1": {
+   "performance": 81,
+   "accessibility": 100,
+   "fcp_ms": 2177,
+   "lcp_ms": 2895,
+   "tbt_ms": 461,
+   "cls": 0.063,
+   "speed_index_ms": 2365,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:09:52.729Z"
+  },
+  "step2": {
+   "performance": 90,
+   "accessibility": 100,
+   "fcp_ms": 2181,
+   "lcp_ms": 2900,
+   "tbt_ms": 152,
+   "cls": 0.063,
+   "speed_index_ms": 2181,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:10:58.833Z"
+  },
+  "step3": {
+   "performance": 94,
+   "accessibility": 100,
+   "fcp_ms": 2032,
+   "lcp_ms": 2433,
+   "tbt_ms": 133,
+   "cls": 0.063,
+   "speed_index_ms": 2032,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:11:34.369Z"
+  },
+  "final-mobile-1": {
+   "performance": 91,
+   "accessibility": 100,
+   "fcp_ms": 2035,
+   "lcp_ms": 2434,
+   "tbt_ms": 238,
+   "cls": 0.063,
+   "speed_index_ms": 2035,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:24:18.961Z"
+  },
+  "final-mobile-2": {
+   "performance": 93,
+   "accessibility": 100,
+   "fcp_ms": 1953,
+   "lcp_ms": 2433,
+   "tbt_ms": 188,
+   "cls": 0.063,
+   "speed_index_ms": 1953,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:24:33.118Z"
+  },
+  "final-mobile-3": {
+   "performance": 94,
+   "accessibility": 100,
+   "fcp_ms": 2031,
+   "lcp_ms": 2433,
+   "tbt_ms": 135,
+   "cls": 0.063,
+   "speed_index_ms": 2031,
+   "form_factor": "mobile",
+   "fetch_time": "2026-11-15T14:24:47.227Z"
+  },
+  "final-desktop": {
+   "performance": 100,
+   "accessibility": 100,
+   "fcp_ms": 465,
+   "lcp_ms": 553,
+   "tbt_ms": 0,
+   "cls": 0.027,
+   "speed_index_ms": 484,
+   "form_factor": "desktop",
+   "fetch_time": "2026-11-15T14:25:01.244Z"
+  }
+ }
+}

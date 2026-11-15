@@ -2,7 +2,7 @@
 
 ## Resumed release checks — 15 November 2026
 
-See [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Production Home Lighthouse is now measured: **Performance 80, Accessibility 100**; the ≥90 performance gate remains open. Dependency licence inventory is generated (298 npm entries, 41 locked Python packages); full notice review remains. Map source code contains a visible linked NASA credit above loaded imagery. Moksh retained the ten-site library; no additional public warning was introduced. Project licence remains undecided. Real backend :8012 health and production build rechecked successfully. Human/device and final release checks remain pending.
+Home performance gate (Lighthouse ≥ 90): **met in browser emulation** after fix `62ffd0c`. Three consecutive cold mobile runs scored 91 / 93 / 94 Performance with Accessibility 100 (baseline 80). See [the performance investigation](PERFORMANCE_HOME_2026-11-15.md); earlier measurements are in [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Physical-device performance is still a human check.
 
 ## Current status — 15 November 2026, release preparation (authoritative)
 
@@ -76,7 +76,7 @@ passed, failed or pending.
 3. A second browser (Firefox or Safari).
 4. A spoken screen-reader session (NVDA, VoiceOver or Narrator).
 5. Slow-device 3D and its fallback.
-6. Lighthouse measured on production Home: Performance 80 / Accessibility 100; ≥90 performance target remains unmet. See RELEASE_CHECKS_RESUMED_2026-11-15.md.
+6. Lighthouse on production Home (emulated mobile): 91 / 93 / 94 Performance, Accessibility 100 after `62ffd0c` (`PERFORMANCE_HOME_2026-11-15.md`). Physical-device performance remains pending.
 
 **Physical print:** not required by the canonical documents. TRD: "PDF is the browser's
 print-to-PDF of a report page"; PRD 13.3 step 6: "export CSV and PDF". Print preview and

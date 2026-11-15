@@ -39,7 +39,7 @@ stated otherwise. No physical device was used. Owner-reported items stay owner-r
 | F24 Methods | Verified (`b2b7cc9`) | Rendered: V4 fail, V4b pass, decision note with limits, no invalid evidence files. |
 | F25 Export / report | Verified | Real CSV/JSON; print preview white, 8 charts, REAL. Physical print is not required (TRD: PDF via browser print). |
 | Gap / explain / briefing (authorized Iteration-1 extensions) | Verified | `frontend/docs/HANDOFF_GAP_BRIEFING.md`: real data; the downloaded file replayed offline with 0 requests; no-JS view, print and safety tests. |
-| Quality bar: Lighthouse ≥ 90 Perf / A11y on `/` | **Human** / pending | Not measured; the tool is unavailable offline here. Run Chrome DevTools Lighthouse on the release build. |
+| Quality bar: Lighthouse ≥ 90 Perf / A11y on `/` | **Fixed** (`62ffd0c`) + Verified (emulation) | Production build, Lighthouse 12.8.2 mobile: 91 / 93 / 94 Performance and 100 Accessibility in three consecutive cold runs (baseline 80). `PERFORMANCE_HOME_2026-11-15.md`. Physical-device performance remains a human check. |
 | Usability (2 people), physical devices, second browser | **Human** | `USABILITY_TASKS.md` script and template. |
 | Deployed PRD 13.3 rehearsal ×2 | Pending authorization | `RELEASE_PREPARATION.md`. |
 
@@ -218,7 +218,7 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 ## Gate status
 
 MVP acceptance is **OPEN** and is Moksh's decision. The engineering items are classified in
-"Current F1–F25 status". Open items are the human and device checks, Lighthouse, the F1 scope
+"Current F1–F25 status". Open items are the human and device checks, the F1 scope
 decision and the two deployed rehearsals. V4 is a recorded FAIL with V4b as the adopted
 basis. Three Iteration-1 extensions were explicitly authorized; no other Iteration 1/2 work
 and no release tag are authorized by this ledger. Read `NON_RELEASE_HANDOFF.md` for

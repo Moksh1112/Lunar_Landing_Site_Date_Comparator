@@ -79,7 +79,7 @@ The training result is not landing-safety qualification.
 - **Windows setup:** managed Windows may block the default venv launcher (Application
   Control). Use the documented `AZX_PYTHON_MODE=target` setup.
 - **Bundle size:** Vite warns about large chunks (main and the lazy 3D chunks).
-- **Unverified so far:** performance on all devices and Lighthouse scores.
+- **Unverified so far:** performance on physical and slow devices. Emulated Lighthouse mobile scores 91 / 93 / 94 (`PERFORMANCE_HOME_2026-11-15.md`).
 - **Pending human checks:** physical devices, a second browser, spoken screen-reader use,
   slow-device 3D and two independent usability walkthroughs (`USABILITY_TASKS.md`).
 - **Not done:** no deployment, MVP/RC/final gate, release tag or submission.
