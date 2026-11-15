@@ -1,5 +1,16 @@
 # Start here — engineering takeover, 15 November 2026
 
+## Latest landing integration — 15 November 2026
+
+Reviewed frontend-landing, corrected its source labels/dependency downgrade and
+animation cleanup, and merged green df60cbc (CI 43688963732) into integration.
+The optional dark /landing presentation keeps the light comparator at /.
+All illustrative readouts are SYNTHETIC; actual computation is in the comparator.
+134 tests, lint/typecheck/build pass; responsive bounds and interactions checked.
+See [LANDING_INTEGRATION.md](LANDING_INTEGRATION.md) for exact evidence and preview.
+V4 remains failed; V6 is an owner qualitative spot check. Release stays with user.
+
+
 ## Latest acceptance update — 15 November 2026
 
 Backend 7d6ac55 and frontend 016f01d integrated. Read
