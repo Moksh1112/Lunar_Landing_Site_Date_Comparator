@@ -77,6 +77,39 @@ and sampled accessible-name checks; keyboard skip/glossary/scrubber checks passe
 Backend 551 passed / 6 skipped; combined frontend 131 tests, lint/typecheck/build pass.
 Physical-device, other-browser, screen-reader and two-person usability checks remain
 unverified. Concurrent unpublished landing/package/router work was preserved.
+## Integrated acceptance — 15 Nov 2026 (60ab2b5 + f9a842d), REAL unless marked
+
+The stack was run from integrated source: backend on port 8010 with `AZX_DATA_DIR` external
+(`mock:false`, 5 kernels, `far_160m` + 3 tiles, manifest `1dcb16ff…`), and the frontend
+against it. Browser checks use headless Edge over CDP with viewport emulation; no physical
+devices were used. Controlled failures used network blocking, not fixtures.
+
+Scripts are local evidence, not committed:
+
+- `C:/azx/accept_api.py` writes `accept/api.json`.
+- `C:/azx/accept_ui.mjs` and `accept_ui2.mjs` (browser acceptance).
+- `C:/azx/a11y_check.mjs` (accessibility).
+- `C:/azx/mono_sweep.mjs` (layout sweep).
+- `C:/azx/nav_flow.mjs` (navigation journeys).
+
+| Item | Result |
+| --- | --- |
+| F2 coordinates | 400 for lat −90, lat −90.5, lon 360 and lon −1. A point within 0.01° of either pole is rejected by the documented guard. The UI blocks lat −95 with an inline error, focuses the field and sends no request. |
+| F5 mission/step | 0 h → 400; 1 h and 8760 h → 200; 8761 h → 413; step 0 → 400; step 1 min → 200. |
+| F6 presets | The Date shift preset is applied in the browser. |
+| F7 Best Date | 1 day and 183 days → 200 (183 days scored); 184 days → 413. Athena → Load as Plan B → `/compare` showing "Best date …". A double click sends 1 sweep. |
+| F10 coverage | Athena gives `terrain` with label "tile im2-athena + far_160m". −85.5/45 gives `terrain_coarse` (far_160m). −80/10 gives `geometric`; −80.75/10 gives `terrain_coarse`. Near-only gives TerrainUnavailable (`fd38ce5`, real data). **Defect resolved.** |
+| F13 deltas | Every returned delta equals A − B (real date shift at Athena). |
+| F14 verdicts | Real A 2027-03-01 red (sun, dark gap), B 2027-03-14 green. |
+| F15–F17 scrub | The keyboard range moved the moment readouts from 00:00 to 00:20 UTC for both plans. The mission-day alignment toggle works. The range is named by its "Time: …" label. |
+| F19 Expert | The Expert raw-data table opens. |
+| F20/F25 export | Real CSV: 9,965 lines with provenance header, manifest, horizon mode and REAL. JSON has `provenance` and `result`, skyline and manifest. The report's print emulation gives white paper, 8 charts and REAL. |
+| F21 states | 32 rapid compares → 16 × 200 and 16 × 429. A blocked API shows "Failed to fetch / NETWORK" with Retry, and Retry recovers. A 2.5 s-latency network shows the loading state. A double click sends 1 compare (**defect fixed, `f9a842d`**). |
+| Routes | Direct entry, refresh, legacy redirects, Back fallbacks, browser Back/Forward and the 404 all verified (`frontend/docs/HANDOFF_MONOCHROME.md`). |
+| A11y | 0 contrast failures across 5,181 rendered text elements on 6 routes. The skip link is the first Tab stop and moves focus to `main`. The Learn and Menu dropdowns close on Escape and return focus. Reduced motion renders all routes. Without WebGL, Home falls back to the Moon image and the simulator and tour still render their content. |
+| Layout | 8 routes × 320×640, 375×812, 768×1024, 1440×900, 1440×600 and 1280×560: 48/48 with no horizontal overflow, no clipped controls, a black canvas and no script errors. |
+| Not done | Physical phone and tablet, other browsers, screen-reader speech, 2 usability participants (`USABILITY_TASKS.md`), physical print, deployed rehearsal. |
+
 Earlier pending V6/export/print entries below are historical, superseded here.
 
 

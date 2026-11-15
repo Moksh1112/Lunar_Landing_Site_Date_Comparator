@@ -43,8 +43,9 @@ No teammate has been contacted by this takeover task.
 
 ## Startup and data
 
-For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (comparator),
-`/best-date`, `/methods`, `/report`, `/landing` (simulator), `/landing/tour` (scroll tour).
+For an immediate explicitly synthetic demo: `npm run dev:s0`. Routes: `/` home, `/compare` comparator, `/best-date`, `/methods`, `/report`,
+`/learn/tour` (scroll tour) and `/learn/simulator` (optional simulator). Legacy `/landing`,
+`/landing/tour` and `/tour` redirect with replace, keeping query and hash.
 Health: `http://127.0.0.1:8000/health`; frontend: `http://127.0.0.1:5173`.
 
 A fresh clone was reproduced under ignored `work/takeover-clean-clone`; it has its own
@@ -55,8 +56,8 @@ absolute non-cloud directory outside the repo. The takeover uses `R:/azelux-data
 `C:/azx/data` is an old host-specific example, not a portable dependency.
 
 Check real `/health` resource lists and compare provenance, not an absent banner.
-Near tiles alone currently return mode `terrain` without a far DEM: a recorded
-backend/contract issue. Do not treat that as complete near+far acceptance.
+Near tiles without a far DEM now return the honest TerrainUnavailable error (backend
+`fd38ce5`); `terrain` always means near + far, as the contract defines.
 
 ## Evidence and next handoff
 

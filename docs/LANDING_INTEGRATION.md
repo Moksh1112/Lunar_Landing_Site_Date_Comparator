@@ -1,5 +1,10 @@
 # Landing integration milestone — 15 November 2026
 
+> **Superseded routes (15 Nov 2026):** the simulator is now `/learn/simulator`, the tour
+> `/learn/tour`, the comparator `/compare` and `/` is Home. Old `/landing` links redirect.
+> Route map: `frontend/DESIGN.md`.
+
+
 User requested review of frontend-landing and integration if aligned/green.
 Source 689305a was green; reviewed correction df60cbc was green on run 43688963732
 before merging into feat/p1-s0-integration. Review: frontend/docs/LANDING_INTEGRATION_REVIEW.md.
