@@ -3,7 +3,8 @@
 Coverage rule (contract C08), evaluated per point:
 1. lat > -80.7                                  -> "geometric"
 2. a 20 m tile in data_dir/tiles/*.tif holds the whole 20 km near-field disc around the
-   point and the site pixel is not nodata       -> "terrain"
+   point, the site pixel is not nodata, and the far DEM covers the point -> "terrain"
+   (a tile without a usable far DEM raises TerrainUnavailable: near-only is not "terrain")
 3. the far DEM covers the point, site not nodata -> "terrain_coarse"
 4. otherwise                                     -> "geometric"
 After a skyline is computed, nodata_fraction >= 2 % downgrades one level and recomputes.
@@ -162,12 +163,17 @@ class RealTerrain:
             # Inside DEM coverage but this server has no DEM loaded: an honest error, never a silent
             # "geometric" answer that would misstate the site as having no terrain data.
             raise TerrainUnavailable(lat, lon, f"no DEM loaded from {self.dem_dir.name}/ or tiles/ on this server")
+        far_ok = far is not None and bool(far.covers(np.array([lat]), np.array([lon]))[0]) and math.isfinite(far.height_at(lat, lon))
         if tile is not None:
-            return "terrain", tile, far
-        if far is not None:
-            lo, la = np.array([lon]), np.array([lat])
-            if bool(far.covers(la, lo)[0]) and math.isfinite(far.height_at(lat, lon)):
-                return "terrain_coarse", None, far
+            if far_ok:
+                return "terrain", tile, far
+            # Contract: "terrain" = 20 m near field + 160 m far field. A near tile alone is incomplete
+            # coverage; report it honestly instead of labelling a near-only skyline as full terrain.
+            raise TerrainUnavailable(
+                lat, lon, f"far-field DEM ({self.dem_far}) not loaded or not covering this point; terrain mode needs near + far"
+            )
+        if far_ok:
+            return "terrain_coarse", None, far
         return "geometric", None, None
 
     def coverage(self, lat_deg: float, lon_east_deg: float) -> HorizonMode:
