@@ -81,8 +81,16 @@ export function MethodsPage() {
       <section id="validation" className={styles.section}>
         <h2>Validation</h2>
         <p>
-          Two cross-checks will be shown here: maximum azimuth and elevation difference against JPL Horizons for the test
-          sites, and long-run sunlight and Earth-visibility percentage against NASA PGDA illumination maps per test point.
+          Cross-checks: azimuth and elevation against JPL Horizons for the test sites, and long-run sunlight and
+          Earth-visibility percentages against NASA PGDA illumination maps at five polar test points.
+        </p>
+        <p>
+          <strong>About the PGDA comparison (V4).</strong> PGDA counts the Sun or Earth as visible when any part of its disc
+          is above the terrain, averaged hourly over 18.6 years. Azelux counts a body as visible only when its centre is
+          above the skyline. The original V4 check used Azelux's centre rule and fails the 5 percentage-point target
+          because it measures a stricter quantity. V4b repeats the check with PGDA's own any-part rule and hourly sampling;
+          it is within 5 points at all ten rows and is the approved acceptance basis. The largest difference is the Sun at
+          88° S, 90° E (4.1 points), likely because the terrain models differ. Azelux results still use the centre rule.
         </p>
         <EvidenceList files={files} />
       </section>
