@@ -31,7 +31,7 @@ the final integration run before nominating a release candidate.
 Use the unchanged PRD 13.3 journey, first locally with full datasets, then twice
 on the deployed URL only after deployment authorization:
 
-1. Open `/` and verify real health/network/provenance. Warm the backend.
+1. Open `/` (Home), then `/compare`; verify real health/network/provenance. Warm the backend.
 2. Compare the two curated IM-2 polar points on the same date for 708 h. Check
    both near+far terrain sources, verdicts, signed deltas and source labels.
 3. Scrub to a sunset; inspect windows, countdowns, censored edges and date alignment.
@@ -44,7 +44,7 @@ Record exact URL, commit, UTC time, request IDs, input dates/duration, source mo
 manifest identity, device/browser and result for each run. Local HTTP checks and
 owner-reported browser runs do not count as two deployed rehearsals.
 
-Optional simulator demonstration: `/landing`, fixed 240 h qualification, Athena,
+Optional simulator demonstration: `/learn/simulator`, fixed 240 h qualification, Athena,
 A=2027-03-01; search B rather than changing thresholds. Owner-reported B=2027-03-14
 is GREEN with +210.1 h both-visible time under full terrain. Independently repeat
 with complete near+far data before using that exact figure in release media.
@@ -98,3 +98,42 @@ Use the existing human Git identity, no AI trailers/footers, no protection chang
 no branch deletion or force-push. Publish only the reviewed P1 milestone to
 `feat/p1-s0-integration`, then inspect the exact hosted SHA and all seven jobs.
 Moksh separately decides deployment, main merge, tags, submission and final acceptance.
+
+## Release candidate checklist (15 Nov 2026)
+
+Do these in order. Items marked **Moksh** need the user's explicit decision or action.
+
+1. **Integration CI:** confirm hosted CI is green on the final integration SHA (`PROGRESS.md`).
+2. **Clean clone:** `git clone --branch feat/p1-s0-integration …`.
+   - On managed Windows, set `AZX_PYTHON_MODE=target`, then run `npm run setup`.
+   - Set an absolute non-cloud `AZX_DATA_DIR` (data from `NON_RELEASE_HANDOFF.md`).
+   - Check `/health`: `mock:false`, 5 kernels, `far_160m.tif` + tiles, and the manifest hash.
+3. **Demo script** (about 5 minutes, REAL backend):
+   1. Open `/`. Point out the explanation and the three options.
+   2. Choose **Compare landing plans**, then select **Date shift** and set IM-2 Athena for
+      Plan A (2027-03-01) and Plan B (2027-03-14), 240 h.
+   3. Compare. Expected: A RED, B GREEN, "Plan B gets 210.1 h more…".
+   4. Scrub the timeline and point out the provenance (terrain, DEM, REAL).
+   5. Open Best Date at Athena for March 2027, choose **Load as Plan B**, then compare.
+   6. Open Report, then Print preview (white paper). Show the Export CSV and JSON.
+   7. Methods: V1/V2/V3/V5 pass, V6 is a qualitative owner review, and **V4 is FAIL** (explain
+      why).
+   8. Optional: open Learn → Simulator and pass the 240 h challenge.
+4. **Evidence list:**
+   - `MVP_VERIFICATION.md` (integrated acceptance), `TAKEOVER_VERIFICATION_2026-11-15.md`
+   - `frontend/docs/HANDOFF_MONOCHROME.md`, `frontend/docs/HANDOFF_SIMULATOR.md`
+   - `backend/docs/V4_DECISION_2026-11-15.md`, `validation/results/*`
+   - Screenshots are kept locally (`C:/azx/accept/*`, `C:/azx/shots-nav*`). Regenerate them on
+     the release machine; images are not committed.
+5. **Go / no-go:**
+   - **Go** needs all of these:
+     - green integration CI;
+     - clean-clone real `/health` and the demo result reproduced;
+     - V4 decision recorded (**Moksh**);
+     - usability and device checks done or explicitly waived (**Moksh**).
+   - **No-go** if any of these happen:
+     - a REAL/SYNTHETIC label or horizon mode does not match the data actually used;
+     - V4 is presented as passing;
+     - anything claims safety certification, wattage or a guaranteed radio link.
+6. **Moksh only:** nominate the release candidate SHA, authorize the deployment, run the
+   deployed rehearsal twice, then merge to main, tag, submit and accept the MVP.

@@ -1,6 +1,61 @@
 # Azelux progress and to-do board
 
-## Current project status and pending work — 15 November 2026
+## Current status — 15 November 2026, release-candidate preparation (authoritative)
+
+**Integration** `feat/p1-s0-integration` contains, on top of `28b56e3`:
+
+- monochrome theme and entry flow `47d8a58`
+- backend near-only terrain fix `fd38ce5` and V4 decision `a190102`
+- frontend single-flight submit fix `f9a842d`
+
+Merge `60ab2b5` passed hosted CI ([43716142443](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43716142443)).
+Source CI: theme [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082),
+backend [43715946405](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43715946405).
+The CI for this documentation commit is recorded in the commit that follows it.
+No deployment, main merge, tag, submission or MVP acceptance has happened. Those remain
+Moksh's decisions.
+
+**Done in this pass**
+
+- **F10 terrain mode reporting (defect fixed, `fd38ce5`).**
+  - The defect: a 20 m tile without a far DEM was labelled `terrain`. Reproduced on the
+    real Athena tile ("terrain | tile im2-athena", no far).
+  - Now it returns TerrainUnavailable, with the reason in the error message. Near+far stays
+    `terrain`, far only stays `terrain_coarse`, and outside coverage stays `geometric`.
+  - Six regression tests. Backend: 506 passed, 50 data-gated skips; Ruff clean.
+- **Double submissions (defect fixed, `f9a842d`).** Two clicks in one frame sent two POSTs
+  for Compare and Best Date. A synchronous single-flight gate fixes it; a real-backend
+  browser check now shows 1 POST for each.
+- **Theme and entry flow integrated.** Routes: `/` home, `/compare`, `/learn/tour`,
+  `/learn/simulator`; legacy redirects keep query and hash. Navigation, Back and journey
+  evidence is in `frontend/docs/HANDOFF_MONOCHROME.md`.
+- **Acceptance on the integrated real stack** (port 8010, `mock:false`, 5 kernels, far DEM +
+  3 tiles, manifest `1dcb16ff…`): see `MVP_VERIFICATION.md` "Integrated acceptance".
+- **Clean clone** of `60ab2b5` into an empty directory:
+  - `npm run setup` stopped in default venv mode, because Windows Application Control
+    blocked the generated launcher (OS policy, not bypassed).
+  - The documented `AZX_PYTHON_MODE=target` setup succeeded and `npm run check` passed.
+  - Its backend, with external `AZX_DATA_DIR`, reproduced IM-2 Athena: A 2027-03-01 RED,
+    B 2027-03-14 GREEN, terrain, REAL, A−B both −210.1 h.
+
+**Pending / go-no-go (owners)**
+
+1. **V4 (Moksh decision):** FAIL, 6.299 pp against the ≤ 5 pp target. The PGDA reference
+   counts any visible fraction of the disc, sampled hourly; the runtime uses the body centre.
+   Choose one: accept the validation-only V4b any-fraction method as the basis, or ship with
+   a disclosed V4 FAIL. See `backend/docs/V4_DECISION_2026-11-15.md`. Do not loosen tolerances.
+2. **Human and device checks (Moksh or participants):**
+   - Two independent usability participants (`docs/USABILITY_TASKS.md`).
+   - A physical phone and tablet, a second browser (Firefox or Safari), a screen-reader
+     session, and a physical print.
+   - Only viewport emulation and headless Edge were used here.
+3. **Deployment rehearsal:** the PRD 13.3 journey twice on a deployed URL, only after
+   deployment authorization (`RELEASE_PREPARATION.md`).
+4. **Final authorization (Moksh only):** release candidate nomination, deploy, main merge,
+   tag, submission, MVP acceptance.
+
+## Superseded snapshot — earlier 15 November status (kept for history)
+
 
 **Integration:** `feat/p1-s0-integration` is now `3721130`, containing backend/terrain
 `7d6ac55` and frontend `6310e18`. The final fetch discovered the owner's already-published

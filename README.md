@@ -2,7 +2,9 @@
 
 Compare two lunar plans using local SPICE ephemeris and sourced terrain horizons.
 The comparator provides panoramas, timelines, shared playback, Best Date, provenance,
-CSV/JSON and a printable report. The optional learning simulator is at `/landing`.
+CSV/JSON and a printable report. Routes: `/` home, `/compare` comparator, `/best-date`, `/methods`, `/report`,
+`/learn/tour` (scroll tour) and `/learn/simulator` (optional simulator). Legacy `/landing`,
+`/landing/tour` and `/tour` redirect with replace, keeping query and hash.
 No runtime AI, database, authentication or uploads are required in v1.
 
 ## Start locally
