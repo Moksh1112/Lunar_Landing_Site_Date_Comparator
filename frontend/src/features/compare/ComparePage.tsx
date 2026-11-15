@@ -9,7 +9,7 @@ import { Term } from "../../components/Term";
 import { useStore } from "../../store";
 import { focusFirstInvalid } from "../../components/focus";
 import { ExportButtons } from "../export/ExportButtons";
-import { buildRequest, sharedYRange, validate, type CompareForm, type FieldErrors } from "./compareForm";
+import { buildRequest, matchesComputedPlans, sharedYRange, validate, type CompareForm, type FieldErrors } from "./compareForm";
 import { HorizonPanorama } from "./HorizonPanorama";
 import { ModePresets } from "./ModePresets";
 import { RawData } from "./RawData";
@@ -133,6 +133,7 @@ export function ComparePage() {
   // The last successful compare lives in the store, so results survive navigation to Report and back.
   const shown = lastCompare;
   const data = shown?.response;
+  const plansChanged = shown ? !matchesComputedPlans({ mode, scenarios: [scenarios.A, scenarios.B], thresholds }, shown.request) : false;
   const sentThresholds = shown?.request.thresholds;
   const range = useMemo(() => (data ? sharedYRange(data.scenarios) : null), [data]);
   // F17: one scrubber value, mapped to each plan's own absolute time (calendar or mission-day alignment).
@@ -219,6 +220,7 @@ export function ComparePage() {
                 <div className={styles.metaRow}>
                   <ExportButtons response={data} request={shown?.request ?? lastRequest} className={styles.actions} withReport />
                 </div>
+                {plansChanged && <p role="status">Plans changed. Results below are from your previous comparison. Select Compare to update them.</p>}
                 <h2 className={styles.answer}>{conclusion(data)}</h2>
                 {synthetic && <SyntheticResultNote />}
               </header>
@@ -287,3 +289,4 @@ export function ComparePage() {
     </main>
   );
 }
+

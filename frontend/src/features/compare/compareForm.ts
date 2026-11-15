@@ -144,3 +144,10 @@ export function sharedYRange(scenarios: ScenarioResult[]): { yMin: number; yMax:
   }
   return { yMin: Math.floor(lo), yMax: Math.ceil(hi) };
 }
+
+/** Threshold changes reuse ephemeris; plan changes require Compare. */
+export function matchesComputedPlans(form: CompareForm, request: CompareRequest): boolean {
+  if (Object.keys(validate(form)).length) return false;
+  const current = buildRequest(form, request.step_minutes, request.observer_height_m);
+  return current.mode === request.mode && JSON.stringify(current.scenarios) === JSON.stringify(request.scenarios);
+}
