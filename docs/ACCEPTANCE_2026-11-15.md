@@ -1,5 +1,7 @@
 # Acceptance checks — 15 November 2026
 
+> Scope: Revision-scoped acceptance record at the sources below. Current implementation is `63bf0af`; later scoped UI evidence supplements this record without re-certifying old export/print/device checks. The current ledger, not this snapshot, controls pending acceptance. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 Current integrated code: backend 7d6ac55, frontend 016f01d. These supersede earlier
 pending export/print and V6 snapshots. Release remains with the user.
 

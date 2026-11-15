@@ -2,9 +2,9 @@
 
 ## Current project status and pending work — 15 November 2026
 
-**Integration:** local merge commit `ad2ac2e` contains Moksh's `47d8a58` redesign and the reviewed landing/Best Date/chart fixes. It was committed at the user's request and was not pushed. Last verified published baseline is `28b56e3`. Source CI for `47d8a58` is [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082), seven jobs SUCCESS; no hosted CI is claimed for local-only changes.
+**Integration:** latest implementation is local commit `63bf0af` on `feat/p1-s0-integration`, following UI milestone `50b14ea` and merge `ad2ac2e`. That merge preserves parents `28b56e3` and Moksh's redesign `47d8a58`. These local milestones are committed and unpushed. Last verified published baseline is `28b56e3`. Source CI for `47d8a58` is [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082), seven jobs SUCCESS; no hosted CI is claimed for local-only changes.
 
-**Latest UI milestone (local only):** `50b14ea` added the dedicated analyser, shared Simulator chrome, prior theme/graph/Best Date fixes and visual-source credits in Methods. The follow-up now keeps **gray height shading only** (dark lowlands, light high ground), adds a continuous **1x-5x height slider**, and preserves camera orbit/zoom/pan while scaling. Only Reset view or a different tile reframes. Earth uses the existing NASA texture, a response-derived motion path, eased positions and a direct mission clock/scrubber. Playback clamps to the selected plan and replays from the endpoint. Initial investigation confirmed Earth was updating but moving subtly; no fabricated orbit was added. **163 tests**, lint/typecheck/build pass; isolated Chrome/Brave verify actual rendered Earth against REAL SPICE response geometry and identical camera transforms before/after slider changes. See [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md). **No push; no new hosted integration CI.**
+**Latest UI milestone (local only):** `50b14ea` added the dedicated analyser, shared Simulator chrome, prior theme/graph/Best Date fixes and visual-source credits in Methods. Committed follow-up `63bf0af` keeps **gray height shading only** (dark lowlands, light high ground), adds a continuous **1x-5x height slider**, and preserves camera orbit/zoom/pan while scaling. Only Reset view or a different tile reframes. Earth uses the existing NASA texture, a response-derived motion path, eased positions and a direct mission clock/scrubber. Playback clamps to the selected plan and replays from the endpoint. Initial investigation confirmed Earth was updating but moving subtly; no fabricated orbit was added. **163 tests**, lint/typecheck/build pass; isolated Chrome/Brave verify actual rendered Earth against REAL SPICE response geometry and identical camera transforms before/after slider changes. See [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md). **No push; no new hosted integration CI.**
 
 **Current assignment:** P1 owns root tooling, CI and integration docs; the user explicitly authorized this UI milestone. Broader frontend/backend implementation remains with its owners. Kush
 ([kushpagariya](https://github.com/kushpagariya)) is the likely all-rounder: GitHub maps
@@ -43,7 +43,9 @@ The user relays coordination; no teammate message was sent. Owner editing activi
   manifest snapshot and real HTTP summaries are in `docs/evidence/TAKEOVER_*`.
 - Concurrent frontend `6310e18` changes nav/buttons/copy and vendors React Bits components;
   it changes no backend, contract, lockfile or threshold. Source/merge CI were read before
-  fast-forward. Current UI browser/keyboard/mobile/reduced-motion review is still required.
+  fast-forward. Later local UI evidence at `63bf0af` covers isolated Chrome/Brave,
+  sampled keyboard, responsive and reduced-motion interactions. Full human/device
+  acceptance remains open.
 
 **Still pending**
 
@@ -61,9 +63,9 @@ The user relays coordination; no teammate message was sent. Owner editing activi
    terrain tile/coverage boundaries; broader/slower Best Date ranges; censored windows;
    A−B sign and threshold interactions; panorama/timeline/scrubber alignment; slow-network
    and error states; full keyboard/screen-reader checks; and physical print setup.
-4. **Human/device checks:** physical phone/tablet, another browser, assistive-technology
-   speech, slow-device 3D behavior/performance, and two independent usability walkthroughs
-   remain unverified. Responsive viewport emulation is not device testing.
+4. **Human/device checks:** physical phone/tablet and assistive-technology
+   speech, full manual alternate-browser/engine coverage, slow-device 3D behavior/performance,
+   and two independent usability walkthroughs remain unverified. Responsive viewport emulation is not device testing.
 5. **Release gate:** user-owned deployed demo/rehearsals, final acceptance, deployment,
    submission and release tags remain to be done by the user. MVP acceptance is OPEN.
 
@@ -77,8 +79,8 @@ conflict with this current list, this section and the linked acceptance ledger t
 | --- | --- |
 | All-rounder, backend/terrain | V4 reference epoch/disc/DEM investigation with original FAIL retained; partial-data mode mismatch; tile/coverage edges; sourced international/commercial library breadth and mission/sample/date limits. Send exact source SHA, green CI, commands, source modes and remaining limits. |
 | All-rounder, frontend | Real simulator rerun with complete near+far provenance; date-shift and panorama/timeline/scrubber alignment; threshold/delta/countdown cases; slow/error/retry/double-submit/stale-result behavior; current exports/report after affected changes. Send exact source SHA and attributed browser evidence. |
-| P1 | Human review of the prepared tooling/CI/docs diff, then commit/push P1 and verify its exact hosted CI; review future owner source/contract diffs only after the source SHA is green; maintain evidence and release drafts. Clean-clone real near+far startup is reproduced. No owner source edits. |
-| Humans/device owners | Full keyboard and spoken screen-reader journey, physical phone/tablet, alternate browser, slow-device 3D/fallback and two outside-team usability participants (unassisted finish/time/stuck point; target each under two minutes). |
+| P1 | Commit authorized local milestones and maintain evidence/release drafts. Do not push unless the user explicitly changes that instruction. Review future owner source/contract diffs only after the exact source SHA is green; inspect hosted integration CI after any separately authorized push. Clean-clone near+far startup is reproduced. The recent frontend edits were explicitly user-authorized exceptions. |
+| Humans/device owners | Full keyboard and spoken screen-reader journey, physical phone/tablet, full manual alternate-browser/engine coverage, slow-device 3D/fallback and two outside-team usability participants (unassisted finish/time/stuck point; target each under two minutes). |
 | Moksh / Coordinator | Resolve scientific/contract decisions and stage sync; review P1 diff before commit; authorize any final deployment/main merge/tag/submission/MVP decision separately. |
 
 Release draft and demo procedure: `docs/RELEASE_PREPARATION.md`. No new F1–F25 gate is

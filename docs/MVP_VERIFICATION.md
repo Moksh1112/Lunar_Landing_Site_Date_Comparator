@@ -2,7 +2,8 @@
 
 ## Current local UI evidence - 15 November 2026
 
-Local merge `ad2ac2e` contains source `47d8a58` over `28b56e3`. The subsequent user-directed
+Current local implementation: **`63bf0af`**, after UI milestone `50b14ea` and merge
+`ad2ac2e` (owner source `47d8a58` over `28b56e3`). The subsequent user-directed
 UI milestone adds `/terrain` beside Best Date, shared Simulator chrome, improved terrain
 framing/controls and clearer 2D recovery. Repeated visual credits/caveats moved into Methods.
 **163 frontend tests, lint, TypeScript and production build pass.** Isolated Chrome/Brave
@@ -58,7 +59,8 @@ Current library coordinates match the opened primary source pages; see
 and separate commercial coverage are absent; the intended target and impact reference
 are not two additional actual landings. F1 breadth remains partial.
 
-P1 changes root tooling/CI and integration docs only. Implementation and acceptance
+P1 generally owns root tooling/CI and integration docs. The subsequent frontend
+changes in `50b14ea` and `63bf0af` were explicitly authorized by the user. Implementation and acceptance
 tasks for the all-rounder, P1 and human/device reviewers are assigned in the single
 current list at the top of [PROGRESS.md](PROGRESS.md). Earlier dated evidence below
 retains its original revision/source scope.
@@ -127,8 +129,8 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 | F14 Verdicts | Real sweep produced different verdicts; threshold tests retained | Fresh keyboard threshold interaction |
 | F15 Panorama | Real skylines/paths; current graph-only tooltips and gradual marker movement with immediate reduced-motion positioning checked | Complete scrubber interaction pass |
 | F16 Timeline | Real Sun/Earth/both/difference lanes displayed | Fresh date-alignment regression |
-| F17 Scrubber | Shared store and regression tests; earlier interaction evidence | Full current cross-view sync check |
-| F18 Terrain 3D | Dedicated /terrain route; REAL coarse tile, 5x framing, Reset view and 2D fallback checked in isolated Chrome/Brave on one host | Other hardware and slow-device performance/fallback |
+| F17 Scrubber | Shared state; terrain mission scrubber/playback/replay and exact Earth endpoint checked; simulator debrief slider works | Full current cross-view sync check |
+| F18 Terrain 3D | `/terrain`; gray height shading, continuous 1x-5x scale, retained orbit/zoom/pan, textured Earth/path, Reset view and 2D fallback checked in isolated Chrome/Brave at `63bf0af` | Other hardware and slow-device performance/fallback |
 | F19 Simple/Expert | Implemented; raw tables and method details present | Full keyboard and screen-reader review |
 | F20 Provenance | Coarse/terrain source labels visible; actual CSV/JSON downloads and corrected CSV checked | No known open defect; preserve provenance on future changes |
 | F21 UI states | Prior fixtures/tests; stale-plan notice now browser-verified | Full break-it pass, slow network |

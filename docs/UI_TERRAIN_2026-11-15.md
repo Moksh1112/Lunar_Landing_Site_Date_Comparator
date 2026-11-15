@@ -1,5 +1,9 @@
 # Final local UI milestone - 15 November 2026
 
+Implementation commit: `50b14ea` on `feat/p1-s0-integration` (local, unpushed).
+
+> Scope: Implementation checkpoint: `50b14ea`. Later commit `63bf0af` replaces the height buttons with a continuous slider, adds gray height encoding and Earth-motion controls, and preserves camera transforms during scaling. Earlier counts and checks below remain checkpoint evidence. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 This user-directed milestone follows local merge `ad2ac2e` (parents `28b56e3` and
 owner redesign `47d8a58`). The user requested local commit after implementation and
 exploration. No push, hosted integration CI, release or acceptance gate is claimed.

@@ -3,8 +3,10 @@
 ## Current P1 takeover authority and portable reproduction
 
 The user has assigned P1 integration/tooling/CI/docs/evidence only; the all-rounder
-owns backend/terrain and ALL frontend implementation. Earlier full-stack and stop
-snapshots below are historical. The single current work list is the top of
+owns backend/terrain and general frontend implementation. Later user requests
+explicitly authorized frontend UI milestones `50b14ea` and `63bf0af`; they are committed
+locally and unpushed. Earlier full-stack and stop snapshots below are historical.
+The single current work list is the top of
 [PROGRESS.md](PROGRESS.md). Current commands/results and remaining dataset scope:
 [TAKEOVER_VERIFICATION_2026-11-15.md](TAKEOVER_VERIFICATION_2026-11-15.md).
 
@@ -16,8 +18,16 @@ Stop this checkout's verified Python/Vite processes before rerunning setup on Wi
 Run one Vite dev server per checkout. Separate previews must use an isolated checkout
 or a distinct Vite cache directory; competing servers can overwrite dependency chunks
 and cause stale React initialization or HTTP 504 failures.
-The P1 diff fixes uv's existing-venv refusal and adds repeat setup to both CI modes.
-It awaits human review before commit; no hosted result for this diff is claimed.
+The setup fix (`uv venv --allow-existing`) and repeat-setup CI changes are committed
+in `28b56e3`. UI follow-ups through `63bf0af` are local only; no new hosted integration
+result is claimed for them. Current instruction: commit locally, **do not push**.
+
+Current local UI routes are listed in [PROJECT.md](PROJECT.md). Open `/terrain` for
+3D, sky/horizon and timeline analysis; Compare no longer has bottom terrain buttons.
+Best Date saves Plan B without navigation; use Compare A and B explicitly. Reproduce
+current camera/motion behavior using [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
+The remote-clone evidence covers the published baseline; it does not reproduce the
+unpushed `63bf0af` UI from the remote.
 
 Choose an absolute non-cloud data directory outside the repository. The takeover
 uses `R:/azelux-data`; the old `C:/azx/data` examples below are not required. From
@@ -43,7 +53,9 @@ and is recorded for the backend owner. Inspect actual DEM names, not just mode/b
 Health must report mock=false, all five expected kernels and the installed DEMs;
 results must retain REAL, source DEM, step, contract 1.1 and manifest identity.
 The downloader uses two attempts and keeps resumable `.part` files; do not silently
-restart repeatedly at a failed boundary. No source-data bytes belong in Git.
+restart repeatedly at a failed boundary. Runtime kernels/DEMs/rasters stay outside
+Git. Small licensed visualization textures are vendored separately under the
+frontend assets directory with source/credit records; they are not science inputs.
 
 The following sections retain dated original-host evidence. Their paths, PIDs,
 counts and pending lists do not override the current progress board or new evidence.

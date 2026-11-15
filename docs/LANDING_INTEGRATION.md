@@ -1,5 +1,7 @@
 # Landing integration milestone — 15 November 2026
 
+> Scope: Historical landing-route milestone. The current default `/` is the tour, comparison is `/compare`, and legacy `/landing` opens Simulator. Later UI behavior and ownership exceptions are recorded in the current handoff. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 User requested review of frontend-landing and integration if aligned/green.
 Source 689305a was green; reviewed correction df60cbc was green on run 43688963732
 before merging into feat/p1-s0-integration. Review: frontend/docs/LANDING_INTEGRATION_REVIEW.md.

@@ -1,5 +1,7 @@
 # Monochrome redesign integration - 15 November 2026
 
+> Scope: The prepared merge described below was committed as `ad2ac2e`. Later user-authorized UI work is in `50b14ea` and `63bf0af`; it was not pushed. Pending-merge wording and owner-byte comparisons below refer to the earlier inspection, not current status. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 P1 baseline: `28b56e34803c08860a68c4069efa8fc6722d7678`.
 Owner source: `codex/unified-monochrome-theme` at
 `47d8a58083f5a440d41d20d8a8c5b829cc0300ba`, containing `4812d1c`, `d2e6860`,

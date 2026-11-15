@@ -1,5 +1,7 @@
 # UI routing and graphics follow-up - 15 November 2026
 
+> Scope: These changes were subsequently committed in `50b14ea`. The dedicated analyser and gray-height/camera follow-up in `63bf0af` supersede Compare-bottom terrain controls and earlier recovery layout. Earlier test measurements retain their original scope. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 Local base: `ad2ac2e`, parents `28b56e3` and owner source `47d8a58`. These frontend
 changes were explicitly requested by the user. They remain local and await human
 diff review under AGENTS.md before a further commit. Nothing was pushed and no

@@ -20,11 +20,14 @@ lists and every result's REAL/SYNTHETIC, horizon mode, DEM and manifest identity
 An `ok` health response alone does not establish that all datasets are present.
 NASA SVS imagery is visual context only; it never supplies visibility calculations.
 
-The current published baseline is P1 `3721130`, containing backend `7d6ac55`
-and frontend `6310e18`; no release candidate is declared. Both source and integration
-CI passed seven jobs; the new UI still needs fresh browser acceptance. The prepared takeover
-diff awaits human review and has no new hosted CI. Refresh source SHAs and record
-the final integration run before nominating a release candidate.
+Last verified published baseline: `28b56e3`. Current local implementation is
+`63bf0af`, after `50b14ea` and merge `ad2ac2e` (parents `28b56e3` and source `47d8a58`).
+These commits are unpushed under the user's instruction. Source CI for `47d8a58`
+[passed seven jobs](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082);
+there is no hosted integration result for the local UI. At `63bf0af`, 163 frontend
+tests, lint/typecheck/build and scoped isolated Chrome/Brave real-data checks pass.
+No release candidate is declared. Refresh refs/source CI and obtain push authorization
+before recording hosted integration CI or nominating a release candidate.
 
 ## Local rehearsal and eventual deployed acceptance
 
@@ -36,9 +39,16 @@ on the deployed URL only after deployment authorization:
    both near+far terrain sources, verdicts, signed deltas and source labels.
 3. Scrub to a sunset; inspect windows, countdowns, censored edges and date alignment.
 4. Select same site / shifted date, move B two weeks and compare again.
-5. Open Best Date for a 60-day range; load a best day as B and recompute.
-6. Toggle Simple/Expert, open optional 3D and fallback, visit Methods, download
-   CSV/JSON and print the report. Inspect the actual new files and provenance.
+5. Open Best Date for a 60-day range. Load a day as B: the search/calendar should
+   stay open and confirm the saved date. Select Compare A and B explicitly; verify
+   the returned B starts on that selected UTC date.
+6. Open **3D Terrain** in the navbar (`/terrain`). Scrub/play the mission and inspect
+   Earth/Sun paths. Orbit/zoom/pan, then move the 1x-5x height slider: camera transforms
+   should remain unchanged. Reset view should reframe. Inspect gray height shading
+   and its meter legend; open sky/horizon or timeline views, including 3D fallback.
+7. Toggle Simple/Expert and light/dark theme, visit Methods/visual credits, download
+   CSV/JSON and print the report. Inspect the actual files, source provenance and
+   white-paper print output. Compare no longer has bottom terrain buttons.
 
 Record exact URL, commit, UTC time, request IDs, input dates/duration, source modes,
 manifest identity, device/browser and result for each run. Local HTTP checks and
@@ -61,7 +71,8 @@ The training result is not landing-safety qualification.
   it is not ten actual landings. International/commercial breadth remains partial.
 - Visibility uses body centres. Earth visible does not guarantee a communications
   link; sunlight does not predict watts. Terrain resolution/coverage limit detail.
-- Physical devices, other browsers, spoken screen-reader use, slow-device 3D and
+- Scoped isolated Chrome/Brave checks are recorded. Physical devices, full manual
+  alternate-browser/engine journeys, spoken screen-reader use, slow-device 3D and
   two independent usability walkthroughs remain unverified. Bundle-size warnings
   remain; a local 3D measurement does not establish all-device performance.
 - No final deployment, MVP/RC/final gate, release tag or submission is claimed.
@@ -79,7 +90,7 @@ been independently revalidated; confirm them before submission.
 | Detailed description | Browser comparison of Sun/Earth visibility, terrain horizons, windows, A-minus-B metrics and threshold verdicts; Best Date explores landing dates. Include the validation outcomes and known limits above without a safety or radio-link claim. |
 | NASA resources | JPL NAIF SPICE/DE440; Horizons for offline cross-checks; LOLA/PGDA 90 terrain; PGDA 69 validation maps; NASA NSSDCA/LROC/NTRS site sources; NASA SVS visualization context. Do not claim Artemis region coordinates were verified. |
 | Other resources / licences | Verify the final dependency/image/font licence inventory and credits on the frozen revision; list only resources actually used. |
-| AI-use disclosure | Codex assisted this takeover's repository inspection, tooling and documentation. The team must add the actual tools and uses for earlier implementation/document drafting; this draft is not a complete historical disclosure. Preserve any required media watermarks. |
+| AI-use disclosure | Codex assisted repository inspection, tooling, integration documentation, user-requested frontend implementation/visual refinement and automated testing, including the `50b14ea` and `63bf0af` UI milestones. The team must add the actual tools and uses for earlier implementation/document drafting; this draft is not a complete historical disclosure. Preserve any required media watermarks. |
 | Event-period originality | Each teammate confirms what was built during the event, reused components and their rights; do not infer from Git author names alone. |
 | Final project links | Authorized public deployment URL and repository; test without login/incognito and on a physical phone. No URL is invented here. |
 | Demo media | <=30 s video with English subtitles; <=7-slide alternative/backup deck, backup recording and seven-slide PDF. Record the frozen, warmed, authorized deployment. Media is not yet produced. |
@@ -95,6 +106,7 @@ semantics, limitations, provenance and original versus reused work.
 
 Human reviews the concrete P1 diff before commit (AGENTS.md; Playbook 4.3/5.2).
 Use the existing human Git identity, no AI trailers/footers, no protection changes,
-no branch deletion or force-push. Publish only the reviewed P1 milestone to
-`feat/p1-s0-integration`, then inspect the exact hosted SHA and all seven jobs.
+no branch deletion or force-push. Current user instruction: **commit locally only;
+do not push**. After a separate explicit push authorization, publish the reviewed
+P1 milestone to `feat/p1-s0-integration` and inspect its exact hosted SHA and jobs.
 Moksh separately decides deployment, main merge, tags, submission and final acceptance.

@@ -1,5 +1,7 @@
 # Terrain height and motion refinement - 15 November 2026
 
+Implementation commit: `63bf0af` on `feat/p1-s0-integration` (local, unpushed).
+
 Follow-up to `50b14ea`, requested by the user. AI-assisted implementation and automated
 verification; existing human git identity retained. No push or hosted CI is claimed.
 

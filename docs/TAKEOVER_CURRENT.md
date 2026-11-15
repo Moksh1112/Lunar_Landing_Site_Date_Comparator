@@ -2,13 +2,16 @@
 
 P1 owns repository coordination, root tooling/CI, integration, evidence and release
 preparation. The all-rounder owns backend/terrain and ALL frontend implementation.
-Earlier temporary full-stack instructions and dated service/PID snapshots are historical.
+Later direct user requests authorized the frontend milestones `50b14ea` and `63bf0af`;
+this is a scoped exception, not a transfer of general ownership. Earlier temporary
+full-stack instructions and dated service/PID snapshots are historical.
 Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
 ## Current redesign integration
 
 Published baseline is `28b56e3`. Local merge `ad2ac2e` preserves parents `28b56e3` and Moksh's theme source `47d8a58`; source CI [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082) passed seven jobs. The user explicitly requested the subsequent frontend milestone and a local commit: see [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md) for its final route map, checks and repeat steps. **Do not push.** No hosted CI is claimed for the local UI revision. Earlier UI_POLISH/UI_RECOVERY notes describe intermediate snapshots; the dedicated `/terrain` page supersedes Compare's old terrain buttons.
 
+Latest committed implementation: `63bf0af552ca54c2abf26ad5f2d0f24d6da8d15c`.
 Latest analyser follow-up: [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
 Height shading is gray only; the continuous slider preserves the user's camera. Earth
 motion is traced from real response positions. Latest frontend checks: 163 tests plus
@@ -27,7 +30,9 @@ Latest push-triggered P1 CI is [43702841533](https://github.com/Moksh1112/Lunar_
 seven jobs SUCCESS at `3721130`. Owner CI `43687231193` and `43701473118` also passed.
 The owner had already merged the concurrent frontend update; P1 reviewed source/CI
 and fast-forwarded both checkouts. Refresh refs and CI before a later integration.
-The current P1 takeover diff is uncommitted; its new CI step has not run on GitHub.
+This subsection describes the earlier `3721130` checkpoint. The setup/CI takeover
+changes were subsequently committed in `28b56e3`; the later UI commits are local
+and unpushed. This older hosted result does not validate `63bf0af`.
 
 ## Work safely
 
@@ -52,7 +57,7 @@ No teammate has been contacted by this takeover task.
 
 ## Startup and data
 
-For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (Home), `/compare` (comparator), `/best-date`, `/methods`, `/report`,
+For an immediate explicitly synthetic demo: `npm run dev:s0`. Open `/` (Home), `/compare` (comparator), `/best-date`, `/terrain`, `/methods`, `/report`,
 `/learn/simulator` and `/learn/tour`. Old `/landing`, `/landing/tour` and `/tour` links redirect.
 Health: `http://127.0.0.1:8000/health`; frontend: `http://127.0.0.1:5173`.
 
@@ -77,10 +82,12 @@ API check does not replace their browser evidence or the remaining human/device 
 
 Use [RELEASE_PREPARATION.md](RELEASE_PREPARATION.md) for the architecture, demo steps,
 known limits and submission drafts. Ask humans for physical-device, spoken screen-reader,
-alternate-browser, slow-device and two independent usability walkthrough evidence.
+full manual alternate-browser/engine, slow-device and two independent usability
+walkthrough evidence. Isolated Chrome/Brave checks are already recorded; they do
+not complete these human/device requirements.
 
-Stop at the human diff-review/sync boundary before commit. Only reviewed P1 milestones
-may be pushed to `feat/p1-s0-integration`. Final deployment, main merge, release tags,
+Honor human review/sync requirements and the user's explicit milestone instructions.
+Commit locally only; **do not push** unless the user explicitly changes that instruction. Final deployment, main merge, release tags,
 submission and MVP acceptance require Moksh's explicit release authorization.
 Preserve untracked `.codex/` and other local configuration; no such files belong in the
 milestone. Disclose actual AI help honestly where required; no invented authorship.

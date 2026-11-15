@@ -6,7 +6,9 @@ The 15 November takeover instruction assigns P1 integration, root tooling, CI,
 coordination, acceptance evidence and release preparation only. The all-rounder
 owns backend/terrain and ALL frontend implementation on the two existing owner
 branches. Earlier temporary full-stack authorization is historical and does not
-authorize P1 implementation now. Keep the three existing branches; do not create
+authorize general P1 implementation now. Later direct user requests authorized
+the scoped UI work committed in `50b14ea` and `63bf0af`; frontend/backend ownership
+otherwise remains unchanged. Keep the three existing branches; do not create
 stage branches. Human diff review precedes a commit. Final deployment, main merge,
 tags, submission and MVP acceptance require Moksh's explicit release authorization.
 Current status: PROGRESS.md; takeover procedure: TAKEOVER_CURRENT.md.
@@ -49,10 +51,13 @@ not scientific accuracy or implemented API contract conformance.
 New kit open issues remain in CONTRACT_CHANGE_REQUESTS_S0.md; adoption is not freeze.
 
 ## Runtime implementation boundary
-Backend source is unchanged and still health-only; frontend is unchanged and still
-an empty scaffold. Mock API endpoints, typed client, source labels, product views,
-SPICE, DEM services, validation scripts and data manifests need their owners.
-Do not treat new fixture files or copies of PDFs as completed product features.
+
+The health-only backend and empty frontend were the initial S0 state, not the
+current implementation. Real SPICE/DEM comparisons, sweeps, maps, exports/report,
+Simulator and the dedicated Terrain Analyser are integrated. Current implementation
+and evidence scope are in [PROJECT.md](PROJECT.md) and [MVP_VERIFICATION.md](MVP_VERIFICATION.md).
+Fixture generation is still SYNTHETIC evidence, not scientific validation. V4 remains
+FAIL; implementation and green CI do not establish final acceptance.
 
 ## Historical evidence
 Archive preserves earlier files verbatim under docs/archive/. Stage reports are

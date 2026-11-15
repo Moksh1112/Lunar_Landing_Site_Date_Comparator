@@ -1,5 +1,7 @@
 # P1 takeover verification - 15 November 2026
 
+> Scope: Historical takeover/setup/data verification at the exact revisions below. Its no-frontend-edit and uncommitted-diff statements describe that audit, before later user-authorized UI commits `50b14ea` and `63bf0af`. Acquisition evidence is retained; this is not current UI acceptance. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 Scope: P1 repository/tooling/CI/docs and independent integration checks. No backend
 or frontend implementation was edited; no owner acceptance, stage pass or release
 decision is impersonated. Current work assignments are in [PROGRESS.md](PROGRESS.md).

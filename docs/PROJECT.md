@@ -16,7 +16,9 @@ and `docs/archive/` are not runtime inputs or current blockers.
 Kush / `kushpagariya` is the history-based all-rounder identification: backend/terrain
 commits `d5c137b`/`0856c14` and frontend `9901476`; GitHub maps `d5c137b` to that login.
 Current editing activity is unknown. The user relays coordination; P1 sent no messages.
-Earlier temporary full-stack assignments do not authorize takeover implementation.
+Earlier temporary full-stack assignments do not provide blanket implementation authority.
+The later direct user requests explicitly authorized the frontend milestones `50b14ea`
+and `63bf0af`; general frontend/backend ownership stays with the owners.
 Do not create stage branches, reset worktrees, rebase away owner history, or re-merge
 already integrated source. Preserve `frontend-landing` and all other existing branches.
 
@@ -27,11 +29,38 @@ deltas and threshold verdicts. Horizons is offline validation only. No runtime A
 database, auth or uploads are required. Geometric horizon mode is explicit; source
 labels and limitations must survive every view/export. No safety, watts or radio-link guarantee.
 
-Final fetch: P1 `3721130`, backend/terrain `7d6ac55`, frontend `6310e18` and additional
-`frontend-landing` `72de289`. All owner heads are ancestors of P1. Latest hosted P1 run
-[43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533)
-at `3721130` and frontend source run `43701473118` passed seven jobs. The owner had
-already published the merge; P1 fast-forwarded without creating a new merge commit.
+Latest local implementation: **`63bf0af552ca54c2abf26ad5f2d0f24d6da8d15c`** on
+`feat/p1-s0-integration`. Preceding UI milestone `50b14ea` follows merge `ad2ac2e`,
+whose parents are `28b56e3` and owner source `47d8a58`. The last verified published
+baseline is `28b56e3`; local UI commits have not been pushed. Last recorded owner
+source CI: [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082),
+seven jobs successful for `47d8a58`. No hosted result is claimed for the local UI.
+Refs/hosted CI were not refreshed during this documentation-only update.
+
+Current routes:
+
+| Route | Behavior |
+| --- | --- |
+| `/` | Tour landing page; Compare and Briefing actions |
+| `/compare` | Plan editor/comparison, charts, provenance and exports |
+| `/best-date` | Search dates; Load as Plan B stays here, then explicit Compare A and B |
+| `/terrain` | Dedicated 3D Terrain Analyser with sky/horizon and timeline views |
+| `/learn/simulator` | Optional Simulator with shared navbar |
+| `/methods`, `/report` | Sources/validation/visual credits and printable comparison |
+| `/learn/tour` | Alternate entry to the tour |
+
+Legacy `/landing` redirects to Simulator; `/landing/tour` and `/tour` redirect to
+`/learn/tour`, retaining query/hash. Terrain is no longer launched from Compare's
+bottom buttons. It uses grayscale DEM-height shading, a continuous 1x-5x height
+slider and a mission-time slider. Scaling preserves orbit/zoom/pan; Reset view or
+another tile reframes. Earth follows response-derived directions, with a textured
+marker and motion path. Source labels remain visible; visualization credits and
+limits are consolidated in Methods.
+
+Latest recorded validation: **163 frontend tests in 22 files**, lint, TypeScript and
+production build pass at `63bf0af`; isolated Chrome/Brave REAL terrain/motion/camera
+checks pass. Physical devices, full accessibility and final feature acceptance stay
+open. See [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
 
 One current done/pending/blocker list lives at the top of [PROGRESS.md](PROGRESS.md).
 Detailed feature evidence: [MVP_VERIFICATION.md](MVP_VERIFICATION.md).
@@ -49,6 +78,7 @@ not repeated attempts or relaxed thresholds. V4's existing FAIL must remain visi
 
 Review every P1 diff with a human before committing (Playbook 4.3/5.2 and AGENTS.md).
 Use the existing human identity, no AI author/coauthor/footer. Only reviewed milestones
-may be committed/pushed to P1. Final deployment, main merge, tags, submission and final
+may be committed locally to P1. The current user instruction forbids pushing;
+obtain a new explicit instruction before any push. Final deployment, main merge, tags, submission and final
 MVP acceptance require Moksh's explicit release authorization. No gate advances by the
 clock or green CI alone. Event timing and remaining submissions need human confirmation.

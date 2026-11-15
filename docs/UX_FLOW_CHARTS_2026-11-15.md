@@ -1,5 +1,7 @@
 # User-requested flow and chart fixes - 15 November 2026
 
+> Scope: This is an intermediate flow/graph snapshot. Its original automatic Best Date navigation and per-chart inspection sliders were superseded: Load as Plan B now stays on Best Date, and graph inspectors are compact hover/focus popups. See the current handoff for final behavior. Current instructions: [TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md); status: [PROGRESS.md](PROGRESS.md).
+
 Scope expressly authorized by the user on top of Moksh's prepared `47d8a58` merge.
 This authorization covers these frontend changes; it does not transfer general
 frontend ownership or authorize pushing. Backend, contract and science are unchanged.
