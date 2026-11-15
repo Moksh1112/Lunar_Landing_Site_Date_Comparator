@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import moon from "../landing/assets/moon_lroc_color_4k.jpg";
+import { HomeMoon } from "./HomeMoon";
 import { PATHS } from "../../app/routes";
 import styles from "./home.module.css";
 
@@ -23,9 +23,20 @@ export function HomePage() {
             <Link to={PATHS.compare} className="btn btn-primary">Compare landing plans</Link>
             <Link to={PATHS.tour} className="btn">What is Azelux?</Link>
           </div>
-          <Link to={PATHS.simulator} className={styles.quiet}>Try the simulator</Link>
+          <Link to={PATHS.simulator} className={styles.simCta}>
+            <svg className={styles.simIcon} viewBox="0 0 32 32" aria-hidden="true">
+              <rect x="3" y="9" width="26" height="15" rx="7.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+              <path d="M10 13.5v6M7 16.5h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              <circle cx="21" cy="15" r="1.6" fill="currentColor" /><circle cx="24.5" cy="18.5" r="1.6" fill="currentColor" />
+            </svg>
+            <span className={styles.simText}>
+              <strong>Try the simulator</strong>
+              <span>Fly a mission console in 3D and find a landing day that keeps the lights on.</span>
+            </span>
+            <svg className={styles.simArrow} viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </Link>
         </div>
-        <img className={styles.moon} src={moon} alt="The Moon, LROC colour mosaic" width="1200" height="1200" decoding="async" />
+        <HomeMoon />
       </section>
 
       <section className={styles.pillars} aria-label="What you can do">
@@ -36,7 +47,7 @@ export function HomePage() {
           </div>
         ))}
       </section>
-      <p className={styles.credit}>Moon image: NASA LROC visualization mosaic (SVS CGI Moon Kit).</p>
+      <p className={styles.credit}>Moon texture: NASA LROC visualization mosaic (SVS CGI Moon Kit). Satellite is illustrative.</p>
     </div>
   );
 }
