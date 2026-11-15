@@ -22,7 +22,20 @@ Moksh's decisions.
     real Athena tile ("terrain | tile im2-athena", no far).
   - Now it returns TerrainUnavailable, with the reason in the error message. Near+far stays
     `terrain`, far only stays `terrain_coarse`, and outside coverage stays `geometric`.
-  - Six regression tests. Backend: 506 passed, 50 data-gated skips; Ruff clean.
+  - Five regression tests.
+  - Backend tests at integration: **556 passed, 6 skipped** with real data
+    (`AZX_DATA_DIR`); the 6 need pre-cached skylines. Without data, as in CI: 506 passed,
+    50 skipped, because kernels, DEMs or PGDA maps are absent. Ruff clean.
+  - Frontend: 148 tests at `60ab2b5`, 150 at `fbe70aa`; typecheck, lint and build clean.
+- **V4b (validation only, approved by Moksh and run) PASSES 10/10 within 5 pp.**
+  - Hourly over 18.6 years, any visible fraction of the disc, same 5 points and target.
+  - 9 rows are within 0.7 pp; the Sun at (−88, 90 E) is 4.135 pp off.
+  - Backend `d6a7d56` (tool) and `802ad2d` (result), CI
+    [43718781961](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43718781961).
+  - V4 (centre rule) stays a recorded FAIL and the runtime is unchanged.
+- **Gap/briefing feature** `4f0e746` (owner: main frontend session) was integrated by its owner
+  in `2600664`. Its evidence and limits are in `frontend/docs/HANDOFF_GAP_BRIEFING.md`; it is
+  not re-verified in this ledger.
 - **Double submissions (defect fixed, `f9a842d`).** Two clicks in one frame sent two POSTs
   for Compare and Best Date. A synchronous single-flight gate fixes it; a real-backend
   browser check now shows 1 POST for each.
@@ -40,11 +53,13 @@ Moksh's decisions.
 
 **Pending / go-no-go (owners)**
 
-1. **V4 (Moksh decision):** FAIL, 6.299 pp against the ≤ 5 pp target. The PGDA reference
-   counts any visible fraction of the disc, sampled hourly; the runtime uses the body centre.
-   Choose one: accept the validation-only V4b any-fraction method as the basis, or ship with
-   a disclosed V4 FAIL. See `backend/docs/V4_DECISION_2026-11-15.md`. Do not loosen tolerances.
-2. **Human and device checks (Moksh or participants):**
+1. **V4 acceptance basis (Moksh decision, now with V4b data):**
+   - V4 is FAIL (6.299 pp); V4b passes 10/10.
+   - Choose one: adopt V4b as the PRD V4 basis, with V4 recorded as a definition-mismatch FAIL;
+     or ship with V4 as a disclosed FAIL.
+   - Methods must state the remaining terrain caveat at (−88, 90 E).
+   - See `backend/docs/V4_DECISION_2026-11-15.md`.
+2. **Human and device checks (Moksh is arranging them, 15 Nov):**
    - Two independent usability participants (`docs/USABILITY_TASKS.md`).
    - A physical phone and tablet, a second browser (Firefox or Safari), a screen-reader
      session, and a physical print.

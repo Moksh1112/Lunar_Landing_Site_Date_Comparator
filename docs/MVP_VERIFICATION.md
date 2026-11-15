@@ -108,6 +108,8 @@ Scripts are local evidence, not committed:
 | Routes | Direct entry, refresh, legacy redirects, Back fallbacks, browser Back/Forward and the 404 all verified (`frontend/docs/HANDOFF_MONOCHROME.md`). |
 | A11y | 0 contrast failures across 5,181 rendered text elements on 6 routes. The skip link is the first Tab stop and moves focus to `main`. The Learn and Menu dropdowns close on Escape and return focus. Reduced motion renders all routes. Without WebGL, Home falls back to the Moon image and the simulator and tour still render their content. |
 | Layout | 8 routes × 320×640, 375×812, 768×1024, 1440×900, 1440×600 and 1280×560: 48/48 with no horizontal overflow, no clipped controls, a black canvas and no script errors. |
+| Tests | Backend with real data: 556 passed, 6 skipped (they need pre-cached skylines). Without data, as in CI: 506 passed, 50 skipped for missing kernels, DEMs or maps. Frontend: 150 passed at `fbe70aa`. |
+| F23 PGDA | V4 (centre, daily) FAIL 6.299 pp, unchanged. **V4b** (any-fraction disc, hourly; approved and run) passes 10/10 within 5 pp, max 4.135 pp at Sun (−88, 90 E): `validation/results/V4b-any-fraction.json`. Moksh decides the acceptance basis. |
 | Not done | Physical phone and tablet, other browsers, screen-reader speech, 2 usability participants (`USABILITY_TASKS.md`), physical print, deployed rehearsal. |
 
 Earlier pending V6/export/print entries below are historical, superseded here.
