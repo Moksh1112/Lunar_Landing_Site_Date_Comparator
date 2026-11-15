@@ -90,7 +90,12 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   box(8, 0.1, 8, floorMat, 0, -0.05, 0); // floor
   box(8, 0.1, 8, wallMat, 0, 3.05, 0); // ceiling
   box(0.1, 3, 8, wallMat, -4, 1.5, 0); // left
-  box(0.1, 3, 8, wallMat, 4, 1.5, 0); // right
+  // Side observation window: a real opening, not a texture on an opaque wall.
+  // 7.2 x 2.65 of the 8 x 3 wall (about 80%); space remains illustrative.
+  box(0.1, 3, 0.4, wallMat, 4, 1.5, -3.8);
+  box(0.1, 3, 0.4, wallMat, 4, 1.5, 3.8);
+  box(0.1, 0.175, 7.2, wallMat, 4, 0.0875, 0);
+  box(0.1, 0.175, 7.2, wallMat, 4, 2.9125, 0);
   box(8, 3, 0.1, wallMat, 0, 1.5, 4); // back
   // front wall with a large window opening (x -3.3..3.3, y 0.5..2.9): the Moon fills most of the wall
   box(0.7, 3, 0.1, wallMat, -3.65, 1.5, -4);
@@ -102,6 +107,16 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   box(6.7, 0.06, 0.16, frameMat, 0, 2.9, -3.95);
   box(0.06, 2.46, 0.16, frameMat, -3.32, 1.7, -3.95);
   box(0.06, 2.46, 0.16, frameMat, 3.32, 1.7, -3.95);
+  // Thin metal perimeter and a clear, lightly tinted pane keep the stars visible.
+  for (const y of [0.175, 2.825]) box(0.16, 0.055, 7.25, frameMat, 3.95, y, 0);
+  for (const z of [-3.6, 3.6]) box(0.16, 2.7, 0.055, frameMat, 3.95, 1.5, z);
+  const glass = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.2, 2.65),
+    new THREE.MeshBasicMaterial({ color: 0xabc5d1, transparent: true, opacity: 0.055, side: THREE.DoubleSide, depthWrite: false }),
+  );
+  glass.rotation.y = -Math.PI / 2;
+  glass.position.set(3.98, 1.5, 0);
+  room.add(glass);
   // ceiling light strips (emissive geometry; the actual light comes from point lights)
   const stripMat = new THREE.MeshStandardMaterial({ color: 0xfff1d6, emissive: 0xfff1d6, emissiveIntensity: 1.2 });
   for (const x of [-1.5, 1.5]) box(0.12, 0.03, 5, stripMat, x, 2.98, 0.5);
@@ -127,7 +142,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     const pts = new Float32Array(3000 * 3);
     for (let i = 0; i < 3000; i++) {
-      const v = new THREE.Vector3(rnd() * 2 - 1, rnd() * 2 - 1, -Math.abs(rnd() * 2 - 1) - 0.2).normalize().multiplyScalar(90 + rnd() * 20);
+      const v = new THREE.Vector3(rnd() * 2 - 1, rnd() * 2 - 1, rnd() * 2 - 1).normalize().multiplyScalar(90 + rnd() * 20);
       pts.set([v.x, v.y, v.z], i * 3);
     }
     const g = new THREE.BufferGeometry();
@@ -150,6 +165,12 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   const earth = realEarthMesh(renderer, 1.6);
   earth.position.set(-22, 3, -58);
   scene.add(earth);
+
+  // Earth beyond the side window gives the room an orbital observation POV.
+  // This illustrative placement is independent of the scientific comparator.
+  const observationEarth = realEarthMesh(renderer, 4.5);
+  observationEarth.position.set(24, 2.3, -8);
+  scene.add(observationEarth);
 
   // south-pole site with schematic skyline ring + sun path (demonstration)
   const site = SIM_SITES[1];
@@ -290,6 +311,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     },
   };
   const cur = { px: 0, py: 0, pz: 0, lx: 0, ly: 0, lz: 0 };
+  let activeView: View = "boot";
   let yaw = 0;
   let pitch = 0;
   const applyCamera = () => {
@@ -303,7 +325,12 @@ export function createWorld(canvas: HTMLCanvasElement): World {
   };
   let tween: gsap.core.Tween | null = null;
   const setView = (v: View, instant = false) => {
-    const t = views[v];
+    activeView = v;
+    const t = v === "boot" && canvas.clientWidth < 768
+      ? { pos: new THREE.Vector3(0, 1.75, 3.2), look: new THREE.Vector3(3.95, 1.5, -0.5) }
+      : v === "boot"
+        ? { pos: views.boot.pos, look: new THREE.Vector3(1.5, 1.6, -4) }
+        : views[v];
     tween?.kill();
     yaw = 0;
     pitch = 0;
@@ -388,6 +415,7 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     camera.aspect = w / h;
     camera.fov = w / h < 0.8 ? 72 : 55; // portrait phones see the whole console
     camera.updateProjectionMatrix();
+    if (activeView === "boot") setView("boot", true);
   };
   resize();
   setView("boot", true);
