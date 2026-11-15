@@ -1,5 +1,10 @@
 # Azelux progress and to-do board
 
+## Current tour Lighthouse measured — 15 November 2026
+
+Source `7ed8c06`, production build of the actual tour at `/`: three consecutive cold mobile Lighthouse 12.8.2 runs scored **94 / 94 / 94 Performance**, **100 Accessibility** each. LCP was about 2.3 s; TBT 180/170/160 ms. This closes the previously open local tour measurement. No product code changed. These are headless Edge mobile simulated-throttling results; physical-device and deployed performance remain unverified. Exact settings, timestamps and metrics: [tour audit evidence](evidence/LIGHTHOUSE_TOUR_2026-11-15.json). Earlier HomePage results remain separate. Hosting preparation was left untouched; nothing was deployed.
+
+
 **Latest review milestone:** the commit containing [REVIEW_FOLLOWUP_2026-11-15.md](REVIEW_FOLLOWUP_2026-11-15.md)
 includes the README overview, unchanged height-slider camera transforms, zoom clipping
 and a Node 20-compatible UI-check launcher. 201 frontend tests, lint/typecheck/build
