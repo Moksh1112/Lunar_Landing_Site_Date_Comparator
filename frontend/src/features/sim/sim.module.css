@@ -91,3 +91,5 @@
   .guide .row { margin-top: .5rem; }
   .guide .row > * { padding: 0 .6rem; }
 }
+.hudTop .row { margin-top: 0; align-items: center; }
+.hudTop .row > * { min-height: 2.25rem; }

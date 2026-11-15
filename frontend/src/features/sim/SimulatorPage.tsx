@@ -52,6 +52,7 @@ export function SimulatorPage() {
   const [demoIndex, setDemoIndex] = useState(0);
   const demo = DEMO_STEPS[demoIndex];
   const [busy, setBusy] = useState(false);
+  const inFlight = useRef(false); // synchronous guard: two fast clicks must not send two requests
   const [last, setLast] = useState<{ request: CompareRequest; response: CompareResponse } | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [paused, setPaused] = useState(false);
@@ -69,6 +70,7 @@ export function SimulatorPage() {
         if (cancelled) return;
         world = createWorld(canvas);
         worldRef.current = world;
+        if (import.meta.env.DEV) (window as unknown as { __azxWorld?: World }).__azxWorld = world;
         setGl("ok");
       })
       .catch(() => !cancelled && setGl("off"));
@@ -121,6 +123,8 @@ export function SimulatorPage() {
 
   // ---------- compare via the real typed client ----------
   const runCompare = async (c: Console) => {
+    if (inFlight.current) return null;
+    inFlight.current = true;
     const request = requestFor(c, thresholds);
     setBusy(true);
     setHint(null);
@@ -129,9 +133,10 @@ export function SimulatorPage() {
       setLast({ request, response });
       return { response, synthetic: response.scenarios.some((s) => s.meta.data_label !== "REAL") };
     } catch (e) {
-      setHint(`The comparator returned an error: ${(e as Error).message}`);
+      setHint(`The comparator could not compute this request: ${(e as Error).message} Your settings are kept; press COMPARE to try again.`);
       return null;
     } finally {
+      inFlight.current = false;
       setBusy(false);
     }
   };
@@ -244,7 +249,14 @@ export function SimulatorPage() {
       {level !== "boot" && (
         <header className={styles.hudTop}>
           <span className={styles.levelTag}>{LEVEL_TITLE[level]}</span>
-          <Link to="/" className={styles.exit}>Exit to comparator</Link>
+          <span className={styles.row}>
+            {gl === "ok" && level !== "briefing" && (
+              <button type="button" onClick={() => worldRef.current?.setView(level === "demo" ? demo.view : level === "debrief" ? "window" : "console")}>
+                Reset camera
+              </button>
+            )}
+            <Link to="/" className={styles.exit}>Exit to comparator</Link>
+          </span>
         </header>
       )}
 
@@ -310,6 +322,13 @@ export function SimulatorPage() {
               <p className={styles.goal}>Find a Plan B landing day at {SIM_SITES[con.site].name} that is GREEN.</p>
               <p>Attempts left: {q.left}. Time: {Math.round(seconds)} s</p>
               <p className={styles.note}>No glow, no hints. Turn DATE (Plan B), then press COMPARE.</p>
+              {USE_MOCK && (
+                <p className={styles.note}>
+                  <strong>SYNTHETIC mock data:</strong> every attempt returns the same fixed example, so this challenge cannot be
+                  passed here. Run against the real backend to make it count.
+                </p>
+              )}
+              <button type="button" disabled={busy} onClick={() => go("debrief")}>End challenge and see the debrief</button>
               {attempts.map((a, i) => (
                 <p key={i} className={styles.attempt}>
                   {i + 1}. B {dayToDate(a.dayB)}: <strong>{a.verdictB ?? "error"}</strong>
@@ -355,7 +374,11 @@ export function SimulatorPage() {
               <strong>SYNTHETIC</strong> Fixed example from the mock server; results do not reflect your dials and cannot qualify.
             </p>
           )}
-          <p className={styles.result}>{q.passed ? `Qualified. Score ${score(attempts, seconds)}.` : "Not qualified this time."}</p>
+          <p className={styles.result}>{q.passed
+              ? `Training challenge passed. Score ${score(attempts, seconds)}. This is a learning outcome, not a landing-safety assessment.`
+              : attempts.length === 0
+                ? "Challenge ended without a scored attempt."
+                : "Training challenge not passed this time. Try other Plan B days in the comparator."}</p>
           {last && (
             <>
               <p>{conclusion(last.response)}</p>

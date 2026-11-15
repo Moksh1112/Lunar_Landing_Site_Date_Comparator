@@ -12,6 +12,8 @@ export type World = {
   setLevel: (l: Level) => void;
   look: (dx: number, dy: number) => void;
   onPick: (cb: (c: Control, shift: boolean) => void) => void;
+  /** CSS-pixel position of a physical control on the canvas (for verification and focus hints). */
+  screenPoint: (c: Control) => { x: number; y: number } | null;
   resize: () => void;
   dispose: () => void;
 };
@@ -394,6 +396,15 @@ export function createWorld(canvas: HTMLCanvasElement): World {
     setLevel,
     look,
     onPick: (cb) => { pickCb = cb; },
+    screenPoint: (c) => {
+      const p = pickables.find((q) => q.control === c);
+      if (!p) return null;
+      const v = new THREE.Vector3();
+      p.obj.getWorldPosition(v);
+      v.project(camera);
+      const r = canvas.getBoundingClientRect();
+      return { x: r.left + ((v.x + 1) / 2) * r.width, y: r.top + ((1 - v.y) / 2) * r.height };
+    },
     resize,
     dispose: () => {
       cancelAnimationFrame(raf);
