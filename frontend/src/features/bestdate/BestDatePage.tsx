@@ -24,6 +24,7 @@ import {
   type SweepErrors,
   type SweepForm,
 } from "./sweepForm";
+import { createSingleFlight } from "../../lib/singleFlight";
 import styles from "./bestdate.module.css";
 
 const addDays = (date: string, n: number): string =>
@@ -57,6 +58,13 @@ export function BestDatePage() {
   const s1 = parseDate(form.rangeEnd);
   const nDays = s0 !== null && s1 !== null && s1 >= s0 ? candidateDays(s0, s1) : null;
 
+  // One sweep at a time (sweeps are rate-limited): isPending is stale for two clicks in one frame.
+  const [gate] = useState(createSingleFlight);
+  const runSweep = (req: SweepRequest, onSuccess?: (r: SweepResponse) => void) => {
+    if (!gate.start()) return;
+    sweep.mutate(req, { onSuccess, onSettled: () => gate.end() });
+  };
+
   const submit = () => {
     if (sweep.isPending) return;
     const found = validateSweep(form);
@@ -68,7 +76,7 @@ export function BestDatePage() {
     const req = buildSweepRequest(form, thresholds);
     setLastReq(req);
     setSelected(null);
-    sweep.mutate(req, { onSuccess: (r) => setSelected(r.top[0] ?? null) });
+    runSweep(req, (r) => setSelected(r.top[0] ?? null));
   };
 
   const load = (day: SweepDay, res: SweepResponse) => {
@@ -203,7 +211,7 @@ export function BestDatePage() {
               <Skeleton height="14rem" label="Loading ranked list" />
             </div>
           ) : sweep.isError ? (
-            <ErrorState error={sweep.error} onRetry={lastReq ? () => sweep.mutate(lastReq) : undefined} />
+            <ErrorState error={sweep.error} onRetry={lastReq ? () => runSweep(lastReq) : undefined} />
           ) : data ? (
             data.days.length === 0 ? (
               <EmptyState title="No candidate days were returned">
