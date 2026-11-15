@@ -21,7 +21,9 @@ import { SkyRing } from "./SkyRing";
 import { ScenarioCard } from "./ScenarioCard";
 import { ThresholdsPanel } from "./ThresholdsPanel";
 import { TimelineLanes } from "./TimelineLanes";
+import { GapPanel } from "../gap/GapPanel";
 import { useCompare } from "./useCompare";
+import { createSingleFlight } from "../../lib/singleFlight";
 import styles from "./compare.module.css";
 
 const SiteMap = lazy(() => import("../map/SiteMap"));
@@ -95,7 +97,8 @@ export function ComparePage() {
   const alignBy = useStore((s) => s.alignBy);
   const setAlignBy = useStore((s) => s.setAlignBy);
   const lastCompare = useStore((s) => s.lastCompare);
-  const setLastCompare = useStore((s) => s.setLastCompare);
+  const showNewCompare = useStore((s) => s.showNewCompare);
+  const gapFocus = useStore((s) => s.gapFocus);
 
   const compare = useCompare();
   const [clientErrors, setClientErrors] = useState<FieldErrors>({});
@@ -107,13 +110,17 @@ export function ComparePage() {
   const errors = { ...serverErrors, ...clientErrors };
   const editorOpen = editing || Object.keys(errors).length > 0;
 
+  // One request at a time: isPending is stale between two clicks in the same frame (double submit).
+  const [gate] = useState(createSingleFlight);
   const run = (req: CompareRequest) => {
+    if (!gate.start()) return;
     const revision = useStore.getState().planBRevision;
     compare.mutate(req, {
       onSuccess: (response) => {
-        setLastCompare({ request: req, response }, revision);
+        showNewCompare({ request: req, response }, revision); // opens on the longest visibility gap
         setEditing(false); // results take the workspace once a compare succeeds
       },
+      onSettled: () => gate.end(),
     });
   };
 
@@ -249,10 +256,11 @@ export function ComparePage() {
                         </div>
                       </div>
                       <div className={styles.plate}>
-                        <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} />
+                        <TimelineLanes data={data} alignBy={alignBy} scrubT={scrubT} onScrub={setScrubT} highlight={gapFocus} />
                       </div>
                       <MomentReadout data={data} scrubT={scrubT} alignBy={alignBy} expert={expert} />
                     </section>
+                    <GapPanel data={data} />
                     <details id="sky-horizon-views" className={styles.secondary} open style={{ scrollMarginTop: "5rem" }}>
                     <summary>Sky and horizon views</summary>
                     <section className={styles.sky} aria-labelledby="stage-h">

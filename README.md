@@ -2,7 +2,7 @@
 
 Compare two lunar plans using local SPICE ephemeris and sourced terrain horizons.
 The comparator provides panoramas, timelines, shared playback, Best Date, provenance,
-CSV/JSON and a printable report. The tour is the default landing page at `/`; comparison is `/compare`. The
+CSV/JSON, offline HTML briefings and a printable report. The tour is the default landing page at `/`; comparison is `/compare`, and the dedicated terrain analyser is `/terrain`. The
 Briefing button opens the simulator through `/landing` (redirecting to
 `/learn/simulator`). The tour also remains available at `/learn/tour`.
 No runtime AI, database, authentication or uploads are required in v1.
@@ -44,7 +44,7 @@ prove terrain readiness. Do not reuse another machine's local configuration or d
 
 The takeover reproduced real geometric and near+far polar comparisons from freshly
 acquired data, including a 60-day terrain sweep. Near-only startup also exposed a
-`terrain` mode/contract mismatch when far terrain is absent. Remaining acceptance is tracked
+`terrain` mode/contract mismatch when far terrain was absent; `fd38ce5` fixed it (TerrainUnavailable). Remaining acceptance is tracked
 in [the current progress board](docs/PROGRESS.md); detailed checks are in
 [the takeover verification](docs/TAKEOVER_VERIFICATION_2026-11-15.md).
 

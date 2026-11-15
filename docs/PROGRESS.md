@@ -1,6 +1,230 @@
 # Azelux progress and to-do board
 
-## Current project status and pending work — 15 November 2026
+## Current local integration ? merge recovery, 15 November 2026
+
+The user-requested pull merge combines local `194aa94` with published `89ce28c`.
+Incoming source [CI 43721206324](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43721206324)
+passed all seven jobs; there is no hosted CI for the combined local revision.
+**Commit locally only; do not push.** Full recovery/checks: [MERGE_RECOVERY_2026-11-15.md](MERGE_RECOVERY_2026-11-15.md).
+
+- **Done:** resolve nine conflicts preserving both histories; keep `/terrain`, tour-at-Home,
+  theme/hover/Plan B fixes plus incoming gap explanations, offline briefing, single-flight
+  submissions, near+far coverage correction and V4b decision/evidence. The stale-result
+  guard also protects `showNewCompare`; loading B clears prior gap focus/results.
+- **Checked:** 197 frontend tests; lint and strict TypeScript/production build; backend
+  Ruff and 556 tests (six cache-dependent skips); setup syntax, 15 SYNTHETIC fixtures,
+  dependency handoff and nine isolated Chrome checks on a fresh combined real stack.
+  Compare responses were REAL / terrain_coarse.
+- **Science:** original V4 stays FAIL (~6.299 pp). Incoming owner record adopts V4b's
+  separate validation-only any-fraction check (10/10 within unchanged 5 pp); runtime
+  keeps body centres. V6 remains owner-reviewed qualitative evidence.
+- **Pending:** human usability ?2, phone/tablet, alternate-engine browser, spoken screen
+  reader, slow-device 3D/fallback; performance ?90 (incoming Home scored 80/100;
+  combined tour landing unmeasured); project licence and full notice review; authorized
+  deployment and two deployed rehearsals, final release/submission/MVP acceptance.
+- **Next owner milestone:** `origin/feat/p4-frontend-s0` has `62ffd0c` (Home performance),
+  which is not part of `89ce28c` and is deliberately not added to this recovery. Review
+  its exact CI and compatibility with the local tour landing separately.
+- **Coordination:** ask teammates to work on their owner branches and hand over exact
+  green SHAs; reserve P1 integration updates for the P1 person. No teammate was messaged.
+
+The following release notes/status list are incoming owner snapshots at `89ce28c`,
+retained as evidence, not a second current task list. Newer library decision: Moksh
+retained ten sites; older accept/extend tasks below are superseded. Final authorization
+remains with Moksh.
+
+## Resumed release checks — 15 November 2026
+
+See [release checks](RELEASE_CHECKS_RESUMED_2026-11-15.md). Production Home Lighthouse is now measured: **Performance 80, Accessibility 100**; the ≥90 performance gate remains open. Dependency licence inventory is generated (298 npm entries, 41 locked Python packages); full notice review remains. Map source code contains a visible linked NASA credit above loaded imagery. Moksh retained the ten-site library; no additional public warning was introduced. Project licence remains undecided. Real backend :8012 health and production build rechecked successfully. Human/device and final release checks remain pending.
+
+## Current status — 15 November 2026, release preparation (authoritative)
+
+This records the incoming owner session's release-preparation status. Current
+P1 integration and pending actions are at the top of this file.
+
+**Code under review:** `feat/p1-s0-integration`; the exact SHA and hosted CI link are in the
+commit that publishes this section. It contains:
+
+- backend `c116ceb`: near-only terrain fix `fd38ce5`, V4 decision docs, V4b tool `d6a7d56`
+  and schema-conformant V4b artifact `5723ef8`;
+- frontend `b2b7cc9`: theme and entry flow, single-flight fix `f9a842d`, gap / explanation /
+  briefing `4f0e746`, and Methods V4/V4b wording `d60adf1` + `b2b7cc9`.
+
+Nothing has been deployed, merged to main, tagged or submitted, and MVP acceptance is not
+claimed.
+
+### Decision recorded
+
+- **PGDA validation basis (Moksh, 15 Nov 2026): V4b adopted.**
+  - V4b passes 10/10 within the unchanged ≤ 5 pp target (largest difference 4.134843 pp, the
+    Sun at −88°, 90° E).
+  - V4 stays a recorded FAIL (6.299 pp).
+  - The runtime keeps body-centre visibility. V4b does not show that centre-based results
+    match PGDA within 5 pp.
+  - The full record and limits are in `backend/docs/V4_DECISION_2026-11-15.md`.
+- **Iteration-1 extensions:** three were explicitly authorized and integrated: start with the
+  visibility gap, Explain this interval, and the offline HTML briefing. They change no
+  science, thresholds or contract. Other Iteration 1/2 work stays out of scope.
+
+### Done (with evidence)
+
+- **F10 defect fixed (`fd38ce5`):** a near tile without a far DEM now returns
+  TerrainUnavailable instead of `terrain`. Reproduced before and after on real Athena data;
+  five regression tests.
+- **Defect fixed (`f9a842d`):** double submission of Compare and Best Date. A real browser
+  check now sends 1 POST.
+- **Defect fixed (`5723ef8`, `d60adf1`):** the first V4b artifact did not match the evidence
+  schema, so Methods would have listed it as an invalid file. It was regenerated with the same
+  values, and a test now parses every committed result.
+- **Wording corrected (`b2b7cc9`):** Methods and the briefing now state the V4b decision and
+  its limits, and no longer imply that the disc rule explains the whole V4 gap.
+- **Integrated acceptance on a REAL stack:** `MVP_VERIFICATION.md` "Current F1–F25 status" and
+  "Integrated acceptance".
+- **Feature evidence:**
+  - gap / explanation / briefing: `frontend/docs/HANDOFF_GAP_BRIEFING.md`. Includes a real
+    downloaded briefing replayed with the network off and 0 requests.
+  - theme / navigation: `frontend/docs/HANDOFF_MONOCHROME.md`.
+- **Real preview re-verified at `7bc75e8`** (backend :8012, frontend :5191):
+  - `/health` reports `mock:false`, 5 kernels, `far_160m.tif` + 3 tiles, manifest `1dcb16ff…`.
+  - Athena date shift (A 2027-03-01, B 2027-03-14, 240 h): REAL `terrain`, "tile im2-athena +
+    far_160m", A red, B green, A − B both −210.1 h.
+  - A fresh briefing from that preview (409 KB) replayed offline with 0 requests.
+- **Tests:**
+  - Backend with real data: 556 passed, 6 skipped (need pre-cached skylines).
+  - Backend without data, as in CI: 506 passed, 50 skipped (data-gated). Skips are not
+    passes.
+  - Frontend: 178 passed; typecheck, lint and build clean.
+- **Clean clone:** default venv setup is blocked by Windows Application Control (OS policy,
+  not bypassed). The documented `AZX_PYTHON_MODE=target` setup succeeded, and its real
+  backend reproduced the Athena result.
+
+### Pending: human and device checks (Moksh is arranging; not simulated)
+
+Script and results template: `docs/USABILITY_TASKS.md`. Record each item separately as
+passed, failed or pending.
+
+1. Two independent usability participants.
+2. A physical phone and a physical tablet.
+3. A second browser (Firefox or Safari).
+4. A spoken screen-reader session (NVDA, VoiceOver or Narrator).
+5. Slow-device 3D and its fallback.
+6. Lighthouse measured on production Home: Performance 80 / Accessibility 100; ≥90 performance target remains unmet. See RELEASE_CHECKS_RESUMED_2026-11-15.md.
+
+**Physical print:** not required by the canonical documents. TRD: "PDF is the browser's
+print-to-PDF of a report page"; PRD 13.3 step 6: "export CSV and PDF". Print preview and
+PDF evidence exist. A physical print is an optional extra check, not a release blocker.
+
+### Pending: decisions and actions for Moksh
+
+1. **Library scope (F1):** ten sourced entries; international and commercial breadth is
+   partial. Accept as a known limitation or add sourced sites.
+2. **Project licence:** the repository has no LICENSE file. Choose one or confirm none.
+3. **Release:** nominate the release candidate, authorize deployment, then run PRD 13.3 twice
+   on the deployed URL. Then merge to main, tag, record the 30-second video and submit. See
+   `RELEASE_PREPARATION.md`.
+
+### Go / no-go
+
+- **Go** needs all of these:
+  - green CI on the nominated SHA;
+  - the human and device checks above passed, or explicitly waived by Moksh;
+  - two deployed PRD 13.3 rehearsals passed;
+  - Moksh's authorization.
+- **No-go** if any of these happen:
+  - a REAL/SYNTHETIC label or horizon mode does not match the data used;
+  - V4 is presented as passing, or V4b as validating the runtime rule;
+  - any safety, wattage or guaranteed-radio-link claim.
+
+## Superseded snapshot — release-candidate preparation at `d13b893` (history)
+
+Superseded by the section above: the V4 basis has since been decided (V4b adopted), and the items it lists as pending are now classified there.
+
+
+**Integration** `feat/p1-s0-integration` contains, on top of `28b56e3`:
+
+- monochrome theme and entry flow `47d8a58`
+- backend near-only terrain fix `fd38ce5` and V4 decision `a190102`
+- frontend single-flight submit fix `f9a842d`
+
+Merge `60ab2b5` passed hosted CI ([43716142443](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43716142443)).
+Source CI: theme [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082),
+backend [43715946405](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43715946405).
+The CI for this documentation commit is recorded in the commit that follows it.
+No deployment, main merge, tag, submission or MVP acceptance has happened. Those remain
+Moksh's decisions.
+
+**Done in this pass**
+
+- **F10 terrain mode reporting (defect fixed, `fd38ce5`).**
+  - The defect: a 20 m tile without a far DEM was labelled `terrain`. Reproduced on the
+    real Athena tile ("terrain | tile im2-athena", no far).
+  - Now it returns TerrainUnavailable, with the reason in the error message. Near+far stays
+    `terrain`, far only stays `terrain_coarse`, and outside coverage stays `geometric`.
+  - Five regression tests.
+  - Backend tests at integration: **556 passed, 6 skipped** with real data
+    (`AZX_DATA_DIR`); the 6 need pre-cached skylines. Without data, as in CI: 506 passed,
+    50 skipped, because kernels, DEMs or PGDA maps are absent. Ruff clean.
+  - Frontend: 148 tests at `60ab2b5`, 150 at `fbe70aa`; typecheck, lint and build clean.
+- **V4 decision (Moksh, relayed by the frontend session): V4b adopted as the PRD V4 acceptance
+  basis.** The centre-rule V4 stays a recorded FAIL (definition mismatch). The runtime keeps the
+  centre rule. Methods now explains this and the terrain caveat (`d60adf1`). This is not release
+  approval.
+- **V4b passes 10/10 within 5 pp.**
+  - Hourly over 18.6 years, any visible fraction of the disc, same 5 points and target.
+  - 9 rows are within 0.7 pp; the Sun at (−88, 90 E) is 4.135 pp off.
+  - The artifact was regenerated by `5723ef8` in schema-v1.0 form (values unchanged), because
+    the first V4b file used a check id the Methods page rejects as invalid.
+  - A new frontend test now fails CI if any committed evidence file is invalid. It caught that
+    file on `d13b893`.
+  - Backend `d6a7d56` (tool), `802ad2d` (first result) and `c116ceb` (decision, conforming
+    artifact), CI
+    [43718781961](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43718781961).
+  - V4 (centre rule) stays a recorded FAIL and the runtime is unchanged.
+- **Gap/briefing feature** (visibility-gap focus, Explain this interval, offline HTML briefing,
+  schema `azelux.briefing` v1).
+  - Owner: main frontend session. Source `066f11e`, CI
+    [43718659264](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43718659264).
+  - Integrated `2600664`, CI
+    [43718818837](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43718818837).
+  - Owner-reported evidence: real-backend browser run; the downloaded briefing verified offline
+    with 0 network requests, by keyboard, in print and without JavaScript; layout sweep 48/48.
+    See `frontend/docs/HANDOFF_GAP_BRIEFING.md`. Not re-run in this ledger.
+  - Frontend tests: 177 at `066f11e`, 178 with the evidence guard.
+- **Double submissions (defect fixed, `f9a842d`).** Two clicks in one frame sent two POSTs
+  for Compare and Best Date. A synchronous single-flight gate fixes it; a real-backend
+  browser check now shows 1 POST for each.
+- **Theme and entry flow integrated.** Routes: `/` home, `/compare`, `/learn/tour`,
+  `/learn/simulator`; legacy redirects keep query and hash. Navigation, Back and journey
+  evidence is in `frontend/docs/HANDOFF_MONOCHROME.md`.
+- **Acceptance on the integrated real stack** (port 8010, `mock:false`, 5 kernels, far DEM +
+  3 tiles, manifest `1dcb16ff…`): see `MVP_VERIFICATION.md` "Integrated acceptance".
+- **Clean clone** of `60ab2b5` into an empty directory:
+  - `npm run setup` stopped in default venv mode, because Windows Application Control
+    blocked the generated launcher (OS policy, not bypassed).
+  - The documented `AZX_PYTHON_MODE=target` setup succeeded and `npm run check` passed.
+  - Its backend, with external `AZX_DATA_DIR`, reproduced IM-2 Athena: A 2027-03-01 RED,
+    B 2027-03-14 GREEN, terrain, REAL, A−B both −210.1 h.
+
+**Pending / go-no-go (owners)**
+
+1. **V4: decided.** V4b is the acceptance basis; V4 is recorded as FAIL with its explanation.
+   Unpublished reference epoch, observer height and ephemeris remain stated assumptions
+   (`backend/docs/V4_DECISION_2026-11-15.md`).
+2. **Human and device checks (Moksh is arranging them, 15 Nov).** Test URL, task script and the
+   pass/fail/pending results table are in `docs/USABILITY_TASKS.md`. All are pending:
+   - Two independent usability participants (`docs/USABILITY_TASKS.md`).
+   - A physical phone and tablet, a second browser (Firefox or Safari), a screen-reader
+     session.
+   - A physical paper print is **not** required by the active contract; see F25 in
+     `MVP_VERIFICATION.md`.
+   - Only viewport emulation and headless Edge were used here.
+3. **Deployment rehearsal:** the PRD 13.3 journey twice on a deployed URL, only after
+   deployment authorization (`RELEASE_PREPARATION.md`).
+4. **Final authorization (Moksh only):** release candidate nomination, deploy, main merge,
+   tag, submission, MVP acceptance.
+
+## Superseded snapshot — earlier 15 November status (kept for history)
+
 
 **Current review follow-up:** the local changes after `04c170d` fix nine verified review findings; mission-day seconds were already correct and now have a cross-view regression test. **166 frontend tests**, lint/typecheck/build and seven isolated Chrome regression checks pass. Viewport/relief refitting preserves the view angle, pan and relative zoom while adjusting camera distance. Playback stops on either 2D view, stale comparisons cannot restore pre-handoff Plan B results, chunk retry reloads the page, and startup docs explain offline bundle transfer. [Review evidence](UI_REVIEW_2026-11-15.md). No push or hosted CI. The following integration/UI paragraphs record the prior checkpoint.
 

@@ -1,0 +1,224 @@
+{
+  "schema_version": "1.0",
+  "check_id": "V4",
+  "title": "V4b: 18.6-year hourly any-fraction disc visibility versus PGDA 69 (approved acceptance basis for V4)",
+  "data_label": "REAL",
+  "scope": "full_check",
+  "review_status": "owner_reported",
+  "generated_at": "2026-11-15T13:30:10Z",
+  "producer_commit": "5723ef80eb13cdd4f239711ee9aa79e04a5494c3",
+  "command": "node scripts/python.mjs backend/tools/validate_illumination_v4b.py --out validation/results/V4b-any-fraction.json",
+  "sources": [
+    {
+      "label": "Reference",
+      "reference": "https://pgda.gsfc.nasa.gov/products/69"
+    },
+    {
+      "label": "Terrain",
+      "reference": "https://pgda.gsfc.nasa.gov/products/90"
+    }
+  ],
+  "manifest_sha256": "1dcb16ff00b027c8e5fbe31ebd468014a7e84f6f64d83ef38c024c8d94b95175",
+  "coverage": "Five V4 points; hourly epochs over 18.6 years from 2000-01-01; any-fraction disc (32 limb points); modes ['terrain_coarse', 'terrain', 'terrain_coarse', 'terrain_coarse', 'terrain_coarse'].",
+  "status": "pass",
+  "rows": [
+    {
+      "case": "-89,0",
+      "metric": "sun_visibility_any_fraction",
+      "actual": 14.840937386920498,
+      "reference": 14.975999295711517,
+      "unit": "percentage_points",
+      "abs_error": 0.13506190879101965,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-89,0",
+      "metric": "sun_visibility_centre_hourly_info",
+      "actual": 10.332476740121068,
+      "reference": 14.975999295711517,
+      "unit": "percentage_points",
+      "abs_error": 4.643522555590449,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-89,0",
+      "metric": "earth_visibility_any_fraction",
+      "actual": 45.671546590288806,
+      "reference": 45.611998438835144,
+      "unit": "percentage_points",
+      "abs_error": 0.059548151453661546,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-89,0",
+      "metric": "earth_visibility_centre_hourly_info",
+      "actual": 41.028157179743516,
+      "reference": 45.611998438835144,
+      "unit": "percentage_points",
+      "abs_error": 4.583841259091628,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-88,90",
+      "metric": "sun_visibility_any_fraction",
+      "actual": 9.949156388570307,
+      "reference": 14.083999395370483,
+      "unit": "percentage_points",
+      "abs_error": 4.1348430068001765,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-88,90",
+      "metric": "sun_visibility_centre_hourly_info",
+      "actual": 7.762083790762286,
+      "reference": 14.083999395370483,
+      "unit": "percentage_points",
+      "abs_error": 6.321915604608197,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-88,90",
+      "metric": "earth_visibility_any_fraction",
+      "actual": 50.59153996651313,
+      "reference": 50.42799711227417,
+      "unit": "percentage_points",
+      "abs_error": 0.16354285423896187,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-88,90",
+      "metric": "earth_visibility_centre_hourly_info",
+      "actual": 46.01561493784077,
+      "reference": 50.42799711227417,
+      "unit": "percentage_points",
+      "abs_error": 4.412382174433397,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-87,180",
+      "metric": "sun_visibility_any_fraction",
+      "actual": 35.544529558598946,
+      "reference": 34.911999106407166,
+      "unit": "percentage_points",
+      "abs_error": 0.6325304521917801,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-87,180",
+      "metric": "sun_visibility_centre_hourly_info",
+      "actual": 33.81130825702703,
+      "reference": 34.911999106407166,
+      "unit": "percentage_points",
+      "abs_error": 1.1006908493801362,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-87,180",
+      "metric": "earth_visibility_any_fraction",
+      "actual": 4.004317720439868,
+      "reference": 3.807999938726425,
+      "unit": "percentage_points",
+      "abs_error": 0.19631778171344294,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-87,180",
+      "metric": "earth_visibility_centre_hourly_info",
+      "actual": 0.0,
+      "reference": 3.807999938726425,
+      "unit": "percentage_points",
+      "abs_error": 3.807999938726425,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-86,270",
+      "metric": "sun_visibility_any_fraction",
+      "actual": 35.017694067427584,
+      "reference": 34.91999804973602,
+      "unit": "percentage_points",
+      "abs_error": 0.09769601769156111,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-86,270",
+      "metric": "sun_visibility_centre_hourly_info",
+      "actual": 32.953283982115806,
+      "reference": 34.91999804973602,
+      "unit": "percentage_points",
+      "abs_error": 1.9667140676202166,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-86,270",
+      "metric": "earth_visibility_any_fraction",
+      "actual": 45.93527099215573,
+      "reference": 45.8079993724823,
+      "unit": "percentage_points",
+      "abs_error": 0.12727161967342937,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-86,270",
+      "metric": "earth_visibility_centre_hourly_info",
+      "actual": 41.27532214242344,
+      "reference": 45.8079993724823,
+      "unit": "percentage_points",
+      "abs_error": 4.532677230058859,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "sun_visibility_any_fraction",
+      "actual": 13.702629270955358,
+      "reference": 13.592000305652618,
+      "unit": "percentage_points",
+      "abs_error": 0.11062896530273925,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "sun_visibility_centre_hourly_info",
+      "actual": 11.865758146324112,
+      "reference": 13.592000305652618,
+      "unit": "percentage_points",
+      "abs_error": 1.7262421593285069,
+      "status": "not_evaluated"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "earth_visibility_any_fraction",
+      "actual": 0.0,
+      "reference": 0.0,
+      "unit": "percentage_points",
+      "abs_error": 0.0,
+      "tolerance": 5.0,
+      "status": "pass"
+    },
+    {
+      "case": "-85.5,45",
+      "metric": "earth_visibility_centre_hourly_info",
+      "actual": 0.0,
+      "reference": 0.0,
+      "unit": "percentage_points",
+      "abs_error": 0.0,
+      "status": "not_evaluated"
+    }
+  ],
+  "limitations": [
+    "Runtime keeps the body-centre rule; the centre-rule V4 artifact remains a recorded FAIL (definition mismatch).",
+    "Rows ending _centre_hourly_info are informational (not judged): the same hourly samples with the centre rule.",
+    "Reference averaging start epoch and observer height are not published; 2000-01-01 and 0 m are assumed.",
+    "Limb sampled at 32 points against the azimuth-interpolated skyline; not full ray tracing of the disc.",
+    "Terrain (PGDA 90 near + far) differs from the 60 m DEM behind the reference map.",
+    "Owner-run; no external scientific acceptance."
+  ]
+}

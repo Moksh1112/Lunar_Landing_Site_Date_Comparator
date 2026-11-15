@@ -37,8 +37,10 @@ describe("export provenance (F25)", () => {
 describe("JSON export", () => {
   it("round-trips with provenance first and the full result", () => {
     const j = JSON.parse(buildJson(res, req, now));
-    expect(Object.keys(j)).toEqual(["provenance", "result"]);
+    expect(Object.keys(j)).toEqual(["provenance", "result", "visibility_gaps"]);
     expect(j.result.deltas).toEqual(res.deltas);
+    expect(j.visibility_gaps.definition).toBe("An interval when the Sun and Earth are not both above the selected horizon.");
+    expect(Object.keys(j.visibility_gaps.gaps)).toEqual(["A", "B"]);
   });
 });
 

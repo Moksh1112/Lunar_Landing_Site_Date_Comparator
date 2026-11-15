@@ -1,0 +1,128 @@
+{
+  "health": {
+    "status": "ok",
+    "app_version": "0.1.0",
+    "contract_version": "1.1",
+    "kernels_loaded": [
+      "naif0012.tls",
+      "de440s.bsp",
+      "pck00011.tpc",
+      "moon_pa_de440_200625.bpc",
+      "moon_de440_250416.tf"
+    ],
+    "dems_loaded": [
+      "far_160m.tif",
+      "im2-athena.tif",
+      "im2-intended.tif",
+      "lcross-impact.tif"
+    ],
+    "mock": false,
+    "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb"
+  },
+  "request": {
+    "mode": "date_shift",
+    "scenarios": [
+      {
+        "id": "A",
+        "label": "Plan A",
+        "site": {
+          "lat_deg": -84.7906,
+          "lon_east_deg": 29.1957,
+          "site_id": "im2-athena"
+        },
+        "start_utc": "2027-03-01T00:00:00Z",
+        "mission_hours": 240
+      },
+      {
+        "id": "B",
+        "label": "Plan B",
+        "site": {
+          "lat_deg": -84.7906,
+          "lon_east_deg": 29.1957,
+          "site_id": "im2-athena"
+        },
+        "start_utc": "2027-03-14T00:00:00Z",
+        "mission_hours": 240
+      }
+    ],
+    "step_minutes": 10,
+    "observer_height_m": 2,
+    "thresholds": {
+      "sun_pct_min": 50,
+      "earth_pct_min": 50,
+      "dark_gap_h_max": 48,
+      "blackout_h_max": 72
+    }
+  },
+  "scenarios": [
+    {
+      "id": "A",
+      "meta": {
+        "ephemeris": "SPICE DE440 (JPL NAIF)",
+        "kernels": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "horizon_mode": "terrain",
+        "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+        "computed_at": "2026-11-15T14:37:19Z",
+        "data_label": "REAL"
+      },
+      "verdict": {
+        "level": "red",
+        "failed": [
+          "sun_pct_min",
+          "dark_gap_h_max"
+        ]
+      },
+      "both_hours": 0
+    },
+    {
+      "id": "B",
+      "meta": {
+        "ephemeris": "SPICE DE440 (JPL NAIF)",
+        "kernels": [
+          "naif0012.tls",
+          "de440s.bsp",
+          "pck00011.tpc",
+          "moon_pa_de440_200625.bpc",
+          "moon_de440_250416.tf"
+        ],
+        "horizon_mode": "terrain",
+        "dem": "LDEM_80S_20MPP_ADJ tile im2-athena + far_160m",
+        "step_minutes": 10,
+        "observer_height_m": 2,
+        "app_version": "0.1.0",
+        "contract_version": "1.1",
+        "manifest_sha256": "ee45596102b1783824c8806a6c22045104bf193fa3e2845387e118e366abc0cb",
+        "computed_at": "2026-11-15T14:37:19Z",
+        "data_label": "REAL"
+      },
+      "verdict": {
+        "level": "green",
+        "failed": []
+      },
+      "both_hours": 210.1
+    }
+  ],
+  "deltas": {
+    "sun_el_max_deg": -7.099,
+    "sun_el_mean_up_deg": null,
+    "sun_hours": -222.4,
+    "sun_pct": -92.7,
+    "earth_hours": 1,
+    "earth_pct": 0.4,
+    "both_hours": -210.1,
+    "both_pct": -87.5,
+    "longest_dark_h": 222.4,
+    "longest_blackout_h": -1
+  }
+}

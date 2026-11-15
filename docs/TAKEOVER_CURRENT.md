@@ -7,19 +7,20 @@ this is a scoped exception, not a transfer of general ownership. Earlier tempora
 full-stack instructions and dated service/PID snapshots are historical.
 Current done/pending/blocker list: [PROGRESS.md](PROGRESS.md), top section only.
 
-## Current redesign integration
+## Current local merge recovery
 
-Published baseline is `28b56e3`. Local merge `ad2ac2e` preserves parents `28b56e3` and Moksh's theme source `47d8a58`; source CI [43707999082](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43707999082) passed seven jobs. The user explicitly requested the subsequent frontend milestone and a local commit: see [UI_TERRAIN_2026-11-15.md](UI_TERRAIN_2026-11-15.md) for its final route map, checks and repeat steps. **Do not push.** No hosted CI is claimed for the local UI revision. Earlier UI_POLISH/UI_RECOVERY notes describe intermediate snapshots; the dedicated `/terrain` page supersedes Compare's old terrain buttons.
+The incoming published P1 head is `89ce28c3905effa7c52abef06f7e5d9dd9f74923`,
+verified green on [CI 43721206324](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43721206324)
+(all seven jobs). The local side is `194aa94a77360743a940bebf60edc6da94106aef`.
+The merge retaining both histories is described in [MERGE_RECOVERY_2026-11-15.md](MERGE_RECOVERY_2026-11-15.md).
+**Do not push.** No hosted CI is claimed for the local combined revision.
 
-Current review-fix follow-up (after `04c170d`): [UI_REVIEW_2026-11-15.md](UI_REVIEW_2026-11-15.md),
-166 frontend tests and seven isolated Chrome checks. Camera distance now adapts to
-viewport/relief while preserving the view angle, pan and relative zoom.
-
-Prior implementation checkpoint: `63bf0af552ca54c2abf26ad5f2d0f24d6da8d15c`.
-Latest analyser follow-up: [TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
-Height shading is gray only; the continuous slider preserves the user's camera. Earth
-motion is traced from real response positions. Checks at that prior checkpoint: 163 tests plus
-lint/typecheck/build. Preserve the no-push instruction.
+The combined app keeps the tour at `/`, the dedicated `/terrain` analyser, gray
+height shading, continuous scale slider and camera continuity. It also keeps the
+incoming gap/explanation/offline briefing and single-flight submissions. The new
+Compare result path has the same Plan B handoff revision guard as the old path.
+Earlier UI checks: [UI_REVIEW_2026-11-15.md](UI_REVIEW_2026-11-15.md),
+[TERRAIN_MOTION_2026-11-15.md](TERRAIN_MOTION_2026-11-15.md).
 
 ## Prior verified baseline (historical)
 
@@ -30,7 +31,7 @@ lint/typecheck/build. Preserve the no-push instruction.
 | `feat/p4-frontend-s0` | `6310e183bd0dfae672eca4e1fc6128594e248d4a` | Already ancestor of P1, merge `3721130` |
 | preserved `frontend-landing` | `72de2893a031a8f34d3e90c943aef8c3524d114c` | Already ancestor; preserve branch |
 
-Latest push-triggered P1 CI is [43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533),
+The takeover snapshot's push-triggered P1 CI was [43702841533](https://github.com/Moksh1112/Lunar_Landing_Site_Date_Comparator/actions/runs/43702841533),
 seven jobs SUCCESS at `3721130`. Owner CI `43687231193` and `43701473118` also passed.
 The owner had already merged the concurrent frontend update; P1 reviewed source/CI
 and fast-forwarded both checkouts. Refresh refs and CI before a later integration.
@@ -62,16 +63,16 @@ No teammate has been contacted by this takeover task.
 ## Startup and data
 
 For an immediate explicitly synthetic demo: `npm run dev:s0`. The route list below
-requires the **local implementation revision `63bf0af` or a descendant**. A fresh
-clone of the last verified published baseline `28b56e3` does **not** contain
-`/terrain`, the redesigned Home/nav or the later Best Date and Simulator flow fixes;
+requires the **combined local merge of `194aa94` and `89ce28c`**. A fresh
+clone of published `89ce28c` includes the teammate's gap/briefing and theme work,
+but does **not** contain `/terrain`, the tour-at-Home change or the later local UI fixes;
 do not use that clone to reproduce the local UI evidence.
 
 To obtain the local revision without pushing, have the holder of this checkout
 create a bundle outside the repository, then transfer that file to the new machine:
 
 ```sh
-# In this local checkout (committed history only; no runtime data/config):
+# After completing the merge commit in this checkout (committed history only):
 git bundle create ../azelux-p1-local.bundle feat/p1-s0-integration
 # In a separate, clean clone, after receiving the bundle:
 git bundle verify /absolute/path/azelux-p1-local.bundle
@@ -83,7 +84,8 @@ npm run dev:s0
 ```
 
 Inspect status before updating an existing checkout. The fast-forward deliberately
-stops if its history diverges; preserve that work rather than resetting it. Bundle
+stops if its history diverges; preserve that work rather than resetting it. The
+bundle must include the completed merge, so the published head is its ancestor. Bundle
 transfer publishes nothing to GitHub. Without the bundle, `/terrain` and those
 local UI revisions remain unavailable in a fresh published-branch clone.
 
@@ -99,13 +101,15 @@ absolute non-cloud directory outside the repo. The takeover uses `R:/azelux-data
 `C:/azx/data` is an old host-specific example, not a portable dependency.
 
 Check real `/health` resource lists and compare provenance, not an absent banner.
-Near tiles alone currently return mode `terrain` without a far DEM: a recorded
-backend/contract issue. Do not treat that as complete near+far acceptance.
+Near tiles without a far DEM now return the honest TerrainUnavailable error (backend
+`fd38ce5`); `terrain` always means near + far, as the contract defines.
 
 ## Evidence and next handoff
 
 [The F1-F25 ledger](MVP_VERIFICATION.md) records partial acceptance. V4 remains FAIL
-(~6.2989 pp, target <=5). V6 is a P2-owner qualitative spot check. The owner's corrected
+(~6.2989 pp, target <=5). Moksh's recorded V4b adoption is separate: its
+validation-only any-fraction rule passes 10/10 within 5 pp, but does not validate
+the runtime centre rule. See `backend/docs/V4_DECISION_2026-11-15.md`. V6 is a P2-owner qualitative spot check. The owner's corrected
 240 h simulator browser outcome remains attributed to them. P1 has now independently
 reproduced the same RED/GREEN and +210.1 h result through the full near+far API; that
 API check does not replace their browser evidence or the remaining human/device review.

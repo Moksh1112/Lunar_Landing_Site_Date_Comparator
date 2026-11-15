@@ -1,5 +1,14 @@
 # Azelux - current integration assignment
 
+Current local merge: `194aa94` + published `89ce28c`, preserving both histories.
+[Recovery/checks](MERGE_RECOVERY_2026-11-15.md); [single current work list](PROGRESS.md).
+This includes the local `/terrain`/tour UI plus incoming gap/explanation/offline
+briefing, single-flight submissions and near+far coverage correction. V4 remains
+FAIL; Moksh's recorded V4b adoption is separate from runtime centre-rule validation.
+Incoming source CI passed seven jobs; no combined hosted CI or push is claimed.
+Older exact checkpoints below retain their original scope.
+
+
 Canonical baseline: PRD v2.0, TRD v1.0, Playbook v4.1 under `docs/specs/` and
 `docs/CONTRACT.md` v1.1 (v1.0 synthetic fixtures supported). Historical root documents
 and `docs/archive/` are not runtime inputs or current blockers.

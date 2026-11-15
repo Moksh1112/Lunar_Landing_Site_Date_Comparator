@@ -10,7 +10,7 @@ before merging into feat/p1-s0-integration. Review: frontend/docs/LANDING_INTEGR
 
 Accepted as an optional presentation route at /landing. The default / comparator
 and its light lunar atlas theme remain. The dark landing presentation is scoped to
-its route. It does not fulfill or advance the gated Iteration 1 story/education mode.
+its route. It does not fulfill or advance the gated Iteration 1 story/education mode. (Separately, three Iteration-1 extensions were later explicitly authorized: gap-first comparison, interval explanations and the offline briefing; see PROGRESS.md.)
 No backend/contract/science result was replaced. V4 remains failed; V6 remains an
 owner qualitative spot check, not independent certification.
 

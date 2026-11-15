@@ -6,6 +6,7 @@ import { symmetricDifference, visibilityAt, windowToRange } from "./chartMath";
 import { sampleTime } from "./SampleInspector";
 import { ChartTooltip } from "./ChartTooltip";
 import type { TooltipPoint } from "./tooltipMath";
+import { visibilityGaps } from "../gap/gap";
 import styles from "./charts.module.css";
 
 const W = 720;
@@ -34,7 +35,7 @@ function calendarTicks(d0: number, d1: number): { v: number; label: string }[] {
   return out;
 }
 
-export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesProps) {
+export function TimelineLanes({ data, alignBy, scrubT, onScrub, highlight = null }: TimelineLanesProps) {
   const [anchor, setAnchor] = useState<TooltipPoint | null>(null);
   const tooltipId = useId();
   const [inspectT, setInspectT] = useState<number | null>(null);
@@ -135,6 +136,27 @@ export function TimelineLanes({ data, alignBy, scrubT, onScrub }: TimelineLanesP
             </g>
           );
         })}
+        {(() => {
+          // Outline the focused plan's longest gap across its three lanes.
+          const s = highlight ? data.scenarios.find((x) => x.id === highlight) : undefined;
+          const r = s ? visibilityGaps(s) : null;
+          if (!s || !r || r.state !== "gaps") return null;
+          const off = cal ? 0 : t0(s);
+          const first = s.id === "A" ? 0 : 3;
+          const y0 = M.top + first * (LANE_H + GAP) - 3;
+          const x0 = x(r.longest.startUnix - off);
+          return (
+            <rect
+              x={x0}
+              y={y0}
+              width={Math.max(2, x(r.longest.endUnix - off) - x0)}
+              height={3 * (LANE_H + GAP)}
+              className={styles.gapBand}
+            >
+              <title>{`Plan ${s.id} longest visibility gap`}</title>
+            </rect>
+          );
+        })()}
         <line x1={x(inspected)} x2={x(inspected)} y1={M.top} y2={H - M.bottom} className={styles.scrubLine} />
       </svg>
       <ChartTooltip anchor={anchor} id={tooltipId}>

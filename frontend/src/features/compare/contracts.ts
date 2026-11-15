@@ -30,6 +30,8 @@ export type TimelineLanesProps = {
   /** Absolute unix seconds for calendar alignment; for mission_day the offset in seconds since each start. */
   scrubT: number | null;
   onScrub: (t: number) => void;
+  /** Plan whose longest visibility gap is outlined on its lanes (Start with the gap). */
+  highlight?: "A" | "B" | null;
 };
 
 /** Delta display rule (contract: deltas are A minus B): the strip reads "B vs A" = -(delta). */

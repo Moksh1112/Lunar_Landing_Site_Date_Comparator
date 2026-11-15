@@ -1,6 +1,15 @@
 # Non-release engineering takeover — 15 November 2026
 
-## Current P1 takeover authority and portable reproduction
+## Current combined revision
+
+The local merge combines `194aa94` with published `89ce28c`; see
+[MERGE_RECOVERY_2026-11-15.md](MERGE_RECOVERY_2026-11-15.md) and current
+[TAKEOVER_CURRENT.md](TAKEOVER_CURRENT.md) for offline bundle transfer. `/terrain`
+and local UI fixes remain unpushed. Published `89ce28c` includes gap/briefing,
+near-only coverage correction and the separate V4b decision. The older `28b56e3`
+and `63bf0af` notes below retain their original evidence scope. No push is authorized.
+
+## Earlier P1 takeover authority and portable reproduction
 
 The user has assigned P1 integration/tooling/CI/docs/evidence only; the all-rounder
 owns backend/terrain and general frontend implementation. Later user requests
@@ -48,8 +57,8 @@ npm run dev:all
 
 Do not proceed past failed acquisition/preparation. Kernels alone permit REAL
 geometric comparisons, but not the full polar demo. Near tiles without the far DEM
-currently return mode `terrain`; that does not meet the contract's near+far definition
-and is recorded for the backend owner. Inspect actual DEM names, not just mode/banners.
+return the honest TerrainUnavailable error since `fd38ce5` (earlier builds wrongly returned
+mode `terrain`). Inspect actual DEM names, not just mode/banners.
 Health must report mock=false, all five expected kernels and the installed DEMs;
 results must retain REAL, source DEM, step, contract 1.1 and manifest identity.
 The downloader uses two attempts and keeps resumable `.part` files; do not silently

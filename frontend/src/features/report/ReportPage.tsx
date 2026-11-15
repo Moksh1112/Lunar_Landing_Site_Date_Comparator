@@ -7,6 +7,7 @@ import { sharedYRange } from "../compare/compareForm";
 import { HorizonPanorama } from "../compare/HorizonPanorama";
 import { ResultsSummary } from "../compare/ResultsSummary";
 import { TimelineLanes } from "../compare/TimelineLanes";
+import { GapPanel } from "../gap/GapPanel";
 import { ExportButtons } from "../export/ExportButtons";
 import { buildProvenance } from "../export/exportData";
 import styles from "./report.module.css";
@@ -105,6 +106,7 @@ export function ReportPage() {
         <ResultsSummary data={response} expert thresholds={thresholds} sentThresholds={request.thresholds} />
       </section>
 
+      <GapPanel data={response} interactive={false} />
       <section className={styles.section} aria-labelledby="charts-h">
         <h2 id="charts-h">Horizon and timeline</h2>
         <div className={styles.charts}>

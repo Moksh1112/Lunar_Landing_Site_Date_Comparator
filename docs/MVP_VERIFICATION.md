@@ -1,8 +1,53 @@
 # MVP verification ledger — 15 November 2026
 
-## Current local UI evidence - 15 November 2026
+## Current F1–F25 status (authoritative, release preparation, 15 Nov 2026)
 
-Current local implementation: **`63bf0af`**, after UI milestone `50b14ea` and merge
+How to read the Status column:
+
+- **Verified:** complete, with evidence.
+- **Fixed:** a demonstrated defect, fixed and checked.
+- **Human:** a human or device check is pending.
+- **Decision:** an explicit scope or acceptance decision is needed.
+- **Limit:** a known limitation kept in the release material.
+
+The evidence uses REAL integrated runs with headless Edge and viewport emulation, unless
+stated otherwise. No physical device was used. Owner-reported items stay owner-reported.
+
+| Item | Status | Evidence / what remains |
+| --- | --- | --- |
+| F1 Library | Verified + Limit | Ten entries match their primary sources (`evidence/SITE_SOURCE_REVIEW_2026-11-15.md`). International and commercial breadth is partial, and two entries are not actual landings. Moksh retained the ten-site library in the resumed release checks. |
+| F2 Coordinates | Verified | Integrated acceptance: API boundaries and inline UI validation. |
+| F3 Map | Verified + **Human** | Sourced assets render. Cross-device touch interaction pending. Map attribution control is off; confirm the basemap credit is shown elsewhere (licence checklist). |
+| F4 Two plans | Verified | Real browser journeys (Compare, simulator handoff +210.1 h). The deployed rehearsal waits for authorization. |
+| F5 Mission length | Verified | 0 / 1 / 8760 / 8761 h and step bounds (API). |
+| F6 Presets | Verified | Date-shift preset applied in the browser. |
+| F7 Best Date | Verified + **Human** | 1 / 183 / 184-day bounds; Load as Plan B; single submit. Slow-device run pending. |
+| F8 Ephemeris | Verified + Limit | V1/V2 pass. No external scientific certification. |
+| F9 Skyline | Verified | Real near+far terrain in Compare and Best Date. |
+| F10 Coverage modes | **Fixed** (`fd38ce5`) | Near-only returns TerrainUnavailable; near+far is `terrain`; far-only is `terrain_coarse`; outside coverage is `geometric` (real data). |
+| F11 Visibility | Verified + Limit | V3/V5 pass. Runtime uses body centres; see F23. |
+| F12 Metrics / countdowns | Verified | Censored windows checked through the API. Gap panel shows censoring in the browser (`HANDOFF_GAP_BRIEFING.md`). Countdowns covered by earlier browser evidence. |
+| F13 Deltas | Verified | Every delta equals A − B (real). Gap comparison uses labelled A and B values. |
+| F14 Verdicts | Verified | Real red/green. Local threshold re-verdict covered by unit tests. |
+| F15–F17 Panorama / timeline / scrubber | Verified | Keyboard scrub syncs the views; gap focus and event jumps move the shared scrubber; mission-day alignment works. |
+| F18 Terrain 3D | Verified + **Human** | The no-WebGL fallback renders. Slow-device performance pending. |
+| F19 Simple / Expert | Verified + **Human** | Raw-data table and keyboard checks done. Spoken screen-reader session pending. |
+| F20 Provenance | Verified | CSV, JSON, report and briefing carry REAL/SYNTHETIC, mode, DEM and manifest. |
+| F21 UI states | **Fixed** (`f9a842d`) + Verified | 429, blocked API with Retry, slow network, single submit. |
+| F22 Horizons | Verified + Limit | V1/V2 artifacts pass; validation only. |
+| F23 PGDA | **Decision recorded** | V4 FAIL 6.299 pp (unchanged). V4b adopted by Moksh, 10/10 within 5 pp, max 4.134843 pp. Runtime stays centre-based; V4b does not validate it. `backend/docs/V4_DECISION_2026-11-15.md`. |
+| F24 Methods | Verified (`b2b7cc9`) | Rendered: V4 fail, V4b pass, decision note with limits, no invalid evidence files. |
+| F25 Export / report | Verified | Real CSV/JSON; print preview white, 8 charts, REAL. Physical print is not required (TRD: PDF via browser print). |
+| Gap / explain / briefing (authorized Iteration-1 extensions) | Verified | `frontend/docs/HANDOFF_GAP_BRIEFING.md`: real data; the downloaded file replayed offline with 0 requests; no-JS view, print and safety tests. |
+| Quality bar: Lighthouse ≥ 90 Perf / A11y on `/` | **Human** / pending | Not measured; the tool is unavailable offline here. Run Chrome DevTools Lighthouse on the release build. |
+| Usability (2 people), physical devices, second browser | **Human** | `USABILITY_TASKS.md` script and template. |
+| Deployed PRD 13.3 rehearsal ×2 | Pending authorization | `RELEASE_PREPARATION.md`. |
+
+## Prior local UI checkpoints (historical; retained evidence)
+
+## Local UI evidence at 63bf0af - 15 November 2026
+
+Implementation at that checkpoint: **`63bf0af`**, after UI milestone `50b14ea` and merge
 `ad2ac2e` (owner source `47d8a58` over `28b56e3`). The subsequent user-directed
 UI milestone adds `/terrain` beside Best Date, shared Simulator chrome, improved terrain
 framing/controls and clearer 2D recovery. Repeated visual credits/caveats moved into Methods.
@@ -43,8 +88,8 @@ A-minus-B metrics (including null), empty/full censored windows, input rejection
 a 60-day geometric sweep were exercised. These API checks do not certify UI countdowns,
 slow-network handling, cross-view synchronization or full terrain performance.
 
-Near-only Athena tiles returned REAL/terrain without a far DEM. This conflicts with
-the contract's near+far terrain definition and needs the backend owner. Partial-data
+Near-only Athena tiles returned REAL/terrain without a far DEM (historical; fixed by `fd38ce5`, see current status). This conflicted with
+the contract's near+far terrain definition. Partial-data
 API checks gave RED at B=2027-03-01 and GREEN at B=2027-03-14, +210.0 h both-visible
 for B. They do not replace the owner's +210.1 h near+far browser evidence. V4 FAIL
 and V6 owner-review scope are unchanged. No feature is promoted to full acceptance.
@@ -104,8 +149,48 @@ and sampled accessible-name checks; keyboard skip/glossary/scrubber checks passe
 Backend 551 passed / 6 skipped; combined frontend 131 tests, lint/typecheck/build pass.
 Physical-device, other-browser, screen-reader and two-person usability checks remain
 unverified. Concurrent unpublished landing/package/router work was preserved.
+## Integrated acceptance — 15 Nov 2026 (60ab2b5 + f9a842d), REAL unless marked
+
+The stack was run from integrated source: backend on port 8010 with `AZX_DATA_DIR` external
+(`mock:false`, 5 kernels, `far_160m` + 3 tiles, manifest `1dcb16ff…`), and the frontend
+against it. Browser checks use headless Edge over CDP with viewport emulation; no physical
+devices were used. Controlled failures used network blocking, not fixtures.
+
+Scripts are local evidence, not committed:
+
+- `C:/azx/accept_api.py` writes `accept/api.json`.
+- `C:/azx/accept_ui.mjs` and `accept_ui2.mjs` (browser acceptance).
+- `C:/azx/a11y_check.mjs` (accessibility).
+- `C:/azx/mono_sweep.mjs` (layout sweep).
+- `C:/azx/nav_flow.mjs` (navigation journeys).
+
+| Item | Result |
+| --- | --- |
+| F2 coordinates | 400 for lat −90, lat −90.5, lon 360 and lon −1. A point within 0.01° of either pole is rejected by the documented guard. The UI blocks lat −95 with an inline error, focuses the field and sends no request. |
+| F5 mission/step | 0 h → 400; 1 h and 8760 h → 200; 8761 h → 413; step 0 → 400; step 1 min → 200. |
+| F6 presets | The Date shift preset is applied in the browser. |
+| F7 Best Date | 1 day and 183 days → 200 (183 days scored); 184 days → 413. Athena → Load as Plan B → `/compare` showing "Best date …". A double click sends 1 sweep. |
+| F10 coverage | Athena gives `terrain` with label "tile im2-athena + far_160m". −85.5/45 gives `terrain_coarse` (far_160m). −80/10 gives `geometric`; −80.75/10 gives `terrain_coarse`. Near-only gives TerrainUnavailable (`fd38ce5`, real data). **Defect resolved.** |
+| F13 deltas | Every returned delta equals A − B (real date shift at Athena). |
+| F14 verdicts | Real A 2027-03-01 red (sun, dark gap), B 2027-03-14 green. |
+| F15–F17 scrub | The keyboard range moved the moment readouts from 00:00 to 00:20 UTC for both plans. The mission-day alignment toggle works. The range is named by its "Time: …" label. |
+| F19 Expert | The Expert raw-data table opens. |
+| F20/F25 export | Real CSV: 9,965 lines with provenance header, manifest, horizon mode and REAL. JSON has `provenance` and `result`, skyline and manifest. The report's print emulation gives white paper, 8 charts and REAL. |
+| F21 states | 32 rapid compares → 16 × 200 and 16 × 429. A blocked API shows "Failed to fetch / NETWORK" with Retry, and Retry recovers. A 2.5 s-latency network shows the loading state. A double click sends 1 compare (**defect fixed, `f9a842d`**). |
+| Routes | Direct entry, refresh, legacy redirects, Back fallbacks, browser Back/Forward and the 404 all verified (`frontend/docs/HANDOFF_MONOCHROME.md`). |
+| A11y | 0 contrast failures across 5,181 rendered text elements on 6 routes. The skip link is the first Tab stop and moves focus to `main`. The Learn and Menu dropdowns close on Escape and return focus. Reduced motion renders all routes. Without WebGL, Home falls back to the Moon image and the simulator and tour still render their content. |
+| Layout | 8 routes × 320×640, 375×812, 768×1024, 1440×900, 1440×600 and 1280×560: 48/48 with no horizontal overflow, no clipped controls, a black canvas and no script errors. |
+| Tests | Backend with real data: 556 passed, 6 skipped (they need pre-cached skylines). Without data, as in CI: 506 passed, 50 skipped for missing kernels, DEMs or maps. Frontend: 150 passed at `fbe70aa`. |
+| F23 PGDA | V4 (centre rule, daily) FAIL 6.299 pp, artifact unchanged. **V4b** (any-fraction disc, hourly) passes 10/10 within 5 pp, max 4.135 pp at Sun (−88, 90 E): `validation/results/V4b-any-fraction.json` (schema v1.0, producer `5723ef8`). **Moksh adopted V4b as the acceptance basis**; V4 stays recorded as a definition-mismatch FAIL. Reference epoch, observer height and ephemeris are unpublished and assumed (`backend/docs/V4_DECISION_2026-11-15.md`). |
+| F24 Methods | Methods explains the centre rule against PGDA's any-part rule, V4 FAIL, V4b as the acceptance basis and the terrain caveat (`d60adf1`). All 8 evidence files parse; a test guards this. |
+| F25 print | The active contract (`docs/CONTRACT.md`) says: "PDF = browser print of `/report`". That is covered by the print-preview/printToPDF evidence (white paper, charts, REAL). No source readable here requires a physical paper print. The PRD/TRD PDFs use glyph-encoded fonts that could not be text-extracted on this host, so their exact wording is not quoted; a physical print is recorded as optional, not a blocker. |
+| Gap/briefing | Integrated `2600664`, owner evidence in `frontend/docs/HANDOFF_GAP_BRIEFING.md` (offline briefing, 0 requests, print, no-JS, 48/48 layout). Not re-run here. |
+| Pending (human/device) | Recorded one by one in `docs/USABILITY_TASKS.md`: physical phone, physical tablet, second browser, screen reader, usability participants P-A and P-B, deployed rehearsal. All pending. |
+
 Earlier pending V6/export/print entries below are historical, superseded here.
 
+
+### Historical ledger (superseded by "Current F1–F25 status" above)
 
 User resumed full-stack engineering. Release remains reserved for the user.
 Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
@@ -161,7 +246,9 @@ Integrated code: frontend fd7bf03 and stale-result fix 8bd7dd4 (owner CI
 
 ## Gate status
 
-MVP acceptance remains OPEN: V4 fails; the remaining acceptance
-checks above are incomplete. Deployed demo twice is reserved for release by user.
-No Iteration 1/2 features or release tags are authorized by this ledger.
-Read NON_RELEASE_HANDOFF.md for real dataset reproduction and historical checks.
+MVP acceptance is **OPEN** and is Moksh's decision. The engineering items are classified in
+"Current F1–F25 status". Open items are the human and device checks, Lighthouse, the F1 scope
+decision and the two deployed rehearsals. V4 is a recorded FAIL with V4b as the adopted
+basis. Three Iteration-1 extensions were explicitly authorized; no other Iteration 1/2 work
+and no release tag are authorized by this ledger. Read `NON_RELEASE_HANDOFF.md` for
+real-dataset reproduction.

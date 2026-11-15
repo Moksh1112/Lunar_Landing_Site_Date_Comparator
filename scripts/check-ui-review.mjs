@@ -35,13 +35,14 @@ try {
     pending.set(next, { resolve: value => { clearTimeout(timeout); resolve(value); }, reject });
     socket.send(JSON.stringify({ id: next, method, params, ...(target ? { sessionId: target } : {}) }));
   });
-  let failChunk = false, navigations = 0;
+  let failChunk = false, navigations = 0, comparePosts = 0;
   socket.onmessage = event => {
     const message = JSON.parse(event.data);
     if (message.id) {
       const waiter = pending.get(message.id); pending.delete(message.id);
       if (waiter) message.error ? waiter.reject(Error(JSON.stringify(message.error))) : waiter.resolve(message.result);
     }
+    if (message.method === 'Network.requestWillBeSent' && message.params.request.method === 'POST' && message.params.request.url.endsWith('/api/v1/compare')) comparePosts++;
     if (message.method === 'Page.frameNavigated' && !message.params.frame.parentId) navigations++;
     if (message.method === 'Runtime.exceptionThrown') report.errors.push(message.params.exceptionDetails.text);
     if (message.method === 'Fetch.requestPaused') {
@@ -53,7 +54,7 @@ try {
   };
   const { targetId } = await send('Target.createTarget', { url: 'about:blank' }, null);
   session = (await send('Target.attachToTarget', { targetId, flatten: true }, null)).sessionId;
-  await send('Page.enable'); await send('Runtime.enable');
+  await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
   report.browser = await send('Browser.getVersion', {}, null);
   const evaluate = async expression => {
     const result = await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
@@ -133,6 +134,26 @@ try {
   await waitFor('location.pathname === "/compare"');
   assert.equal(await evaluate('history.state.idx'), idx);
   report.checks.push('direct-entry Back fallback replaces history');
+
+  await evaluate(`(async()=>{const resources=performance.getEntriesByType('resource').map(r=>r.name);window.store=(await import(resources.find(u=>u.includes('/src/store.ts')))).useStore;})()`);
+  const postsBefore = comparePosts;
+  await evaluate(`[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compare').click();[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Compare').click()`);
+  await waitFor('store.getState().gapFocus === "A" && document.querySelector("[aria-label=Results]")?.getAttribute("aria-busy") === "false"');
+  assert.equal(comparePosts - postsBefore, 1);
+  assert(await evaluate(`!![...document.querySelectorAll('svg title')].find(t=>t.textContent==='Plan A longest visibility gap')`));
+  await click('Inspect B gap');
+  assert.equal(await evaluate('store.getState().gapFocus'), 'B');
+  await evaluate(`document.querySelector('svg[aria-label^="Sun, Earth"]').scrollIntoView({block:'center'})`);
+  const timelineRect=await evaluate(`document.querySelector('svg[aria-label^="Sun, Earth"]').getBoundingClientRect().toJSON()`);
+  await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:timelineRect.x+timelineRect.width*.5,y:timelineRect.y+timelineRect.height*.5});
+  await waitFor(`document.querySelector('[role=tooltip]')?.textContent.includes('Plan A')`);
+  assert(await evaluate(`!![...document.querySelectorAll('svg title')].find(t=>t.textContent==='Plan B longest visibility gap')`));
+  report.checks.push('gap focus/highlight and cursor tooltip coexist; same-frame double Compare sends one POST');
+  const generated=await evaluate(`(async()=>{const resources=performance.getEntriesByType('resource').map(r=>r.name);const m=await import(resources.find(u=>u.includes('/features/briefing/briefing.ts')));const c=store.getState().lastCompare;window.offlineHtml=m.buildBriefingHtml(c.response,c.request);return {bytes:offlineHtml.length,real:offlineHtml.includes('REAL'),schema:offlineHtml.includes('azelux.briefing'),v4:offlineHtml.includes('V4')};})()`);
+  assert(generated.bytes>10000 && generated.real && generated.schema && generated.v4);
+  report.briefing=generated;
+  report.checks.push('merged real comparison generates offline briefing with provenance and validation');
+
 
   await evaluate(`(async()=>{const resources=performance.getEntriesByType('resource').map(r=>r.name);window.store=(await import(resources.find(u=>u.includes('/src/store.ts')))).useStore;const client=await import(resources.find(u=>u.includes('/src/api/client.ts')));window.previous=store.getState().lastCompare;client.setTransport({send:()=>new Promise(resolve=>{window.finishCompare=()=>resolve(previous.response)})});})()`);
   await click('Compare');
