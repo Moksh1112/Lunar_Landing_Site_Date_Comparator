@@ -4,7 +4,7 @@
 .page > .head { grid-column: 1 / -1; }
 @media (max-width: 64rem) { .page { grid-template-columns: minmax(0, 1fr); } .page > * { grid-column: 1; } }
 .head h1 { margin-bottom: var(--space-2); font-size: clamp(2.25rem, 1.6rem + 2vw, 3.5rem); }
-.lede { color: var(--color-text-muted); max-width: 65ch; }
+.lede { color: var(--color-text-muted); max-width: 60ch; }
 .toc { grid-column: 1 !important; grid-row: 2 / span 8; align-self: start; position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 2px; padding: var(--space-4) 0; font-size: var(--text-sm); }
 .toc a { color: var(--color-text-muted); text-decoration: none; padding: var(--space-2) var(--space-3); border-left: 2px solid var(--rule); }
 .toc a:hover { color: var(--color-text); border-left-color: var(--color-text); }
@@ -12,7 +12,7 @@
 .section { min-width: 0; overflow-wrap: anywhere; padding: var(--space-5) 0; border-top: 1px solid var(--rule); max-width: 68ch; scroll-margin-top: 5rem; }
 .section h2 { margin-bottom: var(--space-3); font-size: 2rem; }
 .section h3 { margin-top: var(--space-4); margin-bottom: var(--space-2); font-size: var(--text-md); }
-.section p { color: var(--color-text); }
+.section p, .section li { color: var(--color-text); max-width: 62ch; }
 .steps { padding-left: var(--space-4); display: grid; gap: var(--space-2); margin: 0; }
 .facts, .glossary { display: grid; gap: var(--space-3); margin: 0; }
 .facts dt, .glossary dt { font-weight: 600; font-size: var(--text-sm); }
@@ -21,7 +21,7 @@
 .files { padding-left: var(--space-4); }
 .muted { color: var(--color-text-muted); font-size: var(--text-sm); }
 .evList { display: grid; gap: var(--space-4); }
-.evidence { overflow-wrap: anywhere; background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: var(--space-4); min-width: 0; }
+.evidence { overflow-wrap: anywhere; border-top: 1px solid var(--rule); padding: var(--space-4) 0 0; min-width: 0; }
 .evHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
 .evHead h3 { min-width: 0; flex: 1 1 16rem; margin: 0; font-size: var(--text-md); }
 .status { font-weight: 650; text-transform: capitalize; font-size: var(--text-sm); padding: 2px var(--space-2); border: 1px solid currentColor; border-radius: var(--radius-sm); }
@@ -38,3 +38,5 @@
 .plain { list-style: none; padding: 0; margin: 0; overflow-wrap: anywhere; }
 .cmd { overflow-wrap: anywhere; }
 .badFile { border: 1px solid var(--color-red); background: var(--color-red-soft); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); font-size: var(--text-sm); overflow-wrap: anywhere; }
+
+.facts dd, .glossary dd, .muted, .caution { max-width: 62ch; }

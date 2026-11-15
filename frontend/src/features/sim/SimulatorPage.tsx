@@ -25,6 +25,8 @@ import {
   type Level,
 } from "./levels";
 import type { World } from "./world";
+import ClickSpark from "../../components/reactbits/ClickSpark";
+import Magnet from "../../components/reactbits/Magnet";
 import styles from "./sim.module.css";
 
 const CONTROL_LABEL: Record<Control, string> = { site: "Site", date: "Date", mission: "Mission", plan: "Plan A/B", compare: "Compare" };
@@ -245,7 +247,7 @@ export function SimulatorPage() {
   return (
     <main className={styles.sim} data-guided={level === "demo" || level === "practice" || level === "qualify"}>
       <canvas ref={canvasRef} className={styles.canvas} data-state={gl} tabIndex={0} aria-label="3D mission control room (illustration). Drag or use the arrow keys or WASD to look around; use the console controls below." />
-      <p className={styles.truth}>Illustration: room, console, skyline ring and lander are not data. Moon texture: NASA LROC visualization mosaic (SVS CGI Moon Kit).</p>
+      <p className={styles.truth}>Moon imagery: NASA LROC, SVS CGI Moon Kit</p>
 
       {/* HUD: level + objective */}
       {level !== "boot" && (
@@ -264,19 +266,17 @@ export function SimulatorPage() {
 
       {level === "boot" && (
         <section className={styles.boot} aria-labelledby="sim-title">
-          <h1 id="sim-title">Azelux Mission Planning Simulator</h1>
-          <p>Learn why the landing date matters at the lunar south pole, then plan a real comparison.</p>
+          <h1 id="sim-title">Pick the landing day at the lunar south pole</h1>
+          <p>Two weeks can turn a sunlit site dark. Learn the console, then find a day that keeps the Sun and Earth in view.</p>
           <div className={styles.row}>
-            <button type="button" className="btn-primary" onClick={() => go("briefing")} autoFocus>Start</button>
-            <Link to="/" className="btn">Skip to comparator</Link>
-            <Link to="/landing/tour" className="btn">Scroll tour</Link>
+            <Magnet padding={40} magnetStrength={6} maxOffset={6}>
+              <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+                <button type="button" className="btn-primary" onClick={() => go("briefing")} autoFocus>Start mission</button>
+              </ClickSpark>
+            </Magnet>
+            <Link to="/" className="btn">Open the comparator</Link>
           </div>
-          <dl className={styles.keys}>
-            <div><dt>Look</dt><dd>Drag, or arrows / WASD</dd></div>
-            <div><dt>Use a control</dt><dd>Click it, or the buttons below; Shift-click turns DATE back</dd></div>
-            <div><dt>Pause</dt><dd>Esc</dd></div>
-          </dl>
-          {gl === "off" && <p className={styles.note}>3D is unavailable here; the simulator runs in 2D with the same steps.</p>}
+          <p className={styles.keys}>{gl === "off" ? "3D unavailable: same steps in 2D." : "Drag to look · Esc to pause"}</p>
         </section>
       )}
 
@@ -298,7 +298,6 @@ export function SimulatorPage() {
           <p className={styles.note}>Demonstration · {demoIndex + 1} of {DEMO_STEPS.length}</p>
           <h2 id="demo-h">{demo.title}</h2>
           <p>{demo.text}</p>
-          <p className={styles.note}>You control the pace. The lit control in the console matches this step. The buttons below do the same job.</p>
           <div className={styles.row}>
             <button type="button" disabled={demoIndex === 0} onClick={() => { setHint(null); setDemoIndex((i) => i - 1); }}>Previous</button>
             {demoIndex < DEMO_STEPS.length - 1
@@ -321,25 +320,19 @@ export function SimulatorPage() {
             </ol>
           ) : (
             <div>
-              <p className={styles.goal}>Find a Plan B landing day at {SIM_SITES[con.site].name} that is GREEN for a {QUALIFY_HOURS} h (10-day) mission.</p>
-              <p className={styles.note}>
-                Why {QUALIFY_HOURS} h: over a full 708 h lunar day the Sun is up less than half the time at this site whatever
-                the start date, so no 708 h plan can be GREEN. For a 10-day stay, the landing day decides how much of it is in
-                sunlight.
-              </p>
-              <p>Attempts left: {q.left}. Time: {Math.round(seconds)} s</p>
-              <p className={styles.note}>No glow, no hints. Turn DATE (Plan B), then press COMPARE.</p>
+              <p className={styles.goal}>Find a GREEN Plan B day at {SIM_SITES[con.site].name} for a {QUALIFY_HOURS} h stay.</p>
+              <p className={styles.note}>A full 708 h lunar day is never GREEN here, so the challenge uses 10 days.</p>
+              <p className={styles.stats}><span>{q.left} attempts left</span><span>{Math.round(seconds)} s</span></p>
               {USE_MOCK && (
                 <p className={styles.note}>
-                  <strong>SYNTHETIC mock data:</strong> every attempt returns the same fixed example, so this challenge cannot be
-                  passed here. Run against the real backend to make it count.
+                  <strong>SYNTHETIC</strong> mock data returns one fixed example and cannot pass.
                 </p>
               )}
-              <button type="button" disabled={busy} onClick={() => go("debrief")}>End challenge and see the debrief</button>
+              <button type="button" disabled={busy} onClick={() => go("debrief")}>End challenge</button>
               {attempts.map((a, i) => (
                 <p key={i} className={styles.attempt}>
                   {i + 1}. B {dayToDate(a.dayB)}: <strong>{a.verdictB ?? "error"}</strong>
-                  {a.synthetic && " (SYNTHETIC: does not reflect the dial)"}
+                  {a.synthetic && " (synthetic)"}
                 </p>
               ))}
             </div>
@@ -352,7 +345,7 @@ export function SimulatorPage() {
           <p className={styles.state} aria-live="polite">
             {SIM_SITES[con.site].name}, editing Plan {con.plan}. A {dayToDate(con.dayA)}, B {dayToDate(con.dayB)}, {con.hours} h
           </p>
-          <p className={styles.note}>{level === "demo" ? (glow ? "Explore the highlighted control, or select Next." : "Select Next to learn the first console control.") : level === "practice" ? "Follow the highlighted step. Other 3D controls explain why they are not needed yet." : "Site, mission and Plan A are fixed. Edit Plan B using Date − / +."}</p>
+          {level === "qualify" && <p className={styles.note}>Only Plan B's date can change.</p>}
           {hint && <p className={styles.hint} role="status">HINT {hint}</p>}
           {busy && <p className={styles.hint} role="status">Computing…</p>}
           <div className={styles.twin} role="group" aria-label="Console controls">
@@ -362,9 +355,9 @@ export function SimulatorPage() {
               </button>
             ))}
             <span className={styles.dateGroup} data-glow={glow === "date"}>
-              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", -1)} aria-label="Date back one day">−</button>
+              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", -1)} aria-label="Date back one day"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg></button>
               Date
-              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", 1)} aria-label="Date forward one day">+</button>
+              <button type="button" disabled={twinDisabled || (level === "demo" && glow !== "date")} onClick={() => void use("date", 1)} aria-label="Date forward one day"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" /></svg></button>
             </span>
             <button type="button" className="btn-primary" disabled={twinDisabled || (level === "demo" && glow !== "compare")} data-glow={glow === "compare"} onClick={() => void use("compare")}>
               Compare
@@ -378,14 +371,15 @@ export function SimulatorPage() {
           <h2 id="debrief-h">Debrief</h2>
           {synthetic && (
             <p className={styles.synthetic}>
-              <strong>SYNTHETIC</strong> Fixed example from the mock server; results do not reflect your dials and cannot qualify.
+              <strong>SYNTHETIC</strong> Mock example; it ignores your dials and cannot qualify.
             </p>
           )}
           <p className={styles.result}>{q.passed
-              ? `Training challenge passed. Score ${score(attempts, seconds)}. This is a learning outcome, not a landing-safety assessment.`
+              ? `Challenge passed · score ${score(attempts, seconds)}`
               : attempts.length === 0
                 ? "Challenge ended without a scored attempt."
-                : "Training challenge not passed this time. Try other Plan B days in the comparator."}</p>
+                : "Not passed this time."}</p>
+          <p className={styles.note}>Training result only, not a landing-safety assessment.</p>
           {last && (
             <>
               <p>{conclusion(last.response)}</p>
@@ -403,9 +397,10 @@ export function SimulatorPage() {
               </div>
             </>
           )}
-          <p className={styles.note}>Next: try another landing day, or open the full comparator for panoramas, metrics and exports.</p>
           <div className={styles.row}>
-            <button type="button" className="btn-primary" onClick={openInComparator}>Open in the comparator</button>
+            <ClickSpark sparkColor="#9db8ff" sparkRadius={22} sparkCount={8} style={{ width: "auto", height: "auto" }}>
+              <button type="button" className="btn-primary" onClick={openInComparator}>Open in the comparator</button>
+            </ClickSpark>
             <button type="button" onClick={replay}>Replay</button>
           </div>
         </section>
